@@ -1,4 +1,5 @@
 <script setup>
+import Navbar from "@/components/Navbar.vue";
 import { ref, reactive, computed } from "vue";
 import data from '@/data/templates'
 import { uid } from '../composables/useGenerateUid'
@@ -40,8 +41,8 @@ const user = ref("free");
 </script>
 
 <template>
-  <div class="min-h-screen bg-canvas-color">
-    <!-- <Navbar /> -->
+  <div class="min-h-screen">
+    <Navbar />
     <main class="px-8 pb-20">
       <section class="hero py-32">
         <div class="wrapper text-center">

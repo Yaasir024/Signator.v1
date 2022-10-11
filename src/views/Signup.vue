@@ -1,4 +1,5 @@
 <script setup>
+import Navbar from "@/components/Navbar.vue";
 import { ref, reactive, computed } from "vue";
 import { authStore } from "@/stores/auth";
 const useAuth = authStore();
@@ -22,7 +23,8 @@ const submit = () => {
 </script>
 
 <template>
-  <section class="bg-canvas-color h-screen overflow-hidden">
+  <section class=" h-screen overflow-hidden">
+    <Navbar />
     <div
       class="bg-white max-w-[400px] mx-auto mt-12 py-8 px-6 rounded-2xl shadow-lg border"
     >

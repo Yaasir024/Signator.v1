@@ -1,10 +1,11 @@
 <script setup>
+import Navbar from "@/components/Navbar.vue";
 import Sidebar from "@/components/SidebarSetting.vue";
 </script>
 
 <template>
-    <section class="bg-canvas-color h-screen overflow-hidden">
-      <!-- <Navbar /> -->
+    <section class="h-screen overflow-hidden">
+      <Navbar />
       <div class="h-full overflow-hidden">
         <div class="h-full flex">
           <Sidebar />
