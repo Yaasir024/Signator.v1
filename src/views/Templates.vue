@@ -31,7 +31,7 @@ const createEditorSession = (data) => {
   data.uid = sessionId;
   localStorage.setItem(sessionId, JSON.stringify(data));
   router.push({ path: `/editor/${sessionId}` });
-  router.go()
+  // router.go()
 };
 
 //

@@ -3,7 +3,9 @@ import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useClickOutside } from "@/composables/useClickOutside";
 import { authStore } from "@/stores/auth";
+import { systemStore } from "@/stores/system";
 const useAuth = authStore();
+const useSystemStore = systemStore();
 
 const route = useRoute();
 const routeName = route.name;
@@ -43,9 +45,12 @@ useClickOutside(accountsMenu, () => {
 });
 
 const signOut = () => {
+  useSystemStore.loadingState = true;
   closeNavOnRoute();
   accountNav.value = false;
-  useAuth.signOut();
+  setTimeout(() => {
+    useAuth.logout();
+  }, "1000");
 };
 </script>
 

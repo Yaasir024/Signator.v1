@@ -29,8 +29,10 @@ import { systemStore } from "./system";
 export const authStore = defineStore("auth", () => {
   const useSystemStore = systemStore();
   // User Data
-  const user = JSON.parse(localStorage.getItem("useclientr"));
-  // const user = useLocalStorage("useclientr", null);
+  // const user = JSON.parse(localStorage.getItem("useclientr"));
+  const user = useLocalStorage('__useId_', null);
+  const userFullData = ref(null);
+
   // Register User
   const register = async (form) => {
     useSystemStore.loadingState = true;
@@ -69,6 +71,7 @@ export const authStore = defineStore("auth", () => {
       email,
       password
     ).catch((error) => {
+      useSystemStore.loadingState = false;
       switch (error.code) {
         case "auth/user-not-found":
           alert("User not found");
@@ -81,7 +84,7 @@ export const authStore = defineStore("auth", () => {
       }
       return;
     });
-    getUserData(loginCredentials.user.uid);
+    useSystemStore.loadingState = false;
   };
 
   // Add User Data To DB
@@ -96,7 +99,6 @@ export const authStore = defineStore("auth", () => {
     };
     await setDoc(doc(firestoreDb, "users", userData.uid), userData);
     useSystemStore.loadingState = false;
-    localStorage.setItem("useclientr", JSON.stringify(userData));
     pushToHome();
   };
   const getUserData = async (id) => {
@@ -107,31 +109,33 @@ export const authStore = defineStore("auth", () => {
     pushToHome();
   };
 
-  const signOut = () => {
-    // await signOut(auth);
+  const logout = async () => {
+    await signOut(auth);
     useSystemStore.loadingState = false;
-    localStorage.setItem("useclientr", null);
-    useSystemStore.loadingState = true;
-    pushToHome();
   };
 
-  const monitorAuthState = async () => {
-    onAuthStateChanged(auth, (user) => {
-      if (user === null) {
-        return user;
-        console.log(user);
-      } else {
-        // User is signed out
-        return "No user";
-        console.log("No user");
+  onAuthStateChanged(auth, (userData) => {
+    if (userData != null) {
+      // If user is Signed in Set user data
+      user.value = userData.uid;
+      userFullData.value = userData
+      // Routing
+      if (
+        router.isReady() &&
+        router.currentRoute.value.path === "/login" || "/signup"
+      ) {
+        router.push("/");
       }
-    });
-  };
+    } else {
+      //If User logs out, set data to null
+      user.value = null;
+    }
+  });
 
   const pushToHome = () => {
     router.push({ path: "/" });
     router.go();
   };
 
-  return { register, signin, user, monitorAuthState, signOut };
+  return { register, signin, user, logout,};
 });
