@@ -1,8 +1,20 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import { useDebouncedRefHistory, useStorage } from "@vueuse/core";
+import axios from "axios";
 import { inject } from "vue";
+import { editorStore } from "@/stores/editor";
 const data = inject("data");
+const useEditorStore = editorStore();
+
+
+const uploadImage = () => {
+  if(data.image.imgSrc != '') {
+    useEditorStore.addSignature()
+  }else if(data.image.img != '') {
+    useEditorStore.uploadImg(data.image.img)
+  }
+}
 
 
 // To be Fixed
@@ -63,6 +75,7 @@ const data = inject("data");
     <div class="">
       <button
         class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
+        @click="uploadImage()"
       >
         Save Signature
       </button>

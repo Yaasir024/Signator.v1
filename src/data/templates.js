@@ -7,9 +7,11 @@ export default {
       category: "professional",
       imgSrc: "suizie-west.PNG",
       data: {
+        uid: "",
         image: {
+          img: "",
           imgSrc:
-            "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+            "https://res.cloudinary.com/dwajobdyb/image/upload/v1665509011/signatorClientImages/j4co9e536ev6xkhniai6.jpg",
         },
         name: "Suizie West",
         position: "Developer",
@@ -114,9 +116,11 @@ export default {
       category: "professional",
       imgSrc: "jon-dnow.PNG",
       data: {
+        uid: "",
         image: {
+          img: "",
           imgSrc:
-            "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+            "https://res.cloudinary.com/dwajobdyb/image/upload/v1665519807/signatorClientImages/john_t4miy2.jpg",
         },
         name: "Jon Dnow",
         position: "Documentarian",
@@ -205,9 +209,11 @@ export default {
       category: "professional",
       imgSrc: "aria-meaton.PNG",
       data: {
+        uid: "",
         image: {
+          img: "",
           imgSrc:
-            "https://images.unsplash.com/photo-1599842057874-37393e9342df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+            "https://res.cloudinary.com/dwajobdyb/image/upload/v1665519704/signatorClientImages/aria_ghi0yw.jpg",
         },
         name: "Aria Meaton",
         position: "Blogger",
@@ -280,9 +286,11 @@ export default {
       category: "professional",
       imgSrc: "carl-snow.PNG",
       data: {
+        uid: "",
         image: {
+          img: "",
           imgSrc:
-            "https://images.unsplash.com/photo-1599842057874-37393e9342df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+            "https://res.cloudinary.com/dwajobdyb/image/upload/v1665519801/signatorClientImages/carl_w3ldvm.jpg",
         },
         name: "Carl Snow",
         position: "Content Writer",

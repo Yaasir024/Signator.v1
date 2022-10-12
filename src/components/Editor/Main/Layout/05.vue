@@ -35,10 +35,10 @@ const prop = defineProps(["data"]);
               :style="{
                 width: data.design.image.width + 'px',
               }"
-              v-if="data.image.imgSrc"
+              v-if="data.image.img || data.image.imgSrc"
             >
               <img
-                :src="data.image.imgSrc"
+                :src="data.image.img"
                 alt=""
                 style="display: inline-block"
                 :style="{

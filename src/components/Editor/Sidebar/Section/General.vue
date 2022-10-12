@@ -16,12 +16,11 @@ const addNewContactItem = () => {
 };
 // Delete Contact Item
 const deleteContactItem = (id) => {
-  data.contactInfo = data.contactInfo.filter(
-    (item) => item.id != id
-  );
+  data.contactInfo = data.contactInfo.filter((item) => item.id != id);
 };
 const clearImage = () => {
-  data.image.imgSrc = "";
+  data.image.img = "";
+  data.image.imgSrc = ""
 };
 const readImage = (event) => {
   let input = event.target;
@@ -29,7 +28,7 @@ const readImage = (event) => {
   if (input.files) {
     let reader = new FileReader();
     reader.onload = (e) => {
-        useEditorStore.previewImage = e.target.result;
+      useEditorStore.previewImage = e.target.result;
     };
     reader.readAsDataURL(input.files[0]);
   }
@@ -45,7 +44,7 @@ const readImage = (event) => {
         <div class="image-preview w-[40%] text-secondary-color relative">
           <div
             class="relative flex flex-col items-center py-10 border border-dashed overflow-hidden cursor-pointer"
-            v-if="!data.image.imgSrc"
+            v-if="!(data.image.img || data.image.imgSrc)"
           >
             <div class="icon block">
               <svg
@@ -70,13 +69,13 @@ const readImage = (event) => {
             />
           </div>
           <img
-            :src="data.image.imgSrc"
+            :src="data.image.img || data.image.imgSrc"
             class="w-full h-full"
-            v-if="data.image.imgSrc"
+            v-if="data.image.img || data.image.imgSrc"
           />
           <div
             class="flex items-center justify-center absolute right-[-4px] top-[-4px] bg-red-600 text-white p-1 rounded-full cursor-pointer"
-            v-if="data.image.imgSrc"
+            v-if="data.image.img || data.image.imgSrc"
             @click="clearImage()"
           >
             <svg

@@ -21,7 +21,8 @@ const readImage = (event) => {
   useEditorStore.imageModal = true;
 };
 const setImage = () => {
-  data.image.imgSrc = useEditorStore.previewImage;
+  data.image.imgSrc = ''
+  data.image.img = useEditorStore.previewImage;
   useEditorStore.imageModal = false;
 };
 </script>

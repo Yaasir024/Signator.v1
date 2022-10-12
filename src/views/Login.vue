@@ -1,6 +1,8 @@
 <script setup>
 import Navbar from "@/components/Navbar.vue";
 import { ref, reactive, computed } from "vue";
+import { authStore } from "@/stores/auth";
+const useAuth = authStore();
 const loginForm = ref({ email: "", password: "" });
 const submit = () => {
   if (loginForm.value.email === "") {
@@ -8,7 +10,7 @@ const submit = () => {
   } else if (loginForm.value.password === "") {
     console.log("Input a password");
   } else {
-    console.log("successful:", loginForm.value);
+    useAuth.signin(loginForm.value);
     loginForm.value.email = "";
     loginForm.value.password = "";
   }

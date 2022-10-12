@@ -37,7 +37,7 @@ const prop = defineProps(["data"]);
               }"
             >
               <img
-                :src="data.image.imgSrc"
+                :src="data.image.img || data.image.imgSrc"
                 alt=""
                 style="display: inline-block"
                 :style="{

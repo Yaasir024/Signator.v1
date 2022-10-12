@@ -1,9 +1,9 @@
 <script setup>
 import Navbar from "@/components/Navbar.vue";
 import { ref, reactive, computed } from "vue";
-import data from '@/data/templates'
-import { uid } from '../composables/useGenerateUid'
-import {useRouter} from 'vue-router'
+import data from "@/data/templates";
+import { uid } from "../composables/useGenerateUid";
+import { useRouter } from "vue-router";
 const router = useRouter();
 
 // Filter
@@ -28,12 +28,10 @@ const filteredTemplates = computed(() => {
 
 const createEditorSession = (data) => {
   let sessionId = uid(16);
-  let editorSession = {
-    data: data,
-  };
-  console.log(editorSession);
+  data.uid = sessionId;
   localStorage.setItem(sessionId, JSON.stringify(data));
   router.push({ path: `/editor/${sessionId}` });
+  router.go()
 };
 
 //
@@ -96,7 +94,11 @@ const user = ref("free");
             <div
               class="card p-5 max-h-[250px] h-full bg-white shadow-lg rounded-xl relative cursor-pointer"
             >
-              <img :src="'/images/templates/' + template.imgSrc" alt="" class=""/>
+              <img
+                :src="'/images/templates/' + template.imgSrc"
+                alt=""
+                class=""
+              />
               <div
                 class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
               >

@@ -2,11 +2,14 @@
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useClickOutside } from "@/composables/useClickOutside";
+import { authStore } from "@/stores/auth";
+const useAuth = authStore();
 
 const route = useRoute();
 const routeName = route.name;
-const showNav = ref(false);
 
+// MOBILE NAV
+const showNav = ref(false);
 const toggleNav = () => {
   showNav.value = !showNav.value;
 };
@@ -39,7 +42,11 @@ useClickOutside(accountsMenu, () => {
   accountNav.value = false;
 });
 
-let user = ref(true);
+const signOut = () => {
+  closeNavOnRoute();
+  accountNav.value = false;
+  useAuth.signOut();
+};
 </script>
 
 <template>
@@ -51,13 +58,13 @@ let user = ref(true);
     </RouterLink>
     <div class="hidden md:flex items-center">
       <RouterLink
-      to="/"
+        to="/"
         class="py-2 px-4 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
       >
         Features
       </RouterLink>
       <RouterLink
-        to="/pricing"
+        to="/"
         class="py-2 px-4 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
       >
         Pricing
@@ -69,7 +76,7 @@ let user = ref(true);
         Template
       </RouterLink>
     </div>
-    <div class="hidden md:flex items-center" v-if="!user">
+    <div class="hidden md:flex items-center" v-if="!useAuth.user">
       <RouterLink to="/login">
         <button
           class="py-2 px-4 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
@@ -85,7 +92,7 @@ let user = ref(true);
         </button>
       </RouterLink>
     </div>
-    <div class="hidden md:flex items-center" v-if="user">
+    <div class="hidden md:flex items-center" v-if="useAuth.user">
       <RouterLink to="/dashboard" v-if="routeName != 'dashboard'">
         <button
           class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
@@ -176,7 +183,10 @@ let user = ref(true);
                 </RouterLink>
               </div>
               <div class="py-2 px-5">
-                <div class="flex items-center cursor-pointer">
+                <div
+                  class="flex items-center cursor-pointer"
+                  @click="signOut()"
+                >
                   <div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -267,7 +277,7 @@ let user = ref(true);
         <ul class="px-5 py-5 border-b">
           <li>
             <RouterLink
-            to="/"
+              to="/"
               class="block py-2 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
             >
               Features
@@ -275,7 +285,7 @@ let user = ref(true);
           </li>
           <li>
             <RouterLink
-              to="/pricing"
+              to="/"
               class="block py-2 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
             >
               Pricing
@@ -298,7 +308,7 @@ let user = ref(true);
             </RouterLink>
           </li>
         </ul>
-        <div class="px-5 py-5 border-b">
+        <div class="px-5 py-5 border-b" v-if="useAuth.user">
           <div class="py-3">
             <RouterLink to="/settings/account-setting">
               <div
@@ -324,6 +334,7 @@ let user = ref(true);
           <div class="py-2">
             <div
               class="flex items-center cursor-pointer hover:text-primary-color transition-all duration-300 ease-in-out"
+              @click="signOut()"
             >
               <div>
                 <svg

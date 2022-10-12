@@ -13,7 +13,8 @@ const submit = () => {
     console.log("Input a password");
   } else {
     console.log("successful:", signupForm.value);
-    useAuth.register(signupForm.value)
+    useAuth.register(signupForm.value);
+    signupForm.value.name = "";
     signupForm.value.email = "";
     signupForm.value.password = "";
   }
@@ -23,8 +24,10 @@ const submit = () => {
 </script>
 
 <template>
-  <section class=" h-screen overflow-hidden">
+  <section class="h-screen overflow-hidden">
     <Navbar />
+    {{useAuth.user}}
+    {{useAuth.monitorAuthState()}}
     <div
       class="bg-white max-w-[400px] mx-auto mt-12 py-8 px-6 rounded-2xl shadow-lg border"
     >

@@ -29,7 +29,7 @@ const prop = defineProps(["data"]);
     <tr>
       <td>
         <img
-          :src="data.image.imgSrc"
+          :src="data.image.img || data.image.imgSrc"
           alt=""
           style="display: inline-block"
           :style="{
@@ -166,9 +166,7 @@ const prop = defineProps(["data"]);
         cellpadding="0"
         border-0
         style="margin-top: 10px; width: 500px"
-      >
-        
-      </table>
+      ></table>
     </tr>
     <tr v-if="data.addons.disclaimer">
       <table cellspacing="0" cellpadding="0" border-0 style="margin-top: 10px">

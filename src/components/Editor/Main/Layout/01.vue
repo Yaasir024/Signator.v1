@@ -18,7 +18,7 @@ const prop = defineProps(["data"]);
       <tr>
         <td style="text-align: center">
           <img
-            :src="data.image.imgSrc || '/images/placeholder-small.jpg'"
+            :src="data.image.img || data.image.imgSrc"
             alt=""
             style="display: inline-block"
             :style="{ width: data.design.image.width + 'px' }"
@@ -127,7 +127,10 @@ const prop = defineProps(["data"]);
                             "
                           >
                             <a :href="social.url" target="_blank">
-                                <IconSocial :icon="social.name" :data="data.design.socialIcon" />
+                              <IconSocial
+                                :icon="social.name"
+                                :data="data.design.socialIcon"
+                              />
                             </a>
                           </span>
                         </td>
