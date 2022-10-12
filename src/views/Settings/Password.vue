@@ -1,8 +1,23 @@
 <script setup>
+import { ref, computed } from "vue";
 import Navbar from "@/components/Navbar.vue";
 import Sidebar from "@/components/SidebarSetting.vue";
+import { authStore } from "@/stores/auth";
+import { systemStore } from "@/stores/system";
+const useAuth = authStore();
+const useSystemStore = systemStore();
+
+const form = ref({ password: "", repeatPassword: "" });
 const submitForm = () => {
-    console.log('Submitted')
+  if (form.value.password != form.value.repeatPassword) {
+    console.log("Password Do not match");
+  } else {
+    useSystemStore.loadingState = true;
+    form.value.password = "";
+    form.value.repeatPassword = "";
+    useAuth.updateUserPassword(form.value.password);
+  }
+  console.log("Submitted");
 };
 </script>
 
@@ -25,7 +40,9 @@ const submitForm = () => {
                     <input
                       type="password"
                       placeholder="New Password"
-                      class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
+                      class="w-full h-10 bg-white text-lg border rounded-lg px-4 outline-none focus:border-primary-color"
+                      required
+                      v-model="form.password"
                     />
                   </div>
                   <div class="field mb-8">
@@ -33,7 +50,9 @@ const submitForm = () => {
                     <input
                       type="password"
                       placeholder="Confirm New Password"
-                      class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
+                      class="w-full h-10 bg-white text-lg border rounded-lg px-4 outline-none focus:border-primary-color"
+                      required
+                      v-model="form.repeatPassword"
                     />
                   </div>
                   <div class="flex items-center justify-end">

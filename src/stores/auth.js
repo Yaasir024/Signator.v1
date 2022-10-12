@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updatePassword 
 } from "firebase/auth";
 
 import {
@@ -114,6 +115,16 @@ export const authStore = defineStore("auth", () => {
     useSystemStore.loadingState = false;
   };
 
+  const updateUserPassword = async (newPassword) => {
+    updatePassword(auth.currentUser, newPassword).then(() => {
+      // Update successful.
+      console.log('Password Change: Sucess')
+    }).catch((error) => {
+      console.log(error)
+    });
+    useSystemStore.loadingState = false;
+  }
+
   onAuthStateChanged(auth, (userData) => {
     if (userData != null) {
       // If user is Signed in Set user data
@@ -122,7 +133,7 @@ export const authStore = defineStore("auth", () => {
       // Routing
       if (
         router.isReady() &&
-        router.currentRoute.value.path === "/login" || "/signup"
+        router.currentRoute.value.path === ("/login" || "/signup")
       ) {
         router.push("/");
       }
@@ -137,5 +148,5 @@ export const authStore = defineStore("auth", () => {
     router.go();
   };
 
-  return { register, signin, user, logout,};
+  return { register, signin, user, logout, updateUserPassword};
 });
