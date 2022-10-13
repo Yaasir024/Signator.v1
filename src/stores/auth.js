@@ -112,10 +112,12 @@ export const authStore = defineStore("auth", () => {
 
   const logout = async () => {
     await signOut(auth);
+    pushToHome()
     useSystemStore.loadingState = false;
   };
 
   const updateUserPassword = async (newPassword) => {
+    // console.log(auth.currentUser, newPassword)
     updatePassword(auth.currentUser, newPassword).then(() => {
       // Update successful.
       console.log('Password Change: Sucess')

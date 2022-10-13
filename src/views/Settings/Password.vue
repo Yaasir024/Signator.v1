@@ -13,9 +13,9 @@ const submitForm = () => {
     console.log("Password Do not match");
   } else {
     useSystemStore.loadingState = true;
+    useAuth.updateUserPassword(form.value.password);
     form.value.password = "";
     form.value.repeatPassword = "";
-    useAuth.updateUserPassword(form.value.password);
   }
   console.log("Submitted");
 };
