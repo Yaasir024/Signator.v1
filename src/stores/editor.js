@@ -65,13 +65,13 @@ export const editorStore = defineStore("editor", () => {
       doc(
         firestoreDb,
         "users",
-        useAuth.user.uid,
+        useAuth.user,
         "signatures",
         data.value.uid,
       ),
       data.value
     );
-    console.log('Successfull');
+    console.log('Successfull',useAuth.user);
   };
 
   return { data, path, currentEditorNav, addSignature, uploadImg };

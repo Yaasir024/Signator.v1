@@ -91,7 +91,6 @@ export const authStore = defineStore("auth", () => {
   // Add User Data To DB
   const addNewUser = async (name, credential) => {
     const userData = {
-      name: name,
       email: credential.user.email,
       uid: credential.user.uid,
       plan: "Free",

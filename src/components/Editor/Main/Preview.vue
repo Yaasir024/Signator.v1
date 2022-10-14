@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, resolveComponent, h } from "vue";
+import { ref, reactive, computed, } from "vue";
 import Layout01 from "@/components/Editor/Main/Layout/01.vue";
 import Layout02 from "@/components/Editor/Main/Layout/02.vue";
 import Layout03 from "@/components/Editor/Main/Layout/03.vue";

@@ -137,7 +137,7 @@ useClickOutside(fontMenuBar, () => {
           type="range"
           class=""
           min="14"
-          max="32"
+          max="21"
           v-model="data.design.layout.fontSize"
         />
       </div>
