@@ -3,12 +3,10 @@ import Navbar from "@/components/Navbar.vue";
 import { ref, reactive, computed } from "vue";
 import { authStore } from "@/stores/auth";
 const useAuth = authStore();
-const signupForm = ref({ name: "", email: "", password: "" });
+const signupForm = ref({ email: "", password: "" });
 const submit = () => {
   if (signupForm.value.email === "") {
     console.log("You Have to Use an Email");
-  } else if (signupForm.value.name === "") {
-    console.log("Input a Name");
   } else if (signupForm.value.password === "") {
     console.log("Input a password");
   } else {
@@ -32,20 +30,12 @@ const submit = () => {
       <h2 class="text-2xl text-center mb-8">Sign Up</h2>
       <form @submit.prevent="submit()">
         <div class="field mb-4">
-          <div class="mb-1 pl-2">Name</div>
-          <input
-            type="text"
-            placeholder="Name"
-            class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
-            v-model="signupForm.name"
-          />
-        </div>
-        <div class="field mb-4">
           <div class="mb-1 pl-2">Email</div>
           <input
             type="email"
             placeholder="Email"
             class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
+            required
             v-model="signupForm.email"
           />
         </div>
@@ -55,6 +45,7 @@ const submit = () => {
             type="password"
             placeholder="Password"
             class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
+            required
             v-model="signupForm.password"
           />
         </div>

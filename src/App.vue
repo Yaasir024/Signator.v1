@@ -1,6 +1,7 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import Loading from './components/Loading.vue'
+import { RouterLink, RouterView } from "vue-router";
+import Loading from "@/components/Loading.vue";
+import Toast from "@/components/Toast/index.vue";
 import { systemStore } from "@/stores/system";
 const useSystemStore = systemStore();
 </script>
@@ -20,6 +21,6 @@ const useSystemStore = systemStore();
   </header> -->
 
   <RouterView />
-  <Loading v-if="useSystemStore.loadingState"/>
+  <Loading v-if="useSystemStore.loadingState" />
+  <Toast v-if="useSystemStore.toastData" />
 </template>
-

@@ -33,6 +33,7 @@ const submit = () => {
             type="email"
             placeholder="Email"
             class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
+            required
             v-model="loginForm.email"
           />
         </div>
@@ -42,6 +43,7 @@ const submit = () => {
             type="password"
             placeholder="Password"
             class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
+            required
             v-model="loginForm.password"
           />
         </div>

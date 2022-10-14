@@ -37,7 +37,7 @@ export const authStore = defineStore("auth", () => {
   // Register User
   const register = async (form) => {
     useSystemStore.loadingState = true;
-    const { name, email, password } = form;
+    const { email, password } = form;
     const credentials = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -61,7 +61,7 @@ export const authStore = defineStore("auth", () => {
       }
       return;
     });
-    addNewUser(name, credentials);
+    addNewUser(credentials);
   };
   // Login User
   const signin = async (form) => {
@@ -89,7 +89,7 @@ export const authStore = defineStore("auth", () => {
   };
 
   // Add User Data To DB
-  const addNewUser = async (name, credential) => {
+  const addNewUser = async (credential) => {
     const userData = {
       email: credential.user.email,
       uid: credential.user.uid,
