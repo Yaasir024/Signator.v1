@@ -8,7 +8,7 @@ const useSystemStore = systemStore();
 
 <template>
   <div class="toast">
-    <div class="flex flex-col-reverse items-end" v-for="data in useSystemStore.toastData" :key="data.key">
+    <div class="flex flex-col-reverse items-end" v-for="data in useSystemStore.toastData" :key="data.id">
       <Error v-if="data.type == 'Error'" />
       <Success v-if="data.type == 'Success'" />
       <Default v-if="data.type == 'Default'" />
@@ -19,7 +19,7 @@ const useSystemStore = systemStore();
 <style scoped>
 .toast {
   position: fixed;
-  top: 15%;
+  top: 12%;
   right: 20px;
 }
 </style>

@@ -81,7 +81,7 @@ const signOut = () => {
         Template
       </RouterLink>
     </div>
-    <div class="hidden md:flex items-center" v-if="!useAuth.user">
+    <div class="hidden md:flex items-center" v-if="!useAuth.userState">
       <RouterLink to="/login">
         <button
           class="py-2 px-4 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
@@ -97,7 +97,7 @@ const signOut = () => {
         </button>
       </RouterLink>
     </div>
-    <div class="hidden md:flex items-center" v-if="useAuth.user">
+    <div class="hidden md:flex items-center" v-if="useAuth.userState">
       <RouterLink to="/dashboard" v-if="routeName != 'dashboard'">
         <button
           class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
@@ -313,7 +313,7 @@ const signOut = () => {
             </RouterLink>
           </li>
         </ul>
-        <div class="px-5 py-5 border-b" v-if="useAuth.user">
+        <div class="px-5 py-5 border-b" v-if="useAuth.userState">
           <div class="py-3">
             <RouterLink to="/settings/account-setting">
               <div

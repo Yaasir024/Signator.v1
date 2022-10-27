@@ -7,7 +7,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  updatePassword 
+  updatePassword,
 } from "firebase/auth";
 
 import {
@@ -31,8 +31,11 @@ export const authStore = defineStore("auth", () => {
   const useSystemStore = systemStore();
   // User Data
   // const user = JSON.parse(localStorage.getItem("useclientr"));
-  const user = useLocalStorage('__useId_', null);
-  const userFullData = ref(null);
+  // Current User State: Usually A Boolean
+  const userState = useLocalStorage("__useLoggedIn_", false);
+  // Current User Id
+  const userId = useLocalStorage("__useId_", { uid: null });
+  const userData = ref(null);
 
   // Register User
   const register = async (form) => {
@@ -111,26 +114,29 @@ export const authStore = defineStore("auth", () => {
 
   const logout = async () => {
     await signOut(auth);
-    pushToHome()
+    pushToHome();
     useSystemStore.loadingState = false;
   };
 
   const updateUserPassword = async (newPassword) => {
     // console.log(auth.currentUser, newPassword)
-    updatePassword(auth.currentUser, newPassword).then(() => {
-      // Update successful.
-      console.log('Password Change: Sucess')
-    }).catch((error) => {
-      console.log(error)
-    });
+    updatePassword(auth.currentUser, newPassword)
+      .then(() => {
+        // Update successful.
+        console.log("Password Change: Sucess");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     useSystemStore.loadingState = false;
-  }
+  };
 
-  onAuthStateChanged(auth, (userData) => {
-    if (userData != null) {
+  onAuthStateChanged(auth, (user) => {
+    if (user != null) {
       // If user is Signed in Set user data
-      user.value = userData.uid;
-      userFullData.value = userData
+      userState.value = true;
+      userId.value.uid = user.uid;
+      userData.value = user;
       // Routing
       if (
         router.isReady() &&
@@ -140,7 +146,9 @@ export const authStore = defineStore("auth", () => {
       }
     } else {
       //If User logs out, set data to null
-      user.value = null;
+      userState.value = false;
+      userId.value.uid = null;
+      userData.value = "";
     }
   });
 
@@ -149,5 +157,13 @@ export const authStore = defineStore("auth", () => {
     router.go();
   };
 
-  return { register, signin, user, logout, updateUserPassword};
+  return {
+    register,
+    signin,
+    userState,
+    userData,
+    userId,
+    logout,
+    updateUserPassword,
+  };
 });

@@ -2,6 +2,7 @@ export default {
   templates: [
     {
       id: "1",
+      title: "Suizie's Signature",
       name: "Suizie West",
       type: "pro",
       category: "professional",
@@ -111,6 +112,7 @@ export default {
     },
     {
       id: "2",
+      title: "Signature by Jon Dnow",
       name: "Jon Dnow",
       type: "free",
       category: "professional",
@@ -127,6 +129,7 @@ export default {
         department: "",
         company: "",
         contactInfo: [
+          
           {
             id: "274ts9",
             field: "Email",
@@ -204,6 +207,7 @@ export default {
     },
     {
       id: "3",
+      title: "Aria Meaton",
       name: "Aria Meaton",
       type: "pro",
       category: "professional",
@@ -281,6 +285,7 @@ export default {
     },
     {
       id: "3",
+      title: "Signature by Carl Snow",
       name: "Carl Snow",
       type: "pro",
       category: "professional",

@@ -32,6 +32,7 @@ export const editorStore = defineStore("editor", () => {
   const useAuth = authStore();
   const route = useRoute();
   const path = route.params.id;
+  // const data = useLocalStorage(path, {});
   const data = useLocalStorage(path, {});
   const currentEditorNav = ref("general");
   const previewImage = ref("");
@@ -65,13 +66,13 @@ export const editorStore = defineStore("editor", () => {
       doc(
         firestoreDb,
         "users",
-        useAuth.user,
+        useAuth.userData.uid,
         "signatures",
         data.value.uid,
       ),
       data.value
     );
-    console.log('Successfull',useAuth.user);
+    console.log('Successfull',useAuth.userData.uid);
   };
 
   return { data, path, currentEditorNav, addSignature, uploadImg };

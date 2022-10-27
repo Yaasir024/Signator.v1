@@ -2,10 +2,11 @@
 import Navbar from "@/components/Navbar.vue";
 import { ref, reactive, computed } from "vue";
 import data from "@/data/templates";
-import { uid } from "../composables/useGenerateUid";
+import { uid } from "@/composables/useGenerateUid";
+import { systemStore } from "@/stores/system";
 import { useRouter } from "vue-router";
 const router = useRouter();
-
+const useSystemStore = systemStore();
 // Filter
 const filterValue = ref("all");
 const filter = (value) => {
@@ -27,10 +28,10 @@ const filteredTemplates = computed(() => {
 });
 
 const createEditorSession = (data) => {
-  let sessionId = uid(16);
-  data.uid = sessionId;
-  localStorage.setItem(sessionId, JSON.stringify(data));
-  router.push({ path: `/editor/${sessionId}` });
+  data.uid = uid(16);
+  useSystemStore.addDraft(data, false)
+  // localStorage.setItem(sessionId, JSON.stringify(data));
+  // router.push({ path: `/editor/${sessionId}` });
   // router.go()
 };
 

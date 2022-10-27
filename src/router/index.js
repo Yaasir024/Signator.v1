@@ -126,16 +126,16 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const useAuth = authStore();
-  if (to.path === "/login" && useAuth.user) {
+  if (to.path === "/login" && useAuth.userState) {
     next("/");
     return;
   }
-  if (to.path === "/signup" && useAuth.user) {
+  if (to.path === "/signup" && useAuth.userState) {
     next("/");
     return;
   }
 
-  if (to.matched.some((record) => record.meta.requiresAuth) && !useAuth.user) {
+  if (to.matched.some((record) => record.meta.requiresAuth) && !useAuth.userState) {
     next("/login");
     return;
   }
