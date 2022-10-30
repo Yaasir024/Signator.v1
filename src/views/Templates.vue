@@ -28,8 +28,14 @@ const filteredTemplates = computed(() => {
 });
 
 const createEditorSession = (data) => {
-  data.uid = uid(16);
-  useSystemStore.addDraft(data, false)
+  if(useSystemStore.isEligibleToCreate()) {
+    console.log('OK')
+    data.uid = uid(16);
+    useSystemStore.addDraft(data, false)
+
+  }else{
+    console.log('Can not create more')
+  }
   // localStorage.setItem(sessionId, JSON.stringify(data));
   // router.push({ path: `/editor/${sessionId}` });
   // router.go()

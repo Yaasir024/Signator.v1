@@ -16,6 +16,7 @@ import {
   collectionGroup,
   Timestamp,
   increment,
+  arrayRemove
 } from "firebase/firestore";
 import { authStore } from "./auth";
 import { systemStore } from "./system";
@@ -47,7 +48,7 @@ export const dashboardStore = defineStore("dashboard", () => {
     )
       .then(async () => {
         await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
-          publishedSignatures: increment(-1),
+          publishedSignatures: arrayRemove(id),
         })
         getSignatures();
         useSystemStore.addNotificationData({

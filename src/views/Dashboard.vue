@@ -79,8 +79,11 @@ const closeDeleteModal = () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-canvas-color">
+  <div class="min-h-screen">
     <Navbar />
+    <!-- {{useSystemStore.userFullData}} -->
+    <div class="t" v-if="useSystemStore.isEligibleToCreate()">True</div>
+    <div class="check" @click="useSystemStore.isEligibleToCreate()">Check</div>
     <main class="py-8 px-8">
       <div class="flex">
         <main class="w-full py-4 px-2">
@@ -195,64 +198,71 @@ const closeDeleteModal = () => {
               </Card>
             </div>
             <div class="" v-if="currentTab == 'drafts'">
-              <Card
-                v-for="data in useSystemStore.unpublishedDrafts"
-                :key="data.uid"
-                :data="data"
-                :hasDraft="checkDrafts(data)"
-                :type="'draft'"
-              >
-                <template #footer>
-                  <div
-                    class="pt-3 pb-4 px-2 border-t flex items-center justify-between"
-                  >
-                    <button
-                      class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
-                      @click="editSignature(data)"
+              <div class="" v-if="useSystemStore.unpublishedDrafts.length > 0">
+                <Card
+                  v-for="data in useSystemStore.unpublishedDrafts"
+                  :key="data.uid"
+                  :data="data"
+                  :hasDraft="checkDrafts(data)"
+                  :type="'draft'"
+                >
+                  <template #footer>
+                    <div
+                      class="pt-3 pb-4 px-2 border-t flex items-center justify-between"
                     >
-                      Edit Signature
-                    </button>
-                    <div class="flex items-center">
-                      <div
-                        class="mr-3 cursor-pointer"
-                        title="Duplicate"
-                        @click="useDashboard.duplicate(data)"
+                      <button
+                        class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
+                        @click="editSignature(data)"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
+                        Edit Signature
+                      </button>
+                      <div class="flex items-center">
+                        <div
+                          class="mr-3 cursor-pointer"
+                          title="Duplicate"
+                          @click="useDashboard.duplicate(data)"
                         >
-                          <path
-                            d="M10 19h10v1h-10v-1zm14-13v18h-18v-6h-6v-18h18v6h6zm-18 0h10v-4h-14v14h4v-10zm16 2h-1.93c-.669 0-1.293.334-1.664.891l-1.406 2.109h-3.93l-1.406-2.109c-.371-.557-.995-.891-1.664-.891h-2v14h14v-14zm-12 6h10v-1h-10v1zm0 3h10v-1h-10v1z"
-                          />
-                        </svg>
-                      </div>
-                      <div
-                        class="cursor-pointer"
-                        title="Delete"
-                        @click="useSystemStore.discardDraft(data.uid)"
-                      >
-                        <svg
-                          width="20"
-                          height="20"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          viewBox="0 0 24 24"
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="M10 19h10v1h-10v-1zm14-13v18h-18v-6h-6v-18h18v6h6zm-18 0h10v-4h-14v14h4v-10zm16 2h-1.93c-.669 0-1.293.334-1.664.891l-1.406 2.109h-3.93l-1.406-2.109c-.371-.557-.995-.891-1.664-.891h-2v14h14v-14zm-12 6h10v-1h-10v1zm0 3h10v-1h-10v1z"
+                            />
+                          </svg>
+                        </div>
+                        <div
+                          class="cursor-pointer"
+                          title="Delete"
+                          @click="useSystemStore.discardDraft(data.uid)"
                         >
-                          <path
-                            d="M19 24h-14c-1.104 0-2-.896-2-2v-17h-1v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2h-1v17c0 1.104-.896 2-2 2zm0-19h-14v16.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-16.5zm-9 4c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm-2-7h-4v1h4v-1z"
-                          />
-                        </svg>
+                          <svg
+                            width="20"
+                            height="20"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M19 24h-14c-1.104 0-2-.896-2-2v-17h-1v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2h-1v17c0 1.104-.896 2-2 2zm0-19h-14v16.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-16.5zm-9 4c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm-2-7h-4v1h4v-1z"
+                            />
+                          </svg>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </template>
-              </Card>
+                  </template>
+                </Card>
+              </div>
+              <div class="w-full flex flex-col items-center justify-center" v-else>
+                <img src="/images/emptyLogo.png" alt="" class="max-h-[265px] h-full">
+                <h1 class="text-xl font-medium">NO DRAFTS</h1>
+                <p class="text-base mt-3">Don't Know where to start? <span class="text-primary-color cursor-pointer">Watch This Video</span> or visit our <span class="text-primary-color cursor-pointer">Help Center</span></p>
+              </div>
             </div>
           </div>
         </main>

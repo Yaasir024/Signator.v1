@@ -69,7 +69,7 @@ const signOut = () => {
         Features
       </RouterLink>
       <RouterLink
-        to="/"
+        to="/pricing"
         class="py-2 px-4 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
       >
         Pricing
@@ -290,7 +290,7 @@ const signOut = () => {
           </li>
           <li>
             <RouterLink
-              to="/"
+              to="/pricing"
               class="block py-2 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
             >
               Pricing

@@ -26,9 +26,31 @@ const router = createRouter({
       },
     },
     {
+      path: "/pricing",
+      name: "pricing",
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("../views/Pricing.vue"),
+      meta: {
+        requiresAuth: false,
+      },
+    },
+    {
       path: "/editor/:id",
       name: "editor",
       component: Editor,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/preview/:id",
+      name: "preview",
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("../views/Preview.vue"),
       meta: {
         requiresAuth: true,
       },
@@ -61,7 +83,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import("../views/Login.vue"),
+      component: () => import("../views/Auth/Login.vue"),
       meta: {
         requiresAuth: false,
       },
@@ -72,7 +94,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import("../views/Signup.vue"),
+      component: () => import("../views/Auth/Signup.vue"),
       meta: {
         requiresAuth: false,
       },

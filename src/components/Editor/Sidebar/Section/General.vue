@@ -8,7 +8,7 @@ const useEditorStore = editorStore();
 const data = inject("data");
 
 const addNewContactItem = () => {
-  data.contactInfo.push({
+  data.contactInfo.customInfo.push({
     id: uid(6),
     field: "",
     value: "",
@@ -16,11 +16,11 @@ const addNewContactItem = () => {
 };
 // Delete Contact Item
 const deleteContactItem = (id) => {
-  data.contactInfo = data.contactInfo.filter((item) => item.id != id);
+  data.contactInfo.customInfo = data.contactInfo.customInfo.filter((item) => item.id != id);
 };
 const clearImage = () => {
   data.image.img = "";
-  data.image.imgSrc = ""
+  data.image.imgSrc = "";
 };
 const readImage = (event) => {
   let input = event.target;
@@ -138,10 +138,49 @@ const readImage = (event) => {
       <!-- Contact Info Section -->
       <div class="wrapper contact">
         <Heading :title="'Contact Info'" />
-        <div class="my-3">
+        <div class="mt-2 mb-3">
+          <!-- Phone -->
+          <div class="form-item flex items-center justify-between my-3 px-4">
+            <label>Phone</label>
+            <input
+              type="text"
+              class="text-sm w-full max-w-[70%] bg-canvas-color rounded-2xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-4 transition-all ease-in-out duration-300"
+              v-model="data.contactInfo.basicInfo.phone"
+            />
+          </div>
+          <!-- Website -->
+          <div class="form-item flex items-center justify-between my-3 px-4">
+            <label>Website</label>
+            <input
+              type="text"
+              class="text-sm w-full max-w-[70%] bg-canvas-color rounded-2xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-4 transition-all ease-in-out duration-300"
+              v-model="data.contactInfo.basicInfo.website"
+            />
+          </div>
+          <!-- Email -->
+          <div class="form-item flex items-center justify-between my-3 px-4">
+            <label>Email</label>
+            <input
+              type="text"
+              class="text-sm w-full max-w-[70%] bg-canvas-color rounded-2xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-4 transition-all ease-in-out duration-300"
+              v-model="data.contactInfo.basicInfo.email"
+            />
+          </div>
+          <!-- Address -->
+          <div class="form-item flex items-center justify-between my-3 px-4">
+            <label>Address</label>
+            <input
+              type="text"
+              class="text-sm w-full max-w-[70%] bg-canvas-color rounded-2xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-4 transition-all ease-in-out duration-300"
+              v-model="data.contactInfo.basicInfo.address"
+            />
+          </div>
+
+          <!-- CUSTOM FEILDS -->
+          <Heading :title="'Custom Feilds'" />
           <div
             class="field flex space-between mt-4 px-2 relative"
-            v-for="item in data.contactInfo"
+            v-for="item in data.contactInfo.customInfo"
             :key="item.id"
           >
             <div class="w-[40%] pr-1">

@@ -1,5 +1,6 @@
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import router from "@/router";
 import { defineStore } from "pinia";
 import { firestoreDb } from "@/services/firebase";
 import {
@@ -20,12 +21,14 @@ import {
   setDoc,
   collectionGroup,
   Timestamp,
+  updateDoc,
+  increment,
+  arrayUnion
 } from "firebase/firestore";
-import { authStore } from "./auth";
 import axios from "axios";
 
+import { authStore } from "./auth";
 import { systemStore } from "./system";
-
 
 export const editorStore = defineStore("editor", () => {
   const useSystemStore = systemStore();
@@ -37,6 +40,8 @@ export const editorStore = defineStore("editor", () => {
   const currentEditorNav = ref("general");
   const previewImage = ref("");
   const imageModal = ref(false);
+
+  const signaturePreviewData = ref(null)
 
   const uploadImg = (img) => {
     const formData = new FormData();
@@ -50,10 +55,10 @@ export const editorStore = defineStore("editor", () => {
           "https://api.cloudinary.com/v1_1/dwajobdyb/upload",
           formData
         );
-        data.value.image.img = '';
+        data.value.image.img = "";
         data.value.image.imgSrc = res.data.secure_url;
         console.log(res.data.secure_url);
-        addSignature()
+        addSignature();
       } catch (error) {
         console.log(error);
       }
@@ -62,18 +67,39 @@ export const editorStore = defineStore("editor", () => {
   };
 
   const addSignature = async () => {
-    const docRef = await setDoc(
-      doc(
-        firestoreDb,
-        "users",
-        useAuth.userData.uid,
-        "signatures",
-        data.value.uid,
-      ),
-      data.value
-    );
-    console.log('Successfull',useAuth.userData.uid);
+    const docRef = doc(
+      firestoreDb,
+      "users",
+      useAuth.userId.uid,
+      "signatures",
+      data.value.uid
+    )
+    await setDoc(docRef, data.value)
+      .then(async() => {
+        await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
+          publishedSignatures: arrayUnion(data.value.uid),
+        })
+        console.log("Successfull");
+        // router.push({ path: `/preview/${data.value.uid}` });
+        // localStorage.removeItem(data.value.uid);
+        // useSystemStore.drafts = useSystemStore.drafts.filter((item) => item.uid != data.value.uid);
+      })
   };
 
-  return { data, path, currentEditorNav, addSignature, uploadImg };
+  const getSingleSignature = async (id) => {
+    const ref = doc(
+      firestoreDb,
+      "users",
+      useAuth.userId.uid,
+      "signatures",
+      id
+    );
+    await getDoc(ref)
+      .then((doc) => {
+        console.log(doc.data());
+        signaturePreviewData.value = doc.data();
+      });
+  };
+
+  return { data, path, currentEditorNav, addSignature, uploadImg, getSingleSignature, signaturePreviewData };
 });

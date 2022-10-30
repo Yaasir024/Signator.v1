@@ -2,6 +2,7 @@ import { ref, computed, watch, watchEffect } from "vue";
 import { defineStore } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
 import router from "@/router";
+import { firestoreDb } from "@/services/firebase";
 import {
   collection,
   getDocs,
@@ -16,9 +17,14 @@ import {
   collectionGroup,
   Timestamp,
   increment,
+  onSnapshot,
 } from "firebase/firestore";
 
+import { authStore } from "./auth";
+
 export const systemStore = defineStore("system", () => {
+  const useAuth = authStore();
+
   const drafts = useLocalStorage("__usedrafts", []);
 
   const loadingState = ref(false);
@@ -31,6 +37,12 @@ export const systemStore = defineStore("system", () => {
       message: "Error Loading Page",
     },
   ]);
+
+  const userFullData = ref(null);
+  const userRef = doc(firestoreDb, "users", useAuth.userId.uid);
+  onSnapshot(userRef, (doc) => {
+    userFullData.value = doc.data();
+  });
 
   const notificationData = ref(null);
 
@@ -59,26 +71,37 @@ export const systemStore = defineStore("system", () => {
   const discardDraft = (uid) => {
     localStorage.removeItem(uid);
     drafts.value = drafts.value.filter((item) => item.uid != uid);
-    getUnpublishedDrafts()
+    getUnpublishedDrafts();
     addNotificationData({
       message: "Draft has been successfully deleted.",
       type: "success",
-    })
+    });
   };
-  const unpublishedDrafts = ref([])
+  const unpublishedDrafts = ref([]);
   const getUnpublishedDrafts = () => {
-    unpublishedDrafts.value = []
+    unpublishedDrafts.value = [];
     drafts.value.forEach((draft) => {
       if (!draft.published) {
-        unpublishedDrafts.value.push(JSON.parse(localStorage.getItem(draft.uid)))
+        unpublishedDrafts.value.push(
+          JSON.parse(localStorage.getItem(draft.uid))
+        );
       }
     });
-    console.log(unpublishedDrafts.value)
+    console.log(unpublishedDrafts.value);
   };
 
-  const checkEligibility = () => {
-
-  }
+  const isEligibleToCreate = () => {
+    getUnpublishedDrafts()
+    if (
+      userFullData.value.publishedSignatures.length +
+        unpublishedDrafts.value.length <
+      userFullData.value.signaturePackgage
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return {
     loadingState,
@@ -89,6 +112,8 @@ export const systemStore = defineStore("system", () => {
     addDraft,
     discardDraft,
     getUnpublishedDrafts,
-    unpublishedDrafts
+    unpublishedDrafts,
+    userFullData,
+    isEligibleToCreate,
   };
 });

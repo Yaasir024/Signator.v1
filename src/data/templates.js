@@ -2,13 +2,13 @@ export default {
   templates: [
     {
       id: "1",
-      title: "Suizie's Signature",
       name: "Suizie West",
       type: "pro",
       category: "professional",
       imgSrc: "suizie-west.PNG",
       data: {
         uid: "",
+        title: "Suizie's Signature",
         image: {
           img: "",
           imgSrc:
@@ -112,13 +112,13 @@ export default {
     },
     {
       id: "2",
-      title: "Signature by Jon Dnow",
       name: "Jon Dnow",
       type: "free",
       category: "professional",
       imgSrc: "jon-dnow.PNG",
       data: {
         uid: "",
+        title: "Signature by Jon Dnow",
         image: {
           img: "",
           imgSrc:
@@ -128,19 +128,27 @@ export default {
         position: "Documentarian",
         department: "",
         company: "",
-        contactInfo: [
+        contactInfo: {
+          basicInfo: {
+            phone:'',
+            website:'',
+            email: '',
+            address: ''
+          },
+          customInfo: [
+            {
+              id: "274ts9",
+              field: "Home",
+              value: "jondnow@signator.com",
+            },
+            {
+              id: "7u9e31",
+              field: "Office",
+              value: "+1234534478",
+            },
+          ],
           
-          {
-            id: "274ts9",
-            field: "Email",
-            value: "jondnow@signator.com",
-          },
-          {
-            id: "7u9e31",
-            field: "Phone",
-            value: "+1234534478",
-          },
-        ],
+      },
         socialInfo: [
           {
             id: "0be75d",
@@ -198,6 +206,9 @@ export default {
             width: 146,
             roundness: 0,
           },
+          details:{
+            label: 'full'
+          },
           socialIcon: {
             size: 25,
             roundness: 50,
@@ -207,13 +218,13 @@ export default {
     },
     {
       id: "3",
-      title: "Aria Meaton",
       name: "Aria Meaton",
       type: "pro",
       category: "professional",
       imgSrc: "aria-meaton.PNG",
       data: {
         uid: "",
+        title: "Aria Meaton",
         image: {
           img: "",
           imgSrc:
@@ -285,13 +296,13 @@ export default {
     },
     {
       id: "3",
-      title: "Signature by Carl Snow",
       name: "Carl Snow",
       type: "pro",
       category: "professional",
       imgSrc: "carl-snow.PNG",
       data: {
         uid: "",
+        title: "Signature by Carl Snow",
         image: {
           img: "",
           imgSrc:
