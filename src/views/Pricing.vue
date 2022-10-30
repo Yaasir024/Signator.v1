@@ -38,7 +38,9 @@ import Navbar from "@/components/Navbar.vue";
                     </ul>
                 </div>
               </div>
-              <div class="w-full bg-red-200"></div>
+              <div class="w-full bg-red-200">
+                <div class="flex justify-end"></div>
+              </div>
             </div>
         </div>
     </main>
