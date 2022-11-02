@@ -20,7 +20,7 @@ const useAuth = authStore();
 const useSystemStore = systemStore();
 
 onMounted(() => {
-  useSystemStore.getUnpublishedDrafts();
+  // useSystemStore.getUnpublishedDrafts();
   useDashboard.getSignatures();
   console.log(useDashboard.allSignatures.length);
 });
@@ -81,9 +81,6 @@ const closeDeleteModal = () => {
 <template>
   <div class="min-h-screen">
     <Navbar />
-    <!-- {{useSystemStore.userFullData}} -->
-    <div class="t" v-if="useSystemStore.isEligibleToCreate()">True</div>
-    <div class="check" @click="useSystemStore.isEligibleToCreate()">Check</div>
     <main class="py-8 px-8">
       <div class="flex">
         <main class="w-full py-4 px-2">

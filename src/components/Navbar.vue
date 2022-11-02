@@ -105,6 +105,7 @@ const signOut = () => {
           Go To Dashboard
         </button>
       </RouterLink>
+      <!-- Notification -->
       <div class="ml-3 relative" ref="notificationMenu">
         <div
           class="px-2 transition-all duration-300 ease-in-out cursor-pointer"
@@ -144,59 +145,101 @@ const signOut = () => {
         </div>
         <transition name="navPopup">
           <div
-            class="absolute top-[40px] right-0 z-50 w-[260px] py-4 bg-white shadow-xl border rounded-xl"
+            class="absolute top-[40px] right-0 z-50 w-[220px] py-4 px-5 bg-white shadow-xl border rounded-md"
             v-if="accountNav"
           >
-            <div class="flex items-center border-b pb-3 px-5">
-              <div class="text-gray-400">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="28"
-                  height="28"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 22c-3.123 0-5.914-1.441-7.749-3.69.259-.588.783-.995 1.867-1.246 2.244-.518 4.459-.981 3.393-2.945-3.155-5.82-.899-9.119 2.489-9.119 3.322 0 5.634 3.177 2.489 9.119-1.035 1.952 1.1 2.416 3.393 2.945 1.082.25 1.61.655 1.871 1.241-1.836 2.253-4.628 3.695-7.753 3.695z"
-                  />
-                </svg>
-              </div>
-              <div class="ml-3">
-                <p class="font-medium leading-4">Falana Yaasir</p>
-                <p class="leading-3">meerat@usai.com</p>
-              </div>
-            </div>
-            <div class="">
-              <div class="py-3 px-5">
-                <RouterLink to="/settings/account-setting">
+            <div class="text-base">
+              <div class="py-1">
+                <RouterLink to="/settings/profile">
                   <div class="flex items-center">
-                    <div>
+                    <div class="text-gray-400">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
                         width="24"
                         height="24"
                         fill="currentColor"
+                        viewBox="0 0 24 24"
                       >
                         <path
-                          d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336c44.2 0 80-35.8 80-80s-35.8-80-80-80s-80 35.8-80 80s35.8 80 80 80z"
+                          d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 22c-3.123 0-5.914-1.441-7.749-3.69.259-.588.783-.995 1.867-1.246 2.244-.518 4.459-.981 3.393-2.945-3.155-5.82-.899-9.119 2.489-9.119 3.322 0 5.634 3.177 2.489 9.119-1.035 1.952 1.1 2.416 3.393 2.945 1.082.25 1.61.655 1.871 1.241-1.836 2.253-4.628 3.695-7.753 3.695z"
                         />
                       </svg>
                     </div>
-                    <div class="ml-2">Account Settings</div>
+                    <div class="ml-2">Profile</div>
                   </div>
                 </RouterLink>
               </div>
-              <div class="py-2 px-5">
+              <div class="py-1 border-b">
+                <RouterLink to="/settings/billing-history">
+                  <div class="flex items-center">
+                    <div class="text-gray-400">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M0 8v-3c0-1.105.895-2 2-2h20c1.104 0 2 .895 2 2v3h-24zm24 3v8c0 1.104-.896 2-2 2h-20c-1.105 0-2-.896-2-2v-8h24zm-15 6h-6v1h6v-1zm3-2h-9v1h9v-1zm9 0h-3v1h3v-1z"
+                        />
+                      </svg>
+                    </div>
+                    <div class="ml-2">Billing History</div>
+                  </div>
+                </RouterLink>
+              </div>
+              <div class="py-1">
+                <RouterLink to="/">
+                  <div class="flex items-center">
+                    <div class="text-gray-400">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="currentColor"
+                        viewBox="0 0 512 512"
+                      >
+                        <path
+                          d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+                        />
+                      </svg>
+                    </div>
+                    <div class="ml-2">Contact Us</div>
+                  </div>
+                </RouterLink>
+              </div>
+              <div class="py-1 border-b">
+                <RouterLink to="/">
+                  <div class="flex items-center">
+                    <div class="text-gray-400">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1.25 17c0 .69-.559 1.25-1.25 1.25-.689 0-1.25-.56-1.25-1.25s.561-1.25 1.25-1.25c.691 0 1.25.56 1.25 1.25zm1.393-9.998c-.608-.616-1.515-.955-2.551-.955-2.18 0-3.59 1.55-3.59 3.95h2.011c0-1.486.829-2.013 1.538-2.013.634 0 1.307.421 1.364 1.226.062.847-.39 1.277-.962 1.821-1.412 1.343-1.438 1.993-1.432 3.468h2.005c-.013-.664.03-1.203.935-2.178.677-.73 1.519-1.638 1.536-3.022.011-.924-.284-1.719-.854-2.297z"
+                        />
+                      </svg>
+                    </div>
+                    <div class="ml-2">Help Center</div>
+                  </div>
+                </RouterLink>
+              </div>
+              <div class="py-1">
                 <div
                   class="flex items-center cursor-pointer"
                   @click="signOut()"
                 >
-                  <div>
+                  <div class="text-gray-400">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
+                      width="18"
+                      height="18"
+                      fill="currentColor"
                       viewBox="0 0 24 24"
                     >
                       <path
@@ -247,25 +290,6 @@ const signOut = () => {
         class="mobile-nav pb-10 bg-white shadow-lg border-l fixed top-0 right-0 w-[300px] h-screen z-50"
       >
         <div class="px-5 py-4 border-b flex items-center justify-between">
-          <div class="flex items-center">
-            <div class="text-gray-400">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 22c-3.123 0-5.914-1.441-7.749-3.69.259-.588.783-.995 1.867-1.246 2.244-.518 4.459-.981 3.393-2.945-3.155-5.82-.899-9.119 2.489-9.119 3.322 0 5.634 3.177 2.489 9.119-1.035 1.952 1.1 2.416 3.393 2.945 1.082.25 1.61.655 1.871 1.241-1.836 2.253-4.628 3.695-7.753 3.695z"
-                />
-              </svg>
-            </div>
-            <div class="ml-3">
-              <p class="font-medium leading-4">Falana Yaasir</p>
-              <p class="leading-3">meerat@usai.com</p>
-            </div>
-          </div>
           <button class="cursor-pointer" @click="toggleNav">
             <svg
               viewBox="0 0 24 24"
@@ -314,38 +338,94 @@ const signOut = () => {
           </li>
         </ul>
         <div class="px-5 py-5 border-b" v-if="useAuth.userState">
-          <div class="py-3">
-            <RouterLink to="/settings/account-setting">
-              <div
-                class="flex items-center hover:text-primary-color transition-all duration-300 ease-in-out"
-              >
-                <div>
+          <div class="py-1">
+            <RouterLink to="/settings/profile">
+              <div class="flex items-center">
+                <div class="text-gray-400">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
                     width="24"
                     height="24"
                     fill="currentColor"
+                    viewBox="0 0 24 24"
                   >
                     <path
-                      d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336c44.2 0 80-35.8 80-80s-35.8-80-80-80s-80 35.8-80 80s35.8 80 80 80z"
+                      d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 22c-3.123 0-5.914-1.441-7.749-3.69.259-.588.783-.995 1.867-1.246 2.244-.518 4.459-.981 3.393-2.945-3.155-5.82-.899-9.119 2.489-9.119 3.322 0 5.634 3.177 2.489 9.119-1.035 1.952 1.1 2.416 3.393 2.945 1.082.25 1.61.655 1.871 1.241-1.836 2.253-4.628 3.695-7.753 3.695z"
                     />
                   </svg>
                 </div>
-                <div class="ml-2 text-lg">Account Settings</div>
+                <div class="ml-2">Profile</div>
               </div>
             </RouterLink>
           </div>
-          <div class="py-2">
-            <div
-              class="flex items-center cursor-pointer hover:text-primary-color transition-all duration-300 ease-in-out"
-              @click="signOut()"
-            >
-              <div>
+          <div class="py-1">
+            <RouterLink to="/settings/billing-history">
+              <div class="flex items-center">
+                <div class="text-gray-400">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M0 8v-3c0-1.105.895-2 2-2h20c1.104 0 2 .895 2 2v3h-24zm24 3v8c0 1.104-.896 2-2 2h-20c-1.105 0-2-.896-2-2v-8h24zm-15 6h-6v1h6v-1zm3-2h-9v1h9v-1zm9 0h-3v1h3v-1z"
+                    />
+                  </svg>
+                </div>
+                <div class="ml-2">Billing History</div>
+              </div>
+            </RouterLink>
+          </div>
+          <div class="py-1">
+            <RouterLink to="/">
+              <div class="flex items-center">
+                <div class="text-gray-400">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 512 512"
+                  >
+                    <path
+                      d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+                    />
+                  </svg>
+                </div>
+                <div class="ml-2">Contact Us</div>
+              </div>
+            </RouterLink>
+          </div>
+          <div class="py-1">
+            <RouterLink to="/">
+              <div class="flex items-center">
+                <div class="text-gray-400">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1.25 17c0 .69-.559 1.25-1.25 1.25-.689 0-1.25-.56-1.25-1.25s.561-1.25 1.25-1.25c.691 0 1.25.56 1.25 1.25zm1.393-9.998c-.608-.616-1.515-.955-2.551-.955-2.18 0-3.59 1.55-3.59 3.95h2.011c0-1.486.829-2.013 1.538-2.013.634 0 1.307.421 1.364 1.226.062.847-.39 1.277-.962 1.821-1.412 1.343-1.438 1.993-1.432 3.468h2.005c-.013-.664.03-1.203.935-2.178.677-.73 1.519-1.638 1.536-3.022.011-.924-.284-1.719-.854-2.297z"
+                    />
+                  </svg>
+                </div>
+                <div class="ml-2">Help Center</div>
+              </div>
+            </RouterLink>
+          </div>
+          <div class="py-1">
+            <div class="flex items-center cursor-pointer" @click="signOut()">
+              <div class="text-gray-400">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="18"
+                  height="18"
+                  fill="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -353,7 +433,7 @@ const signOut = () => {
                   />
                 </svg>
               </div>
-              <div class="ml-2 text-lg">Logout</div>
+              <div class="ml-2">Logout</div>
             </div>
           </div>
         </div>

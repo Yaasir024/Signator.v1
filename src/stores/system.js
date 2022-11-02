@@ -40,9 +40,10 @@ export const systemStore = defineStore("system", () => {
 
   const userFullData = ref(null);
   const userRef = doc(firestoreDb, "users", useAuth.userId.uid);
-  onSnapshot(userRef, (doc) => {
-    userFullData.value = doc.data();
-  });
+  // onSnapshot(userRef, (doc) => {
+  //   userFullData.value = doc.data();
+  // });
+  
 
   const notificationData = ref(null);
 
@@ -87,11 +88,11 @@ export const systemStore = defineStore("system", () => {
         );
       }
     });
-    console.log(unpublishedDrafts.value);
   };
+  // getUnpublishedDrafts()
 
   const isEligibleToCreate = () => {
-    getUnpublishedDrafts()
+    // getUnpublishedDrafts()
     if (
       userFullData.value.publishedSignatures.length +
         unpublishedDrafts.value.length <

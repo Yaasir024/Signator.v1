@@ -1,6 +1,8 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import Navbar from "@/components/Navbar.vue";
+import { authStore } from "@/stores/auth";
+const useAuth = authStore();
 </script>
 
 <template>
@@ -9,5 +11,7 @@ import Navbar from "@/components/Navbar.vue";
     <div class="text-center text-4xl py-16">
       HOME PAGE
     </div>
+    {{useAuth.userData}}
+    <!-- {{useAuth.userData.providerData.displayName}} -->
   </main>
 </template>

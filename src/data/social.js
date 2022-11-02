@@ -186,7 +186,7 @@ export default {
     },
     {
       id: 5,
-      name: "vimeo",
+      name: "pinterest",
     },
     {
       id: 6,

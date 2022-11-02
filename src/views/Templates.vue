@@ -1,5 +1,8 @@
 <script setup>
 import Navbar from "@/components/Navbar.vue";
+
+import Overlay from "@/components/Overlay.vue";
+import PricingModal from "@/components/Modal/Pricing.vue";
 import { ref, reactive, computed } from "vue";
 import data from "@/data/templates";
 import { uid } from "@/composables/useGenerateUid";
@@ -27,6 +30,9 @@ const filteredTemplates = computed(() => {
   });
 });
 
+
+const pricingModal = ref(true)
+
 const createEditorSession = (data) => {
   if(useSystemStore.isEligibleToCreate()) {
     console.log('OK')
@@ -34,6 +40,7 @@ const createEditorSession = (data) => {
     useSystemStore.addDraft(data, false)
 
   }else{
+    pricingModal.value = true
     console.log('Can not create more')
   }
   // localStorage.setItem(sessionId, JSON.stringify(data));
@@ -128,9 +135,10 @@ const user = ref("free");
           </div>
         </div>
       </div>
-      templates
     </main>
   </div>
+  <Overlay v-if="pricingModal"/>
+  <PricingModal v-if="pricingModal" @close-modal="pricingModal = false"/>
 </template>
 
 <style scoped>

@@ -130,10 +130,10 @@ export default {
         company: "",
         contactInfo: {
           basicInfo: {
-            phone:'',
-            website:'',
-            email: '',
-            address: ''
+            phone: "",
+            website: "",
+            email: "",
+            address: "",
           },
           customInfo: [
             {
@@ -147,8 +147,7 @@ export default {
               value: "+1234534478",
             },
           ],
-          
-      },
+        },
         socialInfo: [
           {
             id: "0be75d",
@@ -206,8 +205,8 @@ export default {
             width: 146,
             roundness: 0,
           },
-          details:{
-            label: 'full'
+          details: {
+            label: "full",
           },
           socialIcon: {
             size: 25,
@@ -353,35 +352,98 @@ export default {
         },
       },
     },
+    {
+      id: "3",
+      name: "Coltron Daves",
+      type: "pro",
+      category: "professional",
+      imgSrc: "coltron daves.PNG",
+      data: {
+        uid: "7e88br13a7z1c2cf",
+        title: "Coltron Daves",
+        image: {
+          img: "",
+          imgSrc:
+            "https://res.cloudinary.com/dwajobdyb/image/upload/v1665519807/signatorClientImages/john_t4miy2.jpg",
+        },
+        name: "Coltron Daves",
+        position: "",
+        department: "Senior Lawyer",
+        company: "Dufwour Law Office",
+        contactInfo: {
+          basicInfo: {
+            phone: "",
+            website: "www.dufwourlaw.com",
+            email: "coltron@gmail.com",
+            address: "138 Avenue Lapointe Apt. 697, Saint-Thénèse",
+          },
+          customInfo: [],
+        },
+        socialInfo: [
+          { id: "0be75d", name: "twitter", url: "https://twitter.com/" },
+          {
+            id: "df4n18",
+            name: "instagram",
+            url: "https://www.instagram.com/",
+          },
+          { id: "e39n50", name: "facebook", url: "https://facebook.com/" },
+        ],
+        addons: {
+          disclaimer: {
+            text: "IMPORTANT: The contents of this email and any attachments are confidential. It is strictly forbidden to share any part of this message with any third party, without a written consent of the sender. If you received this message by mistake, please reply to this message and follow with its deletion",
+            type: "confidentiality",
+            style: { width: 500, fontSize: "X-small", textColor: "#000000" },
+          },
+        },
+        design: {
+          layout: {
+            fontFamily: "Verdana",
+            fontSize: "14",
+            textColor: "#221b1b",
+            templateColor: "#a68c8c",
+            layout: "Layout01",
+          },
+          image: { width: "78", roundness: 0 },
+          details: { label: "icon" },
+          socialIcon: { size: 25, roundness: "0" },
+        },
+      },
+    },
   ],
   layouts: [
     {
       id: 1,
-      name: "Layouts01",
+      name: "Layout01",
       img: "",
       type: "pro",
     },
     {
       id: 2,
-      name: "Layouts02",
+      name: "Layout02",
       img: "",
       type: "free",
     },
     {
       id: 3,
-      name: "Layouts03",
+      name: "Layout03",
       img: "",
       type: "pro",
     },
     {
       id: 4,
-      name: "Layouts04",
+      name: "Layout04",
       img: "",
       type: "pro",
     },
     {
       id: 5,
       name: "Layout05",
+      img: "",
+      type: "pro",
+    },
+    {
+      id: 6,
+      name: "Layout06",
       img: "",
       type: "pro",
     },

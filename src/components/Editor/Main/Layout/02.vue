@@ -73,7 +73,7 @@ const prop = defineProps(["data"]);
                       <span
                         ><span
                           :style="{
-                            color: data.addons.signoff.style.templateColor,
+                            color: data.design.layout.templateColor,
                           }"
                         >
                           <span v-if="data.design.details.label == 'full'"
@@ -109,8 +109,7 @@ const prop = defineProps(["data"]);
                       <span
                         ><span
                           :style="{
-                            color: data.addons.signoff.style.templateColor,
-                            display: inline - block,
+                            color: data.design.layout.templateColor,
                           }"
                         >
                           <span v-if="data.design.details.label == 'full'"
@@ -146,7 +145,7 @@ const prop = defineProps(["data"]);
                       <span
                         ><span
                           :style="{
-                            color: data.addons.signoff.style.templateColor,
+                            color: data.design.layout.templateColor,
                           }"
                         >
                           <span v-if="data.design.details.label == 'full'"
@@ -182,7 +181,7 @@ const prop = defineProps(["data"]);
                       <span
                         ><span
                           :style="{
-                            color: data.addons.signoff.style.templateColor,
+                            color: data.design.layout.templateColor,
                           }"
                         >
                           <span v-if="data.design.details.label == 'full'"

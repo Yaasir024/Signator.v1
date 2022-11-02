@@ -1,6 +1,5 @@
 <script setup>
-import { ref, reactive, computed } from "vue";
-import { inject } from "vue";
+import { ref, reactive, computed, inject } from "vue";
 import Heading from "@/components/Editor/Heading.vue";
 import { uid } from "@/composables/useGenerateUid";
 import { editorStore } from "@/stores/editor";

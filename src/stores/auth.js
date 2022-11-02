@@ -8,6 +8,8 @@ import {
   signOut,
   onAuthStateChanged,
   updatePassword,
+  updateProfile,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 import {
@@ -122,13 +124,47 @@ export const authStore = defineStore("auth", () => {
     // console.log(auth.currentUser, newPassword)
     updatePassword(auth.currentUser, newPassword)
       .then(() => {
-        // Update successful.
-        console.log("Password Change: Sucess");
+        useSystemStore.addNotificationData({
+          message: "Password Change Successfull",
+          type: "success",
+        });
+      })
+      .catch((error) => {
+        useSystemStore.addNotificationData({
+          message: "Password Change Unsuccessfull",
+          type: "error",
+        });
+      });
+    useSystemStore.loadingState = false;
+  };
+  const updateUserName = async (newName) => {
+    updateProfile(auth.currentUser, {
+      displayName: newName,
+    })
+      .then(() => {
+        useSystemStore.addNotificationData({
+          message: "Name Change Successfull",
+          type: "success",
+        });
+      })
+      .catch((error) => {
+        useSystemStore.addNotificationData({
+          message: "Name Change Unsuccessfull",
+          type: "error",
+        });
+      });
+  };
+
+  const resetPassword = (email) => {
+    sendPasswordResetEmail(auth, "yope4ever@gmail.com")
+      .then(() => {
+        // Password reset email sent!
+        // ..
+        console.log("Success");
       })
       .catch((error) => {
         console.log(error);
       });
-    useSystemStore.loadingState = false;
   };
 
   onAuthStateChanged(auth, (user) => {
@@ -165,5 +201,7 @@ export const authStore = defineStore("auth", () => {
     userId,
     logout,
     updateUserPassword,
+    updateUserName,
+    resetPassword,
   };
 });

@@ -9,7 +9,7 @@ const deleteSig = () => {
 }
 </script>
 <template>
-  <div class="modal fixed top-0 max-w-[400px] w-full bg-white shadow-lg z-50">
+  <div class="modal fixed max-w-[400px] w-full bg-white shadow-lg z-50">
     <div
       class="header bg-[#ff6b6b] py-3 px-4 flex items-center justify-between text-white"
     >

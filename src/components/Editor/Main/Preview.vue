@@ -5,13 +5,16 @@ import Layout02 from "@/components/Editor/Main/Layout/02.vue";
 import Layout03 from "@/components/Editor/Main/Layout/03.vue";
 import Layout04 from "@/components/Editor/Main/Layout/04.vue";
 import Layout05 from "@/components/Editor/Main/Layout/05.vue";
+import Layout06 from "@/components/Editor/Main/Layout/06.vue";
 const prop = defineProps(["data"]);
 
 const layouts = {
+  Layout01,
   Layout02,
   Layout03,
   Layout04,
-  Layout05
+  Layout05,
+  Layout06,
 }
 
 </script>
@@ -24,6 +27,11 @@ const layouts = {
         <div class="sig-preview pt-7 px-9 mb-10">
           <component :is="layouts[data.design.layout.layout]" class="tab" :data="data"></component>
         </div>
+      </div>
+      <div class="px-3">
+
+        <!-- <Layout06 :data="data" /> -->
+        {{data}}
       </div>
     </div>
   </div>

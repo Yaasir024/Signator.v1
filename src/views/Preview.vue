@@ -17,7 +17,7 @@ provide(/* key */ "currentTab", /* value */ currentTab);
 const previewData = ref(null);
 
 onBeforeMount(() => {
-  useEditorStore.getSingleSignature(path);
+  useEditorStore.getSignaturePreview(path);
 });
 </script>
 

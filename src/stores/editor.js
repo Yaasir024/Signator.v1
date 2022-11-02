@@ -80,13 +80,13 @@ export const editorStore = defineStore("editor", () => {
           publishedSignatures: arrayUnion(data.value.uid),
         })
         console.log("Successfull");
-        // router.push({ path: `/preview/${data.value.uid}` });
-        // localStorage.removeItem(data.value.uid);
-        // useSystemStore.drafts = useSystemStore.drafts.filter((item) => item.uid != data.value.uid);
+        router.push({ path: `/preview/${data.value.uid}` });
+        localStorage.removeItem(data.value.uid);
+        useSystemStore.drafts = useSystemStore.drafts.filter((item) => item.uid != data.value.uid);
       })
   };
 
-  const getSingleSignature = async (id) => {
+  const getSignaturePreview = async (id) => {
     const ref = doc(
       firestoreDb,
       "users",
@@ -101,5 +101,5 @@ export const editorStore = defineStore("editor", () => {
       });
   };
 
-  return { data, path, currentEditorNav, addSignature, uploadImg, getSingleSignature, signaturePreviewData };
+  return { data, path, currentEditorNav, addSignature, uploadImg, getSignaturePreview, signaturePreviewData };
 });

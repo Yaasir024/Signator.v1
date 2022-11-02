@@ -100,6 +100,7 @@ const setNavValue = (value) => {
       <button
         class="flex flex-col items-center justify-center h-[74px] w-full px-1 hover:text-gray-500 transition-all ease-in-out duration-400"
         :class="useEditorStore.currentEditorNav === 'layout' ? 'bg-white' : ''"
+        @click="setNavValue('layout')"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

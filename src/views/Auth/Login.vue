@@ -53,7 +53,7 @@ const submit = () => {
           value="Login"
         />
         <div class="mt-2 px-2 text-right">
-          <span class="cursor-pointer">Forgot Password?</span>
+          <!-- <span class="cursor-pointer" @click="useAuth.resetPassword('yope4ever@gmail.com')">Forgot Password?</span> -->
         </div>
       </form>
       <div class="mt-3 text-center">

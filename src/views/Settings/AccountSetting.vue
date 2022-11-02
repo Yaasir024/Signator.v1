@@ -15,7 +15,7 @@ import Sidebar from "@/components/SidebarSetting.vue";
               <h1 class="text-4xl font-semibold">Account Settings</h1>
               <p class="">View and Update your account details and profiles.</p>
             </div>
-            <div class="bg-white shadow-2xl h-24 w-full">
+            <div class="max-w-3xl mx-auto bg-white shadow-2xl h-24 w-full">
               <div class="bg-red-200 px-4 py-6">
                 <h2>Basic Information</h2>
               </div>
