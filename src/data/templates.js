@@ -1,7 +1,7 @@
 export default {
   templates: [
     {
-      id: "1",
+      id: "j4ydmg",
       name: "Suizie West",
       type: "pro",
       category: "professional",
@@ -353,7 +353,7 @@ export default {
       },
     },
     {
-      id: "3",
+      id: "5",
       name: "Coltron Daves",
       type: "pro",
       category: "professional",
@@ -364,7 +364,7 @@ export default {
         image: {
           img: "",
           imgSrc:
-            "https://res.cloudinary.com/dwajobdyb/image/upload/v1665519807/signatorClientImages/john_t4miy2.jpg",
+            "https://res.cloudinary.com/dwajobdyb/image/upload/v1667419226/templateImages/coltron-daves_sy3rkp.jpg",
         },
         name: "Coltron Daves",
         position: "",
@@ -409,7 +409,68 @@ export default {
         },
       },
     },
+    {
+      id: "6",
+      name: "Jen Smith",
+      type: "pro",
+      category: "professional",
+      imgSrc: "jen smith.PNG",
+      data: {
+        uid: "60dn14e42nf7fz5r",
+        title: "Jen Smith Signature",
+        image: {
+          img: "",
+          imgSrc:
+            "https://res.cloudinary.com/dwajobdyb/image/upload/v1667421036/templateImages/jen_smith_n1v2vg.jpg",
+        },
+        name: "Jen Smith",
+        position: "",
+        department: "Graphics Designer",
+        company: "Freelance",
+        contactInfo: {
+          basicInfo: {
+            phone: "555-555-5555",
+            website: "www.jensmithy.com",
+            email: "freelance@jen.com",
+            address: "",
+          },
+          customInfo: [],
+        },
+        socialInfo: [],
+        addons: {
+          social: {
+            items: [
+              { id: "bd6xu4", name: "linkedin", url: "https://linkedin.com" },
+              { id: "7xuz29", name: "pinterest", url: "https://pinterest.com" },
+              { id: "891f2e", name: "twitter", url: "https://twitter.com" },
+            ],
+            style: { height: "32", paddingTop: "9" },
+          },
+          greenMessage: {
+            items: {
+              text: "Please consider your environmental responsibility. Before printing this email message",
+              type: "4",
+              icon: "2.svg",
+            },
+            style: { fontSize: "X-small", textColor: "#000000" },
+          },
+        },
+        design: {
+          layout: {
+            fontFamily: "Verdana",
+            fontSize: "14",
+            textColor: "#221b1b",
+            templateColor: "#a68c8c",
+            layout: "Layout03",
+          },
+          image: { width: "78", roundness: 0 },
+          details: { label: "icon" },
+          socialIcon: { size: 25, roundness: "0" },
+        },
+      },
+    },
   ],
+  templateData: {},
   layouts: [
     {
       id: 1,

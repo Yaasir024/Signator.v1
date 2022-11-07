@@ -36,9 +36,10 @@ const readImage = (event) => {
 </script>
 
 <template>
-  <div class="general pt-6 pb-14">
+  <div class="general pb-14">
     <div class="content max-w-[400px] mx-auto">
       <!-- Image Secion -->
+      
       <div class="wrapper image-section flex items-center justify-center pb-3">
         <div class="image-preview w-[40%] text-secondary-color relative">
           <div

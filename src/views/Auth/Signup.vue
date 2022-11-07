@@ -3,19 +3,22 @@ import Navbar from "@/components/Navbar.vue";
 import { ref, reactive, computed } from "vue";
 import { authStore } from "@/stores/auth";
 const useAuth = authStore();
-const signupForm = ref({ email: "", password: "" });
+const signupForm = ref({ name: "", email: "", password: "" });
+const passwordError = ref(false)
 const submit = () => {
-  if (signupForm.value.email === "") {
-    console.log("You Have to Use an Email");
-  } else if (signupForm.value.password === "") {
-    console.log("Input a password");
-  } else {
+  if(signupForm.value.password.length < 6) {
+    passwordError.value = true
+  }
+  else {
     useAuth.register(signupForm.value);
     signupForm.value.name = "";
     signupForm.value.email = "";
     signupForm.value.password = "";
   }
+  
+    
 };
+
 
 // yope4ver@gmail.com
 </script>
@@ -29,6 +32,16 @@ const submit = () => {
     >
       <h2 class="text-2xl text-center mb-8">Sign Up</h2>
       <form @submit.prevent="submit()">
+        <div class="field mb-4">
+          <div class="mb-1 pl-2">Name</div>
+          <input
+            type="text"
+            placeholder="Name"
+            class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
+            required
+            v-model="signupForm.name"
+          />
+        </div>
         <div class="field mb-4">
           <div class="mb-1 pl-2">Email</div>
           <input
@@ -48,6 +61,7 @@ const submit = () => {
             required
             v-model="signupForm.password"
           />
+          <div class="mt-1 text-center text-[#ff6b6b]" v-if="passwordError">Your Password must be a minimum of six characters.</div>
         </div>
         <button
           type="submit"

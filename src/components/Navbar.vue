@@ -190,7 +190,7 @@ const signOut = () => {
                 </RouterLink>
               </div>
               <div class="py-1">
-                <RouterLink to="/">
+                <RouterLink to="/contact-us">
                   <div class="flex items-center">
                     <div class="text-gray-400">
                       <svg
@@ -210,7 +210,7 @@ const signOut = () => {
                 </RouterLink>
               </div>
               <div class="py-1 border-b">
-                <RouterLink to="/">
+                <RouterLink to="/help-center">
                   <div class="flex items-center">
                     <div class="text-gray-400">
                       <svg
@@ -379,7 +379,7 @@ const signOut = () => {
             </RouterLink>
           </div>
           <div class="py-1">
-            <RouterLink to="/">
+            <RouterLink to="/contact-us">
               <div class="flex items-center">
                 <div class="text-gray-400">
                   <svg
@@ -399,7 +399,7 @@ const signOut = () => {
             </RouterLink>
           </div>
           <div class="py-1">
-            <RouterLink to="/">
+            <RouterLink to="/help-center">
               <div class="flex items-center">
                 <div class="text-gray-400">
                   <svg

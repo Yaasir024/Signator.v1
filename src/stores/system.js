@@ -39,11 +39,13 @@ export const systemStore = defineStore("system", () => {
   ]);
 
   const userFullData = ref(null);
-  const userRef = doc(firestoreDb, "users", useAuth.userId.uid);
-  // onSnapshot(userRef, (doc) => {
-  //   userFullData.value = doc.data();
-  // });
-  
+  if (useAuth.userState) {
+    const userRef = doc(firestoreDb, "users", useAuth.userId.uid);
+    // onSnapshot(userRef, (doc) => {
+    //   userFullData.value = doc.data();
+    //   console.log(userFullData.value);
+    // });
+  }
 
   const notificationData = ref(null);
 
@@ -89,7 +91,9 @@ export const systemStore = defineStore("system", () => {
       }
     });
   };
-  // getUnpublishedDrafts()
+  if (useAuth.userState) {
+    getUnpublishedDrafts();
+  }
 
   const isEligibleToCreate = () => {
     // getUnpublishedDrafts()

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, } from "vue";
+import { ref, reactive, computed } from "vue";
 import Layout01 from "@/components/Editor/Main/Layout/01.vue";
 import Layout02 from "@/components/Editor/Main/Layout/02.vue";
 import Layout03 from "@/components/Editor/Main/Layout/03.vue";
@@ -15,24 +15,42 @@ const layouts = {
   Layout04,
   Layout05,
   Layout06,
-}
-
+};
 </script>
 
 <template>
-  <div class="max-w-[650px] mx-auto my-4 bg-white shadow-lg border rounded-3xl">
-    <div class="">
-      <div class="header px-7 py-4 border-b text-lg">Preview Signature</div>
-      <div class="preview">
+  <div
+    class="max-w-[650px] mx-auto overflow-hidden mt-11 my-4 bg-white shadow-lg border rounded-3xl"
+  >
+  <!-- {{data}} -->
+    <div class="flex flex-col flex-auto">
+      <div class="header px-7 py-4 border-b bg-white shadow-md text-lg">Preview Signature</div>
+      <div class="preview h-[450px] overflow-y-auto overflow-x-hidden">
         <div class="sig-preview pt-7 px-9 mb-10">
-          <component :is="layouts[data.design.layout.layout]" class="tab" :data="data"></component>
+          <component
+            :is="layouts[data.design.layout.layout]"
+            class="tab"
+            :data="data"
+          ></component>
         </div>
-      </div>
-      <div class="px-3">
-
-        <!-- <Layout06 :data="data" /> -->
-        {{data}}
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.preview::-webkit-scrollbar {
+  width: 10px;               /* width of the entire scrollbar */
+}
+
+.preview::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background: #F5F5F5; 
+}
+
+.preview::-webkit-scrollbar-thumb {
+  background-color: darkgrey;    /* color of the scroll thumb */
+  border-bottom-right-radius: 20px;       /* roundness of the scroll thumb */
+  /* border: 1px solid slategray;  creates padding around scroll thumb */
+}
+</style>

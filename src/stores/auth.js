@@ -10,6 +10,7 @@ import {
   updatePassword,
   updateProfile,
   sendPasswordResetEmail,
+  deleteUser,
 } from "firebase/auth";
 
 import {
@@ -42,7 +43,7 @@ export const authStore = defineStore("auth", () => {
   // Register User
   const register = async (form) => {
     useSystemStore.loadingState = true;
-    const { email, password } = form;
+    const { name, email, password } = form;
     const credentials = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -50,23 +51,39 @@ export const authStore = defineStore("auth", () => {
     ).catch((error) => {
       switch (error.code) {
         case "auth/email-already-in-use":
-          alert("Email already in use");
+          useSystemStore.addNotificationData({
+            message: "Error: Email Already in use",
+            type: "error",
+          });
           break;
         case "auth/invalid-email":
-          alert("Invalid email");
+          useSystemStore.addNotificationData({
+            message: "Error: Invalid Email",
+            type: "error",
+          });
           break;
         case "auth/operation-not-allowed":
-          alert("Operation not allowed");
+          useSystemStore.addNotificationData({
+            message: "Error: Operation not Allowed",
+            type: "error",
+          });
           break;
         case "auth/weak-password":
-          alert("Weak password");
+          useSystemStore.addNotificationData({
+            message: "Error: Password too weak",
+            type: "error",
+          });
           break;
         default:
-          alert("Something went wrong");
+          useSystemStore.addNotificationData({
+            message: "Error: Something went wrong",
+            type: "error",
+          });
       }
+      useSystemStore.loadingState = false;
       return;
     });
-    addNewUser(credentials);
+    addNewUser(name, credentials);
   };
   // Login User
   const signin = async (form) => {
@@ -94,15 +111,20 @@ export const authStore = defineStore("auth", () => {
   };
 
   // Add User Data To DB
-  const addNewUser = async (credential) => {
+  const addNewUser = async (name, credential) => {
     const userData = {
+      name: name,
       email: credential.user.email,
       uid: credential.user.uid,
       plan: "Free",
-      signatures: 0,
+      publishedSignatures: [],
+      signaturePackgage: 1,
       billingHistory: null,
     };
     await setDoc(doc(firestoreDb, "users", userData.uid), userData);
+    updateProfile(auth.currentUser, {
+      displayName: name,
+    });
     useSystemStore.loadingState = false;
     pushToHome();
   };
@@ -155,15 +177,17 @@ export const authStore = defineStore("auth", () => {
       });
   };
 
+  const resetMessage = ref("");
   const resetPassword = (email) => {
-    sendPasswordResetEmail(auth, "yope4ever@gmail.com")
+    useSystemStore.loadingState = true;
+    sendPasswordResetEmail(auth, email)
       .then(() => {
-        // Password reset email sent!
-        // ..
-        console.log("Success");
+        resetMessage.value = "success";
+        useSystemStore.loadingState = false;
       })
       .catch((error) => {
-        console.log(error);
+        resetMessage.value = "error";
+        useSystemStore.loadingState = false;
       });
   };
 
@@ -190,7 +214,7 @@ export const authStore = defineStore("auth", () => {
 
   const pushToHome = () => {
     router.push({ path: "/" });
-    router.go();
+    // router.go();
   };
 
   return {
@@ -203,5 +227,6 @@ export const authStore = defineStore("auth", () => {
     updateUserPassword,
     updateUserName,
     resetPassword,
+    resetMessage,
   };
 });

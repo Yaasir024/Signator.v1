@@ -101,5 +101,5 @@ export const editorStore = defineStore("editor", () => {
       });
   };
 
-  return { data, path, currentEditorNav, addSignature, uploadImg, getSignaturePreview, signaturePreviewData };
+  return { data, path, currentEditorNav, addSignature, uploadImg,previewImage, getSignaturePreview, signaturePreviewData };
 });

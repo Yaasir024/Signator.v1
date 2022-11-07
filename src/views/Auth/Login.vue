@@ -53,6 +53,9 @@ const submit = () => {
           value="Login"
         />
         <div class="mt-2 px-2 text-right">
+          <RouterLink to="/forgot-password"
+            ><span class="cursor-pointer">Forgot Password?</span></RouterLink
+          >
           <!-- <span class="cursor-pointer" @click="useAuth.resetPassword('yope4ever@gmail.com')">Forgot Password?</span> -->
         </div>
       </form>
@@ -109,6 +112,5 @@ const submit = () => {
         </div>
       </div>
     </div>
-
   </section>
 </template>

@@ -31,25 +31,26 @@ const filteredTemplates = computed(() => {
 });
 
 
-const pricingModal = ref(true)
+const pricingModal = ref(false)
 
 const createEditorSession = (data) => {
-  if(useSystemStore.isEligibleToCreate()) {
-    console.log('OK')
-    data.uid = uid(16);
-    useSystemStore.addDraft(data, false)
+  // if(useSystemStore.isEligibleToCreate()) {
+  //   console.log('OK')
+  //   data.uid = uid(16);
+  //   useSystemStore.addDraft(data, false)
 
-  }else{
-    pricingModal.value = true
-    console.log('Can not create more')
-  }
-  // localStorage.setItem(sessionId, JSON.stringify(data));
-  // router.push({ path: `/editor/${sessionId}` });
+  // }else{
+  //   pricingModal.value = true
+  //   console.log('Can not create more')
+  // }
+  data.uid = uid(16);
+  localStorage.setItem(data.uid, JSON.stringify(data));
+  router.push({ path: `/editor/${data.uid}` });
   // router.go()
 };
 
 //
-const user = ref("free");
+const user = ref("pro");
 </script>
 
 <template>
@@ -106,7 +107,7 @@ const user = ref("free");
             :key="template.id"
           >
             <div
-              class="card p-5 max-h-[250px] h-full bg-white shadow-lg rounded-xl relative cursor-pointer"
+              class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
             >
               <img
                 :src="'/images/templates/' + template.imgSrc"
@@ -143,6 +144,7 @@ const user = ref("free");
 
 <style scoped>
 .card:hover .overlay {
+  transition: all .3s ease;
   opacity: 1;
 }
 .filter-link.active {
