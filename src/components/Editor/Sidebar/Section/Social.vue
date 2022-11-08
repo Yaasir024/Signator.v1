@@ -89,7 +89,7 @@ const deleteSocialItem = (id) => {
         v-model="socialSearchQuery"
       />
     </div>
-    <div class="social-icons flex flex-wrap justify-center my-8">
+    <div class="social-icons flex flex-wrap my-8">
       <div
         class="m-1"
         v-for="icon in filteredSocialData"

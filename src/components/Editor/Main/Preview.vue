@@ -20,9 +20,8 @@ const layouts = {
 
 <template>
   <div
-    class="max-w-[650px] mx-auto overflow-hidden mt-11 my-4 bg-white shadow-lg border rounded-3xl"
+    class="max-w-[615px] mx-auto overflow-hidden mt-11 my-4 bg-white shadow-lg border rounded-3xl"
   >
-  <!-- {{data}} -->
     <div class="flex flex-col flex-auto">
       <div class="header px-7 py-4 border-b bg-white shadow-md text-lg">Preview Signature</div>
       <div class="preview h-[450px] overflow-y-auto overflow-x-hidden">

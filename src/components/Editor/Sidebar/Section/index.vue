@@ -11,9 +11,9 @@ const useEditorStore = editorStore();
 </script>
 
 <template>
-  <div class="editor-tools h-full w-full overflow-y-auto">
+  <div class="editor-tools h-full w-full">
     <Header />
-    <div class="px-4 pt-8 pb-14">
+    <div class="px-4 pt-6 pb-14 h-full overflow-y-auto">
       <General v-if="useEditorStore.currentEditorNav === 'general'" />
       <Social v-if="useEditorStore.currentEditorNav === 'social'" />
       <Addon v-if="useEditorStore.currentEditorNav === 'addons'" />

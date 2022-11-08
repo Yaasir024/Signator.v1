@@ -1,7 +1,6 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
-import { Cropper } from "vue-advanced-cropper";
-import "vue-advanced-cropper/dist/style.css";
+// https://agontuk.github.io/vue-cropperjs/
 import VueCropper from "vue-cropperjs";
 import "cropperjs/dist/cropper.css";
 import { inject } from "vue";

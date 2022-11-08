@@ -35,7 +35,7 @@ const prop = defineProps(["data"]);
     <tr>
       <table cellpadding="0" style="border-collapse: collapse">
         <tr valign="top">
-          <td>
+          <td v-if="data.image.img || data.image.imgSrc">
             <img
               :src="data.image.img || data.image.imgSrc"
               alt=""

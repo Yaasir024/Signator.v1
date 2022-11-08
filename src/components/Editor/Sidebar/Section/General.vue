@@ -15,7 +15,9 @@ const addNewContactItem = () => {
 };
 // Delete Contact Item
 const deleteContactItem = (id) => {
-  data.contactInfo.customInfo = data.contactInfo.customInfo.filter((item) => item.id != id);
+  data.contactInfo.customInfo = data.contactInfo.customInfo.filter(
+    (item) => item.id != id
+  );
 };
 const clearImage = () => {
   data.image.img = "";
@@ -39,7 +41,7 @@ const readImage = (event) => {
   <div class="general pb-14">
     <div class="content max-w-[400px] mx-auto">
       <!-- Image Secion -->
-      
+
       <div class="wrapper image-section flex items-center justify-center pb-3">
         <div class="image-preview w-[40%] text-secondary-color relative">
           <div
@@ -177,69 +179,78 @@ const readImage = (event) => {
           </div>
 
           <!-- CUSTOM FEILDS -->
-          <Heading :title="'Custom Feilds'" />
-          <div
-            class="field flex space-between mt-4 px-2 relative"
-            v-for="item in data.contactInfo.customInfo"
-            :key="item.id"
-          >
-            <div class="w-[40%] pr-1">
-              <input
-                type="text"
-                placeholder="Field"
-                class="text-sm w-full bg-canvas-color rounded-3xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-3 px-4transition-all ease-in-out duration-300"
-                v-model="item.field"
-              />
-            </div>
-            <div class="w-[60%] pl-1">
-              <input
-                type="text"
-                class="text-sm w-full bg-canvas-color rounded-3xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-4 transition-all ease-in-out duration-300"
-                v-model="item.value"
-              />
-            </div>
-            <div
-              class="flex items-center justify-center absolute right-[-10px] top-3 cursor-pointer"
-              @click="deleteContactItem(item.id)"
-            >
-              <svg
-                height="16"
-                width="16"
-                fill="currentColor"
-                clip-rule="evenodd"
-                fill-rule="evenodd"
-                stroke-linejoin="round"
-                stroke-miterlimit="2"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+          <div class="mt-8 pt-5 border-t">
+            <div class="flex items-center justify-between">
+              <Heading :title="'Custom Fields'" />
+              <div
+                class="relative bg-primary-color text-white font-semibold px-2 rounded-3xl"
               >
-                <path
-                  d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"
-                />
-              </svg>
+                PRO
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Add Button -->
-        <div class="flex justify-end mt-6">
-          <div
-            class="flex items-center text-primary-color cursor-pointer"
-            @click="addNewContactItem()"
-          >
-            <span class="mr-2">Add Field</span>
-            <svg
-              width="24"
-              height="24"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+            <div
+              class="field flex space-between mt-4 px-2 relative"
+              v-for="item in data.contactInfo.customInfo"
+              :key="item.id"
             >
-              <path
-                d="M11.5 0c6.347 0 11.5 5.153 11.5 11.5s-5.153 11.5-11.5 11.5-11.5-5.153-11.5-11.5 5.153-11.5 11.5-11.5zm0 1c5.795 0 10.5 4.705 10.5 10.5s-4.705 10.5-10.5 10.5-10.5-4.705-10.5-10.5 4.705-10.5 10.5-10.5zm.5 10h6v1h-6v6h-1v-6h-6v-1h6v-6h1v6z"
-              />
-            </svg>
+              <div class="w-[40%] pr-1">
+                <input
+                  type="text"
+                  placeholder="Field"
+                  class="text-sm w-full bg-canvas-color rounded-3xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-3 px-4transition-all ease-in-out duration-300"
+                  v-model="item.field"
+                />
+              </div>
+              <div class="w-[60%] pl-1">
+                <input
+                  type="text"
+                  class="text-sm w-full bg-canvas-color rounded-3xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-4 transition-all ease-in-out duration-300"
+                  v-model="item.value"
+                />
+              </div>
+              <div
+                class="flex items-center justify-center absolute right-[-10px] top-3 cursor-pointer"
+                @click="deleteContactItem(item.id)"
+              >
+                <svg
+                  height="16"
+                  width="16"
+                  fill="currentColor"
+                  clip-rule="evenodd"
+                  fill-rule="evenodd"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="2"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <!-- Add Button -->
+            <div class="flex justify-end mt-6" v-if="false">
+              <div
+                class="flex items-center text-primary-color cursor-pointer"
+                @click="addNewContactItem()"
+              >
+                <span class="mr-2">Add Field</span>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                >
+                  <path
+                    d="M11.5 0c6.347 0 11.5 5.153 11.5 11.5s-5.153 11.5-11.5 11.5-11.5-5.153-11.5-11.5 5.153-11.5 11.5-11.5zm0 1c5.795 0 10.5 4.705 10.5 10.5s-4.705 10.5-10.5 10.5-10.5-4.705-10.5-10.5 4.705-10.5 10.5-10.5zm.5 10h6v1h-6v6h-1v-6h-6v-1h6v-6h1v6z"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>

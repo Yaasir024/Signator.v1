@@ -12,7 +12,7 @@ const deleteSignature = () => {
 </script>
 <template>
   <div
-    class="py-3 px-4 text-base font-medium w-full border-b bg-white shadow-md mb-6 sticky top-0 z-30 flex items-center justify-between"
+    class="py-3 px-4 text-base font-medium w-full border-b bg-white shadow-md sticky top-0 z-30 flex items-center justify-between"
   >
     <div class="cursor-default">
       <span v-if="!edit">{{ data.title }}</span>

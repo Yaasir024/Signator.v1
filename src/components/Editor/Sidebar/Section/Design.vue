@@ -27,8 +27,10 @@ useClickOutside(fontMenuBar, () => {
   <!-- DESIGN -->
   <div class="design pb-14">
     <!-- Layout -->
-    <div class="layout pb-7 border-b">
-      <Heading :title="'Layout'" />
+    <div class="layout pb-4 border-b">
+      <div class="mb-2">
+        <Heading :title="'Layout'" />
+      </div>
       <!-- Font Family -->
       <div class="item flex items-center justify-between mb-5">
         <label>Font Family</label>
@@ -143,8 +145,10 @@ useClickOutside(fontMenuBar, () => {
       </div>
     </div>
     <!-- Image -->
-    <div class="image mt-10 pb-6">
-      <Heading :title="'Image'" />
+    <div class="image mt-10 pb-4 border-b">
+      <div class="mb-2">
+        <Heading :title="'Image'" />
+      </div>
       <!-- Image Width -->
       <div class="mb-5">
         <div class="flex items-center justify-between">
@@ -176,8 +180,10 @@ useClickOutside(fontMenuBar, () => {
       </div>
     </div>
     <!-- Details -->
-    <div class="social-icon mt-10 pb-6">
-      <Heading :title="'Details'" />
+    <div class="social-icon mt-8 pb-4 border-b">
+      <div class="mb-2">
+        <Heading :title="'Details'" />
+      </div>
       <!-- Label -->
       <div class="flex items-center mb-5">
         <span class="w-[40%]">Label</span>
@@ -215,7 +221,18 @@ useClickOutside(fontMenuBar, () => {
               "
               @click="data.design.details.label = 'icon'"
             >
-            <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M8.26 1.289l-1.564.772c-5.793 3.02 2.798 20.944 9.31 20.944.46 0 .904-.094 1.317-.284l1.542-.755-2.898-5.594-1.54.754c-.181.087-.384.134-.597.134-2.561 0-6.841-8.204-4.241-9.596l1.546-.763-2.875-5.612zm7.746 22.711c-5.68 0-12.221-11.114-12.221-17.832 0-2.419.833-4.146 2.457-4.992l2.382-1.176 3.857 7.347-2.437 1.201c-1.439.772 2.409 8.424 3.956 7.68l2.399-1.179 3.816 7.36s-2.36 1.162-2.476 1.215c-.547.251-1.129.376-1.733.376"/></svg>
+              <svg
+                width="24"
+                height="24"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+              >
+                <path
+                  d="M8.26 1.289l-1.564.772c-5.793 3.02 2.798 20.944 9.31 20.944.46 0 .904-.094 1.317-.284l1.542-.755-2.898-5.594-1.54.754c-.181.087-.384.134-.597.134-2.561 0-6.841-8.204-4.241-9.596l1.546-.763-2.875-5.612zm7.746 22.711c-5.68 0-12.221-11.114-12.221-17.832 0-2.419.833-4.146 2.457-4.992l2.382-1.176 3.857 7.347-2.437 1.201c-1.439.772 2.409 8.424 3.956 7.68l2.399-1.179 3.816 7.36s-2.36 1.162-2.476 1.215c-.547.251-1.129.376-1.733.376"
+                />
+              </svg>
             </li>
             <li
               class="flex items-center justify-center flex-1 border transition-all ease-in-out duration-300 p-2 rounded-r-xl"
@@ -233,8 +250,10 @@ useClickOutside(fontMenuBar, () => {
       </div>
     </div>
     <!-- Social Icon -->
-    <div class="social-icon mt-10 pb-6">
-      <Heading :title="'Social Icon'" />
+    <div class="social-icon mt-8 pb-6">
+      <div class="mb-2">
+        <Heading :title="'Social Icon'" />
+      </div>
 
       <!-- Icon Width -->
       <div class="mb-5">

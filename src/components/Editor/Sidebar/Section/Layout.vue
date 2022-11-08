@@ -22,13 +22,13 @@ const proLayouts = computed(() => {
         <div class="text-base font-medium mb-2">LAYOUTS</div>
         <div class="grid grid-cols-2 gap-x-2 gap-y-3">
           <div
-            class="p-2 border rounded-lg min-h-[150px] flex flex-col items-center justify-between cursor-pointer hover:shadow-lg transition-all ease-in duration-200"
+            class="p-2 border rounded-lg min-h-[120px] flex flex-col items-center justify-center cursor-pointer hover:shadow-lg transition-all ease-in duration-200"
             v-for="layout in templatesData.layouts"
             :key="layout.id"
             :class="data.design.layout.layout === layout.name ? 'border-2 border-primary-color' : '' "
             @click="data.design.layout.layout = layout.name"
           >
-            <img src="/images/layouts/01.png" alt="" />
+            <img :src="'/images/layouts/' + layout.img" alt="" />
             <div class="">
               {{ layout.name }}
             </div>

@@ -63,7 +63,7 @@ const signOut = () => {
     </RouterLink>
     <div class="hidden md:flex items-center">
       <RouterLink
-        to="/"
+        to="/features"
         class="py-2 px-4 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
       >
         Features
@@ -306,7 +306,7 @@ const signOut = () => {
         <ul class="px-5 py-5 border-b">
           <li>
             <RouterLink
-              to="/"
+              to="/features"
               class="block py-2 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
             >
               Features

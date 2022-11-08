@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="text-base font-medium mb-4">
+  <div class="text-base font-medium">
     {{title}}
   </div>
 </template>
