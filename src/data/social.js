@@ -159,7 +159,7 @@ export default {
     },
     {
       id: 28,
-      name: "googe-maps",
+      name: "google-maps",
       url: "https://www.google.com/maps",
       color: "rgb(234, 67, 53)",
     },
