@@ -30,6 +30,9 @@ const filteredTemplates = computed(() => {
   });
 });
 
+const organizedTemplates = computed(() => {
+  
+})
 
 const pricingModal = ref(false)
 

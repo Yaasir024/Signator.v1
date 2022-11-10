@@ -24,7 +24,7 @@ const layouts = {
   >
     <div class="flex flex-col flex-auto">
       <div class="header px-7 py-4 border-b bg-white shadow-md text-lg">Preview Signature</div>
-      <div class="preview h-[450px] overflow-y-auto overflow-x-hidden">
+      <div class="preview max-h-[450px] overflow-y-auto overflow-x-hidden">
         <div class="sig-preview pt-7 px-9 mb-10">
           <component
             :is="layouts[data.design.layout.layout]"
