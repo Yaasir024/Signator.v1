@@ -25,13 +25,25 @@ const layouts = {
     <div class="flex flex-col flex-auto">
       <div class="header px-7 py-4 border-b bg-white shadow-md text-lg">Preview Signature</div>
       <div class="preview max-h-[450px] overflow-y-auto overflow-x-hidden">
-        <div class="sig-preview pt-7 px-9 mb-10">
+        <div class="px-8 py-3">
+          <div class="pb-1 mb-1 border-b">From:</div>
+          <div class="pb-1 mb-1 border-b">To:</div>
+          <div class="pb-1 mb-1 border-b">Subject:</div>
+        </div>
+        <div class="sig-preview pt-1 px-9 mb-10">
           <component
             :is="layouts[data.design.layout.layout]"
             class="tab"
             :data="data"
           ></component>
         </div>
+        <!-- <div class="sig-preview pt-7 px-9 mb-10">
+          <component
+            :is="layouts[data.design.layout.layout]"
+            class="tab"
+            :data="data"
+          ></component>
+        </div> -->
       </div>
     </div>
   </div>

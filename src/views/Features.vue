@@ -10,7 +10,7 @@ const useAuth = authStore();
   <div class="min-h-screen">
     <Navbar />
     <main class="">
-      <div class="py-12 text-center">
+      <div class=" pt-[70px] pb-[90px] px-4 text-center">
         <h1 class="text-4xl font-medium leading-10">Features</h1>
         <p class="text-lg">
           Signator provides you with lots of cool features for creating your
@@ -25,10 +25,10 @@ const useAuth = authStore();
       <section class="features w-full bg-white py-5">
         <div class="w-full px-6">
           <div
-            class="flex items-center justify-center flex-col md:flex-row max-w-[1160px] mx-auto py-6"
+          class="flex items-center justify-center flex-col-reverse md:flex-row-reverse max-w-[1160px] mx-auto py-6"
           >
             <article
-              class="flex flex-col items-center md:items-end md:pr-6 text-center md:text-right"
+            class="flex flex-col items-center md:items-start md:pr-6 mb-4 md:mb-0 text-center md:text-left"
             >
               <h3 class="text-2xl font-medium">Simple, Easy to use Editor</h3>
               <p class="mt-2 text-lg max-w-[360px]">
@@ -50,6 +50,7 @@ const useAuth = authStore();
             </div>
           </div>
         </div>
+        <!-- Templates and Layouts -->
         <div class="w-full px-6">
           <div
             class="flex items-center justify-center flex-col md:flex-row max-w-[1160px] mx-auto py-6"
@@ -139,35 +140,27 @@ const useAuth = authStore();
               </p>
             </div>
             <div class="flex flex-wrap justify-center">
-              <!-- <div class="flex-50% md:flex-33.33% w-full px-4 py-2">
-                <h3 class="text-xl font-medium">Templates and layouts</h3>
-                <p class="text-base mt-2">
-                  Create the professional signature your emails need with our
-                  templates and layouts.Have your own design in mind? Contact us
-                  so we can make it work. Additional charges may apply
-                </p>
-              </div> -->
-              <div class="flex-50% md:flex-33.33% w-full px-4 py-2">
+              <div class="flex-full sm:flex-50% md:flex-33.33% w-full px-4 py-2">
                 <h3 class="text-xl font-medium">Custom Fields</h3>
                 <p class="text-base mt-2">
                   Add as many custom fields as you like to your signature for
                   your most important details.
                 </p>
               </div>
-              <div class="flex-50% md:flex-33.33% w-full px-4 py-2">
+              <div class="flex-full sm:flex-50% md:flex-33.33% w-full px-4 py-2">
                 <h3 class="text-xl font-medium">Cropper Tool</h3>
                 <p class="text-base mt-2">
                   Our cropper tool allows you to edit the picture that you’ve
                   uploaded by cropping it to any size in seconds.
                 </p>
               </div>
-              <div class="flex-50% md:flex-33.33% w-full px-4 py-2">
+              <div class="flex-full sm:flex-50% md:flex-33.33% w-full px-4 py-2">
                 <h3 class="text-xl font-medium">Fonts Variation</h3>
                 <p class="text-base mt-2">
                   Choose from a variety of fonts that best match your needs.
                 </p>
               </div>
-              <div class="flex-50% md:flex-33.33% w-full px-4 py-2">
+              <div class="flex-full sm:flex-50% md:flex-33.33% w-full px-4 py-2">
                 <h3 class="text-xl font-medium">Easy to Manage Dashboard</h3>
                 <p class="text-base mt-2">
                   View and manage all your email signatures from a dashboard.
@@ -177,7 +170,7 @@ const useAuth = authStore();
           </div>
         </div>
         <div class="bg-canvas-color w-full px-6">
-          <div class="max-w-[1160px] mx-auto py-12 text-center">
+          <div class="max-w-[1160px] mx-auto py-14 text-center">
             <h3 class="text-2xl font-medium">
               Build your unique email signature today with Signator
             </h3>

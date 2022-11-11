@@ -469,6 +469,7 @@ export default {
         },
       },
     },
+    
   ],
   templateData: {},
   layouts: [
