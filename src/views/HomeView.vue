@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/Navigations/Navbar.vue";
+import Footer from "@/components/Navigations/Footer.vue";
 import { authStore } from "@/stores/auth";
 
 const useAuth = authStore();
@@ -15,7 +16,7 @@ const useAuth = authStore();
       >
         <div class="mt-6 lg:mt-0">
           <h2
-            class="text-[32px] max-w-[316px] leading-[44.8px] text-center mx-auto font-semibold sm:text-[40px] sm:max-w-[500px] lg:text-400px lg:max-w-400px sm:leading-56 lg:text-left lg:mx-0"
+            class="text-[32px] max-w-[316px] leading-[44.8px] text-center mx-auto font-semibold sm:text-[40px] sm:max-w-[500px] lg:text-400px lg:max-w-400px sm:leading-56 lg:text-right lg:mx-0"
           >
             Simple-to-use signature generator
             <span class="text-primary-color text-3xlfont-extrabold inline-block"
@@ -23,7 +24,7 @@ const useAuth = authStore();
             >
           </h2>
           <p
-            class="max-w-[343px] text-center text-[16px] leading-[24.64px] mx-auto font-normal mt-7 sm:max-w-[400px] sm:text-[18px] lg:text-left lg:mx-0"
+            class="max-w-[343px] text-center text-[16px] leading-[24.64px] mx-auto font-normal mt-7 sm:max-w-[400px] sm:text-[18px] lg:text-right lg:mx-0"
           >
             Signator a simple-to-use email signature generator designed to
             enhance your interactions with clients, coworkers, and business
@@ -119,6 +120,7 @@ const useAuth = authStore();
         </div>
       </div>
     </section>
+    <Footer />
   </div>
 </template>
 
@@ -133,7 +135,7 @@ const useAuth = authStore();
 @media only screen and (min-width: 1024px) {
   .hero {
     display: grid;
-    grid-template-columns: 1fr 1.3fr;
+    grid-template-columns: 1fr .9fr;
     grid-template-rows: 1fr;
     gap: 10px;
   }

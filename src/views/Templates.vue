@@ -68,7 +68,7 @@ const user = ref("pro");
           </h3>
         </div>
       </section>
-      <ul class="filter-bar flex flex-center justify-center text-lg">
+      <ul class="filter-bar flex flex-center justify-center text-lg" v-if="false">
         <li
           class="px-5 py-2 cursor-pointer border border-gray-400 rounded-l-2xl transition-all ease-in-out duration-350"
           @click="filter('all')"

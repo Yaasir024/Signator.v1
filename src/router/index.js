@@ -37,6 +37,17 @@ const router = createRouter({
       },
     },
     {
+      path: "/help-center/articles/:uid",
+      name: "article",
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("../views/Help/HelpArticle.vue"),
+      meta: {
+        requiresAuth: false,
+      },
+    },
+    {
       path: "/contact-us",
       name: "contact-us",
       // route level code-splitting

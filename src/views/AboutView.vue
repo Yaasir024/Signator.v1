@@ -1,21 +1,29 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
+import Navbar from "@/components/Navbar.vue";
+// import data from "@/data/notification";
 
+import { useSinglePrismicDocument, usePrismicDocumentByUID  } from "@prismicio/vue";
+const {document} = useSinglePrismicDocument('home')
+
+const {data: home, error} = usePrismicDocumentByUID("help", 'setting-up-your-signator-account');
 </script>
 
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
-    <button >Create</button>
+    <Navbar />
+    <!-- {{document}} -->
+    {{home}}
+    <!-- {{data}} -->
+    <div class="" v-if="document">
+      {{document}}
+      <!-- <h1>{{ $prismic.asText(document.data.title) }}</h1> -->
+    </div>
+    <!-- <div class="" v-if="home">
+      <h1>{{ $prismic.asText(home.data.title) }}</h1>
+    </div> -->
   </div>
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
 </style>
