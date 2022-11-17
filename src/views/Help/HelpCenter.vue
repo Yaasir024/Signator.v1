@@ -1,34 +1,38 @@
 <script setup>
-import Navbar from "@/components/Navbar.vue";
 import { ref, reactive, computed } from "vue";
-import {
-  useSinglePrismicDocument,
-  usePrismicDocumentByUID,
-  useAllPrismicDocumentsByType,
-  useAllPrismicDocumentsByTag,
-PrismicText
-} from "@prismicio/vue";
+import { useRoute, useRouter } from "vue-router";
 
-const { data: helpData } = useAllPrismicDocumentsByType("help");
-const { data: gettingStartedArticles } = useAllPrismicDocumentsByTag("gettingStartedHelpArticles");
-const { data: accountSettingsArticles } = useAllPrismicDocumentsByTag("accountSettingsHelpArticles");
-const { data: installationGuidesArticles } = useAllPrismicDocumentsByTag("installationGuidesHelpArticles");
+import Navbar from "@/components/Navigations/Navbar.vue";
+import Footer from "@/components/Navigations/Footer.vue";
 
+import { articlesStore } from "@/stores/articles";
+const useArticles = articlesStore();
+const router = useRouter();
+
+
+const searchQuery = ref('')
+const search = () => {
+  if(searchQuery.value != '') {
+    router.push({ path: `/help-center/search/${searchQuery.value}` });
+    console.log(searchQuery.value)
+  }
+}
 
 </script>
 
 <template>
-  <section class="min-h-screen">
+  <section class="min-h-screen bg-white">
     <Navbar />
-    <main class="">
-      <div class="hero bg-white py-20 px-6 border-t w-full">
+    <main class="mb-24">
+      <div class="hero bg-canvas-color py-20 px-6 border-t w-full">
         <div class="max-w-[820px] mx-auto text-center">
           <h1 class="text-4xl font-medium">Welcome, How can we help?</h1>
           <div
             class="search-container w-[400px] mx-auto h-[60px] mt-8 bg-white rounded-xl shadow-2xl flex items-center justify-center"
           >
-            <div
+            <form
               class="w-[95%] h-[calc(60px_-_20px)] flex items-center justify-center"
+              @submit.prevent="search()"
             >
               <div
                 class="w-[80%] h-full flex items-center px-2 bg-canvas-color rounded-xl"
@@ -48,42 +52,45 @@ const { data: installationGuidesArticles } = useAllPrismicDocumentsByTag("instal
                   type="text"
                   placeholder="Search for question"
                   class="w-full outline-none px-2 h-full bg-canvas-color"
+                  required
+                  v-model="searchQuery"
                 />
               </div>
-              <div
+              <button
+              type="submit"
                 class="btn w-[20%] h-[40px] flex items-center justify-center cursor-pointer text-base"
               >
                 SEARCH
-              </div>
-            </div>
+              </button>
+            </form>
           </div>
         </div>
       </div>
-      <div class="max-w-[900px] mx-auto px-6 py-8">
-        <section class="" v-if="gettingStartedArticles">
+      <div class="max-w-[700px] mx-auto px-6 py-8">
+        <section class="" v-if="useArticles.gettingStartedArticles">
           <h1 class="text-2xl font-medium">Getting Started</h1>
           <ul class="articles list-disc pl-5 inline-block">
-            <li v-for="article in gettingStartedArticles" :key="article.id" class="text-base hover:text-primary-color transition-all duration-300 ease-in-out">
+            <li v-for="article in useArticles.gettingStartedArticles" :key="article.id" class="text-base hover:text-primary-color transition-all duration-300 ease-in-out">
               <router-link :to="'/help-center/articles/' + article.uid">
                 <PrismicText :field="article.data.title" wrapper="h2" />
               </router-link>
             </li>
           </ul>
         </section>
-        <section class="mt-2" v-if="accountSettingsArticles">
+        <section class="mt-2" v-if="useArticles.accountSettingsArticles">
           <h1 class="text-2xl font-medium">Account Settings</h1>
           <ul class="articles list-disc pl-5  inline-block">
-            <li v-for="article in accountSettingsArticles" :key="article.id" class="text-base hover:text-primary-color transition-all duration-300 ease-in-out">
+            <li v-for="article in useArticles.accountSettingsArticles" :key="article.id" class="text-base hover:text-primary-color transition-all duration-300 ease-in-out">
               <router-link :to="'/help-center/articles/' + article.uid">
                 <PrismicText :field="article.data.title" wrapper="h2" />
               </router-link>
             </li>
           </ul>
         </section>
-        <section class="mt-2" v-if="installationGuidesArticles">
+        <section class="mt-2" v-if="useArticles.installationGuidesArticles">
           <h1 class="text-2xl font-medium">Installation Guides</h1>
           <ul class="articles list-disc pl-5  inline-block">
-            <li v-for="article in installationGuidesArticles" :key="article.id" class="text-base hover:text-primary-color transition-all duration-300 ease-in-out">
+            <li v-for="article in useArticles.installationGuidesArticles" :key="article.id" class="text-base hover:text-primary-color transition-all duration-300 ease-in-out">
               <router-link :to="'/help-center/articles/' + article.uid">
                 <PrismicText :field="article.data.title" wrapper="h2" />
               </router-link>
@@ -93,5 +100,6 @@ const { data: installationGuidesArticles } = useAllPrismicDocumentsByTag("instal
 
       </div>
     </main>
+    <Footer />
   </section>
 </template>

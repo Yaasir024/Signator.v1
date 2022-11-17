@@ -2,6 +2,10 @@ import * as prismicH from "@prismicio/helpers";
 // const linkResolver = (doc) => '/' + doc.id
 export const htmlSerializer: prismicH.HTMLMapSerializer = {
   heading1: ({ children }) => `<h1 class="text-3xl font-bold">${children}</h1>`,
+  heading2: ({ children }) => `<h2>${children}</h2>`,
+  heading3: ({ children }) => `<h3>${children}</h3>`,
+  heading4: ({ children }) => `<h4>${children}</h4>`,
+  heading5: ({ children }) => `<h5>${children}</h5>`,
   heading6: ({ children }) => `<p class="text-xl italic">${children}</p>`,
   paragraph: ({ children }) => {
     const transformedChildren = children.replace(
@@ -10,11 +14,11 @@ export const htmlSerializer: prismicH.HTMLMapSerializer = {
       '<code class="bg-gray-200 rounded py-px px-1 font-mono">$1</code>'
     );
 
-    return `<p>${transformedChildren}</p>`;
+    return `<p class="text-base">${transformedChildren}</p>`;
   },
   hyperlink: ({ node, children }) => {
     const linkResolver = (doc) => {
-      return doc.url 
+      return doc.url;
       // console.log(doc.url);
     };
     const target = node.data.target

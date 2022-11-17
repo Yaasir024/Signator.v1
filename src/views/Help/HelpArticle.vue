@@ -1,5 +1,6 @@
 <script setup>
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/Navigations/Navbar.vue";
+import Footer from "@/components/Navigations/Footer.vue";
 import { ref, reactive, computed } from "vue";
 import { useRoute } from "vue-router";
 import {
@@ -7,13 +8,15 @@ import {
   PrismicText,
   defineSliceZoneComponents,
   PrismicRichText,
+  useAllPrismicDocumentsByTag,
 } from "@prismicio/vue";
-
-import {htmlSerializer} from "@/services/htmlSerializer"
 
 import Image from "@/components/Slices/Image.vue";
 import Text from "@/components/Slices/Text.vue";
 import Step from "@/components/Slices/Step.vue";
+
+import { articlesStore } from "@/stores/articles";
+const useArticles = articlesStore();
 
 const route = useRoute();
 const path = route.params.uid;
@@ -23,44 +26,50 @@ const { data: article, error } = usePrismicDocumentByUID("help", path);
 const components = defineSliceZoneComponents({
   image_component: Image,
   text_component: Text,
-  step: Step,
 });
+const { data: similarArticles } = useAllPrismicDocumentsByTag(
+  "installationGuidesHelpArticles"
+);
+const get = () => {
+  console.log(similarArticles.value.slice(0, 4));
+};
 </script>
 
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen bg-white">
     <Navbar />
-    <div class="px-6 py-8">
-        <div class="flex">
-            <aside class="flex-25% bg-red-400">
-                AAAAAAAAA
-            </aside>
-            <article class="flex-66.66% px-4" v-if="article">
-                <header class="pb-4 mb-5 border-b-2">
-                    <div class="text-3xl font-medium">
-                        {{$prismic.asText(article.data.title)}}
-                    </div>
-                    <div class="">
-                        BY: Signator
-                    </div>
-                </header>
-                <div class="">
-                    <SliceZone :slices="article.data.body" :components="components"/>
-                </div>
-            </article>
-        </div>
+    <div class="max-w-[1150px] mx-auto px-6 pt-16 mb-24">
+      <div class="flex" v-if="article">
+        <article class="flex-100% lg:flex-75% px-6">
+          <header class="pb-4 mb-5 px-3 border-b-2">
+            <div class="text-4xl font-medium mb-3">
+              {{ $prismic.asText(article.data.title) }}
+            </div>
+            <div class="text-lg">BY: Signator</div>
+          </header>
+          <div class="px-3 pt-8 pb-12 border-b-2">
+            <SliceZone :slices="article.data.body" :components="components" />
+          </div>
+        </article>
+        <aside class="flex-25% hidden lg:block">
+          <div class="pt-14 px-3">
+            <h2 class="mb-4 text-2xl font-medium">Articles in this section</h2>
+            <ul class="articles">
+              <li
+                v-for="a in useArticles.getSimilarArticles(article.data.section)"
+                :key="a.id"
+                class="text-base hover:text-primary-color transition-all duration-300 ease-in-out"
+                :class="a.id == article.id ? 'text-primary-color' : ''"
+              >
+                <router-link :to="'/help-center/articles/' + a.uid">
+                  <PrismicText :field="a.data.title" wrapper="h2" />
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
     </div>
-
-    <!-- <div class="bg-red-200" v-if="article">
-      <PrismicRichText :field="article.data.info" :html-serializer="htmlSerializer"/>
-      <PrismicText :field="article.data.article_title" />
-
-      aaaaaaaaaaaaaaaaaa
-    </div> -->
-
-    <div class="" v-if="article">
-      {{ path }}
-      {{ article.data }}
-    </div>
+    <Footer />
   </div>
 </template>

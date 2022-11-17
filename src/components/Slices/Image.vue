@@ -7,7 +7,7 @@ export default {
 
 <template>
     <figure>
-        <PrismicImage :field="slice.primary.image" />
+        <PrismicImage :field="slice.primary.image" class="max-h-[360px] my-4"/>
         
     </figure>
 </template>
