@@ -437,24 +437,7 @@ export default {
           customInfo: [],
         },
         socialInfo: [],
-        addons: {
-          social: {
-            items: [
-              { id: "bd6xu4", name: "linkedin", url: "https://linkedin.com" },
-              { id: "7xuz29", name: "pinterest", url: "https://pinterest.com" },
-              { id: "891f2e", name: "twitter", url: "https://twitter.com" },
-            ],
-            style: { height: "32", paddingTop: "9" },
-          },
-          greenMessage: {
-            items: {
-              text: "Please consider your environmental responsibility. Before printing this email message",
-              type: "4",
-              icon: "2.svg",
-            },
-            style: { fontSize: "X-small", textColor: "#000000" },
-          },
-        },
+        addons: [],
         design: {
           layout: {
             fontFamily: "Verdana",

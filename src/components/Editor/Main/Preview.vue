@@ -31,11 +31,12 @@ const layouts = {
           <div class="pb-1 mb-1 border-b">Subject:</div>
         </div>
         <div class="sig-preview pt-1 px-9 mb-10">
-          <component
+          <!-- <component
             :is="layouts[data.design.layout.layout]"
             class="tab"
             :data="data"
-          ></component>
+          ></component> -->
+          {{data.addons}}
         </div>
         <!-- <div class="sig-preview pt-7 px-9 mb-10">
           <component

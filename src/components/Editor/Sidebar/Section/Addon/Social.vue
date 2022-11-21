@@ -7,6 +7,12 @@ import addonData from "@/data/addons";
 import socialData from "@/data/social";
 const data = inject("data");
 
+// const props = defineProps(['addon'])
+
+// const social = computed(() => {
+//     return data.find(x => x.part == 'side')
+// })
+
 const getUrl = (social) => {
   let result = socialData.socialIcons.find((item) => item.name === social);
   return result.url;

@@ -14,6 +14,15 @@ import { editorStore } from "@/stores/editor";
 const useEditorStore = editorStore();
 const data = inject("data");
 
+const addonComponents = {
+  Signoff,
+  Disclaimer,
+  Social,
+  GreenMessage,
+  VideoMeeting,
+  Cta,
+};
+
 const checkAddedAddons = () => {
   return (
     data.addons.signoff ||
@@ -40,30 +49,46 @@ const checkFeatureQualification = (feature) => {
   return addonData.featuresQualification[feature].includes("premium");
 };
 
-const addAddons = (addon) => {
-  if (checkFeatureQualification(addon)) {
-    data.addons[addon] = addonData.defaultAddonData[addon];
+const checkAddons = (addon) => {
+  if(data.addons.some((e) => e.type === addon)) {
+    return true
   }
+  return false
+}
+
+const addAddons = (addon) => {
+  // if (checkFeatureQualification(addon)) {
+  //   data.addons[addon] = addonData.defaultAddonData[addon];
+  // }
+  data.addons.push(addonData.defaultAddonData[addon])
 };
 </script>
 
 <template>
   <div class="addons pb-14">
     <!-- Added Addons -->
-    <div class="border-b pb-7 mb-10" v-if="checkAddedAddons()">
+    <!-- v-if="checkAddedAddons()" -->
+    <div class="border-b pb-7 mb-10" >
       <Heading :title="'Added Addons'" />
-      <Signoff v-if="data.addons.signoff" />
+      <div class="" v-for="addon in data.addons" :key="addon.type">
+        {{addon.type}}
+        <component
+            :is="addonComponents[addon.type]"
+            :addon="addon.type"
+          ></component>
+      </div>
+      <!-- <Signoff v-if="data.addons.signoff" />
       <Disclaimer v-if="data.addons.disclaimer" />
       <Social v-if="data.addons.social" />
       <GreenMessage v-if="data.addons.greenMessage" />
       <VideoMeeting v-if="data.addons.videoMeeting" />
-      <Cta v-if="data.addons.cta" />
+      <Cta v-if="data.addons.cta" /> -->
     </div>
     <!-- Available Addons-->
     <div class="available-addons pb-12" v-if="checkAvailableAddons()">
       <Heading :title="'Available Addons'" />
       <!-- SignOff -->
-      <div class="mb-4" v-if="!data.addons.signoff">
+      <div class="mb-4" v-if="!checkAddons('signoff')">
         <div
           class="accordion flex items-center py-4 px-8 rounded-3xl shadow-lg border cursor-pointer"
           @click="addAddons('signoff')"
@@ -90,7 +115,7 @@ const addAddons = (addon) => {
         </div>
       </div>
       <!-- Discalimer -->
-      <div class="mb-4" v-if="!data.addons.disclaimer">
+      <div class="mb-4" v-if="!checkAddons('disclaimer')">
         <div
           class="accordion flex items-center justify-between py-4 px-8 rounded-3xl shadow-lg border cursor-pointer"
           @click="addAddons('disclaimer')"
@@ -119,7 +144,7 @@ const addAddons = (addon) => {
         </div>
       </div>
       <!-- Social -->
-      <div class="mb-4" v-if="!data.addons.social">
+      <div class="mb-4" v-if="!checkAddons('social')">
         <div
           class="accordion flex items-center py-4 px-8 rounded-3xl shadow-lg border cursor-pointer"
           @click="addAddons('social')"
@@ -147,7 +172,7 @@ const addAddons = (addon) => {
         </div>
       </div>
       <!-- Green Message -->
-      <div class="mb-4" v-if="!data.addons.greenMessage">
+      <div class="mb-4" v-if="!checkAddons('greenMessage')">
         <div
           class="accordion flex items-center justify-between py-4 px-8 rounded-3xl shadow-lg border cursor-pointer"
           @click="addAddons('greenMessage')"
@@ -175,7 +200,7 @@ const addAddons = (addon) => {
         </div>
       </div>
       <!-- Video Meeting -->
-      <div class="mb-4" v-if="!data.addons.videoMeeting">
+      <div class="mb-4" v-if="!checkAddons('videoMeeting')">
         <div
           class="accordion flex items-center justify-between py-4 px-8 rounded-3xl shadow-lg border cursor-pointer"
           @click="addAddons('videoMeeting')"
@@ -204,7 +229,7 @@ const addAddons = (addon) => {
         </div>
       </div>
       <!-- CTA -->
-      <div class="mb-3" v-if="!data.addons.cta">
+      <div class="mb-3" v-if="!checkAddons('cta')">
         <div
           class="accordion flex items-center justify-between py-4 px-8 rounded-3xl shadow-xl border cursor-pointer"
           @click="addAddons('cta')"

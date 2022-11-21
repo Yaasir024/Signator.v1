@@ -13,6 +13,7 @@ const router = useRouter();
 const searchQuery = ref('')
 const search = () => {
   if(searchQuery.value != '') {
+    useArticles.searchQuery = searchQuery.value
     router.push({ path: `/help-center/search/${searchQuery.value}` });
     console.log(searchQuery.value)
   }
@@ -52,7 +53,6 @@ const search = () => {
                   type="text"
                   placeholder="Search for question"
                   class="w-full outline-none px-2 h-full bg-canvas-color"
-                  required
                   v-model="searchQuery"
                 />
               </div>

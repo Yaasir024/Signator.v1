@@ -1,61 +1,138 @@
 export default {
+  // defaultAddonData: {
+  //   signoff: {
+  //     value: "Best Regards,",
+  //     style: {
+  //       fontFamily: "Sans Serif",
+  //       color: "#000000",
+  //       fontSize: 24,
+  //     },
+  //   },
+  //   social: {
+  //     items: [],
+  //     style: {
+  //       height: 40,
+  //       paddingTop: 5,
+  //     },
+  //   },
+  //   videoMeeting: {
+  //     items: {
+  //       name: "zoom",
+  //       text: "Meet me on Zoom",
+  //       url: "",
+  //     },
+  //     style: {
+  //       height: 30,
+  //       paddingTop: 10,
+  //     },
+  //   },
+  //   cta: {
+  //     item: {
+  //       text: "",
+  //       url: "",
+  //     },
+  //     style: {
+  //       paddingTop: 10,
+  //       textColor: "#ffffff",
+  //       buttonColor: "#5489bb",
+  //     },
+  //   },
+  //   disclaimer: {
+  //     text: "",
+  //     type: "",
+  //     style: {
+  //       width: 500,
+  //       fontSize: "small",
+  //       textColor: "#000000",
+  //     },
+  //   },
+  //   greenMessage: {
+  //     items: {
+  //       text: "",
+  //       type: "",
+  //       icon: "",
+  //     },
+  //     style: {
+  //       fontSize: "small",
+  //       textColor: "#000000",
+  //     },
+  //   },
+  // },
   defaultAddonData: {
     signoff: {
-      value: "Best Regards,",
-      style: {
-        fontFamily: "Sans Serif",
-        color: "#000000",
-        fontSize: 24,
+      data: {
+        value: "Best Regards,",
+        style: {
+          fontFamily: "Sans Serif",
+          color: "#000000",
+          fontSize: 24,
+        },
       },
+      type: "signoff",
     },
     social: {
-      items: [],
-      style: {
-        height: 40,
-        paddingTop: 5,
+      data: {
+        items: [],
+        style: {
+          height: 40,
+          paddingTop: 5,
+        },
       },
+      type: "social",
     },
     videoMeeting: {
-      items: {
-        name: "zoom",
-        text: "Meet me on Zoom",
-        url: "",
+      data: {
+        items: {
+          name: "zoom",
+          text: "Meet me on Zoom",
+          url: "",
+        },
+        style: {
+          height: 30,
+          paddingTop: 10,
+        },
       },
-      style: {
-        height: 30,
-        paddingTop: 10,
-      },
+      type: "videoMeeting",
     },
     cta: {
-      item: {
-        text: "",
-        url: "",
+      data: {
+        item: {
+          text: "",
+          url: "",
+        },
+        style: {
+          paddingTop: 10,
+          textColor: "#ffffff",
+          buttonColor: "#5489bb",
+        },
       },
-      style: {
-        paddingTop: 10,
-        textColor: "#ffffff",
-        buttonColor: "#5489bb",
-      },
+      type: "social",
     },
     disclaimer: {
-      text: "",
-      type: "",
-      style: {
-        width: 500,
-        fontSize: "small",
-        textColor: "#000000",
-      },
-    },
-    greenMessage: {
-      items: {
+      data: {
         text: "",
         type: "",
-        icon: "",
+        style: {
+          width: 500,
+          fontSize: "small",
+          textColor: "#000000",
+        },
       },
-      style: {
-        fontSize: "small",
-        textColor: "#000000",
+      type: "disclaimer",
+    },
+    greenMessage: {
+      data: {
+        items: {
+          text: "",
+          type: "",
+          icon: "",
+        },
+        style: {
+          fontSize: "small",
+          textColor: "#000000",
+        },
       },
+      type: "greenMessage",
     },
   },
   disclaimerData: {

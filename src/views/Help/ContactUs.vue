@@ -1,72 +1,77 @@
 <script setup>
-import Navbar from "@/components/Navbar.vue";
 import { ref, reactive, computed } from "vue";
-
+import Navbar from "@/components/Navigations/Navbar.vue";
+import Footer from "@/components/Navigations/Footer.vue";
+import emailjs from "@emailjs/browser";
 import axios from "axios";
 
-const messageData = ref({ name: "", email: "", phone: "", message: "" });
-
-const options = {
-  method: "POST",
-  url: "https://fapimail.p.rapidapi.com/email/send",
-  headers: {
-    "content-type": "application/json",
-    "X-RapidAPI-Key": "15a0671353msh5dcdd7ebcbca24ep16a9abjsn355205969a47",
-    "X-RapidAPI-Host": "fapimail.p.rapidapi.com",
-  },
-  data: '{"recipient":"yope4ever@gmail.com","sender":"ayomide2405@gmail.com","subject":"Subject of Email","message":"Body of Email That requires realism"}',
-};
-
+const messageData = ref({
+  user_name: "",
+  user_email: "",
+  subject: "",
+  message: "",
+});
+const contactForm = ref(null)
 const submit = () => {
   console.log(messageData.value);
-  axios
-    .request(options)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+  emailjs
+    .sendForm(
+      "service_aypm30r",
+      "template_s9ghhyk",
+      contactForm.value,
+      "NXsOFWKYkWP5wFwVD"
+    )
+    .then(
+      (result) => {
+        console.log("SUCCESS!", result.text);
+      },
+      (error) => {
+        console.log("FAILED...", error.text);
+      }
+    );
 };
 </script>
 
 <template>
   <section class="min-h-screen">
     <Navbar />
-    <main class="pb-8">
+    <main class="pb-8 px-4 mb-24">
       <div
-        class="bg-white max-w-[400px] mx-auto mt-10 py-8 px-6 rounded-2xl shadow-lg border"
+        class="bg-white max-w-[450px] mx-auto mt-12 py-8 px-6 rounded-2xl shadow-lg border"
       >
-        <h2 class="text-2xl text-center mb-6">Sign Up</h2>
-        <form @submit.prevent="submit()">
+        <h2 class="text-2xl text-center mb-6">Contact Us</h2>
+        <form @submit.prevent="submit()" ref="contactForm">
+          <div class="flex items-center mb-4">
+            <div class="field p-1 w-full">
+              <div class="mb-1 pl-2">Name</div>
+              <input
+                type="text"
+                placeholder="Name"
+                class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
+                required
+                v-model="messageData.user_name"
+              />
+            </div>
+            <div class="field p-1 w-full">
+              <div class="mb-1 pl-2">Email</div>
+              <input
+                type="email"
+                placeholder="Email"
+                class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
+                required
+                v-model="messageData.user_email"
+              />
+            </div>
+          </div>
+
           <div class="field mb-4">
-            <div class="mb-1 pl-2">Name</div>
+            <div class="mb-1 pl-2">Subject</div>
             <input
               type="text"
-              placeholder="Name"
+              placeholder="Subject"
               class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
               required
-              v-model="messageData.name"
-            />
-          </div>
-          <div class="field mb-4">
-            <div class="mb-1 pl-2">Email</div>
-            <input
-              type="email"
-              placeholder="Email"
-              class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
-              required
-              v-model="messageData.email"
-            />
-          </div>
-          <div class="field mb-4">
-            <div class="mb-1 pl-2">Phone</div>
-            <input
-              type="tel"
-              placeholder="Phone"
-              class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
-              required
-              v-model="messageData.phone"
+              v-model="messageData.subject"
             />
           </div>
           <div class="field mb-4">
@@ -88,5 +93,6 @@ const submit = () => {
         </form>
       </div>
     </main>
+    <Footer />
   </section>
 </template>
