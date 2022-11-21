@@ -3,9 +3,17 @@ import { ref, reactive, computed } from "vue";
 import { inject } from "vue";
 const data = inject("data");
 
+const props = defineProps(['addonType'])
+
+const cta = computed(() => {
+    return data.addons.find(item => item.type == props.addonType)
+})
+
 // Delete Addon
 const deleteAddons = () => {
-  delete data.addons.cta;
+  data.addons = data.addons.filter(
+    (item) => item.type != props.addonType
+  );
 };
 const showDetail = ref(true);
 const toggleDetail = () => {
@@ -66,7 +74,7 @@ const toggleDetail = () => {
               type="text"
               placeholder="Button url goes here"
               class="text-sm w-full bg-canvas-color rounded-2xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-4 transition-all ease-in-out duration-350"
-              v-model="data.addons.cta.item.url"
+              v-model="cta.data.item.url"
             />
           </div>
         </div>
@@ -80,7 +88,7 @@ const toggleDetail = () => {
               type="text"
               placeholder="Button text goes here"
               class="text-sm w-full bg-canvas-color rounded-2xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-4 transition-all ease-in-out duration-350"
-              v-model="data.addons.cta.item.text"
+              v-model="cta.data.item.text"
             />
           </div>
         </div>
@@ -88,14 +96,14 @@ const toggleDetail = () => {
         <div class="mt-6 mb-2">
           <div class="flex items-center justify-between">
             <span>Padding-Top</span>
-            <span>{{ data.addons.cta.style.paddingTop }}px</span>
+            <span>{{ cta.data.style.paddingTop }}px</span>
           </div>
           <input
             type="range"
             class=""
             min="5"
             max="20"
-            v-model="data.addons.cta.style.paddingTop"
+            v-model="cta.data.style.paddingTop"
           />
         </div>
         <!-- Button Color -->
@@ -105,13 +113,13 @@ const toggleDetail = () => {
           <div
             class="relative w-9 h-9 rounded-full border"
             :style="{
-              background: data.addons.cta.style.buttonColor,
+              background: cta.data.style.buttonColor,
             }"
           >
             <input
               type="color"
               class="absolute top-0 left-0 w-full h-full cursor-pointer opacity-0"
-              v-model="data.addons.cta.style.buttonColor"
+              v-model="cta.data.style.buttonColor"
             />
           </div>
         </div>
@@ -122,13 +130,13 @@ const toggleDetail = () => {
           <div
             class="relative w-9 h-9 rounded-full border"
             :style="{
-              background: data.addons.cta.style.textColor,
+              background: cta.data.style.textColor,
             }"
           >
             <input
               type="color"
               class="absolute top-0 left-0 w-full h-full cursor-pointer opacity-0"
-              v-model="data.addons.cta.style.textColor"
+              v-model="cta.data.style.textColor"
             />
           </div>
         </div>

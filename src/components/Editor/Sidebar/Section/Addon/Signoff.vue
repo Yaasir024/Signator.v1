@@ -4,9 +4,18 @@ import { inject } from "vue";
 import { useClickOutside } from "@/composables/useClickOutside";
 const data = inject("data");
 
+const props = defineProps(['addonType'])
+
+const signoff = computed(() => {
+    return data.addons.find(item => item.type == props.addonType)
+})
+
+
 // Delete Addon
 const deleteAddons = () => {
-  delete data.addons.signoff;
+  data.addons = data.addons.filter(
+    (item) => item.type != props.addonType
+  );
 };
 const showSignoff = ref(true);
 const toggleSignoffDetail = () => {
@@ -20,7 +29,7 @@ const toggleSignoffFontMenu = () => {
 };
 // Set Font
 const setSignoffFont = (font) => {
-  data.addons.signoff.style.fontFamily = font;
+  signoff.value.data.style.fontFamily = font;
   signoffFontMenu.value = false;
 };
 // FontMenu On Click Outside
@@ -81,7 +90,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="best-regards"
                 value="Best Regards,"
-                v-model="data.addons.signoff.value"
+                v-model="signoff.data.value"
               />
               <label for="best-regards" class="ml-1">Best Regards,</label>
             </div>
@@ -90,7 +99,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="best"
                 value="Best,"
-                v-model="data.addons.signoff.value"
+                v-model="signoff.data.value"
               />
               <label for="best" class="ml-1">Best,</label>
             </div>
@@ -99,7 +108,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="best-wishes"
                 value="Best Wishes,"
-                v-model="data.addons.signoff.value"
+                v-model="signoff.data.value"
               />
               <label for="best-wishes" class="ml-1">Best Wishes,</label>
             </div>
@@ -108,7 +117,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="regards"
                 value="Regards,"
-                v-model="data.addons.signoff.value"
+                v-model="signoff.data.value"
               />
               <label for="regards" class="ml-1">Regards,</label>
             </div>
@@ -117,7 +126,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="thanks"
                 value="Thanks,"
-                v-model="data.addons.signoff.value"
+                v-model="signoff.data.value"
               />
               <label for="thanks" class="ml-1">Thanks,</label>
             </div>
@@ -126,7 +135,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="sincerely"
                 value="Sincerely,"
-                v-model="data.addons.signoff.value"
+                v-model="signoff.data.value"
               />
               <label for="sincerely" class="ml-1">Sincerely,</label>
             </div>
@@ -140,11 +149,11 @@ useClickOutside(signoffFontMenuBar, () => {
               <div
                 class="w-full bg-canvas-color flex items-center justify-between py-2 px-4 border rounded-2xl cursor-pointer"
                 :style="{
-                  'font-family': data.addons.signoff.style.fontFamily,
+                  'font-family': signoff.data.style.fontFamily,
                 }"
                 @click="toggleSignoffFontMenu()"
               >
-                {{ data.addons.signoff.style.fontFamily }}
+                {{ signoff.data.style.fontFamily }}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="14"
@@ -206,13 +215,13 @@ useClickOutside(signoffFontMenuBar, () => {
             <div
               class="relative w-9 h-9 rounded-full border"
               :style="{
-                background: data.addons.signoff.style.color,
+                background: signoff.data.style.color,
               }"
             >
               <input
                 type="color"
                 class="absolute top-0 left-0 w-full h-full cursor-pointer opacity-0"
-                v-model="data.addons.signoff.style.color"
+                v-model="signoff.data.style.color"
               />
             </div>
           </div>
@@ -220,14 +229,14 @@ useClickOutside(signoffFontMenuBar, () => {
           <div class="mb-5">
             <div class="flex items-center justify-between">
               <span>Font Size</span>
-              <span>{{ data.addons.signoff.style.fontSize }}px</span>
+              <span>{{ signoff.data.style.fontSize }}px</span>
             </div>
             <input
               type="range"
               class=""
               min="20"
               max="50"
-              v-model="data.addons.signoff.style.fontSize"
+              v-model="signoff.data.style.fontSize"
             />
           </div>
         </div>

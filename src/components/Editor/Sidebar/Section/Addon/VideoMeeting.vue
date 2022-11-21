@@ -3,9 +3,17 @@ import { ref, reactive, computed } from "vue";
 import { inject } from "vue";
 const data = inject("data");
 
+const props = defineProps(['addonType'])
+
+const videoMeeting = computed(() => {
+    return data.addons.find(item => item.type == props.addonType)
+})
+
 // Delete Addon
 const deleteAddons = () => {
-  delete data.addons.videoMeeting;
+  data.addons = data.addons.filter(
+    (item) => item.type != props.addonType
+  );
 };
 const showDetail = ref(true);
 const toggleDetail = () => {
@@ -13,7 +21,7 @@ const toggleDetail = () => {
 };
 // Add video meeting
 const addVideoMeetingAddon = (name) => {
-  data.addons.videoMeeting.items.name = name;
+  videoMeeting.value.data.items.name = name;
 };
 </script>
 
@@ -134,7 +142,7 @@ const addVideoMeetingAddon = (name) => {
               type="text"
               placeholder="Button url goes here"
               class="text-sm w-full bg-canvas-color rounded-2xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-4 transition-all ease-in-out duration-350"
-              v-model="data.addons.videoMeeting.items.url"
+              v-model="videoMeeting.data.items.url"
             />
           </div>
         </div>
@@ -148,7 +156,7 @@ const addVideoMeetingAddon = (name) => {
               type="text"
               placeholder="Button text goes here"
               class="text-sm w-full bg-canvas-color rounded-2xl border outline-none focus:border-primary-color focus:bg-white overflow-hidden py-2 px-4 transition-all ease-in-out duration-350"
-              v-model="data.addons.videoMeeting.items.text"
+              v-model="videoMeeting.data.items.text"
             />
           </div>
         </div>
@@ -157,28 +165,28 @@ const addVideoMeetingAddon = (name) => {
         <div class="mt-6 mb-2">
           <div class="flex items-center justify-between">
             <span>Height</span>
-            <span>{{ data.addons.videoMeeting.style.height }}px</span>
+            <span>{{ videoMeeting.data.style.height }}px</span>
           </div>
           <input
             type="range"
             class=""
             min="20"
             max="50"
-            v-model="data.addons.videoMeeting.style.height"
+            v-model="videoMeeting.data.style.height"
           />
         </div>
         <!-- Padding Top -->
         <div class="mb-2">
           <div class="flex items-center justify-between">
             <span>Padding-Top</span>
-            <span>{{ data.addons.videoMeeting.style.paddingTop }}px</span>
+            <span>{{ videoMeeting.data.style.paddingTop }}px</span>
           </div>
           <input
             type="range"
             class=""
             min="5"
             max="20"
-            v-model="data.addons.videoMeeting.style.paddingTop"
+            v-model="videoMeeting.data.style.paddingTop"
           />
         </div>
       </div>

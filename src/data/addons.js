@@ -106,7 +106,7 @@ export default {
           buttonColor: "#5489bb",
         },
       },
-      type: "social",
+      type: "cta",
     },
     disclaimer: {
       data: {

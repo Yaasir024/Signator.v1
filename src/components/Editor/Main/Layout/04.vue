@@ -4,9 +4,7 @@ import EmailContact from "@/components/Editor/Main/Layout/Reuseables/ContactInfo
 import WebsiteContact from "@/components/Editor/Main/Layout/Reuseables/ContactInfo/Website.vue";
 import AddressContact from "@/components/Editor/Main/Layout/Reuseables/ContactInfo/Address.vue";
 import SocialIcons from "@/components/Editor/Main/Layout/Reuseables/SocialIcons.vue";
-import SocialButton from "@/components/Editor/Main/Layout/Reuseables/SocialButton.vue";
-import VideoMeeting from "@/components/Editor/Main/Layout/Reuseables/VideoMeeting.vue";
-import GreenMessage from "@/components/Editor/Main/Layout/Reuseables/GreenMessage.vue";
+import Addons from "@/components/Editor/Main/Layout/Reuseables/Addons/index.vue";
 const prop = defineProps(["data"]);
 </script>
 
@@ -161,84 +159,16 @@ const prop = defineProps(["data"]);
       </td>
     </tr>
     <tr>
-      <table cellspacing="0" cellpadding="0" border-0>
-        <tr v-if="data.addons.videoMeeting">
-          <td
-            style="margin: 0.1px; width: 100%; font-size: 16px"
-            :style="{
-              'padding-top': data.addons.videoMeeting.style.paddingTop + 'px',
-            }"
-          >
-            <VideoMeeting :data="data" />
-          </td>
-        </tr>
-        <tr v-if="data.addons.social">
-          <table cellspacing="0" cellpadding="0" border-0>
-            <tr>
-              <td
-                :style="{
-                  'padding-top': data.addons.social.style.paddingTop + 'px',
-                }"
-              >
-                <SocialButton :data="data" />
-              </td>
-            </tr>
-          </table>
-        </tr>
-        <tr v-if="data.addons.cta">
-          <td
-            style="width: 100%; text-align: center"
-            :style="{
-              'padding-top': data.addons.cta.style.paddingTop + 'px',
-            }"
-          >
-            <a :href="data.addons.cta.item.url" target="_blank">
-              <div
-                style="
-                  display: inline-block;
-                  padding: 0px 8px;
-                  cursor: pointer;
-                  font-size: 18px;
-                  font-weight: bold;
-                  line-height: 36px;
-                  min-width: 100px;
-                "
-                :style="{
-                  background: data.addons.cta.style.buttonColor,
-                  color: data.addons.cta.style.textColor,
-                }"
-              >
-                {{ data.addons.cta.item.text }}
-              </div>
-            </a>
-          </td>
-        </tr>
-        <tr v-if="data.addons.disclaimer">
-          <table
-            cellspacing="0"
-            cellpadding="0"
-            border-0
-            style="margin-top: 10px"
-          >
-            <tr>
-              <td
-                style="margin: 0.1px; width: 100%; line-height: 1.3"
-                :style="{
-                  'font-size': data.addons.disclaimer.style.fontSize,
-                  color: data.addons.disclaimer.style.textColor,
-                }"
-              >
-                {{ data.addons.disclaimer.text }}
-              </td>
-            </tr>
-          </table>
-        </tr>
-        <tr v-if="data.addons.greenMessage">
-          <td style="padding-right: 5px; width: 100%; padding-top: 10px">
-            <GreenMessage :data="data" />
-          </td>
-        </tr>
-      </table>
+      <table
+          cellspacing="0"
+          cellpadding="0"
+          border-0
+          style="max-width: 500px; width: 100%"
+        >
+          <tbody>
+            <Addons :addonData="data.addons" />
+          </tbody>
+        </table>
     </tr>
   </table>
 </template>

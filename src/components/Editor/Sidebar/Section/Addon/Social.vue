@@ -7,11 +7,11 @@ import addonData from "@/data/addons";
 import socialData from "@/data/social";
 const data = inject("data");
 
-// const props = defineProps(['addon'])
+const props = defineProps(['addonType'])
 
-// const social = computed(() => {
-//     return data.find(x => x.part == 'side')
-// })
+const social = computed(() => {
+    return data.addons.find(item => item.type == props.addonType)
+})
 
 const getUrl = (social) => {
   let result = socialData.socialIcons.find((item) => item.name === social);
@@ -20,7 +20,9 @@ const getUrl = (social) => {
 
 // Delete Addon
 const deleteAddons = () => {
-  delete data.addons.social;
+  data.addons = data.addons.filter(
+    (item) => item.type != props.addonType
+  );
 };
 const showSocial = ref(true);
 const toggleSocialDetail = () => {
@@ -28,18 +30,19 @@ const toggleSocialDetail = () => {
 };
 /*  SOCIAL ADDON  */
 // Add Social Addon
-const addSocialAddon = (social) => {
-  if (!data.addons.social.items.some((e) => e.name === social)) {
-    data.addons.social.items.push({
+const addSocialAddon = (name) => {
+  console.log(social.value.data.items)
+  if (!social.value.data.items.some((e) => e.name === name)) {
+    social.value.data.items.push({
       id: uid(6),
-      name: social,
+      name: name,
       url: "",
     });
   }
 };
 // Delete Social Addon
 const deleteSocialAddon = (id) => {
-  data.addons.social.items = data.addons.social.items.filter(
+  social.value.data.items = social.value.data.items.filter(
     (item) => item.id != id
   );
 };
@@ -93,7 +96,7 @@ const deleteSocialAddon = (id) => {
         <div class="">
           <div
             class="field flex items-center justify-between mt-4 relative"
-            v-for="social in data.addons.social.items"
+            v-for="social in social.data.items"
             :key="social.id"
           >
             <div class="w-[40%] pr-1">
@@ -154,28 +157,28 @@ const deleteSocialAddon = (id) => {
           <div class="mb-2">
             <div class="flex items-center justify-between">
               <span>Height</span>
-              <span>{{ data.addons.social.style.height }}px</span>
+              <span>{{ social.data.style.height }}px</span>
             </div>
             <input
               type="range"
               class=""
               min="20"
               max="50"
-              v-model="data.addons.social.style.height"
+              v-model="social.data.style.height"
             />
           </div>
           <!-- Padding Top -->
           <div class="mb-2">
             <div class="flex items-center justify-between">
               <span>Padding-Top</span>
-              <span>{{ data.addons.social.style.paddingTop }}px</span>
+              <span>{{ social.data.style.paddingTop }}px</span>
             </div>
             <input
               type="range"
               class=""
               min="5"
               max="20"
-              v-model="data.addons.social.style.paddingTop"
+              v-model="social.data.style.paddingTop"
             />
           </div>
         </div>

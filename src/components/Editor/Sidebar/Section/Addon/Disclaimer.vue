@@ -5,9 +5,17 @@ import { useClickOutside } from "@/composables/useClickOutside";
 import addonData from "@/data/addons";
 const data = inject("data");
 
+const props = defineProps(['addonType'])
+
+const disclaimer = computed(() => {
+    return data.addons.find(item => item.type == props.addonType)
+})
+
 // Delete Addon
 const deleteAddons = () => {
-  delete data.addons.disclaimer;
+  data.addons = data.addons.filter(
+    (item) => item.type != props.addonType
+  );
 };
 const showDetail = ref(true);
 const toggleDetail = () => {
@@ -24,8 +32,8 @@ const toggleDisclaimerMenu = () => {
 
 // Set
 const setDisclaimer = (value) => {
-  data.addons.disclaimer.type = value;
-  data.addons.disclaimer.text = addonData.disclaimerData[value];
+  disclaimer.value.data.type = value;
+  disclaimer.value.data.text = addonData.disclaimerData[value];
   // console.log(data.value.addons.disclaimer.text )
   // console.log(disclaimerData[value]);
   disclaimerMenu.value = false;
@@ -45,7 +53,7 @@ const toggleFontDisclaimerMenu = () => {
 };
 //
 const setDisclaimerFont = (value) => {
-  data.addons.disclaimer.style.fontSize = value;
+  disclaimer.value.data.style.fontSize = value;
   disclaimerFontMenu.value = false;
 };
 //
@@ -110,7 +118,7 @@ useClickOutside(disclaimerFontMenuBar, () => {
                   class="w-full bg-canvas-color flex items-center justify-between py-2 px-4 border rounded-2xl cursor-pointer capitalize"
                   @click="toggleDisclaimerMenu()"
                 >
-                  {{ data.addons.disclaimer.type || "Select Type" }}
+                  {{ disclaimer.data.type || "Select Type" }}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="14"
@@ -163,7 +171,7 @@ useClickOutside(disclaimerFontMenuBar, () => {
             <textarea
               maxlength="3000"
               rows="9"
-              v-model="data.addons.disclaimer.text"
+              v-model="disclaimer.data.text"
               class="w-full border p-4 text-sm leading-4 bg-canvas-color rounded-2xl resize-none outline-none"
             ></textarea>
           </div>
@@ -179,7 +187,7 @@ useClickOutside(disclaimerFontMenuBar, () => {
                   class="w-full bg-canvas-color flex items-center justify-between py-2 px-4 border rounded-2xl cursor-pointer"
                   @click="toggleFontDisclaimerMenu()"
                 >
-                  {{ data.addons.disclaimer.style.fontSize }}
+                  {{ disclaimer.data.style.fontSize }}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="14"
@@ -224,13 +232,13 @@ useClickOutside(disclaimerFontMenuBar, () => {
               <div
                 class="relative w-9 h-9 rounded-full border"
                 :style="{
-                  background: data.addons.disclaimer.style.textColor,
+                  background: disclaimer.data.style.textColor,
                 }"
               >
                 <input
                   type="color"
                   class="absolute top-0 left-0 w-full h-full cursor-pointer opacity-0"
-                  v-model="data.addons.disclaimer.style.textColor"
+                  v-model="disclaimer.data.style.textColor"
                 />
               </div>
             </div>

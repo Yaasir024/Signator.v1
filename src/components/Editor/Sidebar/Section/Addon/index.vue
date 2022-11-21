@@ -3,24 +3,24 @@ import { ref, reactive, computed } from "vue";
 import { inject } from "vue";
 import Heading from "@/components/Editor/Heading.vue";
 import { uid } from "@/composables/useGenerateUid";
-import Signoff from "@/components/Editor/Sidebar/Section/Addon/Signoff.vue";
-import Disclaimer from "@/components/Editor/Sidebar/Section/Addon/Disclaimer.vue";
-import Social from "@/components/Editor/Sidebar/Section/Addon/Social.vue";
-import GreenMessage from "@/components/Editor/Sidebar/Section/Addon/GreenMessage.vue";
-import VideoMeeting from "@/components/Editor/Sidebar/Section/Addon/VideoMeeting.vue";
-import Cta from "@/components/Editor/Sidebar/Section/Addon/Cta.vue";
+import signoff from "@/components/Editor/Sidebar/Section/Addon/Signoff.vue";
+import disclaimer from "@/components/Editor/Sidebar/Section/Addon/Disclaimer.vue";
+import social from "@/components/Editor/Sidebar/Section/Addon/Social.vue";
+import greenMessage from "@/components/Editor/Sidebar/Section/Addon/GreenMessage.vue";
+import videoMeeting from "@/components/Editor/Sidebar/Section/Addon/VideoMeeting.vue";
+import cta from "@/components/Editor/Sidebar/Section/Addon/Cta.vue";
 import addonData from "@/data/addons";
 import { editorStore } from "@/stores/editor";
 const useEditorStore = editorStore();
 const data = inject("data");
 
 const addonComponents = {
-  Signoff,
-  Disclaimer,
-  Social,
-  GreenMessage,
-  VideoMeeting,
-  Cta,
+  signoff,
+  disclaimer,
+  social,
+  greenMessage,
+  videoMeeting,
+  cta,
 };
 
 const checkAddedAddons = () => {
@@ -50,17 +50,17 @@ const checkFeatureQualification = (feature) => {
 };
 
 const checkAddons = (addon) => {
-  if(data.addons.some((e) => e.type === addon)) {
-    return true
+  if (data.addons.some((e) => e.type === addon)) {
+    return true;
   }
-  return false
-}
+  return false;
+};
 
 const addAddons = (addon) => {
   // if (checkFeatureQualification(addon)) {
   //   data.addons[addon] = addonData.defaultAddonData[addon];
   // }
-  data.addons.push(addonData.defaultAddonData[addon])
+  data.addons.push(addonData.defaultAddonData[addon]);
 };
 </script>
 
@@ -68,21 +68,14 @@ const addAddons = (addon) => {
   <div class="addons pb-14">
     <!-- Added Addons -->
     <!-- v-if="checkAddedAddons()" -->
-    <div class="border-b pb-7 mb-10" >
+    <div class="border-b pb-7 mb-10" v-if="data.addons.length >= 1">
       <Heading :title="'Added Addons'" />
       <div class="" v-for="addon in data.addons" :key="addon.type">
-        {{addon.type}}
         <component
-            :is="addonComponents[addon.type]"
-            :addon="addon.type"
-          ></component>
+          :is="addonComponents[addon.type]"
+          :addonType="addon.type"
+        ></component>
       </div>
-      <!-- <Signoff v-if="data.addons.signoff" />
-      <Disclaimer v-if="data.addons.disclaimer" />
-      <Social v-if="data.addons.social" />
-      <GreenMessage v-if="data.addons.greenMessage" />
-      <VideoMeeting v-if="data.addons.videoMeeting" />
-      <Cta v-if="data.addons.cta" /> -->
     </div>
     <!-- Available Addons-->
     <div class="available-addons pb-12" v-if="checkAvailableAddons()">

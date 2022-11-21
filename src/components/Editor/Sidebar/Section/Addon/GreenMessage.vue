@@ -5,10 +5,21 @@ import { useClickOutside } from "@/composables/useClickOutside";
 import addonData from "@/data/addons";
 const data = inject("data");
 
+
+const props = defineProps(['addonType'])
+
+const greenMessage = computed(() => {
+    return data.addons.find(item => item.type == props.addonType)
+})
+
 // Delete Addon
 const deleteAddons = () => {
-  delete data.addons.greenMessage;
+  data.addons = data.addons.filter(
+    (item) => item.type != props.addonType
+  );
 };
+
+
 const showDetail = ref(true);
 const toggleDetail = () => {
   showDetail.value = !showDetail.value;
@@ -20,8 +31,8 @@ const toggleGreenMessageMenu = () => {
 };
 // Set Message
 const setGreenMessage = (value) => {
-  data.addons.greenMessage.items.type = value;
-  data.addons.greenMessage.items.text = addonData.greenMessageData[value];
+  greenMessage.value.data.items.type = value;
+  greenMessage.value.data.items.text = addonData.greenMessageData[value];
   // console.log(greenMessageData[value]);
   greenMessageMenu.value = false;
 };
@@ -38,7 +49,7 @@ const toggleFontGreenMessageMenu = () => {
 };
 //
 const setGreenMessageFont = (value) => {
-  data.addons.greenMessage.style.fontSize = value;
+  greenMessage.value.data.style.fontSize = value;
   greenMessageFontMenu.value = false;
 };
 //
@@ -101,8 +112,8 @@ useClickOutside(greenMessageFontMenuBar, () => {
                 class="w-full bg-canvas-color flex items-center justify-between py-2 px-4 border rounded-2xl cursor-pointer capitalize"
                 @click="toggleGreenMessageMenu()"
               >
-                <span v-if="data.addons.greenMessage.items.type"
-                  >Green Message {{ data.addons.greenMessage.items.type }}</span
+                <span v-if="greenMessage.data.items.type"
+                  >Green Message {{ greenMessage.data.items.type }}</span
                 >
                 <span v-else>Choose Message</span>
                 <svg
@@ -163,16 +174,16 @@ useClickOutside(greenMessageFontMenuBar, () => {
           <textarea
             maxlength="3000"
             rows="6"
-            v-model="data.addons.greenMessage.items.text"
+            v-model="greenMessage.data.items.text"
             class="w-full border p-4 text-sm leading-4 bg-canvas-color rounded-2xl resize-none outline-none"
           ></textarea>
           <!-- Icons -->
           <div class="flex flex-wrap justify-center py-4 px-2">
             <div
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
-              @click="data.addons.greenMessage.items.icon = ''"
+              @click="greenMessage.data.items.icon = ''"
               :class="
-                data.addons.greenMessage.items.icon == ''
+                greenMessage.data.items.icon == ''
                   ? 'border-primary-color'
                   : ''
               "
@@ -181,9 +192,9 @@ useClickOutside(greenMessageFontMenuBar, () => {
             </div>
             <div
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
-              @click="data.addons.greenMessage.items.icon = '1.svg'"
+              @click="greenMessage.data.items.icon = '1.svg'"
               :class="
-                data.addons.greenMessage.items.icon == '1.svg'
+                greenMessage.data.items.icon == '1.svg'
                   ? 'border-primary-color'
                   : ''
               "
@@ -192,9 +203,9 @@ useClickOutside(greenMessageFontMenuBar, () => {
             </div>
             <div
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
-              @click="data.addons.greenMessage.items.icon = '2.svg'"
+              @click="greenMessage.data.items.icon = '2.svg'"
               :class="
-                data.addons.greenMessage.items.icon == '2.svg'
+                greenMessage.data.items.icon == '2.svg'
                   ? 'border-primary-color'
                   : ''
               "
@@ -203,9 +214,9 @@ useClickOutside(greenMessageFontMenuBar, () => {
             </div>
             <div
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
-              @click="data.addons.greenMessage.items.icon = '3.svg'"
+              @click="greenMessage.data.items.icon = '3.svg'"
               :class="
-                data.addons.greenMessage.items.icon == '3.svg'
+                greenMessage.data.items.icon == '3.svg'
                   ? 'border-primary-color'
                   : ''
               "
@@ -214,9 +225,9 @@ useClickOutside(greenMessageFontMenuBar, () => {
             </div>
             <div
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
-              @click="data.addons.greenMessage.items.icon = '4.svg'"
+              @click="greenMessage.data.items.icon = '4.svg'"
               :class="
-                data.addons.greenMessage.items.icon == '4.svg'
+                greenMessage.data.items.icon == '4.svg'
                   ? 'border-primary-color'
                   : ''
               "
@@ -225,9 +236,9 @@ useClickOutside(greenMessageFontMenuBar, () => {
             </div>
             <div
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
-              @click="data.addons.greenMessage.items.icon = '5.svg'"
+              @click="greenMessage.data.items.icon = '5.svg'"
               :class="
-                data.addons.greenMessage.items.icon == '5.svg'
+                greenMessage.data.items.icon == '5.svg'
                   ? 'border-primary-color'
                   : ''
               "
@@ -248,7 +259,7 @@ useClickOutside(greenMessageFontMenuBar, () => {
                 class="w-full bg-canvas-color flex items-center justify-between py-2 px-4 border rounded-2xl cursor-pointer"
                 @click="toggleFontGreenMessageMenu()"
               >
-                {{ data.addons.greenMessage.style.fontSize }}
+                {{ greenMessage.data.style.fontSize }}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="14"
@@ -293,13 +304,13 @@ useClickOutside(greenMessageFontMenuBar, () => {
             <div
               class="relative w-9 h-9 rounded-full border"
               :style="{
-                background: data.addons.greenMessage.style.textColor,
+                background: greenMessage.data.style.textColor,
               }"
             >
               <input
                 type="color"
                 class="absolute top-0 left-0 w-full h-full cursor-pointer opacity-0"
-                v-model="data.addons.greenMessage.style.textColor"
+                v-model="greenMessage.data.style.textColor"
               />
             </div>
           </div>
