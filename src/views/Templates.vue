@@ -47,8 +47,10 @@ const createEditorSession = (data) => {
   //   console.log('Can not create more')
   // }
   data.uid = uid(16);
-  localStorage.setItem(data.uid, JSON.stringify(data));
-  router.push({ path: `/editor/${data.uid}` });
+  localStorage.setItem('__editor_data__', JSON.stringify(data));
+  console.log('data')
+  // localStorage.setItem(data.uid, JSON.stringify(data));
+  // router.push({ path: `/editor/${data.uid}` });
   // router.go()
 };
 
@@ -59,6 +61,8 @@ const user = ref("pro");
 <template>
   <div class="min-h-screen">
     <Navbar />
+    {{data.templates.length}}
+    {{data.templates}}
     <main class="px-8 pb-20">
       <section class="hero py-32">
         <div class="wrapper text-center">

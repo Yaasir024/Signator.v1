@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="text-base font-medium">
+  <div class="text-base font-medium uppercase">
     {{title}}
   </div>
 </template>

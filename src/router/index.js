@@ -100,6 +100,14 @@ const router = createRouter({
       },
     },
     {
+      path: "/editor",
+      name: "editors",
+      component: () => import("../views/Editor/index.vue"),
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
       path: "/preview/:id",
       name: "preview",
       // route level code-splitting

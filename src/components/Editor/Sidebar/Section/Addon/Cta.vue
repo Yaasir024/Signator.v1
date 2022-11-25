@@ -3,17 +3,15 @@ import { ref, reactive, computed } from "vue";
 import { inject } from "vue";
 const data = inject("data");
 
-const props = defineProps(['addonType'])
+const props = defineProps(["addonType"]);
 
 const cta = computed(() => {
-    return data.addons.find(item => item.type == props.addonType)
-})
+  return data.addons.find((item) => item.type == props.addonType);
+});
 
 // Delete Addon
 const deleteAddons = () => {
-  data.addons = data.addons.filter(
-    (item) => item.type != props.addonType
-  );
+  data.addons = data.addons.filter((item) => item.type != props.addonType);
 };
 const showDetail = ref(true);
 const toggleDetail = () => {
@@ -23,7 +21,9 @@ const toggleDetail = () => {
 
 <template>
   <!-- CTA -->
-  <div class="mb-3 rounded-3xl shadow-lg border relative overflow-hidden">
+  <div
+    class="mb-3 rounded-3xl shadow-lg border relative overflow-hidden w-full"
+  >
     <div
       class="accordion flex items-center justify-between py-4 px-5 border-b cursor-pointer"
       @click="toggleDetail()"
@@ -144,4 +144,3 @@ const toggleDetail = () => {
     </div>
   </div>
 </template>
-

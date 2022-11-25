@@ -60,15 +60,13 @@ export default {
   // },
   defaultAddonData: {
     signoff: {
-      data: {
-        value: "Best Regards,",
-        style: {
-          fontFamily: "Sans Serif",
-          color: "#000000",
-          fontSize: 24,
-        },
+      value: "Best Regards,",
+      style: {
+        fontFamily: "Sans Serif",
+        color: "#000000",
+        fontSize: 24,
+        alignment: "left",
       },
-      type: "signoff",
     },
     social: {
       data: {

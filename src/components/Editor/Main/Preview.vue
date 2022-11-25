@@ -36,14 +36,8 @@ const layouts = {
             class="tab"
             :data="data"
           ></component>
+          {{data}}
         </div>
-        <!-- <div class="sig-preview pt-7 px-9 mb-10">
-          <component
-            :is="layouts[data.design.layout.layout]"
-            class="tab"
-            :data="data"
-          ></component>
-        </div> -->
       </div>
     </div>
   </div>

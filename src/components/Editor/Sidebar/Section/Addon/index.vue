@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import { inject } from "vue";
+import draggable from "vuedraggable";
 import Heading from "@/components/Editor/Heading.vue";
 import { uid } from "@/composables/useGenerateUid";
 import signoff from "@/components/Editor/Sidebar/Section/Addon/Signoff.vue";
@@ -15,7 +16,6 @@ const useEditorStore = editorStore();
 const data = inject("data");
 
 const addonComponents = {
-  signoff,
   disclaimer,
   social,
   greenMessage,
@@ -62,6 +62,12 @@ const addAddons = (addon) => {
   // }
   data.addons.push(addonData.defaultAddonData[addon]);
 };
+
+const addSignoff = () => {
+  data.signoff = addonData.defaultAddonData.signoff
+}
+
+
 </script>
 
 <template>
@@ -69,22 +75,41 @@ const addAddons = (addon) => {
     <!-- Added Addons -->
     <!-- v-if="checkAddedAddons()" -->
     <div class="border-b pb-7 mb-10" v-if="data.addons.length >= 1">
-      <Heading :title="'Added Addons'" />
-      <div class="" v-for="addon in data.addons" :key="addon.type">
-        <component
-          :is="addonComponents[addon.type]"
-          :addonType="addon.type"
-        ></component>
+      <div class="mb-3">
+        <Heading :title="'Added Addons'" />
       </div>
+      <div class="">
+        <signoff v-if="Object.keys(data.signoff).length != 0"/>
+      </div>
+      <draggable
+        v-model="data.addons"
+        group="people"
+        @start="drag = true"
+        @end="drag = false"
+        handle=".handle"
+        item-key="id"
+      >
+        <template #item="{ element }">
+          <div class="flex ">
+            <div class="handle cursor-move mt-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M14 12c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm-3-3.858c.321-.083.653-.142 1-.142s.679.059 1 .142v-2.142h4l-5-6-5 6h4v2.142zm2 7.716c-.321.083-.653.142-1 .142s-.679-.059-1-.142v2.142h-4l5 6 5-6h-4v-2.142z"/></svg>
+            </div>
+            <component
+              :is="addonComponents[element.type]"
+              :addonType="element.type"
+            ></component>
+          </div>
+        </template>
+      </draggable>
     </div>
     <!-- Available Addons-->
     <div class="available-addons pb-12" v-if="checkAvailableAddons()">
       <Heading :title="'Available Addons'" />
       <!-- SignOff -->
-      <div class="mb-4" v-if="!checkAddons('signoff')">
+      <div class="mb-4" v-if="Object.keys(data.signoff).length == 0">
         <div
           class="accordion flex items-center py-4 px-8 rounded-3xl shadow-lg border cursor-pointer"
-          @click="addAddons('signoff')"
+          @click="addSignoff()"
         >
           <div class="flex items-center">
             <svg

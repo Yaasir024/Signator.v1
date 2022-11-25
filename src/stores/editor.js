@@ -36,7 +36,7 @@ export const editorStore = defineStore("editor", () => {
   const route = useRoute();
   const path = route.params.id;
   // const data = useLocalStorage(path, {});
-  const data = useLocalStorage(path, {});
+  const data = useLocalStorage('__editor_data__', {});
   const currentEditorNav = ref("general");
   const previewImage = ref("");
   const imageModal = ref(false);
@@ -81,7 +81,8 @@ export const editorStore = defineStore("editor", () => {
         })
         console.log("Successfull");
         router.push({ path: `/preview/${data.value.uid}` });
-        localStorage.removeItem(data.value.uid);
+        // localStorage.removeItem(data.value.uid);
+        data.value = {}
         useSystemStore.drafts = useSystemStore.drafts.filter((item) => item.uid != data.value.uid);
       })
   };

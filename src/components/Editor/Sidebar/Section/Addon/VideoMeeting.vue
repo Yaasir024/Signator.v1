@@ -31,8 +31,9 @@ const addVideoMeetingAddon = (name) => {
     :class="showDetail ? 'mb-5' : 'mb-12'"
   >
     <div
-      class="accordion flex items-center justify-between py-4 px-5 border-b cursor-pointer"
+      class="accordion flex items-center justify-between py-4 px-5  cursor-pointer w-full"
       @click="toggleDetail()"
+      
     >
       <div class="flex items-center">
         <svg

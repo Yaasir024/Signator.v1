@@ -437,7 +437,35 @@ export default {
           customInfo: [],
         },
         socialInfo: [],
-        addons: [],
+        addons: [
+          {
+            data: {
+              items: [
+                { id: "bd6xu4", name: "linkedin", url: "https://linkedin.com" },
+                {
+                  id: "7xuz29",
+                  name: "pinterest",
+                  url: "https://pinterest.com",
+                },
+                { id: "891f2e", name: "twitter", url: "https://twitter.com" },
+              ],
+              style: { height: "32", paddingTop: "9" },
+            },
+            type: "social",
+          },
+          {
+            data: {
+              items: {
+                text: "Please consider your environmental responsibility. Before printing this email message",
+                type: "4",
+                icon: "2.svg",
+              },
+              style: { fontSize: "X-small", textColor: "#000000" },
+            },
+            type: "greenMessage",
+          },
+        ],
+        signoff:{},
         design: {
           layout: {
             fontFamily: "Verdana",
@@ -446,13 +474,12 @@ export default {
             templateColor: "#a68c8c",
             layout: "Layout03",
           },
-          image: { width: "78", roundness: 0 },
+          image: { width: 78, roundness: 0 },
           details: { label: "icon" },
-          socialIcon: { size: 25, roundness: "0" },
+          socialIcon: { size: 25, roundness: 0 },
         },
       },
     },
-    
   ],
   templateData: {},
   layouts: [

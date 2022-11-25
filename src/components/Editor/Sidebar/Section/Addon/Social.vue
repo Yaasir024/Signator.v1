@@ -7,11 +7,11 @@ import addonData from "@/data/addons";
 import socialData from "@/data/social";
 const data = inject("data");
 
-const props = defineProps(['addonType'])
+const props = defineProps(["addonType"]);
 
 const social = computed(() => {
-    return data.addons.find(item => item.type == props.addonType)
-})
+  return data.addons.find((item) => item.type == props.addonType);
+});
 
 const getUrl = (social) => {
   let result = socialData.socialIcons.find((item) => item.name === social);
@@ -20,9 +20,7 @@ const getUrl = (social) => {
 
 // Delete Addon
 const deleteAddons = () => {
-  data.addons = data.addons.filter(
-    (item) => item.type != props.addonType
-  );
+  data.addons = data.addons.filter((item) => item.type != props.addonType);
 };
 const showSocial = ref(true);
 const toggleSocialDetail = () => {
@@ -31,7 +29,7 @@ const toggleSocialDetail = () => {
 /*  SOCIAL ADDON  */
 // Add Social Addon
 const addSocialAddon = (name) => {
-  console.log(social.value.data.items)
+  console.log(social.value.data.items);
   if (!social.value.data.items.some((e) => e.name === name)) {
     social.value.data.items.push({
       id: uid(6),
@@ -51,27 +49,27 @@ const deleteSocialAddon = (id) => {
 <template>
   <!-- Social -->
   <div
-    class="rounded-3xl shadow-lg border relative overflow-hidden"
+    class="rounded-3xl shadow-lg border relative overflow-hidden w-full"
     :class="showSocial ? 'mb-5' : 'mb-12'"
   >
     <div
       class="accordion flex items-center justify-between py-4 px-5 border-b cursor-pointer"
       @click="toggleSocialDetail()"
     >
-      <div class="flex items-center">
-        <svg
-          width="24"
-          height="24"
-          xmlns="http://www.w3.org/2000/svg"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-        >
-          <path
-            d="M16.272 5.451c-.176-.45-.272-.939-.272-1.451 0-2.208 1.792-4 4-4s4 1.792 4 4-1.792 4-4 4c-1.339 0-2.525-.659-3.251-1.67l-7.131 3.751c.246.591.382 1.239.382 1.919 0 .681-.136 1.33-.384 1.922l7.131 3.751c.726-1.013 1.913-1.673 3.253-1.673 2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4c0-.51.096-.999.27-1.447l-7.129-3.751c-.9 1.326-2.419 2.198-4.141 2.198-2.76 0-5-2.24-5-5s2.24-5 5-5c1.723 0 3.243.873 4.143 2.201l7.129-3.75zm3.728 11.549c1.656 0 3 1.344 3 3s-1.344 3-3 3-3-1.344-3-3 1.344-3 3-3zm-15-9c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm15-7c1.656 0 3 1.344 3 3s-1.344 3-3 3-3-1.344-3-3 1.344-3 3-3z"
-          />
-        </svg>
-        <span class="ml-3">Social</span>
-      </div>
+    <div class="flex items-center">
+          <svg
+            width="24"
+            height="24"
+            xmlns="http://www.w3.org/2000/svg"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          >
+            <path
+              d="M16.272 5.451c-.176-.45-.272-.939-.272-1.451 0-2.208 1.792-4 4-4s4 1.792 4 4-1.792 4-4 4c-1.339 0-2.525-.659-3.251-1.67l-7.131 3.751c.246.591.382 1.239.382 1.919 0 .681-.136 1.33-.384 1.922l7.131 3.751c.726-1.013 1.913-1.673 3.253-1.673 2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4c0-.51.096-.999.27-1.447l-7.129-3.751c-.9 1.326-2.419 2.198-4.141 2.198-2.76 0-5-2.24-5-5s2.24-5 5-5c1.723 0 3.243.873 4.143 2.201l7.129-3.75zm3.728 11.549c1.656 0 3 1.344 3 3s-1.344 3-3 3-3-1.344-3-3 1.344-3 3-3zm-15-9c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm15-7c1.656 0 3 1.344 3 3s-1.344 3-3 3-3-1.344-3-3 1.344-3 3-3z"
+            />
+          </svg>
+          <span class="ml-3">Social</span>
+        </div>
       <div
         class="flex items-center justify-center cursor-pointer"
         @click="deleteAddons()"

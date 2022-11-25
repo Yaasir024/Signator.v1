@@ -4,18 +4,9 @@ import { inject } from "vue";
 import { useClickOutside } from "@/composables/useClickOutside";
 const data = inject("data");
 
-const props = defineProps(['addonType'])
-
-const signoff = computed(() => {
-    return data.addons.find(item => item.type == props.addonType)
-})
-
-
 // Delete Addon
 const deleteAddons = () => {
-  data.addons = data.addons.filter(
-    (item) => item.type != props.addonType
-  );
+  data.signoff = {};
 };
 const showSignoff = ref(true);
 const toggleSignoffDetail = () => {
@@ -29,7 +20,7 @@ const toggleSignoffFontMenu = () => {
 };
 // Set Font
 const setSignoffFont = (font) => {
-  signoff.value.data.style.fontFamily = font;
+  data.signoff.style.fontFamily = font;
   signoffFontMenu.value = false;
 };
 // FontMenu On Click Outside
@@ -90,7 +81,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="best-regards"
                 value="Best Regards,"
-                v-model="signoff.data.value"
+                v-model="data.signoff.value"
               />
               <label for="best-regards" class="ml-1">Best Regards,</label>
             </div>
@@ -99,7 +90,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="best"
                 value="Best,"
-                v-model="signoff.data.value"
+                v-model="data.signoff.value"
               />
               <label for="best" class="ml-1">Best,</label>
             </div>
@@ -108,7 +99,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="best-wishes"
                 value="Best Wishes,"
-                v-model="signoff.data.value"
+                v-model="data.signoff.value"
               />
               <label for="best-wishes" class="ml-1">Best Wishes,</label>
             </div>
@@ -117,7 +108,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="regards"
                 value="Regards,"
-                v-model="signoff.data.value"
+                v-model="data.signoff.value"
               />
               <label for="regards" class="ml-1">Regards,</label>
             </div>
@@ -126,7 +117,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="thanks"
                 value="Thanks,"
-                v-model="signoff.data.value"
+                v-model="data.signoff.value"
               />
               <label for="thanks" class="ml-1">Thanks,</label>
             </div>
@@ -135,7 +126,7 @@ useClickOutside(signoffFontMenuBar, () => {
                 type="radio"
                 id="sincerely"
                 value="Sincerely,"
-                v-model="signoff.data.value"
+                v-model="data.signoff.value"
               />
               <label for="sincerely" class="ml-1">Sincerely,</label>
             </div>
@@ -149,11 +140,11 @@ useClickOutside(signoffFontMenuBar, () => {
               <div
                 class="w-full bg-canvas-color flex items-center justify-between py-2 px-4 border rounded-2xl cursor-pointer"
                 :style="{
-                  'font-family': signoff.data.style.fontFamily,
+                  'font-family': data.signoff.style.fontFamily,
                 }"
                 @click="toggleSignoffFontMenu()"
               >
-                {{ signoff.data.style.fontFamily }}
+                {{ data.signoff.style.fontFamily }}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="14"
@@ -215,13 +206,13 @@ useClickOutside(signoffFontMenuBar, () => {
             <div
               class="relative w-9 h-9 rounded-full border"
               :style="{
-                background: signoff.data.style.color,
+                background: data.signoff.style.color,
               }"
             >
               <input
                 type="color"
                 class="absolute top-0 left-0 w-full h-full cursor-pointer opacity-0"
-                v-model="signoff.data.style.color"
+                v-model="data.signoff.style.color"
               />
             </div>
           </div>
@@ -229,15 +220,41 @@ useClickOutside(signoffFontMenuBar, () => {
           <div class="mb-5">
             <div class="flex items-center justify-between">
               <span>Font Size</span>
-              <span>{{ signoff.data.style.fontSize }}px</span>
+              <span>{{ data.signoff.style.fontSize }}px</span>
             </div>
             <input
               type="range"
               class=""
-              min="20"
-              max="50"
-              v-model="signoff.data.style.fontSize"
+              min="13"
+              max="20"
+              v-model="data.signoff.style.fontSize"
             />
+          </div>
+          <!-- Alignment -->
+          <div class="mb-5 flex items-center justify-between">
+            <p>Alignment</p>
+            <div class="h-[45px] w-[150px]">
+              <div class="flex my-1 bg-white border rounded-md shadow-lg">
+                <button class="flex-33.33% flex items-center justify-center h-[35px] border-r hover:text-primary-color transition-all duration-200 ease-in-out"
+                :class="data.signoff.style.alignment == 'left'? 'text-primary-color' : ''"
+                @click="data.signoff.style.alignment = 'left'"
+                >
+                  <span><svg clip-rule="evenodd" height="20" width="20" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m15 17.75c0-.414-.336-.75-.75-.75h-11.5c-.414 0-.75.336-.75.75s.336.75.75.75h11.5c.414 0 .75-.336.75-.75zm7-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z" fill-rule="nonzero"/></svg></span>
+                </button>
+                <button class="flex-33.33% flex items-center justify-center h-[35px] border-r hover:text-primary-color transition-all duration-200 ease-in-out"
+                :class="data.signoff.style.alignment == 'center'? 'text-primary-color' : ''"
+                @click="data.signoff.style.alignment = 'center'"
+                >
+                  <span><svg clip-rule="evenodd" height="20" width="20" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m22 16.75c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z" fill-rule="nonzero"/></svg></span>
+                </button>
+                <button class="flex-33.33% flex items-center justify-center h-[35px] border-r hover:text-primary-color transition-all duration-200 ease-in-out"
+                :class="data.signoff.style.alignment == 'end'? 'text-primary-color' : ''"
+                @click="data.signoff.style.alignment = 'end'"
+                >
+                  <span><svg clip-rule="evenodd" height="20" width="20" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m7 17.75c0-.414.336-.75.75-.75h13.5c.414 0 .75.336.75.75s-.336.75-.75.75h-13.5c-.414 0-.75-.336-.75-.75zm-5-4c0-.414.336-.75.75-.75h18.5c.414 0 .75.336.75.75s-.336.75-.75.75h-18.5c-.414 0-.75-.336-.75-.75zm9-4c0-.414.336-.75.75-.75h9.5c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75zm-7-4c0-.414.336-.75.75-.75h16.5c.414 0 .75.336.75.75s-.336.75-.75.75h-16.5c-.414 0-.75-.336-.75-.75z" fill-rule="nonzero"/></svg></span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

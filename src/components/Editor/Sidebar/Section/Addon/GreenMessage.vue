@@ -5,20 +5,16 @@ import { useClickOutside } from "@/composables/useClickOutside";
 import addonData from "@/data/addons";
 const data = inject("data");
 
-
-const props = defineProps(['addonType'])
+const props = defineProps(["addonType"]);
 
 const greenMessage = computed(() => {
-    return data.addons.find(item => item.type == props.addonType)
-})
+  return data.addons.find((item) => item.type == props.addonType);
+});
 
 // Delete Addon
 const deleteAddons = () => {
-  data.addons = data.addons.filter(
-    (item) => item.type != props.addonType
-  );
+  data.addons = data.addons.filter((item) => item.type != props.addonType);
 };
-
 
 const showDetail = ref(true);
 const toggleDetail = () => {
@@ -62,7 +58,7 @@ useClickOutside(greenMessageFontMenuBar, () => {
 <template>
   <!-- Green Message -->
   <div
-    class="rounded-3xl shadow-lg border relative overflow-hidden"
+    class="rounded-3xl shadow-lg border relative overflow-hidden w-full"
     :class="showDetail ? 'mb-5' : 'mb-12'"
   >
     <div
@@ -183,9 +179,7 @@ useClickOutside(greenMessageFontMenuBar, () => {
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
               @click="greenMessage.data.items.icon = ''"
               :class="
-                greenMessage.data.items.icon == ''
-                  ? 'border-primary-color'
-                  : ''
+                greenMessage.data.items.icon == '' ? 'border-primary-color' : ''
               "
             >
               <img src="/images/greenMessage/none.svg" alt="" />
@@ -319,4 +313,3 @@ useClickOutside(greenMessageFontMenuBar, () => {
     </div>
   </div>
 </template>
-

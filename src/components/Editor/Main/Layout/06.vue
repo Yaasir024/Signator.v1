@@ -6,6 +6,11 @@ import AddressContact from "@/components/Editor/Main/Layout/Reuseables/ContactIn
 import SocialIcons from "@/components/Editor/Main/Layout/Reuseables/SocialIcons.vue";
 import Addons from "@/components/Editor/Main/Layout/Reuseables/Addons/index.vue";
 const prop = defineProps(["data"]);
+const isObjEmpty = (obj) => {
+  if(Object.keys(obj).length == 0)
+    return false
+  return true
+}
 </script>
 
 <template>
@@ -18,16 +23,17 @@ const prop = defineProps(["data"]);
       'font-family': data.design.layout.fontFamily,
     }"
   >
-    <tr v-if="data.addons.signoff">
+    <tr v-if="data.signoff">
       <td
         style="padding-bottom: 6px"
         :style="{
-          color: data.addons.signoff.style.color,
-          'font-size': data.addons.signoff.style.fontSize + 'px',
-          'font-family': data.addons.signoff.style.fontFamily,
+          color: data.signoff.style.color,
+          'font-size': data.signoff.style.fontSize + 'px',
+          'font-family': data.signoff.style.fontFamily,
+          'text-align': data.signoff.style.alignment,
         }"
       >
-        {{ data.addons.signoff.value }}
+        {{ data.signoff.value }}
       </td>
     </tr>
     <tr>
