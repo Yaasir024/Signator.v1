@@ -14,6 +14,7 @@ const uploadImage = () => {
   }else if(data.image.img != '') {
     useEditorStore.uploadImg(data.image.img)
   }
+  // useEditorStore.data = {}
 }
 
 

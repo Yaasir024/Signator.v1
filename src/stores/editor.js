@@ -102,5 +102,10 @@ export const editorStore = defineStore("editor", () => {
       });
   };
 
-  return { data, path, currentEditorNav, addSignature, uploadImg,previewImage, getSignaturePreview, signaturePreviewData };
+  const showTemplatesSection = ref(false);
+  // if(Object.keys(data.value).length == 0) {
+  //   showTemplatesSection.value = true
+  // }
+
+  return { data, path, currentEditorNav, addSignature, uploadImg,previewImage, getSignaturePreview, signaturePreviewData, showTemplatesSection };
 });

@@ -7,10 +7,9 @@ import SocialIcons from "@/components/Editor/Main/Layout/Reuseables/SocialIcons.
 import Addons from "@/components/Editor/Main/Layout/Reuseables/Addons/index.vue";
 const prop = defineProps(["data"]);
 const isObjEmpty = (obj) => {
-  if(Object.keys(obj).length == 0)
-    return false
-  return true
-}
+  if (Object.keys(obj).length == 0) return false;
+  return true;
+};
 </script>
 
 <template>
@@ -23,14 +22,14 @@ const isObjEmpty = (obj) => {
       'font-family': data.design.layout.fontFamily,
     }"
   >
-    <tr v-if="data.signoff">
+    <tr v-if="isObjEmpty(data.signoff)">
       <td
         style="padding-bottom: 6px"
         :style="{
           color: data.signoff.style.color,
           'font-size': data.signoff.style.fontSize + 'px',
           'font-family': data.signoff.style.fontFamily,
-          'text-align' : data.signoff.style.alignment
+          'text-align': data.signoff.style.alignment,
         }"
       >
         {{ data.signoff.value }}

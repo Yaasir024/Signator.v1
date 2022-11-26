@@ -5,6 +5,7 @@ import { authStore } from "@/stores/auth";
 import { systemStore } from "@/stores/system";
 import { useRouter } from "vue-router";
 
+import TemplateSection from "@/components/Templates/v1.vue";
 import Navbar from "@/components/Navbar.vue";
 import Overlay from "@/components/Overlay.vue";
 import Snackbar from "@/components/Snackbar.vue";
@@ -12,6 +13,10 @@ import Delete from "@/components/Modal/ConfirmDelete.vue";
 import Rename from "@/components/Modal/Rename.vue";
 import Card from "@/components/Dashboard/Card.vue";
 import Toast from "@/components/Toast/index.vue";
+import { editorStore } from "@/stores/editor";
+import { useClickOutside } from "@/composables/useClickOutside";
+
+const useEditorStore = editorStore();
 
 const router = useRouter();
 
@@ -27,7 +32,15 @@ onMounted(() => {
 
 const currentTab = ref("published");
 
-const newSignature = async () => {};
+const newSignature = () => {
+  useDashboard.showTemplatesSection = true;
+};
+
+// useClickOutside(templateSection, () => {
+//   if (useEditorStore.showTemplatesSection == true) {
+//     useEditorStore.showTemplatesSection = false;
+//   }
+// });
 
 const checkDrafts = (data) => {
   if (useSystemStore.drafts.some((e) => e.uid === data.uid)) {
@@ -118,85 +131,93 @@ const closeDeleteModal = () => {
           </div>
           <div class="signatures px-2 py-3">
             <div class="" v-if="currentTab == 'published'">
-              <Card
-                v-for="data in useDashboard.allSignatures"
-                :key="data.uid"
-                :data="data"
-                :hasDraft="checkDrafts(data)"
-                :type="'published'"
-              >
-                <template #footer>
-                  <div
-                    class="pt-3 pb-4 px-2 border-t flex items-center justify-between"
+              <div class="grid grid-cols-2 gap-x-4 gap-y-3 px-4 py-6">
+                <div
+                  class=""
+                  v-for="data in useDashboard.allSignatures"
+                  :key="data.uid"
+                >
+                  <Card
+                    :data="data"
+                    :hasDraft="checkDrafts(data)"
+                    :type="'published'"
                   >
-                    <button
-                      class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
-                      @click="editSignature(data)"
-                    >
-                      Edit Signature
-                    </button>
-                    <div class="flex items-center">
+                    <template #footer>
                       <div
-                        class="mr-3 cursor-pointer"
-                        title="Duplicate"
-                        @click="useDashboard.duplicate(data)"
+                        class="pt-3 pb-4 px-2 border-t flex items-center justify-between"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
+                        <button
+                          class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
+                          @click="editSignature(data)"
                         >
-                          <path
-                            d="M10 19h10v1h-10v-1zm14-13v18h-18v-6h-6v-18h18v6h6zm-18 0h10v-4h-14v14h4v-10zm16 2h-1.93c-.669 0-1.293.334-1.664.891l-1.406 2.109h-3.93l-1.406-2.109c-.371-.557-.995-.891-1.664-.891h-2v14h14v-14zm-12 6h10v-1h-10v1zm0 3h10v-1h-10v1z"
-                          />
-                        </svg>
+                          Edit Signature
+                        </button>
+                        <div class="flex items-center">
+                          <div
+                            class="mr-3 cursor-pointer"
+                            title="Duplicate"
+                            @click="useDashboard.duplicate(data)"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                            >
+                              <path
+                                d="M10 19h10v1h-10v-1zm14-13v18h-18v-6h-6v-18h18v6h6zm-18 0h10v-4h-14v14h4v-10zm16 2h-1.93c-.669 0-1.293.334-1.664.891l-1.406 2.109h-3.93l-1.406-2.109c-.371-.557-.995-.891-1.664-.891h-2v14h14v-14zm-12 6h10v-1h-10v1zm0 3h10v-1h-10v1z"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="mr-3 cursor-pointer"
+                            title="Rename"
+                            @click="openRenameModal(data.uid, data.title)"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                            >
+                              <path
+                                d="M22 0h-20v6h1.999c0-1.174.397-3 2.001-3h4v16.874c0 1.174-.825 2.126-2 2.126h-1v2h9.999v-2h-.999c-1.174 0-2-.952-2-2.126v-16.874h4c1.649 0 2.02 1.826 2.02 3h1.98v-6z"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="cursor-pointer"
+                            title="Delete"
+                            @click="confirmDelete(data.uid)"
+                          >
+                            <svg
+                              width="20"
+                              height="20"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M19 24h-14c-1.104 0-2-.896-2-2v-17h-1v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2h-1v17c0 1.104-.896 2-2 2zm0-19h-14v16.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-16.5zm-9 4c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm-2-7h-4v1h4v-1z"
+                              />
+                            </svg>
+                          </div>
+                        </div>
                       </div>
-                      <div
-                        class="mr-3 cursor-pointer"
-                        title="Rename"
-                        @click="openRenameModal(data.uid, data.title)"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                        >
-                          <path
-                            d="M22 0h-20v6h1.999c0-1.174.397-3 2.001-3h4v16.874c0 1.174-.825 2.126-2 2.126h-1v2h9.999v-2h-.999c-1.174 0-2-.952-2-2.126v-16.874h4c1.649 0 2.02 1.826 2.02 3h1.98v-6z"
-                          />
-                        </svg>
-                      </div>
-                      <div
-                        class="cursor-pointer"
-                        title="Delete"
-                        @click="confirmDelete(data.uid)"
-                      >
-                        <svg
-                          width="20"
-                          height="20"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M19 24h-14c-1.104 0-2-.896-2-2v-17h-1v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2h-1v17c0 1.104-.896 2-2 2zm0-19h-14v16.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-16.5zm-9 4c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm-2-7h-4v1h4v-1z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </template>
-              </Card>
+                    </template>
+                  </Card>
+                </div>
+              </div>
             </div>
             <div class="" v-if="currentTab == 'drafts'">
               <div class="" v-if="useSystemStore.unpublishedDrafts.length > 0">
-                <div class="w-full grid grid-cols-2 gap-3 max-w-[1250px] mx-auto">
+                <div
+                  class="w-full grid grid-cols-2 gap-3 max-w-[1250px] mx-auto"
+                >
                   <div
                     class=""
                     v-for="data in useSystemStore.unpublishedDrafts"
@@ -284,28 +305,7 @@ const closeDeleteModal = () => {
               </div>
             </div>
           </div>
-        </main>
-        <!-- <div class="w-[450px] pt-18 px-1">
-          <div
-            class="card m-2 h-[220px] w-full bg-white shadow-lg border rounded-lg"
-          >
-            <div
-              class="w-full h-full px-6 text-center flex flex-col items-center justify-center"
-            >
-              <p class="text-base">
-                Upgrade your account to unlock Pro Features and create more
-                signatures..
-              </p>
-              <button
-                class="mt-3 py-2 px-4 bg-primary-color text-white font-medium rounded-xl"
-                @click="useDashboard.duplicate()"
-              >
-                Upgrade Now
-              </button>
-            </div>
-          </div>
-        </div> -->
-      </div>
+        </main></div>
     </main>
   </div>
   <Delete
@@ -321,4 +321,24 @@ const closeDeleteModal = () => {
   />
   <Overlay v-if="deleteModal || renameModal" />
   <!-- <Snackbar /> -->
+  <transition name="templates">
+    <div
+      class="fixed top-0 left-0 w-full h-full overflow-y-auto z-50 bg-[#ffffff83] backdrop-blur-[4px]"
+      v-if="useDashboard.showTemplatesSection"
+    >
+      <TemplateSection ref="templateSection" />
+    </div>
+  </transition>
 </template>
+
+<style scoped>
+.templates-enter-active,
+.templates-leave-active {
+  transition: 0.32s ease all;
+}
+.templates-enter-from,
+.templates-leave-to {
+  /* transform: translateY(-100%); */
+  opacity: 0;
+}
+</style>

@@ -6,7 +6,7 @@ const props = defineProps(["data", "hasDraft", "type"]);
 </script>
 
 <template>
-  <div class="card bg-white shadow-lg border rounded-lg mb-5 px-4">
+  <div class="card bg-white shadow-lg border rounded-lg px-4">
     <div class="heading pt-3 pb-2 px-2 border-b">
       <h1 class="text-lg font-medium">{{ data.title }}</h1>
     </div>

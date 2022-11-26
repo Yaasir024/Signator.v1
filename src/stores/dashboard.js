@@ -109,6 +109,7 @@ export const dashboardStore = defineStore("dashboard", () => {
         });
       });
   };
+  const showTemplatesSection = ref(false);
 
   return {
     allSignatures,
@@ -116,5 +117,6 @@ export const dashboardStore = defineStore("dashboard", () => {
     renameSignature,
     deleteSignature,
     duplicate,
+    showTemplatesSection
   };
 });

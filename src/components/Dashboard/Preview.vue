@@ -16,7 +16,7 @@ const layouts = {
 </script>
 
 <template>
-  <div class="w-full h-full flex flex-col py-1 px-4 overflow-hidden">
+  <div class="w-full max-h-[300px] h-full flex flex-col py-1 px-4 overflow-hidden">
     <div class="">
       <component
         :is="layouts[data.design.layout.layout]"
