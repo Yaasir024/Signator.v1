@@ -49,8 +49,9 @@ const submit = () => {
                 placeholder="Name"
                 class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
                 required
+                name="user_name"
                 v-model="messageData.user_name"
-              />
+                />
             </div>
             <div class="field p-1 w-full">
               <div class="mb-1 pl-2">Email</div>
@@ -59,8 +60,9 @@ const submit = () => {
                 placeholder="Email"
                 class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
                 required
+                name="user_email"
                 v-model="messageData.user_email"
-              />
+                />
             </div>
           </div>
 
@@ -71,8 +73,9 @@ const submit = () => {
               placeholder="Subject"
               class="w-full h-10 bg-white border rounded-lg px-4 outline-none focus:border-primary-color"
               required
+              name="subject"
               v-model="messageData.subject"
-            />
+              />
           </div>
           <div class="field mb-4">
             <div class="mb-1 pl-2">Message</div>
@@ -80,8 +83,9 @@ const submit = () => {
               cols="30"
               rows="5"
               class="w-full bg-white border rounded-lg p-2 text-sm outline-none focus:border-primary-color"
+              name="message"
               v-model="messageData.message"
-            ></textarea>
+              ></textarea>
           </div>
 
           <button

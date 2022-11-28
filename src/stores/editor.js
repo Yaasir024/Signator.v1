@@ -23,7 +23,7 @@ import {
   Timestamp,
   updateDoc,
   increment,
-  arrayUnion
+  arrayUnion,
 } from "firebase/firestore";
 import axios from "axios";
 
@@ -36,12 +36,12 @@ export const editorStore = defineStore("editor", () => {
   const route = useRoute();
   const path = route.params.id;
   // const data = useLocalStorage(path, {});
-  const data = useLocalStorage('__editor_data__', {});
+  const data = useLocalStorage("__editor_data__", {});
   const currentEditorNav = ref("general");
   const previewImage = ref("");
   const imageModal = ref(false);
 
-  const signaturePreviewData = ref(null)
+  const signaturePreviewData = ref(null);
 
   const uploadImg = (img) => {
     const formData = new FormData();
@@ -73,33 +73,25 @@ export const editorStore = defineStore("editor", () => {
       useAuth.userId.uid,
       "signatures",
       data.value.uid
-    )
-    await setDoc(docRef, data.value)
-      .then(async() => {
-        await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
-          publishedSignatures: arrayUnion(data.value.uid),
-        })
-        console.log("Successfull");
-        router.push({ path: `/preview/${data.value.uid}` });
-        // localStorage.removeItem(data.value.uid);
-        data.value = {}
-        useSystemStore.drafts = useSystemStore.drafts.filter((item) => item.uid != data.value.uid);
-      })
+    );
+    await setDoc(docRef, data.value).then(async () => {
+      await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
+        publishedSignatures: arrayUnion(data.value.uid),
+      });
+      console.log("Successfull");
+      router.push({ path: `/preview/${data.value.uid}` });
+      // localStorage.removeItem(data.value.uid);
+      data.value = {};
+      // useSystemStore.drafts = useSystemStore.drafts.filter((item) => item.uid != data.value.uid);
+    });
   };
 
   const getSignaturePreview = async (id) => {
-    const ref = doc(
-      firestoreDb,
-      "users",
-      useAuth.userId.uid,
-      "signatures",
-      id
-    );
-    await getDoc(ref)
-      .then((doc) => {
-        console.log(doc.data());
-        signaturePreviewData.value = doc.data();
-      });
+    const ref = doc(firestoreDb, "users", useAuth.userId.uid, "signatures", id);
+    await getDoc(ref).then((doc) => {
+      console.log(doc.data());
+      signaturePreviewData.value = doc.data();
+    });
   };
 
   const showTemplatesSection = ref(false);
@@ -107,5 +99,15 @@ export const editorStore = defineStore("editor", () => {
   //   showTemplatesSection.value = true
   // }
 
-  return { data, path, currentEditorNav, addSignature, uploadImg,previewImage, getSignaturePreview, signaturePreviewData, showTemplatesSection };
+  return {
+    data,
+    path,
+    currentEditorNav,
+    addSignature,
+    uploadImg,
+    previewImage,
+    getSignaturePreview,
+    signaturePreviewData,
+    showTemplatesSection,
+  };
 });

@@ -9,7 +9,8 @@ const useEditorStore = editorStore();
 
 
 const uploadImage = () => {
-  if(data.image.imgSrc != '') {
+  console.log('success')
+  if(data.image.img == '') {
     useEditorStore.addSignature()
   }else if(data.image.img != '') {
     useEditorStore.uploadImg(data.image.img)

@@ -16,7 +16,7 @@ import {
   collectionGroup,
   Timestamp,
   increment,
-  arrayRemove
+  arrayRemove,
 } from "firebase/firestore";
 import { authStore } from "./auth";
 import { systemStore } from "./system";
@@ -49,7 +49,7 @@ export const dashboardStore = defineStore("dashboard", () => {
       .then(async () => {
         await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
           publishedSignatures: arrayRemove(id),
-        })
+        });
         getSignatures();
         useSystemStore.addNotificationData({
           message: "Signature has been successfully deleted.",
@@ -89,25 +89,43 @@ export const dashboardStore = defineStore("dashboard", () => {
       });
   };
   const duplicate = async (data) => {
-    data.uid = uid(6);
-    data.title = data.title + " (Copy)";
-    const docRef = await setDoc(
-      doc(firestoreDb, "users", useAuth.userId.uid, "signatures", data.uid),
-      data
-    )
-      .then(() => {
-        getSignatures();
-        useSystemStore.addNotificationData({
-          message: "Signature has been successfully duplicated.",
-          type: "success",
+    if (useSystemStore.isEligibleToCreate()) {
+      let newData = data;
+
+      newData.uid = uid(16);
+      newData.title = newData.title + " (Copy)";
+      const docRef = await setDoc(
+        doc(
+          firestoreDb,
+          "users",
+          useAuth.userId.uid,
+          "signatures",
+          newData.uid
+        ),
+        newData
+      )
+        .then(async() => {
+          await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
+            publishedSignatures: arrayUnion(data.value.uid),
+          })
+          getSignatures();
+          useSystemStore.addNotificationData({
+            message: "Signature has been successfully duplicated.",
+            type: "success",
+          });
+        })
+        .catch(() => {
+          useSystemStore.addNotificationData({
+            message: "Signature duplicate unsuccessful.",
+            type: "error",
+          });
         });
-      })
-      .catch(() => {
-        useSystemStore.addNotificationData({
-          message: "Signature duplicate unsuccessful.",
-          type: "error",
-        });
+    } else {
+      useSystemStore.addNotificationData({
+        message: "Upgrade to create more signatures.",
+        type: "error",
       });
+    }
   };
   const showTemplatesSection = ref(false);
 
@@ -117,6 +135,6 @@ export const dashboardStore = defineStore("dashboard", () => {
     renameSignature,
     deleteSignature,
     duplicate,
-    showTemplatesSection
+    showTemplatesSection,
   };
 });

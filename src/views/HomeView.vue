@@ -2,21 +2,16 @@
 import { ref, reactive, computed } from "vue";
 import Navbar from "@/components/Navigations/Navbar.vue";
 import Footer from "@/components/Navigations/Footer.vue";
-import Test from "@/components/Test.vue";
 import { authStore } from "@/stores/auth";
 
 const useAuth = authStore();
 
-const testDigits = ref('rubbish')
+
 </script>
 
 <template>
   <div class="min-h-screen">
     <Navbar />
-    <div class="my-12 py-6 px-6 bg-blue-600 text-white">
-      {{testDigits}} 
-      <Test :data="testDigits"/>
-    </div>
     <main class="w-full bg-white py-5 px-6">
       <div
         class="hero first-letter:lg:pl-[140px] pt-11 lg:pt-[93px] md:pl-[70px] pl-3 lg:text-left"

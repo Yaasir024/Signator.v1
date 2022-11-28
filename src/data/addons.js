@@ -1,63 +1,4 @@
 export default {
-  // defaultAddonData: {
-  //   signoff: {
-  //     value: "Best Regards,",
-  //     style: {
-  //       fontFamily: "Sans Serif",
-  //       color: "#000000",
-  //       fontSize: 24,
-  //     },
-  //   },
-  //   social: {
-  //     items: [],
-  //     style: {
-  //       height: 40,
-  //       paddingTop: 5,
-  //     },
-  //   },
-  //   videoMeeting: {
-  //     items: {
-  //       name: "zoom",
-  //       text: "Meet me on Zoom",
-  //       url: "",
-  //     },
-  //     style: {
-  //       height: 30,
-  //       paddingTop: 10,
-  //     },
-  //   },
-  //   cta: {
-  //     item: {
-  //       text: "",
-  //       url: "",
-  //     },
-  //     style: {
-  //       paddingTop: 10,
-  //       textColor: "#ffffff",
-  //       buttonColor: "#5489bb",
-  //     },
-  //   },
-  //   disclaimer: {
-  //     text: "",
-  //     type: "",
-  //     style: {
-  //       width: 500,
-  //       fontSize: "small",
-  //       textColor: "#000000",
-  //     },
-  //   },
-  //   greenMessage: {
-  //     items: {
-  //       text: "",
-  //       type: "",
-  //       icon: "",
-  //     },
-  //     style: {
-  //       fontSize: "small",
-  //       textColor: "#000000",
-  //     },
-  //   },
-  // },
   defaultAddonData: {
     signoff: {
       value: "Best Regards,",
@@ -153,11 +94,11 @@ export default {
     6: "“Nature provides a free lunch, but only if we control our appetites.” William Ruckelshaus",
   },
   featuresQualification: {
-    signoff: ["free", "lite", "premium"],
-    disclaimer: ["lite", "premium"],
-    social: ["free", "lite", "premium"],
-    greenMessage: ["lite", "premium"],
-    videoMeeting: ["lite", "premium"],
-    cta: ["lite", "premium"],
+    signoff: ["free", "pro"],
+    disclaimer: ["pro"],
+    social: ["free", "pro"],
+    greenMessage: [ "pro"],
+    videoMeeting: ["pro"],
+    cta: ["pro"],
   },
 };

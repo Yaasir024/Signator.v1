@@ -1,25 +1,28 @@
 <script setup>
 import { ref, reactive, onBeforeMount, onMounted, computed } from "vue";
+import { useRouter } from "vue-router";
+
 import { dashboardStore } from "@/stores/dashboard";
 import { authStore } from "@/stores/auth";
 import { systemStore } from "@/stores/system";
-import { useRouter } from "vue-router";
+import { editorStore } from "@/stores/editor";
+
+import { useClickOutside } from "@/composables/useClickOutside";
 
 import TemplateSection from "@/components/Templates/v1.vue";
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/Navigations/Navbar.vue";
+import Footer from "@/components/Navigations/Footer.vue";
 import Overlay from "@/components/Overlay.vue";
 import Snackbar from "@/components/Snackbar.vue";
 import Delete from "@/components/Modal/ConfirmDelete.vue";
+import ConfirmDraft from "@/components/Modal/ConfirmDraft.vue";
 import Rename from "@/components/Modal/Rename.vue";
 import Card from "@/components/Dashboard/Card.vue";
 import Toast from "@/components/Toast/index.vue";
-import { editorStore } from "@/stores/editor";
-import { useClickOutside } from "@/composables/useClickOutside";
-
-const useEditorStore = editorStore();
 
 const router = useRouter();
 
+const useEditorStore = editorStore();
 const useDashboard = dashboardStore();
 const useAuth = authStore();
 const useSystemStore = systemStore();
@@ -33,29 +36,44 @@ onMounted(() => {
 const currentTab = ref("published");
 
 const newSignature = () => {
-  useDashboard.showTemplatesSection = true;
-};
-
-// useClickOutside(templateSection, () => {
-//   if (useEditorStore.showTemplatesSection == true) {
-//     useEditorStore.showTemplatesSection = false;
-//   }
-// });
-
-const checkDrafts = (data) => {
-  if (useSystemStore.drafts.some((e) => e.uid === data.uid)) {
-    return true;
+  if (useSystemStore.isEligibleToCreate()) {
+    useEditorStore.data = {};
+    router.push({ path: "/editor" });
   } else {
-    return false;
+    useSystemStore.addNotificationData({
+      message: "Upgrade to create more signatures.",
+      type: "error",
+    });
   }
 };
+
+
+// Confirm Draft
+const confirmDraftModal = ref(false);
+const deleteDraft = () => {
+  confirmDraftModal.value = false;
+  useEditorStore.data = {};
+};
+const editDraft = () => {
+  confirmDraftModal.value = false;
+  router.push({ path: "/editor" });
+};
+onMounted(() => {
+  setTimeout(() => {
+    if (
+      useDashboard.allSignatures && 
+      useEditorStore.data.uid && 
+      !useDashboard.allSignatures.some((e) => e.uid === useEditorStore.data.uid)
+    ) {
+      confirmDraftModal.value = true
+      // console.log(useEditorStore.data.uid);
+    }
+  }, "5000");
+});
 
 const editSignature = (data) => {
-  if (checkDrafts(data)) {
-    router.push({ path: `/editor/${data.uid}` });
-  } else {
-    useSystemStore.addDraft(data, true);
-  }
+  useEditorStore.data = data;
+  router.push({ path: "/editor" });
 };
 
 // Rename
@@ -94,44 +112,23 @@ const closeDeleteModal = () => {
 <template>
   <div class="min-h-screen">
     <Navbar />
-    <main class="py-8 px-8">
+    <main class="py-8 px-4">
       <div class="flex">
-        <main class="w-full py-4 px-2">
-          <div class="header w-full px-2 flex justify-between">
-            <ul class="flex items-center ml-3">
-              <li
-                class="py-2 px-4 border rounded-l-xl text-base cursor-pointer transition-all ease-in-out duration-300"
-                :class="
-                  currentTab == 'published'
-                    ? 'bg-primary-color text-white'
-                    : 'text-primary-color'
-                "
-                @click="currentTab = 'published'"
-              >
-                Published
-              </li>
-              <li
-                class="py-2 px-4 border rounded-r-xl text-base cursor-pointer transition-all ease-in-out duration-300"
-                :class="
-                  currentTab == 'drafts'
-                    ? 'bg-primary-color text-white'
-                    : 'text-primary-color'
-                "
-                @click="currentTab = 'drafts'"
-              >
-                Drafts
-              </li>
-            </ul>
+        <main class="w-full pb-4">
+          <div class="header w-full px-2 flex justify-end">
             <button
-              class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
+              class="py-1.5 px-4 bg-primary-color border-primary-color text-white font-medium rounded-lg"
               @click="newSignature()"
             >
               New Signature
             </button>
           </div>
-          <div class="signatures px-2 py-3">
-            <div class="" v-if="currentTab == 'published'">
-              <div class="grid grid-cols-2 gap-x-4 gap-y-3 px-4 py-6">
+          <div class="signatures py-3">
+            <div class="">
+              <div
+                class="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-5 lg:gap-y-3 px-4 py-6"
+                v-if="useDashboard.allSignatures"
+              >
                 <div
                   class=""
                   v-for="data in useDashboard.allSignatures"
@@ -139,8 +136,7 @@ const closeDeleteModal = () => {
                 >
                   <Card
                     :data="data"
-                    :hasDraft="checkDrafts(data)"
-                    :type="'published'"
+                    :hasDraft="useEditorStore.data.uid == data.uid"
                   >
                     <template #footer>
                       <div
@@ -212,76 +208,6 @@ const closeDeleteModal = () => {
                   </Card>
                 </div>
               </div>
-            </div>
-            <div class="" v-if="currentTab == 'drafts'">
-              <div class="" v-if="useSystemStore.unpublishedDrafts.length > 0">
-                <div
-                  class="w-full grid grid-cols-2 gap-3 max-w-[1250px] mx-auto"
-                >
-                  <div
-                    class=""
-                    v-for="data in useSystemStore.unpublishedDrafts"
-                    :key="data.uid"
-                  >
-                    <Card
-                      :data="data"
-                      :hasDraft="checkDrafts(data)"
-                      :type="'draft'"
-                    >
-                      <template #footer>
-                        <div
-                          class="pt-3 pb-4 px-2 border-t flex items-center justify-between"
-                        >
-                          <button
-                            class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
-                            @click="editSignature(data)"
-                          >
-                            Edit Signature
-                          </button>
-                          <div class="flex items-center">
-                            <div
-                              class="mr-3 cursor-pointer"
-                              title="Duplicate"
-                              @click="useDashboard.duplicate(data)"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                              >
-                                <path
-                                  d="M10 19h10v1h-10v-1zm14-13v18h-18v-6h-6v-18h18v6h6zm-18 0h10v-4h-14v14h4v-10zm16 2h-1.93c-.669 0-1.293.334-1.664.891l-1.406 2.109h-3.93l-1.406-2.109c-.371-.557-.995-.891-1.664-.891h-2v14h14v-14zm-12 6h10v-1h-10v1zm0 3h10v-1h-10v1z"
-                                />
-                              </svg>
-                            </div>
-                            <div
-                              class="cursor-pointer"
-                              title="Delete"
-                              @click="useSystemStore.discardDraft(data.uid)"
-                            >
-                              <svg
-                                width="20"
-                                height="20"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  d="M19 24h-14c-1.104 0-2-.896-2-2v-17h-1v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2h-1v17c0 1.104-.896 2-2 2zm0-19h-14v16.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-16.5zm-9 4c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm-2-7h-4v1h4v-1z"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </template>
-                    </Card>
-                  </div>
-                </div>
-              </div>
               <div
                 class="w-full flex flex-col items-center justify-center"
                 v-else
@@ -291,23 +217,32 @@ const closeDeleteModal = () => {
                   alt=""
                   class="max-h-[265px] h-full"
                 />
-                <h1 class="text-xl font-medium">NO DRAFTS</h1>
-                <p class="text-base mt-3">
-                  Don't Know where to start?
-                  <span class="text-primary-color cursor-pointer"
-                    >Watch This Video</span
-                  >
-                  or visit our
-                  <span class="text-primary-color cursor-pointer"
-                    >Help Center</span
-                  >
+                <h1 class="text-xl font-medium uppercase">NO Signatures Yet</h1>
+                <span
+                  class="text-base text-primary-color cursor-pointer mt-1"
+                  @click="newSignature()"
+                  >Create one</span
+                >
+                <p class="text-base mt-2">
+                  Don't Know where to start? Visit our
+                  <RouterLink to="/help-center">
+                    <span class="text-primary-color cursor-pointer"
+                      >Help Center</span
+                    >
+                  </RouterLink>
                 </p>
               </div>
             </div>
           </div>
-        </main></div>
+        </main>
+      </div>
     </main>
   </div>
+  <ConfirmDraft
+    v-if="confirmDraftModal"
+    @delete-draft="deleteDraft()"
+    @edit-draft="editDraft()"
+  />
   <Delete
     v-if="deleteModal"
     @close-delete-modal="closeDeleteModal()"
@@ -319,7 +254,7 @@ const closeDeleteModal = () => {
     :title="signatureCurrentTitle"
     :id="renameSignatureId"
   />
-  <Overlay v-if="deleteModal || renameModal" />
+  <Overlay v-if="deleteModal || renameModal || confirmDraftModal" />
   <!-- <Snackbar /> -->
   <transition name="templates">
     <div
