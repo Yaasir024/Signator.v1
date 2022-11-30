@@ -4,6 +4,7 @@ import { inject } from "vue";
 import draggable from "vuedraggable";
 
 import { editorStore } from "@/stores/editor";
+import { systemStore } from "@/stores/system";
 
 import { uid } from "@/composables/useGenerateUid";
 
@@ -16,8 +17,9 @@ import videoMeeting from "@/components/Editor/Sidebar/Section/Addon/VideoMeeting
 import cta from "@/components/Editor/Sidebar/Section/Addon/Cta.vue";
 import addonData from "@/data/addons";
 
-
 const useEditorStore = editorStore();
+const useSystemStore = systemStore();
+
 const data = inject("data");
 
 const addonComponents = {
@@ -50,8 +52,10 @@ const checkAvailableAddons = () => {
 };
 
 const checkFeatureQualification = (feature) => {
-  addonData.featuresQualification[feature].includes("premium");
-  return addonData.featuresQualification[feature].includes("premium");
+  // addonData.featuresQualification[feature].includes("premium");
+  return addonData.featuresQualification[feature].includes(
+    useSystemStore.userFullData.plan
+  );
 };
 
 const checkAddons = (addon) => {
@@ -62,29 +66,29 @@ const checkAddons = (addon) => {
 };
 
 const addAddons = (addon) => {
-  // if (checkFeatureQualification(addon)) {
-  //   data.addons[addon] = addonData.defaultAddonData[addon];
-  // }
-  data.addons.push(addonData.defaultAddonData[addon]);
+  if (checkFeatureQualification(addon)) {
+    data.addons.push(addonData.defaultAddonData[addon]);
+  }
 };
 
 const addSignoff = () => {
-  data.signoff = addonData.defaultAddonData.signoff
+  data.signoff = addonData.defaultAddonData.signoff;
+};
+
+const checkObj = (obj) => {
+  return Object.keys(obj).length != 0
 }
-
-
 </script>
 
 <template>
   <div class="addons pb-14">
     <!-- Added Addons -->
-    <!-- v-if="checkAddedAddons()" -->
-    <div class="border-b pb-7 mb-10" v-if="data.addons.length >= 1">
+    <div class="border-b pb-7 mb-10" v-if="checkObj(data.signoff) || (data.addons.length >= 1)">
       <div class="mb-3">
         <Heading :title="'Added Addons'" />
       </div>
       <div class="">
-        <signoff v-if="Object.keys(data.signoff).length != 0"/>
+        <signoff v-if="Object.keys(data.signoff).length != 0" />
       </div>
       <draggable
         v-model="data.addons"
@@ -95,9 +99,18 @@ const addSignoff = () => {
         item-key="id"
       >
         <template #item="{ element }">
-          <div class="flex ">
+          <div class="flex">
             <div class="handle cursor-move mt-5">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M14 12c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm-3-3.858c.321-.083.653-.142 1-.142s.679.059 1 .142v-2.142h4l-5-6-5 6h4v2.142zm2 7.716c-.321.083-.653.142-1 .142s-.679-.059-1-.142v2.142h-4l5 6 5-6h-4v-2.142z"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M14 12c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm-3-3.858c.321-.083.653-.142 1-.142s.679.059 1 .142v-2.142h4l-5-6-5 6h4v2.142zm2 7.716c-.321.083-.653.142-1 .142s-.679-.059-1-.142v2.142h-4l5 6 5-6h-4v-2.142z"
+                />
+              </svg>
             </div>
             <component
               :is="addonComponents[element.type]"
@@ -113,7 +126,7 @@ const addSignoff = () => {
       <!-- SignOff -->
       <div class="mb-4" v-if="Object.keys(data.signoff).length == 0">
         <div
-          class="accordion flex items-center py-4 px-8 rounded-3xl shadow-lg border cursor-pointer"
+          class="accordion flex items-center justify-between py-4 px-8 rounded-3xl shadow-lg border cursor-pointer"
           @click="addSignoff()"
         >
           <div class="flex items-center">
@@ -169,7 +182,7 @@ const addSignoff = () => {
       <!-- Social -->
       <div class="mb-4" v-if="!checkAddons('social')">
         <div
-          class="accordion flex items-center py-4 px-8 rounded-3xl shadow-lg border cursor-pointer"
+          class="accordion flex items-center justify-between py-4 px-8 rounded-3xl shadow-lg border cursor-pointer"
           @click="addAddons('social')"
         >
           <div class="flex items-center">

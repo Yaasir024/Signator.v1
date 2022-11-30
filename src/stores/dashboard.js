@@ -17,31 +17,49 @@ import {
   Timestamp,
   increment,
   arrayRemove,
+  onSnapshot,
 } from "firebase/firestore";
+
 import { authStore } from "./auth";
+import { editorStore } from "@/stores/editor";
 import { systemStore } from "./system";
 import { uid } from "@/composables/useGenerateUid";
 
 export const dashboardStore = defineStore("dashboard", () => {
   const useAuth = authStore();
+  const useEditorStore = editorStore();
   const useSystemStore = systemStore();
   const allSignatures = ref([]);
-  const getSignatures = async () => {
+
+  
+  if (useAuth.userState) {
     const colRef = collection(
       firestoreDb,
       "users",
       useAuth.userId.uid,
       "signatures"
     );
-    const snapshot = await getDocs(colRef);
-
-    const docs = Array.from(snapshot.docs).map((doc) => {
-      return {
-        ...doc.data(),
-      };
+    onSnapshot(colRef, (snapshot) => {
+      let docs = []
+      snapshot.docs.forEach((doc) => {
+        docs.push(doc.data());
+      });
+      allSignatures.value = docs
+      confirmDraft()
     });
-    allSignatures.value = docs;
-  };
+  }
+
+  const confirmDraftModal = ref(false)
+  const confirmDraft = () => {
+    setTimeout(() => {
+      
+      if(useEditorStore.data.uid && !allSignatures.value.some((e) => e.uid === useEditorStore.data.uid)) {
+        confirmDraftModal.value = true;
+      }
+    }, "2000");
+  }
+  
+  
   const deleteSignature = async (id) => {
     await deleteDoc(
       doc(firestoreDb, "users", useAuth.userId.uid, "signatures", id)
@@ -50,7 +68,6 @@ export const dashboardStore = defineStore("dashboard", () => {
         await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
           publishedSignatures: arrayRemove(id),
         });
-        getSignatures();
         useSystemStore.addNotificationData({
           message: "Signature has been successfully deleted.",
           type: "success",
@@ -75,7 +92,6 @@ export const dashboardStore = defineStore("dashboard", () => {
       title: title,
     })
       .then(() => {
-        getSignatures();
         useSystemStore.addNotificationData({
           message: "Signature has been successfully renamed.",
           type: "success",
@@ -104,11 +120,10 @@ export const dashboardStore = defineStore("dashboard", () => {
         ),
         newData
       )
-        .then(async() => {
+        .then(async () => {
           await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
             publishedSignatures: arrayUnion(data.value.uid),
-          })
-          getSignatures();
+          });
           useSystemStore.addNotificationData({
             message: "Signature has been successfully duplicated.",
             type: "success",
@@ -131,7 +146,7 @@ export const dashboardStore = defineStore("dashboard", () => {
 
   return {
     allSignatures,
-    getSignatures,
+    confirmDraftModal,
     renameSignature,
     deleteSignature,
     duplicate,

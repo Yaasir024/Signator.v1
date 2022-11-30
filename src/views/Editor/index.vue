@@ -2,12 +2,14 @@
 import { ref, reactive, computed, onMounted } from "vue";
 import { provide } from "vue";
 import { editorStore } from "@/stores/editor";
+import { systemStore } from "@/stores/system";
 
 import Sidebar from "@/components/Editor/Sidebar/index.vue";
 import Main from "@/components/Editor/Main/index.vue";
 import TemplateSection from "@/components/Templates/v1.vue";
 
 const useEditorStore = editorStore();
+const useSystemStore = systemStore();
 provide(/* key */ "data", /* value */ useEditorStore.data);
 
 const showTemplatesSection = ref(false);

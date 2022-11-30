@@ -99,6 +99,6 @@ export default {
     social: ["free", "pro"],
     greenMessage: [ "pro"],
     videoMeeting: ["pro"],
-    cta: ["pro"],
+    cta: ["free", "pro"],
   },
 };

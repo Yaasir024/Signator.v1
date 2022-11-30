@@ -9,8 +9,6 @@ import { editorStore } from "@/stores/editor";
 
 import { useClickOutside } from "@/composables/useClickOutside";
 
-
-import TemplateSection from "@/components/Templates/v1.vue";
 import Navbar from "@/components/Navigations/Navbar.vue";
 import Footer from "@/components/Navigations/Footer.vue";
 import Overlay from "@/components/Overlay.vue";
@@ -20,6 +18,7 @@ import ConfirmDraft from "@/components/Modal/ConfirmDraft.vue";
 import Rename from "@/components/Modal/Rename.vue";
 import Card from "@/components/Dashboard/Card.vue";
 import Toast from "@/components/Toast/index.vue";
+import SidePanel from "@/components/PreviewSidePanel/index.vue";
 
 const router = useRouter();
 
@@ -28,11 +27,7 @@ const useDashboard = dashboardStore();
 const useAuth = authStore();
 const useSystemStore = systemStore();
 
-onMounted(() => {
-  // useSystemStore.getUnpublishedDrafts();
-  useDashboard.getSignatures();
-  console.log(useDashboard.allSignatures.length);
-});
+
 
 const currentTab = ref("published");
 
@@ -49,27 +44,15 @@ const newSignature = () => {
 };
 
 // Confirm Draft
-const confirmDraftModal = ref(false);
 const deleteDraft = () => {
-  confirmDraftModal.value = false;
+  useDashboard.confirmDraftModal = false;
   useEditorStore.data = {};
 };
 const editDraft = () => {
-  confirmDraftModal.value = false;
+  useDashboard.confirmDraftModal = false;
   router.push({ path: "/editor" });
 };
-onMounted(() => {
-  setTimeout(() => {
-    if (
-      useDashboard.allSignatures &&
-      useEditorStore.data.uid &&
-      !useDashboard.allSignatures.some((e) => e.uid === useEditorStore.data.uid)
-    ) {
-      confirmDraftModal.value = true;
-      // console.log(useEditorStore.data.uid);
-    }
-  }, "5000");
-});
+
 
 const editSignature = (data) => {
   useEditorStore.data = data;
@@ -84,11 +67,11 @@ const toggleOptionsMenu = (uid) => {
     optionsMenu.value = "";
   }
 };
-const optionsMenuPopup = ref(null)
-useClickOutside(optionsMenuPopup, () => {
-  // optionsMenu.value = false;
-  console.log('Clickked')
-});
+const optionsMenuPopup = ref(null);
+// useClickOutside(optionsMenuPopup, () => {
+//   // optionsMenu.value = false;
+//   console.log("Clickked");
+// });
 
 // Rename
 const signatureCurrentTitle = ref("");
@@ -97,7 +80,7 @@ const renameSignatureId = ref("");
 // Visibility of Rename Modal
 const renameModal = ref(false);
 const openRenameModal = (id, title) => {
-  optionsMenu.value = ""
+  optionsMenu.value = "";
   renameModal.value = true;
   renameSignatureId.value = id;
   signatureCurrentTitle.value = title;
@@ -115,7 +98,7 @@ const deleteSignatureId = ref("");
 const deleteModal = ref(false);
 // Open Delete Modal
 const confirmDelete = (id) => {
-  optionsMenu.value = ""
+  optionsMenu.value = "";
   deleteModal.value = true;
   deleteSignatureId.value = id;
 };
@@ -123,6 +106,13 @@ const closeDeleteModal = () => {
   deleteModal.value = false;
   deleteSignatureId.value = "";
 };
+
+const addModal = ref(null);
+const addToMailPanel = ref(false);
+// useClickOutside(addModal, () => {
+//   addToMailPanel.value = false;
+//   console.log('mod')
+// });
 </script>
 
 <template>
@@ -165,16 +155,24 @@ const closeDeleteModal = () => {
                           Edit Signature
                         </button>
                         <div class="flex items-center">
-                          <div class="">
-                            <button class="px-4 py-1 border border-primary-color text-primary-color">
+                          <div class="mr-2" ref="addModal">
+                            <button
+                              class="px-4 py-1 border-2 border-primary-color rounded-md text-base text-primary-color"
+                              @click="addToMailPanel = true"
+                            >
                               Add to Mail
                             </button>
+                            <transition name="panel">
+                              <SidePanel
+                                v-if="addToMailPanel"
+                                @close="addToMailPanel = false"
+                              />
+                            </transition>
                           </div>
                           <div class="relative" ref="optionsMenuPopup">
                             <button
                               class="cursor-pointer"
                               @click="toggleOptionsMenu(data.uid)"
-                              
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -299,7 +297,7 @@ const closeDeleteModal = () => {
     </main>
   </div>
   <ConfirmDraft
-    v-if="confirmDraftModal"
+    v-if="useDashboard.confirmDraftModal"
     @delete-draft="deleteDraft()"
     @edit-draft="editDraft()"
   />
@@ -314,26 +312,18 @@ const closeDeleteModal = () => {
     :title="signatureCurrentTitle"
     :id="renameSignatureId"
   />
-  <Overlay v-if="deleteModal || renameModal || confirmDraftModal" />
-  <!-- <Snackbar /> -->
-  <transition name="templates">
-    <div
-      class="fixed top-0 left-0 w-full h-full overflow-y-auto z-50 bg-[#ffffff83] backdrop-blur-[4px]"
-      v-if="useDashboard.showTemplatesSection"
-    >
-      <TemplateSection ref="templateSection" />
-    </div>
-  </transition>
+  <Overlay v-if="deleteModal || renameModal || useDashboard.confirmDraftModal ||addToMailPanel" />
+
 </template>
 
 <style scoped>
-.templates-enter-active,
-.templates-leave-active {
+
+.panel-enter-active,
+.panel-leave-active {
   transition: 0.32s ease all;
 }
-.templates-enter-from,
-.templates-leave-to {
-  /* transform: translateY(-100%); */
-  opacity: 0;
+.panel-enter-from,
+.panel-leave-to {
+  transform: translateX(100%);
 }
 </style>
