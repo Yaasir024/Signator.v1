@@ -2,8 +2,12 @@
 import { ref, reactive, computed } from "vue";
 import { inject } from "vue";
 import draggable from "vuedraggable";
-import Heading from "@/components/Editor/Heading.vue";
+
+import { editorStore } from "@/stores/editor";
+
 import { uid } from "@/composables/useGenerateUid";
+
+import Heading from "@/components/Editor/Heading.vue";
 import signoff from "@/components/Editor/Sidebar/Section/Addon/Signoff.vue";
 import disclaimer from "@/components/Editor/Sidebar/Section/Addon/Disclaimer.vue";
 import social from "@/components/Editor/Sidebar/Section/Addon/Social.vue";
@@ -11,7 +15,8 @@ import greenMessage from "@/components/Editor/Sidebar/Section/Addon/GreenMessage
 import videoMeeting from "@/components/Editor/Sidebar/Section/Addon/VideoMeeting.vue";
 import cta from "@/components/Editor/Sidebar/Section/Addon/Cta.vue";
 import addonData from "@/data/addons";
-import { editorStore } from "@/stores/editor";
+
+
 const useEditorStore = editorStore();
 const data = inject("data");
 

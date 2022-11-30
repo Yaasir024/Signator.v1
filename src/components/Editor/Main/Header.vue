@@ -1,11 +1,16 @@
 <script setup>
-import { ref, reactive, computed } from "vue";
-import { useDebouncedRefHistory, useStorage } from "@vueuse/core";
-import axios from "axios";
-import { inject } from "vue";
+import { ref, reactive, computed, inject } from "vue";
+
 import { editorStore } from "@/stores/editor";
+
+import axios from "axios";
+import { useDebouncedRefHistory, useStorage } from "@vueuse/core";
+
+
 const data = inject("data");
 const useEditorStore = editorStore();
+
+
 
 
 const uploadImage = () => {

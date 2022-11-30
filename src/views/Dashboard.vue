@@ -9,6 +9,7 @@ import { editorStore } from "@/stores/editor";
 
 import { useClickOutside } from "@/composables/useClickOutside";
 
+
 import TemplateSection from "@/components/Templates/v1.vue";
 import Navbar from "@/components/Navigations/Navbar.vue";
 import Footer from "@/components/Navigations/Footer.vue";
@@ -47,7 +48,6 @@ const newSignature = () => {
   }
 };
 
-
 // Confirm Draft
 const confirmDraftModal = ref(false);
 const deleteDraft = () => {
@@ -61,11 +61,11 @@ const editDraft = () => {
 onMounted(() => {
   setTimeout(() => {
     if (
-      useDashboard.allSignatures && 
-      useEditorStore.data.uid && 
+      useDashboard.allSignatures &&
+      useEditorStore.data.uid &&
       !useDashboard.allSignatures.some((e) => e.uid === useEditorStore.data.uid)
     ) {
-      confirmDraftModal.value = true
+      confirmDraftModal.value = true;
       // console.log(useEditorStore.data.uid);
     }
   }, "5000");
@@ -76,6 +76,20 @@ const editSignature = (data) => {
   router.push({ path: "/editor" });
 };
 
+const optionsMenu = ref("");
+const toggleOptionsMenu = (uid) => {
+  if (optionsMenu.value == "") {
+    optionsMenu.value = uid;
+  } else {
+    optionsMenu.value = "";
+  }
+};
+const optionsMenuPopup = ref(null)
+useClickOutside(optionsMenuPopup, () => {
+  // optionsMenu.value = false;
+  console.log('Clickked')
+});
+
 // Rename
 const signatureCurrentTitle = ref("");
 // Id of Signature to be renamed
@@ -83,6 +97,7 @@ const renameSignatureId = ref("");
 // Visibility of Rename Modal
 const renameModal = ref(false);
 const openRenameModal = (id, title) => {
+  optionsMenu.value = ""
   renameModal.value = true;
   renameSignatureId.value = id;
   signatureCurrentTitle.value = title;
@@ -100,6 +115,7 @@ const deleteSignatureId = ref("");
 const deleteModal = ref(false);
 // Open Delete Modal
 const confirmDelete = (id) => {
+  optionsMenu.value = ""
   deleteModal.value = true;
   deleteSignatureId.value = id;
 };
@@ -149,58 +165,102 @@ const closeDeleteModal = () => {
                           Edit Signature
                         </button>
                         <div class="flex items-center">
-                          <div
-                            class="mr-3 cursor-pointer"
-                            title="Duplicate"
-                            @click="useDashboard.duplicate(data)"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="20"
-                              height="20"
-                              viewBox="0 0 24 24"
-                              fill="currentColor"
-                            >
-                              <path
-                                d="M10 19h10v1h-10v-1zm14-13v18h-18v-6h-6v-18h18v6h6zm-18 0h10v-4h-14v14h4v-10zm16 2h-1.93c-.669 0-1.293.334-1.664.891l-1.406 2.109h-3.93l-1.406-2.109c-.371-.557-.995-.891-1.664-.891h-2v14h14v-14zm-12 6h10v-1h-10v1zm0 3h10v-1h-10v1z"
-                              />
-                            </svg>
+                          <div class="">
+                            <button class="px-4 py-1 border border-primary-color text-primary-color">
+                              Add to Mail
+                            </button>
                           </div>
-                          <div
-                            class="mr-3 cursor-pointer"
-                            title="Rename"
-                            @click="openRenameModal(data.uid, data.title)"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="20"
-                              height="20"
-                              viewBox="0 0 24 24"
-                              fill="currentColor"
+                          <div class="relative" ref="optionsMenuPopup">
+                            <button
+                              class="cursor-pointer"
+                              @click="toggleOptionsMenu(data.uid)"
+                              
                             >
-                              <path
-                                d="M22 0h-20v6h1.999c0-1.174.397-3 2.001-3h4v16.874c0 1.174-.825 2.126-2 2.126h-1v2h9.999v-2h-.999c-1.174 0-2-.952-2-2.126v-16.874h4c1.649 0 2.02 1.826 2.02 3h1.98v-6z"
-                              />
-                            </svg>
-                          </div>
-                          <div
-                            class="cursor-pointer"
-                            title="Delete"
-                            @click="confirmDelete(data.uid)"
-                          >
-                            <svg
-                              width="20"
-                              height="20"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                              clip-rule="evenodd"
-                              viewBox="0 0 24 24"
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M12 18c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"
+                                />
+                              </svg>
+                            </button>
+                            <div
+                              class="absolute bg-white border rounded-xl shadow-md bottom-9 right-0 w-[150px] overflow-hidden"
+                              v-if="optionsMenu == data.uid"
                             >
-                              <path
-                                d="M19 24h-14c-1.104 0-2-.896-2-2v-17h-1v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2h-1v17c0 1.104-.896 2-2 2zm0-19h-14v16.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-16.5zm-9 4c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm-2-7h-4v1h4v-1z"
-                              />
-                            </svg>
+                              <ul class="text-base">
+                                <li
+                                  class="hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                                >
+                                  <div
+                                    class="cursor-pointer flex items-center px-4 py-3"
+                                    @click="useDashboard.duplicate(data)"
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="16"
+                                      height="16"
+                                      viewBox="0 0 24 24"
+                                      fill="currentColor"
+                                    >
+                                      <path
+                                        d="M10 19h10v1h-10v-1zm14-13v18h-18v-6h-6v-18h18v6h6zm-18 0h10v-4h-14v14h4v-10zm16 2h-1.93c-.669 0-1.293.334-1.664.891l-1.406 2.109h-3.93l-1.406-2.109c-.371-.557-.995-.891-1.664-.891h-2v14h14v-14zm-12 6h10v-1h-10v1zm0 3h10v-1h-10v1z"
+                                      />
+                                    </svg>
+                                    <span class="ml-2">Duplicate</span>
+                                  </div>
+                                </li>
+                                <li
+                                  class="border-b hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                                >
+                                  <div
+                                    class="cursor-pointer flex items-center px-4 py-3"
+                                    @click="
+                                      openRenameModal(data.uid, data.title)
+                                    "
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="14"
+                                      height="14"
+                                      viewBox="0 0 24 24"
+                                      fill="currentColor"
+                                    >
+                                      <path
+                                        d="M22 0h-20v6h1.999c0-1.174.397-3 2.001-3h4v16.874c0 1.174-.825 2.126-2 2.126h-1v2h9.999v-2h-.999c-1.174 0-2-.952-2-2.126v-16.874h4c1.649 0 2.02 1.826 2.02 3h1.98v-6z"
+                                      />
+                                    </svg>
+                                    <span class="ml-2">Rename</span>
+                                  </div>
+                                </li>
+                                <li
+                                  class="hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                                >
+                                  <div
+                                    class="cursor-pointer flex items-center px-5 py-3 text-red-600"
+                                    @click="confirmDelete(data.uid)"
+                                  >
+                                    <svg
+                                      width="20"
+                                      height="20"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="currentColor"
+                                      fill-rule="evenodd"
+                                      clip-rule="evenodd"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        d="M19 24h-14c-1.104 0-2-.896-2-2v-17h-1v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2h-1v17c0 1.104-.896 2-2 2zm0-19h-14v16.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-16.5zm-9 4c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm-2-7h-4v1h4v-1z"
+                                      />
+                                    </svg>
+                                    <span class="ml-2">Delete</span>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
                           </div>
                         </div>
                       </div>

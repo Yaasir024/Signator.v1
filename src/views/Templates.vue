@@ -1,13 +1,19 @@
 <script setup>
-import Navbar from "@/components/Navbar.vue";
+import { ref, reactive, computed } from "vue";
+import { useRouter } from "vue-router";
 
+import { systemStore } from "@/stores/system";
+
+
+import data from "@/data/templates";
+
+import { uid } from "@/composables/useGenerateUid";
+
+import Navbar from "@/components/Navbar.vue";
 import Overlay from "@/components/Overlay.vue";
 import PricingModal from "@/components/Modal/Pricing.vue";
-import { ref, reactive, computed } from "vue";
-import data from "@/data/templates";
-import { uid } from "@/composables/useGenerateUid";
-import { systemStore } from "@/stores/system";
-import { useRouter } from "vue-router";
+
+
 const router = useRouter();
 const useSystemStore = systemStore();
 // Filter
