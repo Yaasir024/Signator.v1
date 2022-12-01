@@ -94,6 +94,19 @@ export const editorStore = defineStore("editor", () => {
     });
   };
 
+  const addImageToGallery = async (imgUrl, imgName) => {
+    const docRef = doc(
+      firestoreDb,
+      "users",
+      useAuth.userId.uid,
+      "data",
+      "gallery"
+    );
+    await updateDoc(docRef, {
+      images: arrayUnion({ url: imgUrl, name: imgName }),
+    });
+  };
+
   const showTemplatesSection = ref(false);
   // if(Object.keys(data.value).length == 0) {
   //   showTemplatesSection.value = true
@@ -109,5 +122,6 @@ export const editorStore = defineStore("editor", () => {
     getSignaturePreview,
     signaturePreviewData,
     showTemplatesSection,
+    addImageToGallery,
   };
 });

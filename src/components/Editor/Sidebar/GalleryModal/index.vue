@@ -1,49 +1,47 @@
 <script setup>
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, provide } from "vue";
+
+import { firestoreDb } from "@/services/firebase";
+
+import { authStore } from "@/stores/auth";
+import { editorStore } from "@/stores/editor";
+
+import Header from "@/components/Editor/Sidebar/GalleryModal/Header.vue";
+import Upload from "@/components/Editor/Sidebar/GalleryModal/Upload.vue";
+import Library from "@/components/Editor/Sidebar/GalleryModal/Library.vue";
+
+import { doc, onSnapshot } from "firebase/firestore";
+
+const useAuth = authStore();
+const useEditorStore = editorStore();
+
+const galleryImages = ref([]);
+onSnapshot(
+  doc(firestoreDb, "users", useAuth.userId.uid, "data", "gallery"),
+  (snapshot) => {
+    galleryImages.value = snapshot.data().images;
+    console.log(snapshot.data().images);
+    // snapshot.docs.forEach((doc) => {
+    //   docs.push(doc.data());
+    // });
+    // allSignatures.value = docs;
+    // confirmDraft();
+  }
+);
 
 const emits = defineEmits(["close"]);
 
 const currentTab = ref("library");
+
+provide(/* key */ "currentTab", /* value */ currentTab);
 </script>
 
 <template>
   <div
-    class="fixed top-8 bottom-8 left-8 right-8 bg-canvas-color border rounded-md overflow-hidden shadow-xl z-[80]"
+    class="fixed top-8 bottom-8 left-8 right-8 lg:left-16 lg:right-16 bg-canvas-color border rounded-md overflow-hidden shadow-xl z-[80]"
   >
-    <div class="header px-8 bg-white border-b">
-      <div class="flex items-center justify-between pt-4 pb-2">
-        <div class="text-xl font-medium">Image Gallery</div>
-        <button @click="$emit('close')">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 16.538l-4.592-4.548 4.546-4.587-1.416-1.403-4.545 4.589-4.588-4.543-1.405 1.405 4.593 4.552-4.547 4.592 1.405 1.405 4.555-4.596 4.591 4.55 1.403-1.416z"
-            ></path>
-          </svg>
-        </button>
-      </div>
-      <div class="pt-1">
-        <div class="flex items-center text-base">
-          <button
-            class="px-4 py-2 border-2 border-b-0"
-            @click="currentTab = 'library'"
-            :class="currentTab == 'library' ? 'bg-canvas-color mb-[-1px]' : ''"
-          >
-            Media Library
-          </button>
-          <button
-            class="px-4 py-2 border-2 border-b-0"
-            @click="currentTab = 'upload'"
-            :class="currentTab == 'upload' ? 'bg-canvas-color mb-[-1px]' : ''"
-          >
-            Upload Media
-          </button>
-        </div>
-      </div>
-    </div>
+    <Header @close="$emit('close')" />
+    <Upload v-if="currentTab == 'upload'" />
+    <Library :galleryImages="galleryImages" v-if="currentTab == 'library'" />
   </div>
 </template>
