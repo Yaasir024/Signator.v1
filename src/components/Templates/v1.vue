@@ -76,6 +76,7 @@ const user = ref("pro");
       <div class="flex items-center justify-between my-3">
         <button
           class="py-1 px-4 border-2 border-primary-color text-primary-color font-medium rounded-lg"
+          @click="createEditorSession(templateData.emptyTemplate)"
         >
           Start from scratch
         </button>

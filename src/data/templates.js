@@ -465,7 +465,7 @@ export default {
             type: "greenMessage",
           },
         ],
-        signoff:{},
+        signoff: {},
         design: {
           layout: {
             fontFamily: "Verdana",
@@ -481,6 +481,41 @@ export default {
       },
     },
   ],
+  emptyTemplate: {
+    uid: "60dn14e42nf7fz5r",
+    title: "New Signature",
+    image: {
+      img: "",
+    },
+    name: "",
+    position: "",
+    department: "",
+    company: "",
+    contactInfo: {
+      basicInfo: {
+        phone: "",
+        website: "",
+        email: "",
+        address: "",
+      },
+      customInfo: [],
+    },
+    socialInfo: [],
+    addons: [],
+    signoff: {},
+    design: {
+      layout: {
+        fontFamily: "Verdana",
+        fontSize: "14",
+        textColor: "#221b1b",
+        templateColor: "#a68c8c",
+        layout: "Layout01",
+      },
+      image: { width: 70, roundness: 0 },
+      details: { label: "" },
+      socialIcon: { size: 0, roundness: 0 },
+    },
+  },
   templateData: {},
   layouts: [
     {

@@ -44,28 +44,6 @@ export const editorStore = defineStore("editor", () => {
 
   const signaturePreviewData = ref(null);
 
-  const uploadImg = (img) => {
-    const formData = new FormData();
-    formData.append("file", img);
-    formData.append("upload_preset", "imgassets");
-    formData.append("folder", "signatorClientImages");
-
-    const postImg = async () => {
-      try {
-        const res = await axios.post(
-          "https://api.cloudinary.com/v1_1/dwajobdyb/upload",
-          formData
-        );
-        data.value.image.img = "";
-        data.value.image.imgSrc = res.data.secure_url;
-        console.log(res.data.secure_url);
-        addSignature();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    postImg();
-  };
 
   const addSignature = async () => {
     const docRef = doc(
@@ -79,11 +57,8 @@ export const editorStore = defineStore("editor", () => {
       await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
         publishedSignatures: arrayUnion(data.value.uid),
       });
-      console.log("Successfull");
       router.push({ path: `/preview/${data.value.uid}` });
-      // localStorage.removeItem(data.value.uid);
       data.value = {};
-      // useSystemStore.drafts = useSystemStore.drafts.filter((item) => item.uid != data.value.uid);
     });
   };
 
@@ -119,7 +94,6 @@ export const editorStore = defineStore("editor", () => {
     currentEditorNav,
     galleryModal,
     addSignature,
-    uploadImg,
     previewImage,
     getSignaturePreview,
     signaturePreviewData,

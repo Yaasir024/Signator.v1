@@ -13,15 +13,6 @@ const useEditorStore = editorStore();
 
 
 
-const uploadImage = () => {
-  console.log('success')
-  if(data.image.img == '') {
-    useEditorStore.addSignature()
-  }else if(data.image.img != '') {
-    useEditorStore.uploadImg(data.image.img)
-  }
-  // useEditorStore.data = {}
-}
 
 
 </script>
@@ -48,7 +39,7 @@ const uploadImage = () => {
     <div class="">
       <button
         class="py-2 px-4 bg-primary-color text-white text-base font-medium rounded-lg"
-        @click="uploadImage()"
+        @click="useEditorStore.addSignature()"
       >
         Save Signature
       </button>
