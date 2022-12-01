@@ -38,7 +38,7 @@ const isObjEmpty = (obj) => {
     <tr>
       <td>
         <img
-          :src="data.image.img || data.image.imgSrc"
+          :src="data.image.img"
           alt=""
           style="display: inline-block"
           :style="{

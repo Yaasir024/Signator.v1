@@ -13,9 +13,9 @@ const useEditorStore = editorStore();
     <div class="w-[450px] bg-white shadow-xl border-r h-full flex">
       <Menu />
       <Section />
-      <GalleryModal />
+      <GalleryModal v-if="useEditorStore.galleryModal"  @close="useEditorStore.galleryModal = false"/>
       <ImageModal v-if="useEditorStore.imageModal"/>
-      <Overlay v-if="useEditorStore.imageModal || true"/>
+      <Overlay v-if="useEditorStore.imageModal || useEditorStore.galleryModal"/>
     </div>
   </aside>
 </template>

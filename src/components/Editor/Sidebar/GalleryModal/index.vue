@@ -42,6 +42,6 @@ provide(/* key */ "currentTab", /* value */ currentTab);
   >
     <Header @close="$emit('close')" />
     <Upload v-if="currentTab == 'upload'" />
-    <Library :galleryImages="galleryImages" v-if="currentTab == 'library'" />
+    <Library :galleryImages="galleryImages" v-if="currentTab == 'library'" @close="$emit('close')" />
   </div>
 </template>

@@ -46,7 +46,8 @@ const readImage = (event) => {
         <div class="image-preview w-[40%] text-secondary-color relative">
           <div
             class="relative flex flex-col items-center py-10 border border-dashed overflow-hidden cursor-pointer"
-            v-if="!(data.image.img || data.image.imgSrc)"
+            v-if="!data.image.img"
+            @click="useEditorStore.galleryModal = true"
           >
             <div class="icon block">
               <svg
@@ -64,6 +65,7 @@ const readImage = (event) => {
             </div>
             <span class="inline-block mt-2">Choose Image</span>
             <input
+              v-if="false"
               type="file"
               accept="image/*"
               @change="readImage"
@@ -71,13 +73,13 @@ const readImage = (event) => {
             />
           </div>
           <img
-            :src="data.image.img || data.image.imgSrc"
+            :src="data.image.img"
             class="w-full h-full"
-            v-if="data.image.img || data.image.imgSrc"
+            v-if="data.image.img"
           />
           <div
             class="flex items-center justify-center absolute right-[-4px] top-[-4px] bg-red-600 text-white p-1 rounded-full cursor-pointer"
-            v-if="data.image.img || data.image.imgSrc"
+            v-if="data.image.img"
             @click="clearImage()"
           >
             <svg

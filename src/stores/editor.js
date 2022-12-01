@@ -40,6 +40,7 @@ export const editorStore = defineStore("editor", () => {
   const currentEditorNav = ref("general");
   const previewImage = ref("");
   const imageModal = ref(false);
+  const galleryModal = ref(false);
 
   const signaturePreviewData = ref(null);
 
@@ -116,6 +117,7 @@ export const editorStore = defineStore("editor", () => {
     data,
     path,
     currentEditorNav,
+    galleryModal,
     addSignature,
     uploadImg,
     previewImage,

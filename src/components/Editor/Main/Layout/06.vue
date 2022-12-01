@@ -7,10 +7,9 @@ import SocialIcons from "@/components/Editor/Main/Layout/Reuseables/SocialIcons.
 import Addons from "@/components/Editor/Main/Layout/Reuseables/Addons/index.vue";
 const prop = defineProps(["data"]);
 const isObjEmpty = (obj) => {
-  if(Object.keys(obj).length == 0)
-    return false
-  return true
-}
+  if (Object.keys(obj).length == 0) return false;
+  return true;
+};
 </script>
 
 <template>
@@ -47,10 +46,10 @@ const isObjEmpty = (obj) => {
                 :style="{
                   width: data.design.image.width + 'px',
                 }"
-                v-if="data.image.img || data.image.imgSrc"
+                v-if="data.image.img"
               >
                 <img
-                  :src="data.image.img || data.image.imgSrc"
+                  :src="data.image.img"
                   alt=""
                   style="display: inline-block"
                   :style="{

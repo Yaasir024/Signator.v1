@@ -8,10 +8,9 @@ import Addons from "@/components/Editor/Main/Layout/Reuseables/Addons/index.vue"
 const prop = defineProps(["data"]);
 
 const isObjEmpty = (obj) => {
-  if(Object.keys(obj).length == 0)
-    return false
-  return true
-}
+  if (Object.keys(obj).length == 0) return false;
+  return true;
+};
 </script>
 
 <template>
@@ -31,7 +30,7 @@ const isObjEmpty = (obj) => {
           color: data.signoff.style.color,
           'font-size': data.signoff.style.fontSize + 'px',
           'font-family': data.signoff.style.fontFamily,
-          'text-align' : data.signoff.style.alignment
+          'text-align': data.signoff.style.alignment,
         }"
       >
         {{ data.signoff.value }}
@@ -58,7 +57,7 @@ const isObjEmpty = (obj) => {
             <tr>
               <td valign="top" align="center" style="padding-bottom: 8px">
                 <img
-                  :src="data.image.img || data.image.imgSrc"
+                  :src="data.image.img"
                   alt=""
                   style="display: inline-block"
                   :style="{
