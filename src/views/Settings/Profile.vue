@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import Navbar from "@/components/Navigations/Navbar.vue";
-import Sidebar from "@/components/SidebarSetting.vue";
+import Sidebar from "@/components/Navigations/SidebarSetting.vue";
 import Overlay from "@/components/Overlay.vue";
 import PasswordModal from "@/components/Settings/PasswordModal.vue";
 import NameModal from "@/components/Settings/NameModal.vue";

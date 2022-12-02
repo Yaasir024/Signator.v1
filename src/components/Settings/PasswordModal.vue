@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import Navbar from "@/components/Navigations/Navbar.vue";
-import Sidebar from "@/components/SidebarSetting.vue";
+import Sidebar from "@/components/Navigations/SidebarSetting.vue";
 import { authStore } from "@/stores/auth";
 import { systemStore } from "@/stores/system";
 const useAuth = authStore();
