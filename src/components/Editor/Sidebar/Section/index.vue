@@ -1,5 +1,4 @@
 <script setup>
-import Header from "@/components/Editor/Sidebar/Section/Header.vue";
 import General from "@/components/Editor/Sidebar/Section/General.vue";
 import Social from "@/components/Editor/Sidebar/Section/Social.vue";
 import Addons from "@/components/Editor/Sidebar/Section/Addon/index.vue";
@@ -12,7 +11,6 @@ const useEditorStore = editorStore();
 
 <template>
   <div class="editor-tools h-full w-full">
-    <Header />
     <div class="content px-4 pt-6 pb-14 h-full overflow-y-auto">
       <General v-if="useEditorStore.currentEditorNav === 'general'" />
       <Social v-if="useEditorStore.currentEditorNav === 'social'" />

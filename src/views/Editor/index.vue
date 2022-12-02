@@ -13,7 +13,7 @@ const useEditorStore = editorStore();
 const useSystemStore = systemStore();
 provide(/* key */ "data", /* value */ useEditorStore.data);
 
-const viewportWidth = ref(window.innerWidth);
+
 
 const showTemplatesSection = ref(false);
 
@@ -22,18 +22,34 @@ onMounted(() => {
     useEditorStore.showTemplatesSection = true;
   }
 });
+
+/*
+Check Screen Size
+*/
+const mobile = ref(false);
+const checkScreen = () => {
+  if (window.innerWidth <= 1020) {
+    mobile.value = true;
+    console.log("check screen");
+  } else {
+    mobile.value = false;
+  }
+};
+onMounted(() => {
+  console.log("created");
+  window.addEventListener("resize", checkScreen);
+});
 </script>
 
 <template>
-  {{viewportWidth}}
   <div class="" v-if="Object.keys(useEditorStore.data).length != 0">
-    <div class="h-screen bg-canvas-color overflow-hidden"  v-if="false">
+    <div class="h-screen bg-canvas-color overflow-hidden" v-if="!mobile">
       <section class="h-full w-full flex">
         <Sidebar />
         <Main />
       </section>
     </div>
-    <div class="overflow-y-auto">
+    <div class="overflow-y-auto" v-if="mobile">
       <MobileView />
     </div>
   </div>

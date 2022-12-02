@@ -17,7 +17,7 @@ const data = inject("data");
 
 <template>
   <main>
-    <div class="sticky top-0">
+    <div class="fixed top-0 w-full z-20">
       <Header />
     </div>
     <div class="px-6">
