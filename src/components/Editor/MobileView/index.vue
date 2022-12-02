@@ -20,7 +20,7 @@ const data = inject("data");
     <div class="fixed top-0 w-full z-20">
       <Header />
     </div>
-    <div class="px-6">
+    <div class="mt-24 px-6">
       <Preview :data="data" />
       <Tools />
     </div>

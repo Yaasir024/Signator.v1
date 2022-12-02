@@ -52,7 +52,6 @@ const checkAvailableAddons = () => {
 };
 
 const checkFeatureQualification = (feature) => {
-  // addonData.featuresQualification[feature].includes("premium");
   return addonData.featuresQualification[feature].includes(
     useSystemStore.userFullData.plan
   );

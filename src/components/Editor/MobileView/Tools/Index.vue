@@ -5,7 +5,7 @@ import Section from "@/components/Editor/Sidebar/Section/index.vue";
 
 <template>
   <div
-    class="max-w-[600px] mx-auto mt-12 mb-32 bg-white rounded-2xl shadow-2xl overflow-hidden"
+    class="max-w-[600px] mx-auto mt-12 mb-32 bg-white border rounded-2xl shadow-2xl overflow-hidden"
   >
     <Menu />
     <div class="max-w-[400px] mx-auto">

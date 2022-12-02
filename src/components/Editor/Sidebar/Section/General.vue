@@ -1,11 +1,22 @@
 <script setup>
 import { ref, reactive, computed, inject } from "vue";
-import Heading from "@/components/Editor/Heading.vue";
+
 import { uid } from "@/composables/useGenerateUid";
+
+
 import { editorStore } from "@/stores/editor";
+import { systemStore } from "@/stores/system";
+
+import Heading from "@/components/Editor/Heading.vue";
+
+
 const useEditorStore = editorStore();
+const useSystemStore = systemStore();
+
 const data = inject("data");
 
+
+// ADD CONTACT ITEM
 const addNewContactItem = () => {
   data.contactInfo.customInfo.push({
     id: uid(6),
@@ -19,22 +30,12 @@ const deleteContactItem = (id) => {
     (item) => item.id != id
   );
 };
+
 const clearImage = () => {
   data.image.img = "";
-  data.image.imgSrc = "";
 };
-const readImage = (event) => {
-  let input = event.target;
-  let image = input.files[0];
-  if (input.files) {
-    let reader = new FileReader();
-    reader.onload = (e) => {
-      useEditorStore.previewImage = e.target.result;
-    };
-    reader.readAsDataURL(input.files[0]);
-  }
-  useEditorStore.imageModal = true;
-};
+
+
 </script>
 
 <template>
@@ -181,7 +182,7 @@ const readImage = (event) => {
           </div>
 
           <!-- CUSTOM FEILDS -->
-          <div class="mt-8 pt-5 border-t">
+          <div class="mt-8 pt-5 border-t" >
             <div class="flex items-center justify-between">
               <Heading :title="'Custom Fields'" />
               <div
@@ -233,7 +234,8 @@ const readImage = (event) => {
               </div>
             </div>
             <!-- Add Button -->
-            <div class="flex justify-end mt-6" v-if="false">
+            <div class="flex justify-end mt-6" v-if="true">
+              <!-- {{useSystemStore.userFullData.plan}} -->
               <div
                 class="flex items-center text-primary-color cursor-pointer"
                 @click="addNewContactItem()"

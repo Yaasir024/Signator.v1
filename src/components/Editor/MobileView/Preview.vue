@@ -9,7 +9,7 @@ const prop = defineProps(["data"]);
     class="max-w-[615px] mx-auto overflow-hidden mt-11 my-4 bg-white shadow-lg border rounded-3xl"
   >
     <div class="flex flex-col flex-auto">
-      <div class="header px-7 py-4 border-b bg-white shadow-md text-lg">
+      <div class="header px-7 py-3 border-b bg-white text-lg">
         Preview Signature
       </div>
       <div class="preview overflow-x-hidden">
@@ -26,4 +26,3 @@ const prop = defineProps(["data"]);
   </div>
 </template>
 
-<!-- max-h-[450px] overflow-y-auto  -->

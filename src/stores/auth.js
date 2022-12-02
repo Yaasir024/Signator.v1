@@ -32,8 +32,6 @@ import { systemStore } from "./system";
 
 export const authStore = defineStore("auth", () => {
   const useSystemStore = systemStore();
-  // User Data
-  // const user = JSON.parse(localStorage.getItem("useclientr"));
   // Current User State: Usually A Boolean
   const userState = useLocalStorage("__useLoggedIn_", false);
   // Current User Id
