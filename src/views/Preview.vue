@@ -5,9 +5,7 @@ import { useRoute } from "vue-router";
 import { firestoreDb } from "@/services/firebase";
 import { editorStore } from "@/stores/editor";
 
-
-
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/Navigations/Navbar.vue";
 import SignaturePreview from "@/components/PreviewSidePanel/SignaturePreview.vue";
 import SidePanel from "@/components/PreviewSidePanel/index.vue";
 

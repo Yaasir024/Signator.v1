@@ -4,15 +4,13 @@ import { useRouter } from "vue-router";
 
 import { systemStore } from "@/stores/system";
 
-
 import data from "@/data/templates";
 
 import { uid } from "@/composables/useGenerateUid";
 
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/Navigations/Navbar.vue";
 import Overlay from "@/components/Overlay.vue";
 import PricingModal from "@/components/Modal/Pricing.vue";
-
 
 const router = useRouter();
 const useSystemStore = systemStore();
@@ -36,11 +34,9 @@ const filteredTemplates = computed(() => {
   });
 });
 
-const organizedTemplates = computed(() => {
-  
-})
+const organizedTemplates = computed(() => {});
 
-const pricingModal = ref(false)
+const pricingModal = ref(false);
 
 const createEditorSession = (data) => {
   // if(useSystemStore.isEligibleToCreate()) {
@@ -53,8 +49,8 @@ const createEditorSession = (data) => {
   //   console.log('Can not create more')
   // }
   data.uid = uid(16);
-  localStorage.setItem('__editor_data__', JSON.stringify(data));
-  console.log('data')
+  localStorage.setItem("__editor_data__", JSON.stringify(data));
+  console.log("data");
   // localStorage.setItem(data.uid, JSON.stringify(data));
   // router.push({ path: `/editor/${data.uid}` });
   // router.go()
@@ -67,8 +63,8 @@ const user = ref("pro");
 <template>
   <div class="min-h-screen">
     <Navbar />
-    {{data.templates.length}}
-    {{data.templates}}
+    {{ data.templates.length }}
+    {{ data.templates }}
     <main class="px-8 pb-20">
       <section class="hero py-32">
         <div class="wrapper text-center">
@@ -78,7 +74,10 @@ const user = ref("pro");
           </h3>
         </div>
       </section>
-      <ul class="filter-bar flex flex-center justify-center text-lg" v-if="false">
+      <ul
+        class="filter-bar flex flex-center justify-center text-lg"
+        v-if="false"
+      >
         <li
           class="px-5 py-2 cursor-pointer border border-gray-400 rounded-l-2xl transition-all ease-in-out duration-350"
           @click="filter('all')"
@@ -151,13 +150,13 @@ const user = ref("pro");
       </div>
     </main>
   </div>
-  <Overlay v-if="pricingModal"/>
-  <PricingModal v-if="pricingModal" @close-modal="pricingModal = false"/>
+  <Overlay v-if="pricingModal" />
+  <PricingModal v-if="pricingModal" @close-modal="pricingModal = false" />
 </template>
 
 <style scoped>
 .card:hover .overlay {
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   opacity: 1;
 }
 .filter-link.active {

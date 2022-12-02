@@ -1,22 +1,28 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/Navigations/Navbar.vue";
 // import data from "@/data/notification";
 
-import { useSinglePrismicDocument, usePrismicDocumentByUID  } from "@prismicio/vue";
-const {document} = useSinglePrismicDocument('home')
+import {
+  useSinglePrismicDocument,
+  usePrismicDocumentByUID,
+} from "@prismicio/vue";
+const { document } = useSinglePrismicDocument("home");
 
-const {data: home, error} = usePrismicDocumentByUID("help", 'setting-up-your-signator-account');
+const { data: home, error } = usePrismicDocumentByUID(
+  "help",
+  "setting-up-your-signator-account"
+);
 </script>
 
 <template>
   <div class="about">
     <Navbar />
     <!-- {{document}} -->
-    {{home}}
+    {{ home }}
     <!-- {{data}} -->
     <div class="" v-if="document">
-      {{document}}
+      {{ document }}
       <!-- <h1>{{ $prismic.asText(document.data.title) }}</h1> -->
     </div>
     <!-- <div class="" v-if="home">
@@ -25,5 +31,4 @@ const {data: home, error} = usePrismicDocumentByUID("help", 'setting-up-your-sig
   </div>
 </template>
 
-<style>
-</style>
+<style></style>

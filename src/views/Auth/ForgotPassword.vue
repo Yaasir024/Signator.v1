@@ -1,11 +1,11 @@
 <script setup>
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/Navigations/Navbar.vue";
 import { ref, reactive, computed } from "vue";
 import { authStore } from "@/stores/auth";
 const useAuth = authStore();
 const email = ref("");
 const submit = () => {
-  email.value = ''
+  email.value = "";
   useAuth.resetPassword(email.value);
 };
 

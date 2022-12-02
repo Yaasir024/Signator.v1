@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/Navigations/Navbar.vue";
 import Sidebar from "@/components/SidebarSetting.vue";
 import { authStore } from "@/stores/auth";
 import { systemStore } from "@/stores/system";
@@ -17,9 +17,9 @@ const submitForm = () => {
   emit("closeNameModal");
 };
 const reset = () => {
-    console.log(reset)
-    useAuth.resetPassword('yope4ever@gmail.com')
-}
+  console.log(reset);
+  useAuth.resetPassword("yope4ever@gmail.com");
+};
 </script>
 
 <template>
