@@ -4,6 +4,9 @@ import { provide } from "vue";
 import { editorStore } from "@/stores/editor";
 import { systemStore } from "@/stores/system";
 
+import ImageModal from "@/components/Editor/Sidebar/ImageModal.vue";
+import GalleryModal from "@/components/Editor/Sidebar/GalleryModal/index.vue";
+import Overlay from "@/components/Overlay.vue";
 import Sidebar from "@/components/Editor/Sidebar/index.vue";
 import Main from "@/components/Editor/Main/index.vue";
 import MobileView from "@/components/Editor/MobileView/index.vue";
@@ -12,8 +15,6 @@ import TemplateSection from "@/components/Templates/v1.vue";
 const useEditorStore = editorStore();
 const useSystemStore = systemStore();
 provide(/* key */ "data", /* value */ useEditorStore.data);
-
-
 
 const showTemplatesSection = ref(false);
 
@@ -54,6 +55,12 @@ onMounted(() => {
     </div>
   </div>
 
+  <GalleryModal
+    v-if="useEditorStore.galleryModal"
+    @close="useEditorStore.galleryModal = false"
+  />
+  <ImageModal v-if="useEditorStore.imageModal" />
+  <Overlay v-if="useEditorStore.imageModal || useEditorStore.galleryModal" />
   <transition name="templates">
     <TemplateSection v-if="useEditorStore.showTemplatesSection" />
   </transition>

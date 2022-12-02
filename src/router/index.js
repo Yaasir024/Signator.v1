@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import Editor from "../views/Editor.vue";
 import { authStore } from "@/stores/auth";
 
 const router = createRouter({
@@ -92,14 +91,6 @@ const router = createRouter({
       },
     },
     {
-      path: "/editor/:id",
-      name: "editor",
-      component: Editor,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
       path: "/editor",
       name: "editors",
       component: () => import("../views/Editor/index.vue"),
@@ -135,7 +126,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import("../views/Dashboard.vue"),
+      component: () => import("../views/Editor/Dashboard.vue"),
       meta: {
         requiresAuth: true,
       },
