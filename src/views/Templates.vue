@@ -9,6 +9,7 @@ import data from "@/data/templates";
 import { uid } from "@/composables/useGenerateUid";
 
 import Navbar from "@/components/Navigations/Navbar.vue";
+import TemplateLayout from "@/components/Templates/Layout.vue";
 import Overlay from "@/components/Overlay.vue";
 import PricingModal from "@/components/Modal/Pricing.vue";
 
@@ -35,6 +36,8 @@ const filteredTemplates = computed(() => {
 });
 
 const middleIndex = Math.ceil(filteredTemplates.value.length / 2);
+const secondIndex = Math.ceil(filteredTemplates.value.length / 3);
+const thirdIndex = (Math.ceil(filteredTemplates.value.length / 3) * 2);
 
 const templates = computed(() => {
   return {
@@ -47,18 +50,6 @@ const organizedTemplates = computed(() => {});
 
 const pricingModal = ref(false);
 
-const createEditorSession = (data) => {
-  if (useSystemStore.isEligibleToCreate()) {
-    data.uid = uid(16);
-    useEditorStore.data = data;
-    router.push({ path: "/editor" });
-  } else {
-    useSystemStore.addNotificationData({
-      message: "Upgrade to create more signatures.",
-      type: "error",
-    });
-  }
-};
 
 //
 const user = ref("pro");
@@ -68,7 +59,7 @@ const user = ref("pro");
   <div class="min-h-screen">
     <Navbar />
     <main class="px-8 pb-20">
-      <section class="hero py-32">
+      <section class="hero py-24">
         <div class="wrapper text-center">
           <h1 class="text-4xl font-medium mb-3">Email Signature Templates</h1>
           <h3 class="text-lg">
@@ -114,78 +105,8 @@ const user = ref("pro");
         </li>
       </ul>
       <div class="mt-12">
-        <div class="max-w-[560px] md:max-w-[720px] mx-auto">
-          <div class="flex w-full flex-wrap">
-            <div class="w-full md:w-[50%] px-3 md:pr-5">
-              <div
-                class="w-full my-6"
-                v-for="template in templates.first"
-                :key="template.id"
-              >
-                <div
-                  class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
-                >
-                  <img
-                    :src="'/images/templates/' + template.imgSrc"
-                    alt=""
-                    class=""
-                  />
-                  <div
-                    class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
-                  >
-                    <button
-                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-                      v-if="template.type == user || user == 'pro'"
-                      @click="createEditorSession(template.data)"
-                    >
-                      Customize This Template
-                    </button>
-                    <button
-                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-                      v-else
-                    >
-                      Upgrade To Pro to Unlock
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="w-full md:w-[50%] px-3 md:pl-5">
-              <div
-                class="w-full my-4"
-                v-for="template in templates.second"
-                :key="template.id"
-              >
-                <div
-                  class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
-                >
-                  <img
-                    :src="'/images/templates/' + template.imgSrc"
-                    alt=""
-                    class=""
-                  />
-                  <div
-                    class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
-                  >
-                    <button
-                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-                      v-if="template.type == user || user == 'pro'"
-                      @click="createEditorSession(template.data)"
-                    >
-                      Customize This Template
-                    </button>
-                    <button
-                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-                      v-else
-                    >
-                      Upgrade To Pro to Unlock
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <TemplateLayout :data="filteredTemplates"/>
+        
       </div>
     </main>
   </div>

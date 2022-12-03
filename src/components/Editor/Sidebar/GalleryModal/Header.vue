@@ -7,8 +7,8 @@ const currentTab = inject('currentTab')
 </script>
 
 <template>
-    <div class="header px-8 bg-white border-b">
-      <div class="flex items-center justify-between pt-4 pb-2">
+    <div class="header sm:px-8 bg-white border-b">
+      <div class="flex items-center justify-between pt-4 pb-2 px-3 sm:px-0">
         <div class="text-xl font-medium">Image Gallery</div>
         <button @click="$emit('close')">
           <svg

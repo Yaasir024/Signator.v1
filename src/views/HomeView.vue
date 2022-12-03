@@ -5,8 +5,6 @@ import Footer from "@/components/Navigations/Footer.vue";
 import { authStore } from "@/stores/auth";
 
 const useAuth = authStore();
-
-
 </script>
 
 <template>
@@ -39,15 +37,16 @@ const useAuth = authStore();
         </div>
       </div>
     </main>
-    
+
     <section class="features w-full bg-white pt-[70px] pb-[90px] px-6">
       <div class="text-center text-2xl font-medium leading-10">Features</div>
+      <!-- Editor -->
       <div class="w-full px-6">
         <div
-          class="flex items-center justify-center flex-col-reverse md:flex-row-reverse max-w-[1160px] mx-auto pt-6 pb-6"
+          class="flex items-center justify-center flex-col-reverse md:flex-row-reverse max-w-[1160px] mx-auto py-6"
         >
           <article
-            class="flex flex-col items-center md:items-start md:pr-6 mb-4 md:mb-0 text-center md:text-left"
+            class="flex flex-col items-center md:items-start md:pl-6 mt-4 md:mt-0 text-center md:text-left"
           >
             <h3 class="text-2xl font-medium">Simple, Easy to use Editor</h3>
             <p class="mt-2 text-lg max-w-[360px]">
@@ -98,27 +97,37 @@ const useAuth = authStore();
       </div>
       <div class="text-center pt-[30px] pb-[10px]">
         <RouterLink
-        to="/features"
-        class="py-2 px-4 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
-      >
-        <span>View all Features</span>
-      </RouterLink>
+          to="/features"
+          class="py-2 px-4 text-lg hover:text-primary-color transition-all duration-300 ease-in-out"
+        >
+          <span>View all Features</span>
+        </RouterLink>
       </div>
     </section>
     <section class="support w-full pt-[70px] pb-[60px] px-6">
-      <div class="text-center text-2xl font-medium leading-10">Supported By:</div>
+      <div class="text-center text-2xl font-medium leading-10">
+        Supported By:
+      </div>
       <div class="flex items-center justify-center">
-        <div class="bg-white p-4 rounded-full shadow-lg cursor-pointer hover:scale-105  transition-all duration-300 ease-in-out">
-          <img src="/icons/mails/gmail.png" alt="">
+        <div
+          class="bg-white p-4 rounded-full shadow-lg cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out"
+        >
+          <img src="/icons/mails/gmail.png" alt="" />
         </div>
-        <div class="bg-white p-4 rounded-full shadow-lg ml-3 cursor-pointer hover:scale-105  transition-all duration-300 ease-in-out">
-          <img src="/icons/mails/apple.png" alt="">
+        <div
+          class="bg-white p-4 rounded-full shadow-lg ml-3 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out"
+        >
+          <img src="/icons/mails/apple.png" alt="" />
         </div>
-        <div class="bg-white p-4 rounded-full shadow-lg ml-3 cursor-pointer hover:scale-105  transition-all duration-300 ease-in-out">
-          <img src="/icons/mails/yahoo.png" alt="">
+        <div
+          class="bg-white p-4 rounded-full shadow-lg ml-3 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out"
+        >
+          <img src="/icons/mails/yahoo.png" alt="" />
         </div>
-        <div class="bg-white p-4 rounded-full shadow-lg ml-3 cursor-pointer hover:scale-105  transition-all duration-300 ease-in-out">
-          <img src="/icons/mails/outlook.png" alt="">
+        <div
+          class="bg-white p-4 rounded-full shadow-lg ml-3 cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out"
+        >
+          <img src="/icons/mails/outlook.png" alt="" />
         </div>
       </div>
     </section>
@@ -137,7 +146,7 @@ const useAuth = authStore();
 @media only screen and (min-width: 1024px) {
   .hero {
     display: grid;
-    grid-template-columns: 1fr .9fr;
+    grid-template-columns: 1fr 0.9fr;
     grid-template-rows: 1fr;
     gap: 10px;
   }

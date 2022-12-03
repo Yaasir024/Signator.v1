@@ -57,7 +57,7 @@ onMounted(() => {
     v-if="useEditorStore.galleryModal"
     @close="useEditorStore.galleryModal = false"
   />
-  <ImageModal v-if="useEditorStore.imageModal" />
+  <ImageModal v-if="(useEditorStore.imageModal || false)" />
   <Overlay v-if="useEditorStore.imageModal || useEditorStore.galleryModal" />
   <transition name="templates">
     <TemplateSection v-if="useEditorStore.showTemplatesSection" />

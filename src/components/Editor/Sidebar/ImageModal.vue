@@ -46,12 +46,7 @@ const setImage = () => {
 </script>
 
 <template>
-  <div
-    class="fixed top-16 right-16 bg-red-400 w-20 h-20 rounded-full overflow-hidden z-50"
-  >
-    <img :src="croppedImg" alt="" class="w-full h-full" />
-  </div>
-  <div class="modal fixed max-w-[550px] w-full px-5 z-50">
+  <div class="modal fixed max-w-[550px] w-full px-5 z-[80]">
     <div
       class="bg-white m-auto pt-5 pb-5 px-6 rounded-3xl shadow-lg border relative"
     >

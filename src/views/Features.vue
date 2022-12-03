@@ -28,7 +28,7 @@ const useAuth = authStore();
             class="flex items-center justify-center flex-col-reverse md:flex-row-reverse max-w-[1160px] mx-auto py-6"
           >
             <article
-              class="flex flex-col items-center md:items-start md:pr-6 mb-4 md:mb-0 text-center md:text-left"
+              class="flex flex-col items-center md:items-start md:pl-6 mt-4 md:mt-0 text-center md:text-left"
             >
               <h3 class="text-2xl font-medium">Simple, Easy to use Editor</h3>
               <p class="mt-2 text-lg max-w-[360px]">
