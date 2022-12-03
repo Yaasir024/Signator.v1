@@ -34,26 +34,30 @@ const filteredTemplates = computed(() => {
   });
 });
 
+const middleIndex = Math.ceil(filteredTemplates.value.length / 2);
+
+const templates = computed(() => {
+  return {
+    first: filteredTemplates.value.slice(0, middleIndex),
+    second: filteredTemplates.value.slice(-middleIndex),
+  };
+});
+
 const organizedTemplates = computed(() => {});
 
 const pricingModal = ref(false);
 
 const createEditorSession = (data) => {
-  // if(useSystemStore.isEligibleToCreate()) {
-  //   console.log('OK')
-  //   data.uid = uid(16);
-  //   useSystemStore.addDraft(data, false)
-
-  // }else{
-  //   pricingModal.value = true
-  //   console.log('Can not create more')
-  // }
-  data.uid = uid(16);
-  localStorage.setItem("__editor_data__", JSON.stringify(data));
-  console.log("data");
-  // localStorage.setItem(data.uid, JSON.stringify(data));
-  // router.push({ path: `/editor/${data.uid}` });
-  // router.go()
+  if (useSystemStore.isEligibleToCreate()) {
+    data.uid = uid(16);
+    useEditorStore.data = data;
+    router.push({ path: "/editor" });
+  } else {
+    useSystemStore.addNotificationData({
+      message: "Upgrade to create more signatures.",
+      type: "error",
+    });
+  }
 };
 
 //
@@ -63,8 +67,6 @@ const user = ref("pro");
 <template>
   <div class="min-h-screen">
     <Navbar />
-    {{ data.templates.length }}
-    {{ data.templates }}
     <main class="px-8 pb-20">
       <section class="hero py-32">
         <div class="wrapper text-center">
@@ -112,37 +114,74 @@ const user = ref("pro");
         </li>
       </ul>
       <div class="mt-12">
-        <div class="flex flex-wrap max-w-[1140px] mx-auto">
-          <div
-            class="flex-full md:flex-50% lg:flex-33.33% w-full px-3 my-2"
-            v-for="template in filteredTemplates"
-            :key="template.id"
-          >
-            <div
-              class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
-            >
-              <img
-                :src="'/images/templates/' + template.imgSrc"
-                alt=""
-                class=""
-              />
+        <div class="max-w-[560px] md:max-w-[720px] mx-auto">
+          <div class="flex w-full flex-wrap">
+            <div class="w-full md:w-[50%] px-3 md:pr-5">
               <div
-                class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
+                class="w-full my-6"
+                v-for="template in templates.first"
+                :key="template.id"
               >
-                <!-- :to="`/editor/${template.name}`" -->
-                <button
-                  class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-                  v-if="template.type == user || user == 'pro'"
-                  @click="createEditorSession(template.data)"
+                <div
+                  class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
                 >
-                  Customize This Template
-                </button>
-                <button
-                  class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-                  v-else
+                  <img
+                    :src="'/images/templates/' + template.imgSrc"
+                    alt=""
+                    class=""
+                  />
+                  <div
+                    class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
+                  >
+                    <button
+                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
+                      v-if="template.type == user || user == 'pro'"
+                      @click="createEditorSession(template.data)"
+                    >
+                      Customize This Template
+                    </button>
+                    <button
+                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
+                      v-else
+                    >
+                      Upgrade To Pro to Unlock
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-full md:w-[50%] px-3 md:pl-5">
+              <div
+                class="w-full my-4"
+                v-for="template in templates.second"
+                :key="template.id"
+              >
+                <div
+                  class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
                 >
-                  Upgrade To Pro to Unlock
-                </button>
+                  <img
+                    :src="'/images/templates/' + template.imgSrc"
+                    alt=""
+                    class=""
+                  />
+                  <div
+                    class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
+                  >
+                    <button
+                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
+                      v-if="template.type == user || user == 'pro'"
+                      @click="createEditorSession(template.data)"
+                    >
+                      Customize This Template
+                    </button>
+                    <button
+                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
+                      v-else
+                    >
+                      Upgrade To Pro to Unlock
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

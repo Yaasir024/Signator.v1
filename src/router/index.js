@@ -165,34 +165,12 @@ const router = createRouter({
       },
     },
     {
-      path: "/settings/account-setting",
-      name: "account-setting",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/Settings/AccountSetting.vue"),
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
       path: "/settings/profile",
       name: "profile",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/Settings/Profile.vue"),
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
-      path: "/settings/password",
-      name: "password-setting",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/Settings/Password.vue"),
       meta: {
         requiresAuth: true,
       },

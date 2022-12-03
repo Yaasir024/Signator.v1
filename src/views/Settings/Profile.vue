@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import Navbar from "@/components/Navigations/Navbar.vue";
 import Sidebar from "@/components/Navigations/SidebarSetting.vue";
+import MobileSidebar from "@/components/Navigations/SettingsMobileSidebar.vue";
 import Overlay from "@/components/Overlay.vue";
 import PasswordModal from "@/components/Settings/PasswordModal.vue";
 import NameModal from "@/components/Settings/NameModal.vue";
@@ -20,8 +21,9 @@ const deleteAccount = () => {
   <section class="text-lg h-screen overflow-hidden">
     <Navbar />
     <div class="h-full overflow-hidden">
+      <MobileSidebar class="block md:hidden" />
       <div class="h-full flex">
-        <Sidebar />
+        <Sidebar class="hidden md:block"/>
         <div class="h-full w-full">
           <div class="overflow-y-auto min-h-screen px-12">
             <div class="py-6 text-center">
@@ -85,6 +87,7 @@ const deleteAccount = () => {
             </div>
             <div
               class="max-w-3xl mx-auto mt-10 w-full bg-white shadow-xl border rounded-2xl py-5 px-10"
+              v-if="false"
             >
               <div class="flex items-center justify-between">
                 <div class="flex items-center">
