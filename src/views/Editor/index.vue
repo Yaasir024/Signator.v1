@@ -31,13 +31,11 @@ const mobile = ref(false);
 const checkScreen = () => {
   if (window.innerWidth <= 1020) {
     mobile.value = true;
-    console.log("check screen");
   } else {
     mobile.value = false;
   }
 };
 onMounted(() => {
-  console.log("created");
   window.addEventListener("resize", checkScreen);
 });
 </script>

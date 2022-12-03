@@ -29,12 +29,14 @@ const createEditorSession = (data) => {
   if (useSystemStore.isEligibleToCreate()) {
     data.uid = uid(16);
     useEditorStore.data = data;
-    if (path == "editor") {
-      useEditorStore.showTemplatesSection = false;
-    } else if (path == "dashboard") {
-      router.push({ path: "/editor" });
-      useDashboard.showTemplatesSection = false;
-    }
+    useEditorStore.showTemplatesSection = false;
+    router.push({ path: "/editor" });
+    // if (path == "editor") {
+    //   useEditorStore.showTemplatesSection = false;
+    // } else if (path == "dashboard") {
+    //   router.push({ path: "/editor" });
+    //   useDashboard.showTemplatesSection = false;
+    // }
   } else {
     useSystemStore.addNotificationData({
       message: "Upgrade to create more signatures.",
