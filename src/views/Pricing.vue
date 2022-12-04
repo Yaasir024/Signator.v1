@@ -1,73 +1,99 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
+
 import Navbar from "@/components/Navigations/Navbar.vue";
 import Footer from "@/components/Navigations/Footer.vue";
+import AuthModal from "@/components/Modal/AuthModal.vue";
 
-const initPrice = {
-  monthly: 8,
-  yearly: 5,
-};
+const initPrice = 8;
 
 const signaturesNo = ref(2);
 
 const price = computed(() => {
-  return initPrice[billingTerm.value] * signaturesNo.value;
+  let calculatedPriceMonthly = initPrice * signaturesNo.value;
+  let calculatedPriceYearly = initPrice * signaturesNo.value * 12;
+  if (billingTerm.value == "monthly") {
+    return calculatedPriceMonthly;
+  } else if (billingTerm.value == "yearly") {
+    return calculatedPriceYearly - calculatedPriceYearly * (12 / 100);
+  }
+});
+
+const basicPricing = computed(() => {
+  if (billingTerm.value == "monthly") {
+    return 8.0;
+  } else if (billingTerm.value == "yearly") {
+    return (8 * 12 - 8 * 12 * (12 / 100)).toFixed(2);
+  }
 });
 
 const billingTerm = ref("monthly");
+
+const showAuthModal = ref(false);
 </script>
 
 <template>
-  <div class="min-h-screen bg-white">
+  <div
+    class="min-h-screen bg-white"
+    :class="showAuthModal ? 'h-screen overflow-y-hidden' : 'min-h-screen'"
+  >
     <Navbar />
     <main class="mb-24">
       <div class="bg-canvas-color px-4 py-14 text-center">
         <h1 class="text-4xl font-medium">
-          Choose the best plan for your needs.
+          Pricing
         </h1>
       </div>
-      <section class="max-w-[900px] mx-auto my-12 px-6">
-        <div class="w-full my-2 flex justify-center">
-          <div class="bg-white shadow-lg rounded-xl flex items-center">
-            <button
-              class="py-1 px-4 rounded-xl transition-all ease-in-out duration-300"
-              :class="
-                billingTerm == 'monthly'
-                  ? 'bg-primary-color text-white'
-                  : 'text-primary-color'
-              "
-              @click="billingTerm = 'monthly'"
-            >
-              Monthly
-            </button>
-            <button
-              class="py-1 px-4 rounded-xl transition-all ease-in-out duration-300"
-              :class="
-                billingTerm == 'yearly'
-                  ? 'bg-primary-color text-white'
-                  : 'text-primary-color'
-              "
-              @click="billingTerm = 'yearly'"
-            >
-              Yearly
-            </button>
+      <section class="max-w-[950px] mx-auto my-12 px-6">
+        <div class="w-full my-2 flex justify-end">
+          <div class="">
+            <div class="flex items-center h-[45px] rounded-lg bg-canvas-color">
+              <button
+                class="ml-2 mr-1 py-1 px-4 h-[35px] w-[100px] rounded-lg text-lg transition-all ease-in-out duration-300"
+                :class="
+                  billingTerm == 'monthly'
+                    ? 'bg-primary-color text-white'
+                    : 'text-primary-color'
+                "
+                @click="billingTerm = 'monthly'"
+              >
+                Monthly
+              </button>
+              <button
+                class="ml-1 mr-2 py-1 px-4 h-[35px] w-[100px] rounded-lg text-lg transition-all ease-in-out duration-300"
+                :class="
+                  billingTerm == 'yearly'
+                    ? 'bg-primary-color text-white'
+                    : 'text-primary-color'
+                "
+                @click="billingTerm = 'yearly'"
+              >
+                Yearly
+              </button>
+            </div>
+            <div class="text-base mt-0.5 text-center">
+              <span class="text-primary-color">Save up to 12%</span> with yearly
+            </div>
           </div>
         </div>
-        <div class="flex justify-center">
-          <div class="price-card p-2 flex flex-col">
-            <div class="flex-1 max-w-[310px] w-full pt-6 pb-8 px-5 border">
+        <div class="max-w-[400px] mx-auto md:max-w-full md:mx-0 w-full flex justify-center flex-wrap">
+          <!-- FREE -->
+          <div class="price-card w-full md:w-[33.33%] p-2 flex flex-col">
+            <div class="flex-1 w-full pt-6 pb-8 px-5 border rounded-md">
               <div class="text-center">
-                <div class="text-lg font-medium mb-1">FREE</div>
+                <div class="text-lg font-medium mb-3">SIGNATOR FREE</div>
                 <div class="">
-                  <span class="text-4xl font-medium">$0</span>
-                  <sub class="text-xl font-medium bottom-[-0.1em]">/mo</sub>
+                  <span class="text-4xl font-medium">$0.00</span>
                 </div>
+                <sub class="text-xl font-medium bottom-[-0.1em]"
+                  >/{{ billingTerm }}</sub
+                >
               </div>
               <div class="mt-5 pl-4">
                 <ul class="text-base font-normal leading-8">
                   <li class="feature relative pl-5">One Signature</li>
                   <li class="feature relative pl-5">
-                    Limites Designs and Styling options
+                    Limited Designs and Styling options
                   </li>
                   <li class="feature relative pl-5">Signator Watermark</li>
                 </ul>
@@ -75,21 +101,61 @@ const billingTerm = ref("monthly");
             </div>
             <button
               class="mt-2 py-2 px-8 w-full bg-white border border-primary-color text-primary-color text-base rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
+              @click="showAuthModal = true"
             >
               Get Started
             </button>
           </div>
-          <div class="price-card p-2">
-            <div class="max-w-[310px] w-full pb-8 rounded border border-t-0">
+          <!-- BASIC -->
+          <div class="price-card w-full md:w-[33.33%] p-2 flex flex-col">
+            <div
+              class="flex-1 w-full pt-6 pb-8 px-5 border rounded-md"
+            >
+              <div class="text-center">
+                <div class="text-lg font-medium mb-3">SIGNATOR BASIC</div>
+                <div class="">
+                  <span class="text-4xl font-medium">${{ basicPricing }}</span>
+                </div>
+                <sub class="text-xl font-medium bottom-[-0.1em]"
+                  >/{{ billingTerm }}</sub
+                >
+              </div>
+              <div class="mt-5 pl-4">
+                <ul class="text-base font-normal leading-8">
+                  <li class="feature relative pl-5">4 Signatures</li>
+                  <li class="feature relative pl-5">
+                    Basic templates and Layouts
+                  </li>
+                  <li class="feature relative pl-5">All Basic addons</li>
+                  <li class="feature relative pl-5">No Signator Watermark</li>
+                  <li class="feature relative pl-5">Up to 10 Images in Image Library</li>
+                  <li class="feature relative pl-5">
+                    More Designs and Stying options
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <button
+              class="mt-2 py-2 px-8 w-full bg-white border border-primary-color text-primary-color text-base rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
+              @click="showAuthModal = true"
+            >
+              Get Started
+            </button>
+          </div>
+
+          <!-- PRO -->
+          <div class="price-card w-full md:w-[33.33%] p-2">
+            <div class="w-full pb-8 rounded border border-t-0 rounded-b-md">
               <div
                 class="pt-4 pb-2 text-center bg-primary-color rounded-b-[3.5rem] text-white"
               >
-                <div class="text-lg font-medium mb-1">PRO</div>
+                <div class="text-lg font-medium mb-1">SIGNATOR PRO</div>
                 <div class="">
                   <span class="text-4xl font-medium">${{ price }}</span>
-                  <sub class="text-xl font-medium bottom-[-0.1em]">/mo</sub>
                 </div>
-                <div class="">billed {{ billingTerm }}</div>
+                <sub class="text-xl font-medium bottom-[-0.1em]"
+                  >/{{ billingTerm }}</sub
+                >
               </div>
               <div class="pt-6 mb-4 px-4">
                 <div class="mb-1 text-base text-center">
@@ -97,8 +163,8 @@ const billingTerm = ref("monthly");
                 </div>
                 <input
                   type="range"
-                  min="2"
-                  max="40"
+                  min="4"
+                  max="30"
                   v-model="signaturesNo"
                   class="mt-1"
                 />
@@ -106,9 +172,11 @@ const billingTerm = ref("monthly");
               </div>
               <div class="px-5 pl-6">
                 <ul class="text-base font-normal leading-8">
+                  <li class="feature relative pl-5">Up to 30 signatures</li>
                   <li class="feature relative pl-5">Premium templates</li>
                   <li class="feature relative pl-5">All premium addons</li>
                   <li class="feature relative pl-5">No Signator Watermark</li>
+                  <li class="feature relative pl-5">Up to 25 Images in Image Library</li>
                   <li class="feature relative pl-5">Banner Feature</li>
                   <li class="feature relative pl-5">
                     More Designs and Stying options
@@ -118,6 +186,7 @@ const billingTerm = ref("monthly");
             </div>
             <button
               class="mt-2 py-2 px-8 w-full bg-primary-color border border-primary-color text-white text-base rounded-lg hover:text-primary-color hover:bg-white transition-all duration-300 ease-in-out"
+              @click="showAuthModal = true"
             >
               Get Started
             </button>
@@ -130,15 +199,16 @@ const billingTerm = ref("monthly");
         </h1>
         <RouterLink to="/contact-us">
           <button
-              class="mt-2 py-1 px-10 bg-primary-color border border-primary-color text-white text-lg rounded-lg"
-            >
-              Contact Us
-            </button>
+            class="mt-2 py-1 px-10 bg-primary-color border border-primary-color text-white text-lg rounded-lg"
+          >
+            Contact Us
+          </button>
         </RouterLink>
       </div>
     </main>
     <Footer />
   </div>
+  <AuthModal @close="showAuthModal = false" v-if="showAuthModal" />
 </template>
 
 <style scoped>

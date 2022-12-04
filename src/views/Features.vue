@@ -152,8 +152,7 @@ const useAuth = authStore();
               >
                 <h3 class="text-xl font-medium">Cropper Tool</h3>
                 <p class="text-base mt-2">
-                  Our cropper tool allows you to edit the picture that you’ve
-                  uploaded by cropping it to any size in seconds.
+                  Our cropper tool allows you to edit your images to any size in seconds before uploding it.
                 </p>
               </div>
               <div
