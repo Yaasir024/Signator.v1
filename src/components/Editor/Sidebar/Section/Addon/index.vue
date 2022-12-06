@@ -75,14 +75,17 @@ const addSignoff = () => {
 };
 
 const checkObj = (obj) => {
-  return Object.keys(obj).length != 0
-}
+  return Object.keys(obj).length != 0;
+};
 </script>
 
 <template>
   <div class="addons pb-14">
     <!-- Added Addons -->
-    <div class="border-b pb-7 mb-10" v-if="checkObj(data.signoff) || (data.addons.length >= 1)">
+    <div
+      class="border-b pb-7 mb-10"
+      v-if="checkObj(data.signoff) || data.addons.length >= 1"
+    >
       <div class="mb-3">
         <Heading :title="'Added Addons'" />
       </div>

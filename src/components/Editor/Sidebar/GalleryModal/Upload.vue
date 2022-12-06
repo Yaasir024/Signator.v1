@@ -1,60 +1,26 @@
 <script setup>
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, inject } from "vue";
 import axios from "axios";
 
 import { editorStore } from "@/stores/editor";
 
-import VueCropper from "vue-cropperjs";
-import "cropperjs/dist/cropper.css";
+import { uploadFile } from "@/composables/firebase/images";
 
 const useEditorStore = editorStore();
 
-const cropper = ref(null);
+const currentTab = inject("currentTab");
 
-const imgSrc = ref("");
-const readImage = () => {
-  let input = event.target;
-  let image = input.files[0];
-
-  if (input.files) {
-    let reader = new FileReader();
-    // let imgSrc = ''
-    reader.onload = (e) => {
-      imgSrc.value = reader.result;
-      console.log(image.name, e.target.result)
-      uploadImg(imgSrc.value, image.name)
-    };
-    // console.log(image.name);
-    reader.readAsDataURL(input.files[0]);
-  }
+const readImage = async (e) => {
+  let files = e.target.files;
+  const { snapshot, downloadUrl, metadata } = await uploadFile(files[0]);
+  useEditorStore.addImageToGallery(
+    downloadUrl,
+    metadata.name,
+    metadata.fullPath,
+    metadata.timeCreated
+  );
+  currentTab.value = "library";
 };
-
-const uploadImg = (img, imgId) => {
-    let src = img;
-    let name = imgId
-    const formData = new FormData();
-    formData.append("file", src);
-    formData.append("upload_preset", "imgassets");
-    formData.append("folder", "signatorClientImages");
-    formData.append("public_id", name);
-
-    const postImg = async () => {
-      try {
-        const res = await axios.post(
-          "https://api.cloudinary.com/v1_1/dwajobdyb/upload",
-          formData
-        );
-        // data.value.image.img = "";
-        // data.value.image.imgSrc = res.data.secure_url;
-        console.log(res.data.secure_url);
-        useEditorStore.addImageToGallery(res.data.secure_url, name)
-        console.log('Success');
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    postImg();
-  };
 </script>
 
 <template>
@@ -101,7 +67,6 @@ const uploadImg = (img, imgId) => {
           max-container-width="100%"
         >
         </vue-cropper>
-        
       </div>
     </div>
   </div>

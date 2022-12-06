@@ -27,8 +27,6 @@ const useDashboard = dashboardStore();
 const useAuth = authStore();
 const useSystemStore = systemStore();
 
-
-
 const currentTab = ref("published");
 
 const newSignature = () => {
@@ -52,7 +50,6 @@ const editDraft = () => {
   useDashboard.confirmDraftModal = false;
   router.push({ path: "/editor" });
 };
-
 
 const editSignature = (data) => {
   useEditorStore.data = data;
@@ -109,192 +106,190 @@ const closeDeleteModal = () => {
 
 const addModal = ref(null);
 const addToMailPanel = ref(false);
-// useClickOutside(addModal, () => {
-//   addToMailPanel.value = false;
-//   console.log('mod')
-// });
+useClickOutside(addModal, () => {
+  addToMailPanel.value = false;
+  console.log('mod')
+});
 </script>
 
 <template>
   <div class="min-h-screen">
     <Navbar />
-    <main class="py-8 px-4">
-      <div class="flex">
-        <main class="w-full pb-4">
-          <div class="header w-full px-2 flex justify-end">
-            <button
-              class="py-1.5 px-4 bg-primary-color border-primary-color text-white font-medium rounded-lg"
-              @click="newSignature()"
+    <div class="py-8 px-4">
+      <main class="w-full pb-4 max-w-[1280px] mx-auto">
+        <div class="header w-full px-2 flex justify-end">
+          <button
+            class="py-1.5 px-4 bg-primary-color border-primary-color text-white font-medium rounded-lg"
+            @click="newSignature()"
+          >
+            New Signature
+          </button>
+        </div>
+        <div class="signatures py-3">
+          <div class="">
+            <div
+              class="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-5 lg:gap-y-3 px-4 py-6"
+              v-if="useDashboard.allSignatures"
             >
-              New Signature
-            </button>
-          </div>
-          <div class="signatures py-3">
-            <div class="">
               <div
-                class="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-5 lg:gap-y-3 px-4 py-6"
-                v-if="useDashboard.allSignatures"
+                class=""
+                v-for="data in useDashboard.allSignatures"
+                :key="data.uid"
               >
-                <div
-                  class=""
-                  v-for="data in useDashboard.allSignatures"
-                  :key="data.uid"
+                <Card
+                  :data="data"
+                  :hasDraft="useEditorStore.data.uid == data.uid"
                 >
-                  <Card
-                    :data="data"
-                    :hasDraft="useEditorStore.data.uid == data.uid"
-                  >
-                    <template #footer>
-                      <div
-                        class="pt-3 pb-4 px-2 border-t flex items-center justify-between"
+                  <template #footer>
+                    <div
+                      class="pt-3 pb-4 px-2 border-t flex items-center justify-between"
+                    >
+                      <button
+                        class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
+                        @click="editSignature(data)"
                       >
-                        <button
-                          class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
-                          @click="editSignature(data)"
-                        >
-                          Edit Signature
-                        </button>
-                        <div class="flex items-center">
-                          <div class="mr-2" ref="addModal">
-                            <button
-                              class="px-4 py-1 border-2 border-primary-color rounded-md text-base text-primary-color"
-                              @click="addToMailPanel = true"
+                        Edit Signature
+                      </button>
+                      <div class="flex items-center">
+                        <div class="mr-2" ref="addModal">
+                          <button
+                            class="px-4 py-1 border-2 border-primary-color rounded-md text-base text-primary-color"
+                            @click="addToMailPanel = true"
+                          >
+                            Add to Mail
+                          </button>
+                          <transition name="panel">
+                            <SidePanel
+                              v-if="addToMailPanel"
+                              @close="addToMailPanel = false"
+                            />
+                          </transition>
+                        </div>
+                        <div class="relative" ref="optionsMenuPopup">
+                          <button
+                            class="cursor-pointer"
+                            @click="toggleOptionsMenu(data.uid)"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
                             >
-                              Add to Mail
-                            </button>
-                            <transition name="panel">
-                              <SidePanel
-                                v-if="addToMailPanel"
-                                @close="addToMailPanel = false"
+                              <path
+                                d="M12 18c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"
                               />
-                            </transition>
-                          </div>
-                          <div class="relative" ref="optionsMenuPopup">
-                            <button
-                              class="cursor-pointer"
-                              @click="toggleOptionsMenu(data.uid)"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
+                            </svg>
+                          </button>
+                          <div
+                            class="absolute bg-white border rounded-xl shadow-md bottom-9 right-0 w-[150px] overflow-hidden"
+                            v-if="optionsMenu == data.uid"
+                          >
+                            <ul class="text-base">
+                              <li
+                                class="hover:bg-gray-200 transition-all duration-300 ease-in-out"
                               >
-                                <path
-                                  d="M12 18c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3z"
-                                />
-                              </svg>
-                            </button>
-                            <div
-                              class="absolute bg-white border rounded-xl shadow-md bottom-9 right-0 w-[150px] overflow-hidden"
-                              v-if="optionsMenu == data.uid"
-                            >
-                              <ul class="text-base">
-                                <li
-                                  class="hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                                <div
+                                  class="cursor-pointer flex items-center px-4 py-3"
+                                  @click="useDashboard.duplicate(data)"
                                 >
-                                  <div
-                                    class="cursor-pointer flex items-center px-4 py-3"
-                                    @click="useDashboard.duplicate(data)"
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
                                   >
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="16"
-                                      height="16"
-                                      viewBox="0 0 24 24"
-                                      fill="currentColor"
-                                    >
-                                      <path
-                                        d="M10 19h10v1h-10v-1zm14-13v18h-18v-6h-6v-18h18v6h6zm-18 0h10v-4h-14v14h4v-10zm16 2h-1.93c-.669 0-1.293.334-1.664.891l-1.406 2.109h-3.93l-1.406-2.109c-.371-.557-.995-.891-1.664-.891h-2v14h14v-14zm-12 6h10v-1h-10v1zm0 3h10v-1h-10v1z"
-                                      />
-                                    </svg>
-                                    <span class="ml-2">Duplicate</span>
-                                  </div>
-                                </li>
-                                <li
-                                  class="border-b hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                                    <path
+                                      d="M10 19h10v1h-10v-1zm14-13v18h-18v-6h-6v-18h18v6h6zm-18 0h10v-4h-14v14h4v-10zm16 2h-1.93c-.669 0-1.293.334-1.664.891l-1.406 2.109h-3.93l-1.406-2.109c-.371-.557-.995-.891-1.664-.891h-2v14h14v-14zm-12 6h10v-1h-10v1zm0 3h10v-1h-10v1z"
+                                    />
+                                  </svg>
+                                  <span class="ml-2">Duplicate</span>
+                                </div>
+                              </li>
+                              <li
+                                class="border-b hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                              >
+                                <div
+                                  class="cursor-pointer flex items-center px-4 py-3"
+                                  @click="
+                                    openRenameModal(data.uid, data.title)
+                                  "
                                 >
-                                  <div
-                                    class="cursor-pointer flex items-center px-4 py-3"
-                                    @click="
-                                      openRenameModal(data.uid, data.title)
-                                    "
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="14"
+                                    height="14"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
                                   >
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="14"
-                                      height="14"
-                                      viewBox="0 0 24 24"
-                                      fill="currentColor"
-                                    >
-                                      <path
-                                        d="M22 0h-20v6h1.999c0-1.174.397-3 2.001-3h4v16.874c0 1.174-.825 2.126-2 2.126h-1v2h9.999v-2h-.999c-1.174 0-2-.952-2-2.126v-16.874h4c1.649 0 2.02 1.826 2.02 3h1.98v-6z"
-                                      />
-                                    </svg>
-                                    <span class="ml-2">Rename</span>
-                                  </div>
-                                </li>
-                                <li
-                                  class="hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                                    <path
+                                      d="M22 0h-20v6h1.999c0-1.174.397-3 2.001-3h4v16.874c0 1.174-.825 2.126-2 2.126h-1v2h9.999v-2h-.999c-1.174 0-2-.952-2-2.126v-16.874h4c1.649 0 2.02 1.826 2.02 3h1.98v-6z"
+                                    />
+                                  </svg>
+                                  <span class="ml-2">Rename</span>
+                                </div>
+                              </li>
+                              <li
+                                class="hover:bg-gray-200 transition-all duration-300 ease-in-out"
+                              >
+                                <div
+                                  class="cursor-pointer flex items-center px-5 py-3 text-red-600"
+                                  @click="confirmDelete(data.uid)"
                                 >
-                                  <div
-                                    class="cursor-pointer flex items-center px-5 py-3 text-red-600"
-                                    @click="confirmDelete(data.uid)"
+                                  <svg
+                                    width="20"
+                                    height="20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    viewBox="0 0 24 24"
                                   >
-                                    <svg
-                                      width="20"
-                                      height="20"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      fill="currentColor"
-                                      fill-rule="evenodd"
-                                      clip-rule="evenodd"
-                                      viewBox="0 0 24 24"
-                                    >
-                                      <path
-                                        d="M19 24h-14c-1.104 0-2-.896-2-2v-17h-1v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2h-1v17c0 1.104-.896 2-2 2zm0-19h-14v16.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-16.5zm-9 4c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm-2-7h-4v1h4v-1z"
-                                      />
-                                    </svg>
-                                    <span class="ml-2">Delete</span>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
+                                    <path
+                                      d="M19 24h-14c-1.104 0-2-.896-2-2v-17h-1v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2h-1v17c0 1.104-.896 2-2 2zm0-19h-14v16.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-16.5zm-9 4c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm-2-7h-4v1h4v-1z"
+                                    />
+                                  </svg>
+                                  <span class="ml-2">Delete</span>
+                                </div>
+                              </li>
+                            </ul>
                           </div>
                         </div>
                       </div>
-                    </template>
-                  </Card>
-                </div>
-              </div>
-              <div
-                class="w-full flex flex-col items-center justify-center"
-                v-else
-              >
-                <img
-                  src="/images/emptyLogo.png"
-                  alt=""
-                  class="max-h-[265px] h-full"
-                />
-                <h1 class="text-xl font-medium uppercase">NO Signatures Yet</h1>
-                <span
-                  class="text-base text-primary-color cursor-pointer mt-1"
-                  @click="newSignature()"
-                  >Create one</span
-                >
-                <p class="text-base mt-2">
-                  Don't Know where to start? Visit our
-                  <RouterLink to="/help-center">
-                    <span class="text-primary-color cursor-pointer"
-                      >Help Center</span
-                    >
-                  </RouterLink>
-                </p>
+                    </div>
+                  </template>
+                </Card>
               </div>
             </div>
+            <div
+              class="w-full flex flex-col items-center justify-center"
+              v-else
+            >
+              <img
+                src="/images/emptyLogo.png"
+                alt=""
+                class="max-h-[265px] h-full"
+              />
+              <h1 class="text-xl font-medium uppercase">NO Signatures Yet</h1>
+              <span
+                class="text-base text-primary-color cursor-pointer mt-1"
+                @click="newSignature()"
+                >Create one</span
+              >
+              <p class="text-base mt-2">
+                Don't Know where to start? Visit our
+                <RouterLink to="/help-center">
+                  <span class="text-primary-color cursor-pointer"
+                    >Help Center</span
+                  >
+                </RouterLink>
+              </p>
+            </div>
           </div>
-        </main>
-      </div>
-    </main>
+        </div>
+      </main>
+    </div>
   </div>
   <ConfirmDraft
     v-if="useDashboard.confirmDraftModal"
@@ -312,12 +307,17 @@ const addToMailPanel = ref(false);
     :title="signatureCurrentTitle"
     :id="renameSignatureId"
   />
-  <Overlay v-if="deleteModal || renameModal || useDashboard.confirmDraftModal ||addToMailPanel" />
-
+  <Overlay
+    v-if="
+      deleteModal ||
+      renameModal ||
+      useDashboard.confirmDraftModal ||
+      addToMailPanel
+    "
+  />
 </template>
 
 <style scoped>
-
 .panel-enter-active,
 .panel-leave-active {
   transition: 0.32s ease all;

@@ -1,9 +1,13 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 
+import { authStore } from "@/stores/auth";
+
 import Navbar from "@/components/Navigations/Navbar.vue";
 import Footer from "@/components/Navigations/Footer.vue";
 import AuthModal from "@/components/Modal/AuthModal.vue";
+
+const useAuth = authStore();
 
 const initPrice = 8;
 
@@ -30,6 +34,10 @@ const basicPricing = computed(() => {
 const billingTerm = ref("monthly");
 
 const showAuthModal = ref(false);
+
+const choosePlan = (plan) => {
+  console.log(plan)
+}
 </script>
 
 <template>
@@ -39,13 +47,14 @@ const showAuthModal = ref(false);
   >
     <Navbar />
     <main class="mb-24">
-      <div class="bg-canvas-color px-4 py-14 text-center">
-        <h1 class="text-4xl font-medium">
-          Pricing
+      <div class="px-4 py-10 text-center">
+        <h1 class="text-[40px] font-medium">
+          Pricing & Plans
         </h1>
       </div>
       <section class="max-w-[950px] mx-auto my-12 px-6">
         <div class="w-full my-2 flex justify-end">
+          <!-- Billing Filter -->
           <div class="">
             <div class="flex items-center h-[45px] rounded-lg bg-canvas-color">
               <button
@@ -75,10 +84,13 @@ const showAuthModal = ref(false);
               <span class="text-primary-color">Save up to 12%</span> with yearly
             </div>
           </div>
+          <!--  -->
         </div>
+
+        <!-- Cards -->
         <div class="max-w-[400px] mx-auto md:max-w-full md:mx-0 w-full flex justify-center flex-wrap">
           <!-- FREE -->
-          <div class="price-card w-full md:w-[33.33%] p-2 flex flex-col">
+          <div class="price-card w-full md:w-[33.33%] mb-12 md:mb-0 p-2 flex flex-col">
             <div class="flex-1 w-full pt-6 pb-8 px-5 border rounded-md">
               <div class="text-center">
                 <div class="text-lg font-medium mb-3">SIGNATOR FREE</div>
@@ -100,14 +112,15 @@ const showAuthModal = ref(false);
               </div>
             </div>
             <button
-              class="mt-2 py-2 px-8 w-full bg-white border border-primary-color text-primary-color text-base rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
+              class="mt-2 py-2 px-8 w-full bg-white border border-primary-color text-primary-color text-lg rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
               @click="showAuthModal = true"
+              v-if="!useAuth.userState"
             >
               Get Started
             </button>
           </div>
           <!-- BASIC -->
-          <div class="price-card w-full md:w-[33.33%] p-2 flex flex-col">
+          <div class="price-card w-full md:w-[33.33%] mb-12 md:mb-0  p-2 flex flex-col">
             <div
               class="flex-1 w-full pt-6 pb-8 px-5 border rounded-md"
             >
@@ -136,16 +149,24 @@ const showAuthModal = ref(false);
               </div>
             </div>
             <button
-              class="mt-2 py-2 px-8 w-full bg-white border border-primary-color text-primary-color text-base rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
+              class="mt-2 py-2 px-8 w-full bg-white border-2 border-primary-color text-primary-color text-lg rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
+              @click="choosePlan('basic')"
+              v-if="useAuth.userState"
+            >
+              Choose Plan
+            </button>
+            <button
+              class="mt-2 py-2 px-8 w-full bg-white text-lg border-2 border-primary-color text-primary-color rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
               @click="showAuthModal = true"
+              v-else
             >
               Get Started
             </button>
           </div>
 
           <!-- PRO -->
-          <div class="price-card w-full md:w-[33.33%] p-2">
-            <div class="w-full pb-8 rounded border border-t-0 rounded-b-md">
+          <div class="price-card w-full md:w-[33.33%] mb-12 md:mb-0  p-2">
+            <div class="w-full pb-8 border border-t-0 rounded-md overflow-hidden">
               <div
                 class="pt-4 pb-2 text-center bg-primary-color rounded-b-[3.5rem] text-white"
               >
@@ -185,8 +206,16 @@ const showAuthModal = ref(false);
               </div>
             </div>
             <button
-              class="mt-2 py-2 px-8 w-full bg-primary-color border border-primary-color text-white text-base rounded-lg hover:text-primary-color hover:bg-white transition-all duration-300 ease-in-out"
+              class="mt-2 py-2 px-8 w-full bg-primary-color border border-primary-color text-white text-lg rounded-lg hover:text-primary-color hover:bg-white transition-all duration-300 ease-in-out"
+              @click="choosePlan('pro')"
+              v-if="useAuth.userState"
+            >
+              Choose Plan
+            </button>
+            <button
+              class="mt-2 py-2 px-8 w-full bg-primary-color border border-primary-color text-white text-lg rounded-lg hover:text-primary-color hover:bg-white transition-all duration-300 ease-in-out"
               @click="showAuthModal = true"
+              v-else
             >
               Get Started
             </button>

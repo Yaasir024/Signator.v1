@@ -20,12 +20,6 @@ onSnapshot(
   doc(firestoreDb, "users", useAuth.userId.uid, "data", "gallery"),
   (snapshot) => {
     galleryImages.value = snapshot.data().images;
-    console.log(snapshot.data().images);
-    // snapshot.docs.forEach((doc) => {
-    //   docs.push(doc.data());
-    // });
-    // allSignatures.value = docs;
-    // confirmDraft();
   }
 );
 
@@ -42,6 +36,10 @@ provide(/* key */ "currentTab", /* value */ currentTab);
   >
     <Header @close="$emit('close')" />
     <Upload v-if="currentTab == 'upload'" />
-    <Library :galleryImages="galleryImages" v-if="currentTab == 'library'" @close="$emit('close')" />
+    <Library
+      :galleryImages="galleryImages"
+      v-if="currentTab == 'library'"
+      @close="$emit('close')"
+    />
   </div>
 </template>

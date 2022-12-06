@@ -4,10 +4,13 @@ import Navbar from "@/components/Navigations/Navbar.vue";
 import Footer from "@/components/Navigations/Footer.vue";
 import { authStore } from "@/stores/auth";
 
+
+
 const useAuth = authStore();
 </script>
 
 <template>
+  
   <div class="min-h-screen">
     <Navbar />
     <main class="w-full bg-white py-5 px-6">

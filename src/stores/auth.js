@@ -200,7 +200,12 @@ export const authStore = defineStore("auth", () => {
         router.isReady() &&
         router.currentRoute.value.path === ("/login" || "/signup")
       ) {
-        router.push("/");
+        router.push("/dashboard");
+      } else if (
+        router.isReady() &&
+        router.currentRoute.value.path === "/pricing"
+      ) {
+        router.push("/pricing");
       }
     } else {
       //If User logs out, set data to null

@@ -8,11 +8,14 @@ import "./assets/main.css";
 import "./assets/tailwinds.css";
 import prismic from "./services/prismic";
 
+import Antd from 'ant-design-vue';
+
+
 const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
 app.use(prismic);
-// app.use(axios);
+app.use(Antd);
 
 app.mount("#app");

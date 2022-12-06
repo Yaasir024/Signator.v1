@@ -4,6 +4,8 @@ import axios from "axios";
 
 import { editorStore } from "@/stores/editor";
 
+import { deleteFile } from "@/composables/firebase/images";
+
 const useEditorStore = editorStore();
 
 const props = defineProps(["galleryImages"]);
@@ -11,38 +13,20 @@ const emits = defineEmits(["close"]);
 
 const selectedImage = ref("");
 
-const deleteImage = (img) => {
-    const timestamp = new Date().getTime()
-  console.log(img);
-  const formData = new FormData();
-  formData.append("api_key", "832939519396337");
-  formData.append("public_id", img.name);
-  formData.append("signature", 'bfd09f95f331f558cbd1320e67aa8d488770583e')
-  formData.append("timestamp",timestamp)
-//   bfd09f95f331f558cbd1320e67aa8d488770583e
-  const postImg = async () => {
-    try {
-      const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dwajobdyb/image/destroy",
-        formData
-      );
-      //   `https://api.cloudinary.com/v1_1/dwajobdyb/image/destroy/signatorClientImages/2roadmap.PNG`,
-      //   ${img.name}/
-      console.log(res);
-      //   useEditorStore.addImageToGallery(res.data.secure_url, name);
-      console.log("Success");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  postImg();
+const deleteImage = async (img) => {
+  const result = await deleteFile(img.fullPath);
+  if (result) {
+    useEditorStore.removeImageFromGallery(img);
+  }
+  console.log(result);
+  selectedImage.value = ''
 };
 
 const useImage = () => {
-  useEditorStore.data.image.img = selectedImage.value.url
-  emits('close')
-  selectedImage.value = ""
-}
+  useEditorStore.data.image.img = selectedImage.value.url;
+  emits("close");
+  selectedImage.value = "";
+};
 </script>
 
 <template>
@@ -74,14 +58,26 @@ const useImage = () => {
         </li>
       </ul>
     </div>
-    <div class="absolute top-0 right-0 sm:static h-full w-[220px] sm:w-[300px]  bg-canvas-color border-l py-4 px-2 overflow-hidden transition-all duration-300 ease-in-out"
+    <div
+      class="absolute top-0 right-0 sm:static h-full w-[220px] sm:w-[300px] bg-canvas-color border-l py-4 px-2 overflow-hidden transition-all duration-300 ease-in-out"
       :class="selectedImage == '' ? 'translate-x-[100%]' : 'translate-x-0'"
     >
       <div class="" v-if="selectedImage">
-        <div class="text-base flex items-center justify-between border-b-2 pb-1 mb-1">
+        <div
+          class="text-base flex items-center justify-between border-b-2 pb-1 mb-1"
+        >
           Image Details
           <div class="block sm:hidden" @click="selectedImage = ''">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M23 20.168l-8.185-8.187 8.185-8.174-2.832-2.807-8.182 8.179-8.176-8.179-2.81 2.81 8.186 8.196-8.186 8.184 2.81 2.81 8.203-8.192 8.18 8.192z"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M23 20.168l-8.185-8.187 8.185-8.174-2.832-2.807-8.182 8.179-8.176-8.179-2.81 2.81 8.186 8.196-8.186 8.184 2.81 2.81 8.203-8.192 8.18 8.192z"
+              />
+            </svg>
           </div>
         </div>
         <div
@@ -96,7 +92,11 @@ const useImage = () => {
         <h4 class="break-all">{{ selectedImage.name }}</h4>
         <h4 class="break-all">October 3, 2022</h4>
         <h4 class="">
-          <span class="text-blue-400 cursor-pointer mr-2" @click="(useEditorStore.previewImage = selectedImage.url)">Edit Image</span>
+          <span
+            class="text-blue-400 cursor-pointer mr-2"
+            @click="useEditorStore.previewImage = selectedImage.url"
+            >Edit Image</span
+          >
           <span
             class="text-red-400 cursor-pointer"
             @click="deleteImage(selectedImage)"
@@ -104,7 +104,12 @@ const useImage = () => {
           >
         </h4>
         <div class="mt-4 flex items-center justify-end px-2">
-            <button class="bg-primary-color text-white h-[32px] px-4 rounded" @click="useImage()">Set Image</button>
+          <button
+            class="bg-primary-color text-white h-[32px] px-4 rounded"
+            @click="useImage()"
+          >
+            Set Image
+          </button>
         </div>
       </div>
     </div>

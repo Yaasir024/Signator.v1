@@ -53,11 +53,13 @@ onMounted(() => {
     </div>
   </div>
 
-  <GalleryModal
-    v-if="useEditorStore.galleryModal"
-    @close="useEditorStore.galleryModal = false"
-  />
-  <ImageModal v-if="(useEditorStore.imageModal || false)" />
+  <transition name="galleryModal">
+    <GalleryModal
+      v-if="useEditorStore.galleryModal"
+      @close="useEditorStore.galleryModal = false"
+    />
+  </transition>
+  <ImageModal v-if="useEditorStore.imageModal || false" />
   <Overlay v-if="useEditorStore.imageModal || useEditorStore.galleryModal" />
   <transition name="templates">
     <TemplateSection v-if="useEditorStore.showTemplatesSection" />
@@ -65,6 +67,14 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.galleryModal-enter-active,
+.galleryModal-leave-active {
+  transition: 0.32s ease all;
+}
+.galleryModal-enter-from,
+.galleryModal-leave-to {
+  opacity: 0;
+}
 .templates-enter-active,
 .templates-leave-active {
   transition: 0.32s ease all;

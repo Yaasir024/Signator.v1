@@ -2,6 +2,10 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { firestoreDb } from "@/services/firebase";
 
+import { notification } from 'ant-design-vue';
+// import 'ant-design-vue/dist/antd.css';
+import 'ant-design-vue/lib/notification/style/index.css';
+
 import {
   collection,
   getDocs,
@@ -80,6 +84,16 @@ export const dashboardStore = defineStore("dashboard", () => {
         });
       });
   };
+  const openNotification = () => {
+    notification.open({
+      message: 'Notification Title',
+      description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+      duration: 3,
+      onClick: () => {
+        console.log('Notification Clicked!');
+      },
+    });
+  };
   const renameSignature = async (id, title) => {
     const docRef = doc(
       firestoreDb,
@@ -92,10 +106,11 @@ export const dashboardStore = defineStore("dashboard", () => {
       title: title,
     })
       .then(() => {
-        useSystemStore.addNotificationData({
-          message: "Signature has been successfully renamed.",
-          type: "success",
-        });
+        // useSystemStore.addNotificationData({
+        //   message: "Signature has been successfully renamed.",
+        //   type: "success",
+        // });
+        openNotification()
       })
       .catch(() => {
         useSystemStore.addNotificationData({

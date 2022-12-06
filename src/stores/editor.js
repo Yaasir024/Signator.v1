@@ -24,6 +24,7 @@ import {
   updateDoc,
   increment,
   arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import axios from "axios";
 
@@ -43,7 +44,6 @@ export const editorStore = defineStore("editor", () => {
   const galleryModal = ref(false);
 
   const signaturePreviewData = ref(null);
-
 
   const addSignature = async () => {
     const docRef = doc(
@@ -70,7 +70,7 @@ export const editorStore = defineStore("editor", () => {
     });
   };
 
-  const addImageToGallery = async (imgUrl, imgName) => {
+  const addImageToGallery = async (url, name, fullPath, timeCreated) => {
     const docRef = doc(
       firestoreDb,
       "users",
@@ -79,10 +79,22 @@ export const editorStore = defineStore("editor", () => {
       "gallery"
     );
     await updateDoc(docRef, {
-      images: arrayUnion({ url: imgUrl, name: imgName }),
+      images: arrayUnion({ url, name, fullPath, timeCreated }),
     });
   };
 
+  const removeImageFromGallery = async (img) => {
+    const docRef = doc(
+      firestoreDb,
+      "users",
+      useAuth.userId.uid,
+      "data",
+      "gallery"
+    );
+    await updateDoc(docRef, {
+      images: arrayRemove(img),
+    });
+  };
   const showTemplatesSection = ref(false);
   // if(Object.keys(data.value).length == 0) {
   //   showTemplatesSection.value = true
@@ -99,5 +111,6 @@ export const editorStore = defineStore("editor", () => {
     signaturePreviewData,
     showTemplatesSection,
     addImageToGallery,
+    removeImageFromGallery
   };
 });
