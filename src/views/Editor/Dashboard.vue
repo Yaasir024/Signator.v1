@@ -127,6 +127,7 @@ const confirmDelete = (id) => {
 const closeDeleteModal = () => {
   deleteModal.value = false;
   deleteSignatureId.value = "";
+  
 };
 
 const addModal = ref(null);

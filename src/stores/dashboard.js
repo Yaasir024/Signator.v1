@@ -69,13 +69,14 @@ export const dashboardStore = defineStore("dashboard", () => {
       doc(firestoreDb, "users", useAuth.userId.uid, "signatures", id)
     )
       .then(async () => {
-        await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
-          publishedSignatures: arrayRemove(id),
-        });
         useSystemStore.addNotificationData({
           message: "Signature has been successfully deleted.",
           type: "success",
+        })
+        await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
+          publishedSignatures: arrayRemove(id),
         });
+        
       })
       .catch(() => {
         useSystemStore.addNotificationData({

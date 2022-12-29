@@ -46,7 +46,7 @@ const clearImage = () => {
       <div class="wrapper image-section flex items-center justify-center pb-3">
         <div class="image-preview w-[40%] text-secondary-color relative">
           <div
-            class="relative flex flex-col items-center py-10 border border-dashed overflow-hidden cursor-pointer"
+            class="relative flex flex-col items-center py-10 border-2 border-dashed rounded-md overflow-hidden cursor-pointer"
             v-if="!data.image.img"
             @click="useEditorStore.galleryModal = true"
           >
@@ -186,7 +186,7 @@ const clearImage = () => {
             <div class="flex items-center justify-between">
               <Heading :title="'Custom Fields'" />
               <div
-                class="relative bg-primary-color text-white font-semibold px-2 rounded-3xl"
+                class="relative bg-primary-color text-white font-extralight px-2 rounded-3xl"
                 v-if="!useSystemStore.checkFeatureQualification('customFields')"
               >
                 PRO

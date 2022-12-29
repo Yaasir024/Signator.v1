@@ -24,6 +24,14 @@ onMounted(() => {
   }
 });
 
+const showEditor = computed(() => {
+  if (Object.keys(useEditorStore.data).length == 0) {
+    return false;
+  }else {
+    return true
+  }
+})
+
 /*
 Check Screen Size
 */
@@ -41,7 +49,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="" v-if="Object.keys(useEditorStore.data).length != 0">
+  <div class="" v-if="showEditor">
     <div class="h-screen bg-canvas-color overflow-hidden" v-if="!mobile">
       <section class="h-full w-full flex">
         <Sidebar />
@@ -62,7 +70,7 @@ onMounted(() => {
   <ImageModal v-if="useEditorStore.imageModal || false" />
   <Overlay v-if="useEditorStore.imageModal || useEditorStore.galleryModal" />
   <transition name="templates">
-    <TemplateSection v-if="useEditorStore.showTemplatesSection" />
+    <TemplateSection v-if="!showEditor" />
   </transition>
 </template>
 

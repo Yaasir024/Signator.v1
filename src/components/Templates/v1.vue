@@ -31,6 +31,7 @@ const createEditorSession = (data) => {
     useEditorStore.data = data;
     useEditorStore.showTemplatesSection = false;
     router.push({ path: "/editor" });
+    router.go(0)
     // if (path == "editor") {
     //   useEditorStore.showTemplatesSection = false;
     // } else if (path == "dashboard") {
