@@ -3,6 +3,7 @@ import { ref, reactive, computed, inject } from "vue";
 import { useRouter } from "vue-router";
 
 import { editorStore } from "@/stores/editor";
+import { systemStore } from "@/stores/system";
 
 import { useClickOutside } from "@/composables/useClickOutside";
 
@@ -13,21 +14,51 @@ import Overlay from "@/components/Overlay.vue";
 const router = useRouter();
 
 const useEditorStore = editorStore();
-
+const useSystemStore = systemStore();
 
 const props = defineProps(["data"]);
 
 const backToEditor = () => {
-    useEditorStore.data = props.data;
+  useEditorStore.data = props.data;
   router.push({ path: "/editor" });
-}
+};
 
-
-const addModal = ref(null)
-const addToMailPanel = ref(false)
+const addModal = ref(null);
+const addToMailPanel = ref(false);
 useClickOutside(addModal, () => {
-    addToMailPanel.value = false;
+  addToMailPanel.value = false;
 });
+const copySignature = () => {
+  addToMailPanel.value = false;
+  // Get the element you want to highlight, select, and copy
+  var element = document.getElementById("signature");
+
+  // Use the SelectAllChildren method to select the entire contents of the element
+  var range = document.createRange();
+  range.selectNodeContents(element);
+
+  // Use the addRange method to add the range to the selection
+  var selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  // Use the execCommand method to copy the selected text to the clipboard
+  document.execCommand("copy");
+  useSystemStore.addNotificationData({
+    message: "Copied",
+    type: "success",
+  });
+};
+
+const copyCode = async () => {
+  console.log("copy");
+  const content = document.getElementById("signature").innerHTML;
+  // const blob = new Blob([content], { type: "text/html" });
+  // const richTextInput = new ClipboardItem({ "text/html": blob });
+  // await navigator.clipboard.write([richTextInput]);
+  // console.log('done')
+  navigator.clipboard.writeText(content);
+};
 </script>
 
 <template>
@@ -38,21 +69,33 @@ useClickOutside(addModal, () => {
           <h1 class="text-lg font-medium">{{ data.title }}</h1>
         </div>
         <div class="w-full h-full flex flex-col py-7 px-6 overflow-hidden">
-          <div ref="source">
+          <div id="signature" ref="source">
             <Preview :data="data" />
           </div>
+          <div class="" @click="copyCode()">Copy Code</div>
+          <div class="" @click="copySignature()">Copy</div>
         </div>
       </div>
       <div class="footer mt-4 px-3 flex items-center justify-between">
-        <div class="text-base font-medium cursor-pointer" @click="backToEditor()">Back to Editor</div>
+        <div
+          class="text-base font-medium cursor-pointer"
+          @click="backToEditor()"
+        >
+          Back to Editor
+        </div>
         <div class="" ref="addModal">
-          <button class="bg-primary-color text-white text-base px-4 py-1 rounded-lg" @click="addToMailPanel = true">
+          <button
+            class="bg-primary-color text-white text-base px-4 py-1 rounded-lg"
+            @click="addToMailPanel = true"
+          >
             Add to mail
           </button>
           <transition name="panel">
-
-              <SidePanel v-if="addToMailPanel" @close="addToMailPanel = false"/>
-              
+            <SidePanel
+              v-if="addToMailPanel"
+              @copy="copySignature()"
+              @close="addToMailPanel = false"
+            />
           </transition>
         </div>
       </div>
@@ -60,7 +103,6 @@ useClickOutside(addModal, () => {
   </div>
   <Overlay v-if="addToMailPanel" />
 </template>
-
 
 <style scoped>
 .panel-enter-active,

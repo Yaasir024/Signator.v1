@@ -1,5 +1,12 @@
 <script setup>
-import { ref, reactive, onBeforeMount, onMounted, computed } from "vue";
+import {
+  ref,
+  reactive,
+  onBeforeMount,
+  onMounted,
+  onUnmounted,
+  computed,
+} from "vue";
 import { useRouter } from "vue-router";
 
 import { dashboardStore } from "@/stores/dashboard";
@@ -64,11 +71,29 @@ const toggleOptionsMenu = (uid) => {
     optionsMenu.value = "";
   }
 };
-const optionsMenuPopup = ref(null);
-// useClickOutside(optionsMenuPopup, () => {
-//   // optionsMenu.value = false;
-//   console.log("Clickked");
-// });
+const optionsMenuPopup = ref([]);
+
+function handleClickOutside(event) {
+  for (const ref of optionsMenuPopup.value) {
+    if (ref.contains(event.target)) {
+      // The event target is inside the element with the dynamic ref
+      return;
+    }
+  }
+  // The event target is outside the elements with the dynamic ref
+  optionsMenu.value = "";
+}
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
+
+const printRef = () => {
+  console.log(optionsMenuPopup.value.map((i) => i.textContent));
+};
 
 // Rename
 const signatureCurrentTitle = ref("");
@@ -106,10 +131,10 @@ const closeDeleteModal = () => {
 
 const addModal = ref(null);
 const addToMailPanel = ref(false);
-useClickOutside(addModal, () => {
-  addToMailPanel.value = false;
-  console.log('mod')
-});
+// useClickOutside(addModal, () => {
+//   addToMailPanel.value = false;
+//   console.log('mod')
+// });
 </script>
 
 <template>
@@ -212,9 +237,7 @@ useClickOutside(addModal, () => {
                               >
                                 <div
                                   class="cursor-pointer flex items-center px-4 py-3"
-                                  @click="
-                                    openRenameModal(data.uid, data.title)
-                                  "
+                                  @click="openRenameModal(data.uid, data.title)"
                                 >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"

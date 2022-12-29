@@ -8,7 +8,9 @@ import Main from "@/components/PreviewSidePanel/Main/index.vue";
 const currentTab = ref("gmail");
 provide(/* key */ "currentTab", /* value */ currentTab);
 
-const emits = defineEmits(['close'])
+const emits = defineEmits(['close', 'copy'])
+
+
 
 </script>
 
@@ -34,7 +36,7 @@ const emits = defineEmits(['close'])
     </div>
     <div class="flex h-full">
         <Sidebar />
-        <Main />
+        <Main @copy="$emit('copy')"/>
     </div>
   </div>
 </template>

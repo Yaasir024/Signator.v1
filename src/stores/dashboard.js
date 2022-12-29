@@ -24,9 +24,9 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
-import { authStore } from "./auth";
+import { authStore } from "@/stores/auth";
 import { editorStore } from "@/stores/editor";
-import { systemStore } from "./system";
+import { systemStore } from "@/stores/system";
 import { uid } from "@/composables/useGenerateUid";
 
 export const dashboardStore = defineStore("dashboard", () => {
@@ -106,11 +106,11 @@ export const dashboardStore = defineStore("dashboard", () => {
       title: title,
     })
       .then(() => {
-        // useSystemStore.addNotificationData({
-        //   message: "Signature has been successfully renamed.",
-        //   type: "success",
-        // });
-        openNotification()
+        useSystemStore.addNotificationData({
+          message: "Signature has been successfully renamed.",
+          type: "success",
+        });
+        // openNotification()
       })
       .catch(() => {
         useSystemStore.addNotificationData({

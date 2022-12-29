@@ -187,6 +187,7 @@ const clearImage = () => {
               <Heading :title="'Custom Fields'" />
               <div
                 class="relative bg-primary-color text-white font-semibold px-2 rounded-3xl"
+                v-if="!useSystemStore.checkFeatureQualification('customFields')"
               >
                 PRO
               </div>
@@ -234,8 +235,8 @@ const clearImage = () => {
               </div>
             </div>
             <!-- Add Button -->
-            <div class="flex justify-end mt-6" v-if="true">
-              <!-- {{useSystemStore.userFullData.plan}} -->
+            <div class="flex justify-end mt-6" v-if="useSystemStore.checkFeatureQualification('customFields')">
+              {{useSystemStore.checkFeatureQualification('customFields')}}
               <div
                 class="flex items-center text-primary-color cursor-pointer"
                 @click="addNewContactItem()"

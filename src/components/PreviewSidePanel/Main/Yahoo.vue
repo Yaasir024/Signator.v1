@@ -1,7 +1,5 @@
 <script setup>
-const copyToClipboard = () => {
-  console.log("Copy to Clipboard");
-};
+const emits = defineEmits(["copy"]);
 </script>
 
 <template>
@@ -13,7 +11,7 @@ const copyToClipboard = () => {
       <li class="item">Create an email signature with Signator editor.</li>
       <li class="item">
         Click on
-        <span class="text-primary-color" @click="copyToClipboard()"
+        <span class="text-primary-color cursor-pointer" @click="$emit('copy')"
           >Copy to clipboard.</span
         >
       </li>

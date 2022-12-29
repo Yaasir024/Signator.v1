@@ -9,6 +9,7 @@ import { systemStore } from "@/stores/system";
 import { uid } from "@/composables/useGenerateUid";
 
 import Heading from "@/components/Editor/Heading.vue";
+import PremiumTag from "@/components/Editor/PremiumTag.vue";
 import signoff from "@/components/Editor/Sidebar/Section/Addon/Signoff.vue";
 import disclaimer from "@/components/Editor/Sidebar/Section/Addon/Disclaimer.vue";
 import social from "@/components/Editor/Sidebar/Section/Addon/Social.vue";
@@ -53,8 +54,9 @@ const checkAvailableAddons = () => {
 
 const checkFeatureQualification = (feature) => {
   return addonData.featuresQualification[feature].includes(
-    useSystemStore.userFullData.plan
+    'free'
   );
+  // useSystemStore.userFullData.plan || 
 };
 
 const checkAddons = (addon) => {
@@ -258,12 +260,7 @@ const checkObj = (obj) => {
 
             <span class="ml-3">Video Meeting</span>
           </div>
-          <div
-            class="relative bg-primary-color text-white font-semibold py-1 px-2 rounded-3xl"
-            v-if="!checkFeatureQualification('videoMeeting')"
-          >
-            PRO
-          </div>
+          <PremiumTag v-if="!checkFeatureQualification('videoMeeting')"/>
         </div>
       </div>
       <!-- CTA -->

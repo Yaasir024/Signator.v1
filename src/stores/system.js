@@ -1,4 +1,5 @@
 import { ref, computed, watch, watchEffect } from "vue";
+
 import { defineStore } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
 import router from "@/router";
@@ -20,24 +21,14 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
+import { message } from "ant-design-vue";
+import "ant-design-vue/lib/message/style/index.css";
+
 import { authStore } from "./auth";
 
 export const systemStore = defineStore("system", () => {
   const useAuth = authStore();
-
-
-  const loadingState = ref(false);
-  const toast = ref(false);
-
-  const toastData = ref([
-    {
-      id: "22s",
-      type: "Success",
-      message: "Error Loading Page",
-    },
-  ]);
-
-  const userFullData = ref(null);
+  const userFullData = ref({});
   if (useAuth.userState) {
     const userRef = doc(firestoreDb, "users", useAuth.userId.uid);
     onSnapshot(userRef, (doc) => {
@@ -46,21 +37,37 @@ export const systemStore = defineStore("system", () => {
     });
   }
 
+  const featuresQualification = {
+    customFields: ["basic", "pro"],
+    signoff: ["free", "basic", "pro"],
+    disclaimer: ["basic", "pro"],
+    social: ["free", "basic", "pro"],
+    greenMessage: ["basic", "pro"],
+    videoMeeting: ["basic", "pro"],
+    cta: ["free", "basic", "pro"],
+  };
+  const checkFeatureQualification = (feature) => {
+    return featuresQualification[feature].includes(userFullData.plan);
+  };
+
+  const loadingState = ref(false);
+
   const notificationData = ref(null);
 
   const addNotificationData = (data) => {
-    if (!notificationData) {
-      notificationData.value = data;
-      setTimeout(() => (notificationData.value = null), 8000);
-    } else {
-      setTimeout(() => (notificationData.value = null), 3000);
-      notificationData.value = data;
-      setTimeout(() => (notificationData.value = null), 8000);
+    if (data.type == "success") {
+      message.success(data.message);
+    } else if (data.type == "error") {
+      message.error(data.message);
+    } else if (data.type == "warning") {
+      message.warning(data.message);
     }
   };
 
   const isEligibleToCreate = () => {
-    if (userFullData.value.publishedSignatures.length < userFullData.value.signaturePackage
+    if (
+      userFullData.value.publishedSignatures.length <
+      userFullData.value.signaturePackage
     ) {
       return true;
     } else {
@@ -70,10 +77,10 @@ export const systemStore = defineStore("system", () => {
 
   return {
     loadingState,
-    toastData,
     notificationData,
     addNotificationData,
     userFullData,
     isEligibleToCreate,
+    checkFeatureQualification,
   };
 });

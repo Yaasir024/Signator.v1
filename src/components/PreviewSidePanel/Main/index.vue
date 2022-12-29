@@ -8,20 +8,19 @@ import AppleMail from "@/components/PreviewSidePanel/Main/AppleMail.vue";
 
 const currentTab = inject("currentTab");
 
-const copyToClipboard = () => {
-  console.log("Copy to Clipboard");
-};
+const emits = defineEmits(['copy'])
+
+
 </script>
 
 <template>
   <div class="w-full h-full flex flex-col p-1">
     <div class="w-[85%] mx-auto">
-      <Gmail v-if="currentTab == 'gmail'" />
-      <Outlook v-if="currentTab == 'outlook'" />
-      <Yahoo v-if="currentTab == 'yahoo'" />
-      <AppleMail v-if="currentTab == 'apple'" />
+      <Gmail v-if="currentTab == 'gmail'" @copy="$emit('copy')" />
+      <Outlook v-if="currentTab == 'outlook'" @copy="$emit('copy')" />
+      <Yahoo v-if="currentTab == 'yahoo'" @copy="$emit('copy')" />
+      <AppleMail v-if="currentTab == 'apple'" @copy="$emit('copy')" />
     </div>
-
   </div>
 </template>
 
