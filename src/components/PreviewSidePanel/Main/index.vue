@@ -20,6 +20,9 @@ const currentTab = inject("currentTab");
 const signatureOutputCopy = () => {
   useEditorStore.copySignature(document.getElementById("signature"))
 }
+const signatureCodeCopy = () => {
+  useEditorStore.copySignatureCode(document.getElementById("signature").innerHTML)
+}
 </script>
 
 <template>
@@ -29,7 +32,7 @@ const signatureOutputCopy = () => {
       <Outlook v-if="currentTab == 'outlook'" @copy="signatureOutputCopy()" />
       <Yahoo v-if="currentTab == 'yahoo'" @copy="signatureOutputCopy()" />
       <AppleMail v-if="currentTab == 'apple'" @copy="signatureOutputCopy()" />
-      <Html v-if="currentTab == 'htm'" @copy="signatureOutputCopy()" />
+      <Html v-if="currentTab == 'html'" @copy="signatureCodeCopy()" />
     </div>
   </div>
 

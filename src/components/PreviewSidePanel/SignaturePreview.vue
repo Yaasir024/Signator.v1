@@ -28,15 +28,7 @@ useClickOutside(addToMailPanel, () => {
   useEditorStore.addToMailPanelVisibility = false;
 });
 
-const copyCode = async () => {
-  console.log("copy");
-  const content = document.getElementById("signature").innerHTML;
-  // const blob = new Blob([content], { type: "text/html" });
-  // const richTextInput = new ClipboardItem({ "text/html": blob });
-  // await navigator.clipboard.write([richTextInput]);
-  // console.log('done')
-  navigator.clipboard.writeText(content);
-};
+
 </script>
 
 <template>

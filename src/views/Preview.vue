@@ -40,11 +40,9 @@ const copy = async () => {
       class="max-w-[700px] mx-auto py-24 px-5"
       v-if="useEditorStore.signaturePreviewData != null"
     >
-      <div>Continue to make <span>Span of span</span></div>
       <div class="min-h-[50px] flex">
         <SignaturePreview :data="useEditorStore.signaturePreviewData" />
       </div>
     </main>
-    <div class="copy" @click="copy">COPY</div>
   </div>
 </template>

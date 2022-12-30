@@ -123,6 +123,13 @@ export const editorStore = defineStore("editor", () => {
       type: "success",
     });
   };
+  const copySignatureCode = async (content) => {
+    // 
+    addToMailPanelVisibility.value = false;
+    console.log("copy");
+    // const content = document.getElementById("signature").innerHTML;
+    navigator.clipboard.writeText(content);
+  };
 
   return {
     data,
@@ -137,6 +144,7 @@ export const editorStore = defineStore("editor", () => {
     addImageToGallery,
     removeImageFromGallery,
     addToMailPanelVisibility,
-    copySignature
+    copySignature,
+    copySignatureCode
   };
 });

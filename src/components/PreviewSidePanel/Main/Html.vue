@@ -14,7 +14,7 @@ const emits = defineEmits(['copy'])
       <li class="item">
         Click on
         <span class="text-primary-color cursor-pointer" @click="$emit('copy')"
-          >Copy to clipboard.</span
+          >Copy code to clipboard.</span
         >
       </li>
       <li class="item">
