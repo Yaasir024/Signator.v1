@@ -66,6 +66,7 @@ const proLayouts = computed(() => {
             <img src="/images/layouts/01.png" alt="" />
             <div class="flex items-center">
               <span class="mr-2 text-base">{{ layout.name }}</span>
+              {{ layout }}
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ import { editorStore } from "@/stores/editor";
 import { systemStore } from "@/stores/system";
 
 import Heading from "@/components/Editor/Heading.vue";
+import ProTag from "@/components/ProTag.vue";
 
 
 const useEditorStore = editorStore();
@@ -185,12 +186,7 @@ const clearImage = () => {
           <div class="mt-8 pt-5 border-t" >
             <div class="flex items-center justify-between">
               <Heading :title="'Custom Fields'" />
-              <div
-                class="relative bg-primary-color text-white font-extralight px-2 rounded-3xl"
-                v-if="!useSystemStore.checkFeatureQualification('customFields')"
-              >
-                PRO
-              </div>
+              <ProTag v-if="!useSystemStore.checkFeatureQualification('customFields')"/>
             </div>
 
             <div

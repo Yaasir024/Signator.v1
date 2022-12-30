@@ -58,7 +58,10 @@ export const editorStore = defineStore("editor", () => {
         publishedSignatures: arrayUnion(data.value.uid),
       });
       router.push({ path: `/preview/${data.value.uid}` });
-      data.value = {};
+
+      setTimeout(() => {
+        data.value = {};
+      }, "2000");
     });
   };
 
@@ -111,6 +114,6 @@ export const editorStore = defineStore("editor", () => {
     signaturePreviewData,
     showTemplatesSection,
     addImageToGallery,
-    removeImageFromGallery
+    removeImageFromGallery,
   };
 });
