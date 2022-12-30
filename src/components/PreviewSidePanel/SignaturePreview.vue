@@ -23,32 +23,10 @@ const backToEditor = () => {
   router.push({ path: "/editor" });
 };
 
-const addModal = ref(null);
-const addToMailPanel = ref(false);
-useClickOutside(addModal, () => {
-  addToMailPanel.value = false;
+const addToMailPanel = ref(null);
+useClickOutside(addToMailPanel, () => {
+  useEditorStore.addToMailPanelVisibility = false;
 });
-const copySignature = () => {
-  addToMailPanel.value = false;
-  // Get the element you want to highlight, select, and copy
-  var element = document.getElementById("signature");
-
-  // Use the SelectAllChildren method to select the entire contents of the element
-  var range = document.createRange();
-  range.selectNodeContents(element);
-
-  // Use the addRange method to add the range to the selection
-  var selection = window.getSelection();
-  selection.removeAllRanges();
-  selection.addRange(range);
-
-  // Use the execCommand method to copy the selected text to the clipboard
-  document.execCommand("copy");
-  useSystemStore.addNotificationData({
-    message: "Copied",
-    type: "success",
-  });
-};
 
 const copyCode = async () => {
   console.log("copy");
@@ -72,8 +50,6 @@ const copyCode = async () => {
           <div id="signature" ref="source">
             <Preview :data="data" />
           </div>
-          <div class="" @click="copyCode()">Copy Code</div>
-          <div class="" @click="copySignature()">Copy</div>
         </div>
       </div>
       <div class="footer mt-4 px-3 flex items-center justify-between">
@@ -83,25 +59,24 @@ const copyCode = async () => {
         >
           Back to Editor
         </div>
-        <div class="" ref="addModal">
+        <div class="" ref="addToMailPanel">
           <button
             class="bg-primary-color text-white text-base px-4 py-1 rounded-lg"
-            @click="addToMailPanel = true"
+            @click="useEditorStore.addToMailPanelVisibility = true"
           >
             Add to mail
           </button>
           <transition name="panel">
             <SidePanel
-              v-if="addToMailPanel"
-              @copy="copySignature()"
-              @close="addToMailPanel = false"
+              v-if="useEditorStore.addToMailPanelVisibility"
+              @close="useEditorStore.addToMailPanelVisibility = false"
             />
           </transition>
         </div>
       </div>
     </div>
   </div>
-  <Overlay v-if="addToMailPanel" />
+  <Overlay v-if="useEditorStore.addToMailPanelVisibility" />
 </template>
 
 <style scoped>

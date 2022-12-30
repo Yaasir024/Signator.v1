@@ -99,9 +99,30 @@ export const editorStore = defineStore("editor", () => {
     });
   };
   const showTemplatesSection = ref(false);
-  // if(Object.keys(data.value).length == 0) {
-  //   showTemplatesSection.value = true
-  // }
+
+  const addToMailPanelVisibility = ref(false);
+  const copySignature = (element) => {
+    // console.log('copied')
+    addToMailPanelVisibility.value = false;
+    // Get the element you want to highlight, select, and copy
+    // var element = document.getElementById("signature");
+  
+    // Use the SelectAllChildren method to select the entire contents of the element
+    var range = document.createRange();
+    range.selectNodeContents(element);
+  
+    // Use the addRange method to add the range to the selection
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+  
+    // Use the execCommand method to copy the selected text to the clipboard
+    document.execCommand("copy");
+    useSystemStore.addNotificationData({
+      message: "Copied",
+      type: "success",
+    });
+  };
 
   return {
     data,
@@ -115,5 +136,7 @@ export const editorStore = defineStore("editor", () => {
     showTemplatesSection,
     addImageToGallery,
     removeImageFromGallery,
+    addToMailPanelVisibility,
+    copySignature
   };
 });
