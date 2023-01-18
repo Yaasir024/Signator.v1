@@ -9,6 +9,7 @@ import { editorStore } from "@/stores/editor";
 import Header from "@/components/Editor/Sidebar/GalleryModal/Header.vue";
 import Upload from "@/components/Editor/Sidebar/GalleryModal/Upload.vue";
 import Library from "@/components/Editor/Sidebar/GalleryModal/Library.vue";
+import ImageModal from "@/components/Editor/Sidebar/ImageModal.vue";
 
 import { doc, onSnapshot } from "firebase/firestore";
 
@@ -42,4 +43,5 @@ provide(/* key */ "currentTab", /* value */ currentTab);
       @close="$emit('close')"
     />
   </div>
+  <ImageModal />
 </template>

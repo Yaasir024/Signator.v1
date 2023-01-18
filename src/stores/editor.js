@@ -102,10 +102,8 @@ export const editorStore = defineStore("editor", () => {
 
   const addToMailPanelVisibility = ref(false);
   const copySignature = (element) => {
-    // console.log('copied')
     addToMailPanelVisibility.value = false;
     // Get the element you want to highlight, select, and copy
-    // var element = document.getElementById("signature");
   
     // Use the SelectAllChildren method to select the entire contents of the element
     var range = document.createRange();
@@ -126,8 +124,6 @@ export const editorStore = defineStore("editor", () => {
   const copySignatureCode = async (content) => {
     // 
     addToMailPanelVisibility.value = false;
-    console.log("copy");
-    // const content = document.getElementById("signature").innerHTML;
     navigator.clipboard.writeText(content);
   };
 

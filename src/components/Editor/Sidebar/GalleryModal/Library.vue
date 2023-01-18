@@ -6,6 +6,9 @@ import { editorStore } from "@/stores/editor";
 
 import { deleteFile } from "@/composables/firebase/images";
 
+import DeleteModal from "@/components/Editor/Sidebar/GalleryModal/ConfirmDeleteModal.vue";
+import Overlay from "@/components/Overlay.vue";
+
 const useEditorStore = editorStore();
 
 const props = defineProps(["galleryImages"]);
@@ -13,7 +16,10 @@ const emits = defineEmits(["close"]);
 
 const selectedImage = ref("");
 
+const deleteModalVisibility = ref(false)
+
 const deleteImage = async (img) => {
+  deleteModalVisibility.value = false
   const result = await deleteFile(img.fullPath);
   if (result) {
     useEditorStore.removeImageFromGallery(img);
@@ -21,6 +27,10 @@ const deleteImage = async (img) => {
   console.log(result);
   selectedImage.value = ''
 };
+
+const closeDeleteModal = () => {
+  deleteModalVisibility.value = false
+}
 
 const useImage = () => {
   useEditorStore.data.image.img = selectedImage.value.url;
@@ -99,7 +109,7 @@ const useImage = () => {
           >
           <span
             class="text-red-400 cursor-pointer"
-            @click="deleteImage(selectedImage)"
+            @click="deleteModalVisibility = true"
             >Delete Image</span
           >
         </h4>
@@ -122,4 +132,30 @@ const useImage = () => {
       <div class="w-[300px] border-l"></div>
     </div>
   </div>
+
+  <transition-group name="modalFade">
+
+    <DeleteModal
+      v-if="deleteModalVisibility"
+      @close-delete-modal="closeDeleteModal()"
+      @delete-image="deleteImage(selectedImage)"
+      message="Are you sure you want to delete this image permanently. This action can't be undone."
+    />
+    <Overlay
+      v-if="deleteModalVisibility"
+    />
+  </transition-group>
 </template>
+
+<style scoped>
+.modalFade-enter-active,
+.modalFade-leave-active {
+  transition: 0.32s ease all;
+}
+.modalFade-enter-from,
+.modalFade-leave-to {
+  opacity: 0;
+}
+
+
+</style>
