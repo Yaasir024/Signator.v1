@@ -2,12 +2,15 @@
 import { ref, reactive, computed } from "vue";
 
 import { authStore } from "@/stores/auth";
+import { paymentStore } from "@/stores/payment";
 
 import Navbar from "@/components/Navigations/Navbar.vue";
 import Footer from "@/components/Navigations/Footer.vue";
 import AuthModal from "@/components/Modal/AuthModal.vue";
+import PaymentConfirmation from "@/components/Modal/PaymentConfirmation.vue";
 
 const useAuth = authStore();
+const usePayment = paymentStore();
 
 const initPrice = 8;
 
@@ -23,12 +26,29 @@ const price = computed(() => {
   }
 });
 
-const basicPricing = computed(() => {
-  if (billingTerm.value == "monthly") {
-    return 8.0;
-  } else if (billingTerm.value == "yearly") {
-    return (8 * 12 - 8 * 12 * (12 / 100)).toFixed(2);
-  }
+const basicPricing = reactive({
+  price: computed(() => {
+    if (billingTerm.value == "monthly") {
+      return 8.0;
+    } else if (billingTerm.value == "yearly") {
+      return (8 * 12 - 8 * 12 * (12 / 100)).toFixed(2);
+    }
+  }),
+  plan: "basic",
+  signaturesNo: 4
+});
+
+const proPricing = reactive({
+  price: computed(() => {
+    let calculatedPriceMonthly = initPrice * signaturesNo.value;
+    let calculatedPriceYearly = initPrice * signaturesNo.value * 12;
+    if (billingTerm.value == "monthly") {
+      return calculatedPriceMonthly;
+    } else if (billingTerm.value == "yearly") {
+      return calculatedPriceYearly - calculatedPriceYearly * (12 / 100);
+    }
+  }),
+  plan: 'pro'
 });
 
 const billingTerm = ref("monthly");
@@ -36,21 +56,24 @@ const billingTerm = ref("monthly");
 const showAuthModal = ref(false);
 
 const choosePlan = (plan) => {
-  console.log(plan)
-}
+  console.log(plan);
+};
 </script>
 
 <template>
+  {{ basicPricing }}
   <div
     class="min-h-screen bg-white"
-    :class="showAuthModal ? 'h-screen overflow-y-hidden' : 'min-h-screen'"
+    :class="
+      showAuthModal || usePayment.paymentConfirmationModal
+        ? 'h-screen overflow-y-hidden'
+        : 'min-h-screen'
+    "
   >
     <Navbar />
     <main class="mb-24">
       <div class="px-4 py-10 text-center">
-        <h1 class="text-[40px] font-medium">
-          Pricing & Plans
-        </h1>
+        <h1 class="text-[40px] font-medium">Pricing & Plans</h1>
       </div>
       <section class="max-w-[950px] mx-auto my-12 px-6">
         <div class="w-full my-2 flex justify-end">
@@ -88,9 +111,13 @@ const choosePlan = (plan) => {
         </div>
 
         <!-- Cards -->
-        <div class="max-w-[400px] mx-auto md:max-w-full md:mx-0 w-full flex justify-center flex-wrap">
+        <div
+          class="max-w-[400px] mx-auto md:max-w-full md:mx-0 w-full flex justify-center flex-wrap"
+        >
           <!-- FREE -->
-          <div class="price-card w-full md:w-[33.33%] mb-12 md:mb-0 p-2 flex flex-col">
+          <div
+            class="price-card w-full md:w-[33.33%] mb-12 md:mb-0 p-2 flex flex-col"
+          >
             <div class="flex-1 w-full pt-6 pb-8 px-5 border rounded-md">
               <div class="text-center">
                 <div class="text-lg font-medium mb-3">SIGNATOR FREE</div>
@@ -120,14 +147,16 @@ const choosePlan = (plan) => {
             </button>
           </div>
           <!-- BASIC -->
-          <div class="price-card w-full md:w-[33.33%] mb-12 md:mb-0  p-2 flex flex-col">
-            <div
-              class="flex-1 w-full pt-6 pb-8 px-5 border rounded-md"
-            >
+          <div
+            class="price-card w-full md:w-[33.33%] mb-12 md:mb-0 p-2 flex flex-col"
+          >
+            <div class="flex-1 w-full pt-6 pb-8 px-5 border rounded-md">
               <div class="text-center">
                 <div class="text-lg font-medium mb-3">SIGNATOR BASIC</div>
                 <div class="">
-                  <span class="text-4xl font-medium">${{ basicPricing }}</span>
+                  <span class="text-4xl font-medium"
+                    >${{ basicPricing.price }}</span
+                  >
                 </div>
                 <sub class="text-xl font-medium bottom-[-0.1em]"
                   >/{{ billingTerm }}</sub
@@ -141,7 +170,9 @@ const choosePlan = (plan) => {
                   </li>
                   <li class="feature relative pl-5">All Basic addons</li>
                   <li class="feature relative pl-5">No Signator Watermark</li>
-                  <li class="feature relative pl-5">Up to 10 Images in Image Library</li>
+                  <li class="feature relative pl-5">
+                    Up to 10 Images in Image Library
+                  </li>
                   <li class="feature relative pl-5">
                     More Designs and Stying options
                   </li>
@@ -150,7 +181,7 @@ const choosePlan = (plan) => {
             </div>
             <button
               class="mt-2 py-2 px-8 w-full bg-white border-2 border-primary-color text-primary-color text-lg rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
-              @click="choosePlan('basic')"
+              @click="usePayment.openPaymentModal(basicPricing.price, 'basic', basicPricing.signaturesNo)"
               v-if="useAuth.userState"
             >
               Choose Plan
@@ -165,14 +196,16 @@ const choosePlan = (plan) => {
           </div>
 
           <!-- PRO -->
-          <div class="price-card w-full md:w-[33.33%] mb-12 md:mb-0  p-2">
-            <div class="w-full pb-8 border border-t-0 rounded-md overflow-hidden">
+          <div class="price-card w-full md:w-[33.33%] mb-12 md:mb-0 p-2">
+            <div
+              class="w-full pb-8 border border-t-0 rounded-md overflow-hidden"
+            >
               <div
                 class="pt-4 pb-2 text-center bg-primary-color rounded-b-[3.5rem] text-white"
               >
                 <div class="text-lg font-medium mb-1">SIGNATOR PRO</div>
                 <div class="">
-                  <span class="text-4xl font-medium">${{ price }}</span>
+                  <span class="text-4xl font-medium">${{ proPricing.price }}</span>
                 </div>
                 <sub class="text-xl font-medium bottom-[-0.1em]"
                   >/{{ billingTerm }}</sub
@@ -185,7 +218,7 @@ const choosePlan = (plan) => {
                 <input
                   type="range"
                   min="4"
-                  max="30"
+                  max="10"
                   v-model="signaturesNo"
                   class="mt-1"
                 />
@@ -193,11 +226,13 @@ const choosePlan = (plan) => {
               </div>
               <div class="px-5 pl-6">
                 <ul class="text-base font-normal leading-8">
-                  <li class="feature relative pl-5">Up to 30 signatures</li>
+                  <li class="feature relative pl-5">Up to 10 signatures</li>
                   <li class="feature relative pl-5">Premium templates</li>
                   <li class="feature relative pl-5">All premium addons</li>
                   <li class="feature relative pl-5">No Signator Watermark</li>
-                  <li class="feature relative pl-5">Up to 25 Images in Image Library</li>
+                  <li class="feature relative pl-5">
+                    Up to 25 Images in Image Library
+                  </li>
                   <li class="feature relative pl-5">Banner Feature</li>
                   <li class="feature relative pl-5">
                     More Designs and Stying options
@@ -238,6 +273,7 @@ const choosePlan = (plan) => {
     <Footer />
   </div>
   <AuthModal @close="showAuthModal = false" v-if="showAuthModal" />
+  <PaymentConfirmation v-if="usePayment.paymentConfirmationModal" />
 </template>
 
 <style scoped>
