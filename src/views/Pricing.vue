@@ -9,6 +9,8 @@ import Footer from "@/components/Navigations/Footer.vue";
 import AuthModal from "@/components/Modal/AuthModal.vue";
 import PaymentConfirmation from "@/components/Modal/PaymentConfirmation.vue";
 
+import { getDate, getMonthlySubscriptionEndDate, getYearlySubscriptionEndDate } from "@/composables/useFormatDate";
+
 const useAuth = authStore();
 const usePayment = paymentStore();
 
@@ -61,7 +63,10 @@ const choosePlan = (plan) => {
 </script>
 
 <template>
-  {{ basicPricing }}
+  {{ getDate()  }}
+  {{ getMonthlySubscriptionEndDate(getDate(), 'monthly') }}
+  <br>
+  {{ getYearlySubscriptionEndDate(getDate()) }}
   <div
     class="min-h-screen bg-white"
     :class="
@@ -181,7 +186,7 @@ const choosePlan = (plan) => {
             </div>
             <button
               class="mt-2 py-2 px-8 w-full bg-white border-2 border-primary-color text-primary-color text-lg rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
-              @click="usePayment.openPaymentModal(basicPricing.price, 'basic', basicPricing.signaturesNo)"
+              @click="usePayment.openPaymentModal(basicPricing.price, 'basic', basicPricing.signaturesNo, billingTerm)"
               v-if="useAuth.userState"
             >
               Choose Plan
@@ -242,7 +247,7 @@ const choosePlan = (plan) => {
             </div>
             <button
               class="mt-2 py-2 px-8 w-full bg-primary-color border border-primary-color text-white text-lg rounded-lg hover:text-primary-color hover:bg-white transition-all duration-300 ease-in-out"
-              @click="choosePlan('pro')"
+              @click="usePayment.openPaymentModal(proPricing.price, 'pro', proPricing.signaturesNo, billingTerm)"
               v-if="useAuth.userState"
             >
               Choose Plan
