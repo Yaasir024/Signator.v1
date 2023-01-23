@@ -39,7 +39,7 @@ const useAuth = authStore();
           </p>
         </div>
         <div class="img-container">
-          <!-- <img src="images/Home/hero-signature.png" alt="" /> -->
+          <img src="/images/Home/hero-signature.png" alt="" />
         </div>
       </div>
     </main>
