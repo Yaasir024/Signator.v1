@@ -3,7 +3,7 @@
     <div class="flex">
       <div class="mr-6">
         <RouterLink to="/">
-          <img src="/images/logo/logo-white.svg" alt="" class="h-[40px]" />
+          <img src="//images/logo/logo-white.svg" alt="" class="h-[40px]" />
         </RouterLink>
       </div>
       <div class="mr-7">
@@ -106,9 +106,9 @@
       </div>
     </div>
     <div class="mt-5 border-t pt-6">
-        <div class="text-white text-base">
-            &#169; Signator 2022. All rights reserved
-        </div>
+      <div class="text-white text-base">
+        &#169; Signator 2022. All rights reserved
+      </div>
     </div>
   </footer>
 </template>

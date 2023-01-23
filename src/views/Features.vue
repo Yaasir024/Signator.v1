@@ -42,7 +42,7 @@ const useAuth = authStore();
                 class="w-[310px] h-[310px] sm:w-[400px] sm:h-[400px] overflow-hidden rounded-full bg-canvas-color shadow-xl"
               >
                 <img
-                  src="images/Features/editor.png"
+                  src="/images/Features/editor.png"
                   alt=""
                   class="mt-10 scale-75"
                 />
@@ -68,7 +68,7 @@ const useAuth = authStore();
             <div class="flex-full md:flex-50% md:pl-8 mt-4 md:mt-0">
               <div class="">
                 <img
-                  src="images/Features/templates.png"
+                  src="/images/Features/templates.png"
                   alt=""
                   class="mt-10 scale-75 md:scale-100"
                 />
@@ -97,7 +97,11 @@ const useAuth = authStore();
             </article>
             <div class="flex-full md:flex-50% md:pl-8 mt-4 md:mt-0">
               <div class="">
-                <img src="images/Features/images.png" alt="" class="scale-75" />
+                <img
+                  src="/images/Features/images.png"
+                  alt=""
+                  class="scale-75"
+                />
               </div>
             </div>
           </div>
@@ -121,7 +125,7 @@ const useAuth = authStore();
                 class="w-[310px] h-[310px] sm:w-[400px] sm:h-[400px] overflow-hidden rounded-full bg-canvas-color shadow-xl"
               >
                 <img
-                  src="images/Features/social.png"
+                  src="/images/Features/social.png"
                   alt=""
                   class="mt-5 scale-75"
                 />
@@ -152,7 +156,8 @@ const useAuth = authStore();
               >
                 <h3 class="text-xl font-medium">Cropper Tool</h3>
                 <p class="text-base mt-2">
-                  Our cropper tool allows you to edit your images to any size in seconds before uploding it.
+                  Our cropper tool allows you to edit your images to any size in
+                  seconds before uploding it.
                 </p>
               </div>
               <div

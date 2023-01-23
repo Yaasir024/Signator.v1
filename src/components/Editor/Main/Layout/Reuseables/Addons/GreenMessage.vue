@@ -6,10 +6,7 @@ const props = defineProps(["data"]);
   <td style="padding-right: 5px; width: 100%; padding-top: 10px">
     <span style="display: flex; align-items: center">
       <span style="margin-right: 6px">
-        <img
-          :src="'/images/greenMessage/' + data.items.icon"
-          alt=""
-        />
+        <img :src="'//images/greenMessage/' + data.items.icon" alt="" />
       </span>
       <span
         :style="{

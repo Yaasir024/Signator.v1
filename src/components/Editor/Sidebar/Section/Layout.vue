@@ -25,10 +25,14 @@ const proLayouts = computed(() => {
             class="p-2 border rounded-lg min-h-[120px] flex flex-col items-center justify-center cursor-pointer hover:shadow-lg transition-all ease-in duration-200"
             v-for="layout in templatesData.layouts"
             :key="layout.id"
-            :class="data.design.layout.layout === layout.name ? 'border-2 border-primary-color' : '' "
+            :class="
+              data.design.layout.layout === layout.name
+                ? 'border-2 border-primary-color'
+                : ''
+            "
             @click="data.design.layout.layout = layout.name"
           >
-            <img :src="'/images/layouts/' + layout.img" alt="" />
+            <img :src="'//images/layouts/' + layout.img" alt="" />
             <div class="">
               {{ layout.name }}
             </div>
@@ -44,16 +48,20 @@ const proLayouts = computed(() => {
             class="p-2 border rounded-lg min-h-[150px] flex flex-col items-center justify-between"
             v-for="layout in freeLayouts"
             :key="layout.id"
-            :class="data.design.layout.layout === layout.name ? 'border-2 border-primary-color' : '' "
+            :class="
+              data.design.layout.layout === layout.name
+                ? 'border-2 border-primary-color'
+                : ''
+            "
           >
-            <img src="/images/layouts/01.png" alt="" />
+            <img src="//images/layouts/01.png" alt="" />
             <div class="">
               {{ layout.name }}
             </div>
           </div>
         </div>
       </div>
-      {{data.design.layout.layout}}
+      {{ data.design.layout.layout }}
       <div class="mb-6">
         <div class="text-base font-medium mb-2">PRO LAYOUTS</div>
         <div class="grid grid-cols-2 gap-2">
@@ -61,9 +69,13 @@ const proLayouts = computed(() => {
             class="p-2 border rounded-lg min-h-[150px] flex flex-col items-center justify-between cursor-pointer hover:shadow-lg transition-all ease-in duration-300"
             v-for="layout in proLayouts"
             :key="layout.id"
-            :class="data.design.layout.layout == layout.name ? 'border-2 border-ptimary-color' : '' "
+            :class="
+              data.design.layout.layout == layout.name
+                ? 'border-2 border-ptimary-color'
+                : ''
+            "
           >
-            <img src="/images/layouts/01.png" alt="" />
+            <img src="//images/layouts/01.png" alt="" />
             <div class="flex items-center">
               <span class="mr-2 text-base">{{ layout.name }}</span>
               {{ layout }}

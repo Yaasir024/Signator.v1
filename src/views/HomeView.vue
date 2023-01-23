@@ -5,15 +5,10 @@ import Footer from "@/components/Navigations/Footer.vue";
 import { authStore } from "@/stores/auth";
 // import Flutterwave from 'flutterwave';
 
-
 const useAuth = authStore();
-
-
-
 </script>
 
 <template>
-  
   <div class="min-h-screen">
     <Navbar />
     <main class="w-full bg-white py-5 px-6">
@@ -66,7 +61,7 @@ const useAuth = authStore();
               class="w-[310px] h-[310px] sm:w-[400px] sm:h-[400px] overflow-hidden rounded-full bg-canvas-color shadow-xl"
             >
               <img
-                src="images/Features/editor.png"
+                src="/images/Features/editor.png"
                 alt=""
                 class="mt-10 scale-75"
               />
@@ -93,7 +88,7 @@ const useAuth = authStore();
               class="w-[310px] h-[310px] sm:w-[400px] sm:h-[400px] overflow-hidden rounded-full bg-canvas-color shadow-xl"
             >
               <img
-                src="images/Features/social.png"
+                src="/images/Features/social.png"
                 alt=""
                 class="mt-5 scale-75"
               />
