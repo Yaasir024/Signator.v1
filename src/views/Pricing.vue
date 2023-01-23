@@ -3,16 +3,24 @@ import { ref, reactive, computed } from "vue";
 
 import { authStore } from "@/stores/auth";
 import { paymentStore } from "@/stores/payment";
+import { systemStore } from "@/stores/system";
 
 import Navbar from "@/components/Navigations/Navbar.vue";
 import Footer from "@/components/Navigations/Footer.vue";
 import AuthModal from "@/components/Modal/AuthModal.vue";
 import PaymentConfirmation from "@/components/Modal/PaymentConfirmation.vue";
 
-import { getDate, getMonthlySubscriptionEndDate, getYearlySubscriptionEndDate } from "@/composables/useFormatDate";
+import {
+  getDate,
+  getMonthlySubscriptionEndDate,
+  getYearlySubscriptionEndDate,
+} from "@/composables/useFormatDate";
 
 const useAuth = authStore();
 const usePayment = paymentStore();
+const useSystemStore = systemStore();
+
+const currentPricingTab = ref("individuals");
 
 const initPrice = 8;
 
@@ -37,7 +45,7 @@ const basicPricing = reactive({
     }
   }),
   plan: "basic",
-  signaturesNo: 4
+  signaturesNo: 4,
 });
 
 const proPricing = reactive({
@@ -50,7 +58,7 @@ const proPricing = reactive({
       return calculatedPriceYearly - calculatedPriceYearly * (12 / 100);
     }
   }),
-  plan: 'pro'
+  plan: "pro",
 });
 
 const billingTerm = ref("monthly");
@@ -63,10 +71,6 @@ const choosePlan = (plan) => {
 </script>
 
 <template>
-  {{ getDate()  }}
-  {{ getMonthlySubscriptionEndDate(getDate(), 'monthly') }}
-  <br>
-  {{ getYearlySubscriptionEndDate(getDate()) }}
   <div
     class="min-h-screen bg-white"
     :class="
@@ -77,8 +81,35 @@ const choosePlan = (plan) => {
   >
     <Navbar />
     <main class="mb-24">
-      <div class="px-4 py-10 text-center">
+      <div class="px-4 pt-10 text-center bg-canvas-color">
         <h1 class="text-[40px] font-medium">Pricing & Plans</h1>
+
+        <div class="max-w-[720px] mx-auto px-3">
+          <div class="flex justify-center items-center pt-10 text-xl">
+            <div
+              class="text-center px-4 py-5 border-b-0 cursor-pointer transition-all ease-in duration-200"
+              :class="
+                currentPricingTab == 'individuals'
+                  ? 'bg-white text-primary-color border-2 border-primary-color'
+                  : 'border-0'
+              "
+              @click="currentPricingTab = 'individuals'"
+            >
+              For Individuals
+            </div>
+            <div
+              class="text-center px-4 py-5 border-b-0 cursor-pointer transition-all ease-in duration-200"
+              :class="
+                currentPricingTab == 'organization'
+                  ? 'bg-white text-primary-color border-2 border-primary-color'
+                  : 'border-0'
+              "
+              @click="currentPricingTab = 'organization'"
+            >
+              For Organizations
+            </div>
+          </div>
+        </div>
       </div>
       <section class="max-w-[950px] mx-auto my-12 px-6">
         <div class="w-full my-2 flex justify-end">
@@ -184,20 +215,34 @@ const choosePlan = (plan) => {
                 </ul>
               </div>
             </div>
-            <button
-              class="mt-2 py-2 px-8 w-full bg-white border-2 border-primary-color text-primary-color text-lg rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
-              @click="usePayment.openPaymentModal(basicPricing.price, 'basic', basicPricing.signaturesNo, billingTerm)"
-              v-if="useAuth.userState"
+            <div
+              class=""
+              v-if="
+                useAuth.userState && useSystemStore.userFullData.plan != 'basic'
+              "
             >
-              Choose Plan
-            </button>
-            <button
-              class="mt-2 py-2 px-8 w-full bg-white text-lg border-2 border-primary-color text-primary-color rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
-              @click="showAuthModal = true"
-              v-else
-            >
-              Get Started
-            </button>
+              <button
+                class="mt-2 py-2 px-8 w-full bg-white border-2 border-primary-color text-primary-color text-lg rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
+                @click="
+                  usePayment.openPaymentModal(
+                    basicPricing.price,
+                    'basic',
+                    basicPricing.signaturesNo,
+                    billingTerm
+                  )
+                "
+                v-if="useAuth.userState"
+              >
+                Choose Plan
+              </button>
+              <button
+                class="mt-2 py-2 px-8 w-full bg-white text-lg border-2 border-primary-color text-primary-color rounded-lg hover:text-white hover:bg-primary-color transition-all duration-300 ease-in-out"
+                @click="showAuthModal = true"
+                v-else
+              >
+                Get Started
+              </button>
+            </div>
           </div>
 
           <!-- PRO -->
@@ -210,7 +255,9 @@ const choosePlan = (plan) => {
               >
                 <div class="text-lg font-medium mb-1">SIGNATOR PRO</div>
                 <div class="">
-                  <span class="text-4xl font-medium">${{ proPricing.price }}</span>
+                  <span class="text-4xl font-medium"
+                    >${{ proPricing.price }}</span
+                  >
                 </div>
                 <sub class="text-xl font-medium bottom-[-0.1em]"
                   >/{{ billingTerm }}</sub
@@ -247,7 +294,14 @@ const choosePlan = (plan) => {
             </div>
             <button
               class="mt-2 py-2 px-8 w-full bg-primary-color border border-primary-color text-white text-lg rounded-lg hover:text-primary-color hover:bg-white transition-all duration-300 ease-in-out"
-              @click="usePayment.openPaymentModal(proPricing.price, 'pro', proPricing.signaturesNo, billingTerm)"
+              @click="
+                usePayment.openPaymentModal(
+                  proPricing.price,
+                  'pro',
+                  proPricing.signaturesNo,
+                  billingTerm
+                )
+              "
               v-if="useAuth.userState"
             >
               Choose Plan

@@ -16,6 +16,12 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
+import {
+  getDate,
+  getMonthlySubscriptionEndDate,
+  getYearlySubscriptionEndDate,
+} from "@/composables/useFormatDate";
+
 import { uid } from "@/composables/useGenerateUid";
 
 import { authStore } from "./auth";
@@ -39,7 +45,8 @@ export const paymentStore = defineStore("payment", () => {
       country: "",
     },
     transactionId: "",
-    transactionDate: Date.now(),
+    transactionDate: "",
+    subscriptionEndDate: "",
   });
 
   const openPaymentModal = (price, plan, signatureNo, billing) => {
@@ -49,6 +56,16 @@ export const paymentStore = defineStore("payment", () => {
     customerDetail.value.signatureNo = signatureNo;
     customerDetail.value.meta.email = useSystem.userFullData.email;
     customerDetail.value.transactionId = uid(16);
+    customerDetail.value.transactionDate = getDate();
+    if (billing == "monthly") {
+      customerDetail.value.subscriptionEndDate = getMonthlySubscriptionEndDate(
+        customerDetail.value.transactionDate
+      );
+    } else if (billing == "yearly") {
+      customerDetail.value.subscriptionEndDate = getYearlySubscriptionEndDate(
+        customerDetail.value.transactionDate
+      );
+    }
 
     paymentConfirmationModal.value = true;
     // console.log(useSystem.userFullData.email, customerDetail.value);
@@ -89,8 +106,13 @@ export const paymentStore = defineStore("payment", () => {
       "billingHistory",
       data.transactionId
     );
-    await setDoc(docRef, data).then(() => {
-      router.push({ path: '/dashboard' });
+    await setDoc(docRef, data).then(async () => {
+      await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
+        plan: data.plan,
+        signaturePackage: data.signatureNo,
+      }).then(() => {
+        router.push({ path: "/dashboard" });
+      });
     });
   };
   return {

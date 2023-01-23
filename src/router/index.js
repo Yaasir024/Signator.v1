@@ -165,18 +165,29 @@ const router = createRouter({
       },
     },
     {
-      path: "/settings/profile",
+      path: "/profile/account",
       name: "profile",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import("../views/Settings/Profile.vue"),
+      component: () => import("../views/Settings/Account.vue"),
       meta: {
         requiresAuth: true,
       },
     },
     {
-      path: "/settings/billing-history",
+      path: "/profile/subscription",
+      name: "subscription",
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("../views/Settings/Subscription.vue"),
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/profile/billing-history",
       name: "billing-history",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
@@ -187,7 +198,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/settings/payment-method",
+      path: "/profile/payment-method",
       name: "payment-method",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route

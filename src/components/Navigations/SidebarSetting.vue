@@ -10,7 +10,7 @@ const useSystemStore = systemStore();
   <div class="static top-0 h-screen">
     <div class="bg-white shadow-xl border-r h-full w-[220px] border-t">
       <div class="">
-        <div class="flex flex-col items-center max-w-[220px] px-7 py-6 mb-2">
+        <div class="flex flex-col items-center max-w-[220px] px-7 py-6 mb-2" v-if="useAuth.userData">
           <div class="text-gray-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -29,27 +29,30 @@ const useSystemStore = systemStore();
         </div>
         <div class="h-full">
           <ul class="px-4 flex flex-col text-base">
-            <RouterLink to="/settings/profile">
+            <RouterLink to="/profile/account">
               <li
                 class="py-2 cursor-pointer transition-all duration-300 ease-in-out hover:text-primary-color"
               >
                 Profile
               </li>
             </RouterLink>
+            <RouterLink to="/profile/subscription">
 
-            <li
-              class="py-2 cursor-pointer transition-all duration-300 ease-in-out hover:text-primary-color"
-            >
-              Subscription
-            </li>
-            <RouterLink to="/settings/billing-history">
+              <li
+                class="py-2 cursor-pointer transition-all duration-300 ease-in-out hover:text-primary-color"
+              >
+                Subscription
+              </li>
+            </RouterLink>
+
+            <RouterLink to="/profile/billing-history">
               <li
                 class="py-2 cursor-pointer transition-all duration-300 ease-in-out hover:text-primary-color"
               >
                 Billing History
               </li>
             </RouterLink>
-            <RouterLink to="/settings/payment-method">
+            <RouterLink to="/profile/payment-method">
               <li
                 class="py-2 cursor-pointer transition-all duration-300 ease-in-out hover:text-primary-color border-b"
               >

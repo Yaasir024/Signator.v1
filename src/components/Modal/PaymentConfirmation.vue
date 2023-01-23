@@ -13,7 +13,7 @@ const pay = () => {
     class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-60 backdrop-blur-[2px] z-40 px-4 py-6"
   >
     <div
-      class="max-w-[420px] w-full mx-auto mt-24 bg-white rounded-lg overflow-hidden shadow-lg relative"
+      class="max-w-[420px] w-full mx-auto mt-20 bg-white rounded-lg overflow-hidden shadow-lg relative"
     >
       <div
         class="absolute top-3 right-3 cursor-pointer z-30"

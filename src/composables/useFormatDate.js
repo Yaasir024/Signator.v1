@@ -2,7 +2,7 @@ export function getDate() {
   return new Date();
 }
 
-export function getMonthlySubscriptionEndDate(startDate, cycle) {
+export function getMonthlySubscriptionEndDate(startDate) {
   let currentDate = startDate;
   currentDate.setMonth(currentDate.getMonth() + 1);
   return currentDate

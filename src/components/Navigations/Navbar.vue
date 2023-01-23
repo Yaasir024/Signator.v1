@@ -152,7 +152,7 @@ const signOut = () => {
           >
             <div class="text-base">
               <div class="py-1 px-2">
-                <RouterLink to="/settings/profile">
+                <RouterLink to="/profile/account">
                   <div class="flex items-center">
                     <div class="text-gray-400">
                       <svg
@@ -172,7 +172,7 @@ const signOut = () => {
                 </RouterLink>
               </div>
               <div class="pt-1 pb-2 px-2 border-b">
-                <RouterLink to="/settings/billing-history">
+                <RouterLink to="/profile/billing-history">
                   <div class="flex items-center">
                     <div class="text-gray-400">
                       <svg
@@ -341,7 +341,7 @@ const signOut = () => {
         </ul>
         <div class="px-5 py-5 border-b" v-if="useAuth.userState">
           <div class="py-1">
-            <RouterLink to="/settings/profile">
+            <RouterLink to="/profile/account">
               <div class="flex items-center">
                 <div class="text-gray-400">
                   <svg
@@ -361,7 +361,7 @@ const signOut = () => {
             </RouterLink>
           </div>
           <div class="py-1">
-            <RouterLink to="/settings/billing-history">
+            <RouterLink to="/profile/billing-history">
               <div class="flex items-center">
                 <div class="text-gray-400">
                   <svg
