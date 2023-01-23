@@ -22,7 +22,8 @@ const submit = () => {
 <template>
   <section class="h-screen overflow-hidden">
     <Navbar />
-    <div
+    <div class="px-3">
+      <div
       class="bg-white max-w-[400px] mx-auto mt-12 py-8 px-6 rounded-2xl shadow-lg border"
     >
       <h2 class="text-2xl text-center mb-8">Login</h2>
@@ -112,6 +113,7 @@ const submit = () => {
           >
         </div>
       </div>
+    </div>
     </div>
   </section>
 </template>
