@@ -8,37 +8,13 @@ import { authStore } from "@/stores/auth";
 
 const useAuth = authStore();
 
-const makePayment = () => {
-  FlutterwaveCheckout({
-      public_key: "FLWPUBK_TEST-6e6a14da582db5bfdacc41f248b5751c-X",
-      tx_ref: "titanic-48981487343MDI0NzMx",
-      amount: 1000000000,
-      currency: "NGN",
-      payment_options: "card, banktransfer, ussd",
-      redirect_url: "https://glaciers.titanic.com/handle-flutterwave-payment",
-      meta: {
-        consumer_id: 23,
-        consumer_mac: "92a3-912ba-1192a",
-      },
-      customer: {
-        email: "deckerjoe@gmail.com",
-        phone_number: "+2349169241584",
-        name: "John Decker",
-      },
-      customizations: {
-        title: "Signotor",
-        description: "Email Signature & Business Card generator",
-        logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
-      },
-    });
-}
+
 
 </script>
 
 <template>
   
   <div class="min-h-screen">
-    <button class="py-3 px-4 text-lg font-bold m-3 text-white bg-black rounded-lg" @click="makePayment()">Make Payment</button>
     <Navbar />
     <main class="w-full bg-white py-5 px-6">
       <div
@@ -63,7 +39,7 @@ const makePayment = () => {
           </p>
         </div>
         <div class="img-container">
-          <img src="images/Home/hero-signature.png" alt="" />
+          <!-- <img src="images/Home/hero-signature.png" alt="" /> -->
         </div>
       </div>
     </main>
