@@ -41,7 +41,6 @@ onMounted(() => {
   window.addEventListener("resize", checkScreen);
 });
 
-
 const createEditorSession = (data) => {
   if (useSystemStore.isEligibleToCreate()) {
     data.uid = uid(16);
@@ -67,7 +66,11 @@ const createEditorSession = (data) => {
         <div
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
-          <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
+          <img
+            :src="'/assets/images/templates/' + template.imgSrc"
+            alt=""
+            class=""
+          />
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
@@ -97,7 +100,11 @@ const createEditorSession = (data) => {
         <div
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
-          <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
+          <img
+            :src="'/assets/images/templates/' + template.imgSrc"
+            alt=""
+            class=""
+          />
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
@@ -127,7 +134,11 @@ const createEditorSession = (data) => {
         <div
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
-          <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
+          <img
+            :src="'/assets/images/templates/' + template.imgSrc"
+            alt=""
+            class=""
+          />
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
@@ -149,7 +160,10 @@ const createEditorSession = (data) => {
       </div>
     </div>
   </div>
-  <div class="max-w-[460px] sm:max-w-[860px] mx-auto flex w-full flex-wrap" v-if="mobile">
+  <div
+    class="max-w-[460px] sm:max-w-[860px] mx-auto flex w-full flex-wrap"
+    v-if="mobile"
+  >
     <div class="w-full sm:w-[50%] px-3">
       <div
         class="w-full my-6"
@@ -159,7 +173,11 @@ const createEditorSession = (data) => {
         <div
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
-          <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
+          <img
+            :src="'/assets/images/templates/' + template.imgSrc"
+            alt=""
+            class=""
+          />
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
@@ -189,7 +207,11 @@ const createEditorSession = (data) => {
         <div
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
-          <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
+          <img
+            :src="'/assets/images/templates/' + template.imgSrc"
+            alt=""
+            class=""
+          />
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >

@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { editorStore } from "@/stores/editor";
 
-import { uploadFile } from "@/composables/firebase/images";
+import { uploadFile } from "@/composables/firebase/assets/images";
 
 const useEditorStore = editorStore();
 
@@ -24,11 +24,8 @@ const readImage = async (e) => {
 </script>
 
 <template>
-
   <div class="pt-16">
-    <div
-      class="flex flex-col items-center overflow-hidden cursor-pointer"
-    >
+    <div class="flex flex-col items-center overflow-hidden cursor-pointer">
       <div class="icon block">
         <svg
           xmlns="http://www.w3.org/2000/svg"

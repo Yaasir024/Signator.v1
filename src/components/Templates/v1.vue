@@ -31,7 +31,7 @@ const createEditorSession = (data) => {
     useEditorStore.data = data;
     useEditorStore.showTemplatesSection = false;
     router.push({ path: "/editor" });
-    router.go(0)
+    router.go(0);
     // if (path == "editor") {
     //   useEditorStore.showTemplatesSection = false;
     // } else if (path == "dashboard") {
@@ -77,7 +77,9 @@ const user = ref("pro");
         </div>
       </div>
       <div class="px-5">
-        <div class="flex flex-col xs:flex-row items-center justify-center xs:justify-between my-3">
+        <div
+          class="flex flex-col xs:flex-row items-center justify-center xs:justify-between my-3"
+        >
           <button
             class="py-1 px-4 mb-2 xs:mb-0 border-2 border-primary-color text-primary-color font-medium rounded-lg"
             @click="createEditorSession(templateData.emptyTemplate)"
@@ -105,7 +107,7 @@ const user = ref("pro");
                   class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
                 >
                   <img
-                    :src="'/images/templates/' + template.imgSrc"
+                    :src="'/assets/images/templates/' + template.imgSrc"
                     alt=""
                     class=""
                   />
@@ -139,7 +141,7 @@ const user = ref("pro");
                   class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
                 >
                   <img
-                    :src="'/images/templates/' + template.imgSrc"
+                    :src="'/assets/images/templates/' + template.imgSrc"
                     alt=""
                     class=""
                   />

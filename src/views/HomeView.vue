@@ -34,7 +34,7 @@ const useAuth = authStore();
           </p>
         </div>
         <div class="img-container">
-          <img src="/images/Home/hero-signature.png" alt="" />
+          <img src="/assets/images/Home/hero-signature.png" alt="" />
         </div>
       </div>
     </main>
@@ -61,10 +61,11 @@ const useAuth = authStore();
               class="w-[310px] h-[310px] sm:w-[400px] sm:h-[400px] overflow-hidden rounded-full bg-canvas-color shadow-xl"
             >
               <img
-                src="/images/Features/editor.png"
+                src="/assets/images/Features/editor.png"
                 alt=""
                 class="mt-10 scale-75"
               />
+              <!-- <A:mail></A:mail> -->
             </div>
           </div>
         </div>
@@ -88,7 +89,7 @@ const useAuth = authStore();
               class="w-[310px] h-[310px] sm:w-[400px] sm:h-[400px] overflow-hidden rounded-full bg-canvas-color shadow-xl"
             >
               <img
-                src="/images/Features/social.png"
+                src="/assets/images/Features/social.png"
                 alt=""
                 class="mt-5 scale-75"
               />

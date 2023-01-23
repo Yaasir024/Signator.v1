@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { editorStore } from "@/stores/editor";
 
-import { deleteFile } from "@/composables/firebase/images";
+import { deleteFile } from "@/composables/firebase/assets/images";
 
 import DeleteModal from "@/components/Editor/Sidebar/GalleryModal/ConfirmDeleteModal.vue";
 import Overlay from "@/components/Overlay.vue";
@@ -16,21 +16,21 @@ const emits = defineEmits(["close"]);
 
 const selectedImage = ref("");
 
-const deleteModalVisibility = ref(false)
+const deleteModalVisibility = ref(false);
 
 const deleteImage = async (img) => {
-  deleteModalVisibility.value = false
+  deleteModalVisibility.value = false;
   const result = await deleteFile(img.fullPath);
   if (result) {
     useEditorStore.removeImageFromGallery(img);
   }
   console.log(result);
-  selectedImage.value = ''
+  selectedImage.value = "";
 };
 
 const closeDeleteModal = () => {
-  deleteModalVisibility.value = false
-}
+  deleteModalVisibility.value = false;
+};
 
 const useImage = () => {
   useEditorStore.data.image.img = selectedImage.value.url;
@@ -134,16 +134,13 @@ const useImage = () => {
   </div>
 
   <transition-group name="modalFade">
-
     <DeleteModal
       v-if="deleteModalVisibility"
       @close-delete-modal="closeDeleteModal()"
       @delete-image="deleteImage(selectedImage)"
       message="Are you sure you want to delete this image permanently. This action can't be undone."
     />
-    <Overlay
-      v-if="deleteModalVisibility"
-    />
+    <Overlay v-if="deleteModalVisibility" />
   </transition-group>
 </template>
 
@@ -156,6 +153,4 @@ const useImage = () => {
 .modalFade-leave-to {
   opacity: 0;
 }
-
-
 </style>

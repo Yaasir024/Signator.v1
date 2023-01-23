@@ -64,13 +64,11 @@ const editSignature = (data) => {
 
 const optionsMenu = ref("");
 const toggleOptionsMenu = (uid) => {
-
-    if (optionsMenu.value == "") {
-      optionsMenu.value = uid;
-    } else {
-      optionsMenu.value = "";
-    }
-
+  if (optionsMenu.value == "") {
+    optionsMenu.value = uid;
+  } else {
+    optionsMenu.value = "";
+  }
 };
 const optionsMenuPopup = ref([]);
 
@@ -301,7 +299,7 @@ const closeDeleteModal = () => {
               v-else
             >
               <img
-                src="/images/emptyLogo.png"
+                src="/assets/images/emptyLogo.png"
                 alt=""
                 class="max-h-[265px] h-full"
               />

@@ -182,7 +182,7 @@ useClickOutside(greenMessageFontMenuBar, () => {
                 greenMessage.data.items.icon == '' ? 'border-primary-color' : ''
               "
             >
-              <img src="//images/greenMessage/none.svg" alt="" />
+              <img src="//assets/images/greenMessage/none.svg" alt="" />
             </div>
             <div
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
@@ -193,7 +193,7 @@ useClickOutside(greenMessageFontMenuBar, () => {
                   : ''
               "
             >
-              <img src="//images/greenMessage/1.svg" alt="" />
+              <img src="//assets/images/greenMessage/1.svg" alt="" />
             </div>
             <div
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
@@ -204,7 +204,7 @@ useClickOutside(greenMessageFontMenuBar, () => {
                   : ''
               "
             >
-              <img src="//images/greenMessage/2.svg" alt="" />
+              <img src="//assets/images/greenMessage/2.svg" alt="" />
             </div>
             <div
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
@@ -215,7 +215,7 @@ useClickOutside(greenMessageFontMenuBar, () => {
                   : ''
               "
             >
-              <img src="//images/greenMessage/3.svg" alt="" />
+              <img src="//assets/images/greenMessage/3.svg" alt="" />
             </div>
             <div
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
@@ -226,7 +226,7 @@ useClickOutside(greenMessageFontMenuBar, () => {
                   : ''
               "
             >
-              <img src="//images/greenMessage/4.svg" alt="" />
+              <img src="//assets/images/greenMessage/4.svg" alt="" />
             </div>
             <div
               class="flex items-center justify-center m-1 w-[36px] h-[36px] border-2 rounded-lg cursor-pointer"
@@ -237,7 +237,7 @@ useClickOutside(greenMessageFontMenuBar, () => {
                   : ''
               "
             >
-              <img src="//images/greenMessage/5.svg" alt="" />
+              <img src="//assets/images/greenMessage/5.svg" alt="" />
             </div>
           </div>
         </div>
