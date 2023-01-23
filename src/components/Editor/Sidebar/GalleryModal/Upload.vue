@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { editorStore } from "@/stores/editor";
 
-import { uploadFile } from "@/composables/firebase../assets/images";
+import { uploadFile } from "@/composables/firebase/images";
 
 const useEditorStore = editorStore();
 

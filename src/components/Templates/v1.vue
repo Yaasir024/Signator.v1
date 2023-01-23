@@ -107,7 +107,7 @@ const user = ref("pro");
                   class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
                 >
                   <img
-                    :src="'../assets/images/templates/' + template.imgSrc"
+                    :src="'/images/templates/' + template.imgSrc"
                     alt=""
                     class=""
                   />
@@ -141,7 +141,7 @@ const user = ref("pro");
                   class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
                 >
                   <img
-                    :src="'../assets/images/templates/' + template.imgSrc"
+                    :src="'/images/templates/' + template.imgSrc"
                     alt=""
                     class=""
                   />

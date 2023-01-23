@@ -66,11 +66,7 @@ const createEditorSession = (data) => {
         <div
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
-          <img
-            :src="'../assets/images/templates/' + template.imgSrc"
-            alt=""
-            class=""
-          />
+          <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
@@ -100,11 +96,7 @@ const createEditorSession = (data) => {
         <div
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
-          <img
-            :src="'../assets/images/templates/' + template.imgSrc"
-            alt=""
-            class=""
-          />
+          <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
@@ -134,11 +126,7 @@ const createEditorSession = (data) => {
         <div
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
-          <img
-            :src="'../assets/images/templates/' + template.imgSrc"
-            alt=""
-            class=""
-          />
+          <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
@@ -173,11 +161,7 @@ const createEditorSession = (data) => {
         <div
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
-          <img
-            :src="'../assets/images/templates/' + template.imgSrc"
-            alt=""
-            class=""
-          />
+          <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
@@ -207,11 +191,7 @@ const createEditorSession = (data) => {
         <div
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
-          <img
-            :src="'../assets/images/templates/' + template.imgSrc"
-            alt=""
-            class=""
-          />
+          <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >

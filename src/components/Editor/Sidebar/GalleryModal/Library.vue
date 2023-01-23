@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { editorStore } from "@/stores/editor";
 
-import { deleteFile } from "@/composables/firebase../assets/images";
+import { deleteFile } from "@/composables/firebase/images";
 
 import DeleteModal from "@/components/Editor/Sidebar/GalleryModal/ConfirmDeleteModal.vue";
 import Overlay from "@/components/Overlay.vue";

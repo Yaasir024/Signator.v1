@@ -299,7 +299,7 @@ const closeDeleteModal = () => {
               v-else
             >
               <img
-                src="../assets/images/emptyLogo.png"
+                src="/images/emptyLogo.png"
                 alt=""
                 class="max-h-[265px] h-full"
               />
