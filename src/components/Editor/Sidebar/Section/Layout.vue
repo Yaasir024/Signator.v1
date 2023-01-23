@@ -32,7 +32,7 @@ const proLayouts = computed(() => {
             "
             @click="data.design.layout.layout = layout.name"
           >
-            <img :src="'//assets/images/layouts/' + layout.img" alt="" />
+            <img :src="'/../assets/images/layouts/' + layout.img" alt="" />
             <div class="">
               {{ layout.name }}
             </div>
@@ -54,7 +54,7 @@ const proLayouts = computed(() => {
                 : ''
             "
           >
-            <img src="//assets/images/layouts/01.png" alt="" />
+            <img src="/../assets/images/layouts/01.png" alt="" />
             <div class="">
               {{ layout.name }}
             </div>
@@ -75,7 +75,7 @@ const proLayouts = computed(() => {
                 : ''
             "
           >
-            <img src="//assets/images/layouts/01.png" alt="" />
+            <img src="/../assets/images/layouts/01.png" alt="" />
             <div class="flex items-center">
               <span class="mr-2 text-base">{{ layout.name }}</span>
               {{ layout }}

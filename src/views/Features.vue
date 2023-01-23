@@ -42,7 +42,7 @@ const useAuth = authStore();
                 class="w-[310px] h-[310px] sm:w-[400px] sm:h-[400px] overflow-hidden rounded-full bg-canvas-color shadow-xl"
               >
                 <img
-                  src="/assets/images/Features/editor.png"
+                  src="../assets/images/Features/editor.png"
                   alt=""
                   class="mt-10 scale-75"
                 />
@@ -68,7 +68,7 @@ const useAuth = authStore();
             <div class="flex-full md:flex-50% md:pl-8 mt-4 md:mt-0">
               <div class="">
                 <img
-                  src="/assets/images/Features/templates.png"
+                  src="../assets/images/Features/templates.png"
                   alt=""
                   class="mt-10 scale-75 md:scale-100"
                 />
@@ -98,7 +98,7 @@ const useAuth = authStore();
             <div class="flex-full md:flex-50% md:pl-8 mt-4 md:mt-0">
               <div class="">
                 <img
-                  src="/assets/images/Features/assets/images.png"
+                  src="../assets/images/Features../assets/images.png"
                   alt=""
                   class="scale-75"
                 />
@@ -125,7 +125,7 @@ const useAuth = authStore();
                 class="w-[310px] h-[310px] sm:w-[400px] sm:h-[400px] overflow-hidden rounded-full bg-canvas-color shadow-xl"
               >
                 <img
-                  src="/assets/images/Features/social.png"
+                  src="../assets/images/Features/social.png"
                   alt=""
                   class="mt-5 scale-75"
                 />

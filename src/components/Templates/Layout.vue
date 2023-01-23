@@ -67,7 +67,7 @@ const createEditorSession = (data) => {
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
           <img
-            :src="'/assets/images/templates/' + template.imgSrc"
+            :src="'../assets/images/templates/' + template.imgSrc"
             alt=""
             class=""
           />
@@ -101,7 +101,7 @@ const createEditorSession = (data) => {
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
           <img
-            :src="'/assets/images/templates/' + template.imgSrc"
+            :src="'../assets/images/templates/' + template.imgSrc"
             alt=""
             class=""
           />
@@ -135,7 +135,7 @@ const createEditorSession = (data) => {
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
           <img
-            :src="'/assets/images/templates/' + template.imgSrc"
+            :src="'../assets/images/templates/' + template.imgSrc"
             alt=""
             class=""
           />
@@ -174,7 +174,7 @@ const createEditorSession = (data) => {
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
           <img
-            :src="'/assets/images/templates/' + template.imgSrc"
+            :src="'../assets/images/templates/' + template.imgSrc"
             alt=""
             class=""
           />
@@ -208,7 +208,7 @@ const createEditorSession = (data) => {
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
           <img
-            :src="'/assets/images/templates/' + template.imgSrc"
+            :src="'../assets/images/templates/' + template.imgSrc"
             alt=""
             class=""
           />

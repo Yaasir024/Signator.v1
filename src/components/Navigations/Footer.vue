@@ -4,7 +4,7 @@
       <div class="mr-6">
         <RouterLink to="/">
           <img
-            src="//assets/images/logo/logo-white.svg"
+            src="/../assets/images/logo/logo-white.svg"
             alt=""
             class="h-[40px]"
           />
