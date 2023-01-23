@@ -3,7 +3,7 @@
     <div class="flex">
       <div class="mr-6">
         <RouterLink to="/">
-          <img src="//images/logo/logo-white.svg" alt="" class="h-[40px]" />
+          <img src="/images/logo/logo-white.svg" alt="" class="h-[40px]" />
         </RouterLink>
       </div>
       <div class="mr-7">
