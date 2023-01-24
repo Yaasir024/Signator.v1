@@ -12,7 +12,7 @@ import {
         <RouterLink to="/">
           <img src="/images/logo/logo-white.svg" alt="" class="h-[40px]" />
         </RouterLink>
-        <div class="max-w-[250px] pl-2 text-white text-base hidden sm:block">
+        <div class="max-w-[250px] pt-3 pr-2 text-white text-base hidden sm:block">
           Signator is a simple and user-friendly email signature generator website that allows you to create professional and visually appealing email signatures in minutes.
         </div>
       </div>
