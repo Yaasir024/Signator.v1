@@ -23,7 +23,7 @@ const submit = () => {
   <section class="h-screen overflow-hidden">
     <Navbar />
 
-    <div class="px-3">
+    <div class="px-5">
       <div
         class="bg-white max-w-[400px] mx-auto mt-12 py-8 px-6 rounded-2xl shadow-lg border"
       >
