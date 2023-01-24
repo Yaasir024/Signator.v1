@@ -12,3 +12,7 @@ export function getYearlySubscriptionEndDate(startDate) {
   currentDate.setFullYear(currentDate.getFullYear() + 1);
   return currentDate
 }
+export function getCurrentYear() {
+  let currentDate = getDate();
+  return currentDate.getFullYear()
+}
