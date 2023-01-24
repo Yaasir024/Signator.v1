@@ -113,6 +113,17 @@ const router = createRouter({
       },
     },
     {
+      path: "/privacy-policy",
+      name: "privacy-policy",
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("../views/PrivacyPolicy.vue"),
+      meta: {
+        requiresAuth: false,
+      },
+    },
+    {
       path: "/editor",
       name: "editors",
       component: () => import("../views/Editor/index.vue"),

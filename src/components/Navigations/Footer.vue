@@ -77,7 +77,7 @@ import {
             Terms & Condition
           </RouterLink>
           <RouterLink
-            to="/"
+            to="/privacy-policy"
             class="py-1 text-base text-white hover:text-primary-color transition-all duration-300 ease-in-out"
           >
             Privacy and Policy
@@ -93,6 +93,7 @@ import {
           <RouterLink
             to="/"
             class="py-1 text-base text-white hover:text-primary-color transition-all duration-300 ease-in-out"
+            v-if="false"
           >
             Updates
           </RouterLink>
