@@ -100,11 +100,7 @@ const signOut = () => {
     </div>
     <div class="hidden md:flex items-center" v-if="useAuth.userState">
       <RouterLink to="/dashboard" v-if="routeName != 'dashboard'">
-        <button
-          class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
-        >
-          Go To Dashboard
-        </button>
+        <Button text="Go to Dashboard" />
       </RouterLink>
       <!-- Notification {HOLD}-->
       <div class="ml-3 relative" ref="notificationMenu" v-if="false">
