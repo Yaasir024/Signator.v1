@@ -1,12 +1,18 @@
 <script setup>
+import { profileStore } from "@/stores/profile";
+
+
 import Navbar from "@/components/Navigations/Navbar.vue";
 import Sidebar from "@/components/Navigations/SidebarSetting.vue";
 import MobileSidebar from "@/components/Navigations/SettingsMobileSidebar.vue";
+
+const useProfileStore = profileStore();
 </script>
 
 <template>
   <section class="h-screen overflow-hidden">
     <Navbar />
+    {{ useProfileStore.billingHistoryData }}
     <div class="h-full overflow-hidden">
       <MobileSidebar class="block md:hidden" />
       <div class="h-full flex">
@@ -23,7 +29,7 @@ import MobileSidebar from "@/components/Navigations/SettingsMobileSidebar.vue";
                 </div>
                 <div class="">
                   <div
-                    class="flex cursor-pointer gap-[16px] py-4 sm:py-6 px-4 xs:px-6 sm:px-8 my-2 bg-canvas-color shadow-lg rounded-2xl text-base hover:text-primary-color hover:scale-105 transition-all duration-200 ease-in-out"
+                    class="flex cursor-pointer gap-[16px] py-4 sm:py-5 px-4 xs:px-6 sm:px-8 my-2 bg-canvas-color shadow-lg rounded-3xl text-base hover:text-primary-color hover:scale-[1.02] transition-all duration-200 ease-in-out"
                   >
                     <div class="left hidden xs:flex">
                       <span class="hidden sm:block">12ab3dgfgjj445</span>

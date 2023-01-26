@@ -1,5 +1,8 @@
 <script setup>
 import { ref, computed } from "vue";
+
+
+import Button from "@/components/Button.vue";
 import NotificationModal from "@/components/Notification/index.vue";
 
 import { useRoute } from "vue-router";
@@ -92,11 +95,7 @@ const signOut = () => {
         </button>
       </RouterLink>
       <RouterLink to="/signup" class="ml-2">
-        <button
-          class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
-        >
-          Create Account
-        </button>
+        <Button text="Create Account" />
       </RouterLink>
     </div>
     <div class="hidden md:flex items-center" v-if="useAuth.userState">
@@ -259,11 +258,7 @@ const signOut = () => {
     </div>
     <div class="flex md:hidden items-center ">
       <RouterLink to="/signup" class="mr-2" v-if="!useAuth.userState">
-        <button
-          class="py-2 px-4 bg-primary-color text-white font-medium rounded-lg"
-        >
-          Create Account
-        </button>
+        <Button text="Create Account" />
       </RouterLink>
 
       <div
