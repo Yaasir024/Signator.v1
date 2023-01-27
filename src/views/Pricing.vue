@@ -24,7 +24,7 @@ const currentPricingTab = ref("individuals");
 
 const initPrice = 8;
 
-const signaturesNo = ref(2);
+const signaturesNo = ref(4);
 
 const price = computed(() => {
   let calculatedPriceMonthly = initPrice * signaturesNo.value;
@@ -68,9 +68,14 @@ const showAuthModal = ref(false);
 const choosePlan = (plan) => {
   console.log(plan);
 };
+const dater = ref('')
 </script>
 
 <template>
+  {{ getDate() }}
+  {{ getMonthlySubscriptionEndDate(getDate()) }}
+  <button @click="dater = getDate()">SET DATE</button>
+  {{ dater }}
   <div
     class="min-h-screen bg-white"
     :class="
@@ -292,13 +297,14 @@ const choosePlan = (plan) => {
                 </ul>
               </div>
             </div>
+            {{ signaturesNo }}
             <button
               class="mt-2 py-2 px-8 w-full bg-primary-color border border-primary-color text-white text-lg rounded-lg hover:text-primary-color hover:bg-white transition-all duration-300 ease-in-out"
               @click="
                 usePayment.openPaymentModal(
                   proPricing.price,
                   'pro',
-                  proPricing.signaturesNo,
+                  signaturesNo,
                   billingTerm
                 )
               "

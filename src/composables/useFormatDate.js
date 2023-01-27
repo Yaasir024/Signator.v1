@@ -16,3 +16,7 @@ export function getCurrentYear() {
   let currentDate = getDate();
   return currentDate.getFullYear()
 }
+export function getFormattedDate(date) {
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  return date.toLocaleDateString('en-US', options)
+}

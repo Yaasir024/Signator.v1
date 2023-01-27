@@ -22,6 +22,7 @@ import {
   Timestamp,
   increment,
   onSnapshot,
+  orderBy
 } from "firebase/firestore";
 
 export const profileStore = defineStore("profile", () => {
@@ -36,18 +37,33 @@ export const profileStore = defineStore("profile", () => {
       useAuth.userId.uid,
       "billingHistory"
     );
-    onSnapshot(colRef, (snapshot) => {
+    onSnapshot(query(colRef, orderBy('transactionDate')), (snapshot) => {
       let docs = [];
       snapshot.docs.forEach((doc) => {
         docs.push(doc.data());
       });
       billingHistoryData.value = docs;
-      console.log('AAA')
     });
-    // console.log(billingHistoryData.value);
+  }
+
+  // BILLING DETAILS MODAL
+  const billingDetailsModalVisibility = ref(false)
+  const billingDetailsModalData = ref('Article')
+
+  const openBillingDetailsModal = (data) => {
+    billingDetailsModalData.value = data
+    billingDetailsModalVisibility.value = true
+  }
+  const closeBillingDetailsModal = () => {
+    billingDetailsModalData.value = {}
+    billingDetailsModalVisibility.value = false
   }
 
   return {
-    billingHistoryData
+    billingHistoryData,
+    billingDetailsModalVisibility,
+    billingDetailsModalData,
+    openBillingDetailsModal,
+    closeBillingDetailsModal
   }
 });
