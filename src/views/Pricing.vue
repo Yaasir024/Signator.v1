@@ -72,10 +72,6 @@ const dater = ref('')
 </script>
 
 <template>
-  {{ getDate() }}
-  {{ getMonthlySubscriptionEndDate(getDate()) }}
-  <button @click="dater = getDate()">SET DATE</button>
-  {{ dater }}
   <div
     class="min-h-screen bg-white"
     :class="
@@ -223,7 +219,7 @@ const dater = ref('')
             <div
               class=""
               v-if="
-                useAuth.userState && useSystemStore.userFullData.plan != 'basic'
+                useAuth.userState && (useSystemStore.userFullData.plan == 'free')
               "
             >
               <button
@@ -297,7 +293,6 @@ const dater = ref('')
                 </ul>
               </div>
             </div>
-            {{ signaturesNo }}
             <button
               class="mt-2 py-2 px-8 w-full bg-primary-color border border-primary-color text-white text-lg rounded-lg hover:text-primary-color hover:bg-white transition-all duration-300 ease-in-out"
               @click="
@@ -308,14 +303,14 @@ const dater = ref('')
                   billingTerm
                 )
               "
-              v-if="useAuth.userState"
+              v-if="useAuth.userState && (useSystemStore.userFullData.plan != 'pro')"
             >
               Choose Plan
             </button>
             <button
               class="mt-2 py-2 px-8 w-full bg-primary-color border border-primary-color text-white text-lg rounded-lg hover:text-primary-color hover:bg-white transition-all duration-300 ease-in-out"
               @click="showAuthModal = true"
-              v-else
+              v-if="!useAuth.userState"
             >
               Get Started
             </button>
