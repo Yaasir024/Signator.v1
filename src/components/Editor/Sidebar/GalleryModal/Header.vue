@@ -1,16 +1,14 @@
 <script setup>
 import { inject } from 'vue'
-
-const emits = defineEmits(["close"]);
-
-const currentTab = inject('currentTab')
+import { editorStore } from "@/stores/editor";
+const useEditorStore = editorStore();
 </script>
 
 <template>
     <div class="header sm:px-8 bg-white border-b">
       <div class="flex items-center justify-between pt-4 pb-2 px-3 sm:px-0">
         <div class="text-xl font-medium">Image Gallery</div>
-        <button @click="$emit('close')">
+        <button @click="useEditorStore.galleryModal = false">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -27,15 +25,15 @@ const currentTab = inject('currentTab')
         <div class="flex items-center text-base">
           <button
             class="px-4 py-2 border-2 border-b-0"
-            @click="currentTab = 'library'"
-            :class="currentTab == 'library' ? 'bg-canvas-color mb-[-1px]' : ''"
+            @click="useEditorStore.currentImageGalleryTab = 'library'"
+            :class="useEditorStore.currentImageGalleryTab == 'library' ? 'bg-canvas-color mb-[-1px]' : ''"
           >
             Media Library
           </button>
           <button
             class="px-4 py-2 border-2 border-b-0"
-            @click="currentTab = 'upload'"
-            :class="currentTab == 'upload' ? 'bg-canvas-color mb-[-1px]' : ''"
+            @click="useEditorStore.currentImageGalleryTab = 'upload'"
+            :class="useEditorStore.currentImageGalleryTab == 'upload' ? 'bg-canvas-color mb-[-1px]' : ''"
           >
             Upload Media
           </button>

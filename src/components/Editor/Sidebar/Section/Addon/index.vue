@@ -66,7 +66,7 @@ const checkAddons = (addon) => {
 };
 
 const addAddons = (addon) => {
-  if (checkFeatureQualification(addon)) {
+  if (useSystemStore.checkFeatureQualification(addon)) {
     data.addons.push(addonData.defaultAddonData[addon]);
   }
 };

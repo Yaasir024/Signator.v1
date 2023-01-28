@@ -4,27 +4,26 @@ import axios from "axios";
 
 import { editorStore } from "@/stores/editor";
 
-import { uploadFile } from "@/composables/firebase/images";
+import { uploadFileToStorage } from "@/composables/firebase/images";
 
 const useEditorStore = editorStore();
 
-const currentTab = inject("currentTab");
+
 
 const readImage = async (e) => {
   let files = e.target.files;
-  const { snapshot, downloadUrl, metadata } = await uploadFile(files[0]);
-  useEditorStore.addImageToGallery(
-    downloadUrl,
-    metadata.name,
-    metadata.fullPath,
-    metadata.timeCreated
-  );
-  currentTab.value = "library";
+  let reader = new FileReader()
+  reader.readAsDataURL(files[0])
+  reader.onload = (e) => {
+    useEditorStore.openCropperModal(files[0].name, e.target.result)
+  }
 };
+
+
 </script>
 
 <template>
-  <div class="pt-16">
+  <div class="pt-24">
     <div class="flex flex-col items-center overflow-hidden cursor-pointer">
       <div class="icon block">
         <svg
@@ -50,6 +49,6 @@ const readImage = async (e) => {
         title=""
       />
     </div>
-    <div class="text-center mt-5">Maximum file size: 3MB</div>
+    <div class="text-center mt-2">Maximum file size: 3MB</div>
   </div>
 </template>

@@ -25,12 +25,15 @@ onMounted(() => {
 });
 
 const showEditor = computed(() => {
-  if (Object.keys(useEditorStore.data).length == 0) {
+  if (
+    Object.keys(useEditorStore.data).length == 0 &&
+    Object.keys(useSystemStore.userFullData).length == 0
+  ) {
     return false;
-  }else {
-    return true
+  } else {
+    return true;
   }
-})
+});
 
 /*
 Check Screen Size
@@ -64,7 +67,6 @@ onMounted(() => {
   <transition name="galleryModal">
     <GalleryModal
       v-if="useEditorStore.galleryModal"
-      @close="useEditorStore.galleryModal = false"
     />
   </transition>
   <ImageModal v-if="useEditorStore.imageModal || false" />

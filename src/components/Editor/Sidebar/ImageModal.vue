@@ -1,52 +1,26 @@
 <script setup>
-import { ref, reactive, computed } from "vue";
-// https://agontuk.github.io/vue-cropperjs/
+// IMPORT VUE CROPPER UTILS
 import VueCropper from "vue-cropperjs";
 import "cropperjs/dist/cropper.css";
-import { inject } from "vue";
+
+import { ref, reactive, computed, onMounted } from "vue";
+
 import { editorStore } from "@/stores/editor";
+
 const useEditorStore = editorStore();
-const data = inject("data");
 
-const toggleImageModal = () => {
-  useEditorStore.imageModal = !useEditorStore.imageModal;
-  useEditorStore.previewImage = "";
-};
-const readImage = (event) => {
-  let input = event.target;
-  let image = input.files[0];
-  if (input.files) {
-    let reader = new FileReader();
-    reader.onload = (e) => {
-      useEditorStore.previewImage = e.target.result;
-    };
-    reader.readAsDataURL(input.files[0]);
-  }
-  useEditorStore.imageModal = true;
-};
+const imgSrc = "/images/Features/social.png";
 
-const cropper = ref(null);
-const aspenctRatio = ref(1 / 1);
-const croppedImg = ref("");
+const cropper = ref(null)
 const cropImage = () => {
-  croppedImg.value = cropper.value.getCroppedCanvas().toDataURL();
-  setImage()
-};
-const setImage = () => {
-  
-  if (croppedImg.value != "") {
-    data.image.img = croppedImg.value;
-  } else {
-    data.image.img = useEditorStore.previewImage;
-  }
-  useEditorStore.previewImage = ""
-  croppedImg.value = "";
-  useEditorStore.imageModal = false;
+  // croppedImg.value = cropper.value.getCroppedCanvas().toDataURL();
+  useEditorStore.setCroppedImage(cropper.value.getCroppedCanvas().toDataURL())
+  console.group('CROPPED')
 };
 </script>
 
 <template>
-  <div class="modal fixed max-w-[550px] w-full px-5 z-[80]">
+  <div class="modal fixed max-w-[520px] w-full px-5 z-[80]">
     <div
       class="bg-white m-auto pt-5 pb-5 px-6 rounded-3xl shadow-lg border relative"
     >
@@ -54,7 +28,7 @@ const setImage = () => {
         <h1 class="text-xl font-medium">Image Preview</h1>
         <div
           class="flex items-center cursor-pointer"
-          @click="toggleImageModal()"
+          @click="useEditorStore.closeCropperModal()"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -68,17 +42,15 @@ const setImage = () => {
           </svg>
         </div>
       </div>
-      <div class="image-preview">
-        <div class="img" v-if="useEditorStore.previewImage">
-          <vue-cropper
-            ref="cropper"
-            :src="useEditorStore.previewImage"
-            :aspectRatio="1 / 1"
-            :img-style="{ maxHeight: '520px' }"
-          >
-          </vue-cropper>
-        </div>
-        <div class="controls flex items-center justify-between pt-6 pb-2">
+      <div class="">
+        <vue-cropper
+          ref="cropper"
+          :aspect-ratio="1 / 1"
+          :src="useEditorStore.imageCropData.src"
+          preview=".preview"
+        />
+      </div>
+      <div class="controls flex items-center justify-between pt-6 pb-2">
           <div
             class="relative overflow-hidden py-1 px-3 bg-primary-color text-white text-lg rounded-3xl border-2 border-primary-color hover:text-primary-color hover:bg-white cursor-pointer transition-all ease-in-out duration-30"
           >
@@ -86,7 +58,7 @@ const setImage = () => {
             <input
               type="file"
               accept="image/*"
-              @change="readImage"
+              
               class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
             />
           </div>
@@ -99,7 +71,6 @@ const setImage = () => {
             </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </template>

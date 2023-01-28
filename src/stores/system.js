@@ -43,13 +43,15 @@ export const systemStore = defineStore("system", () => {
     disclaimer: ["basic", "pro"],
     social: ["free", "basic", "pro"],
     greenMessage: ["basic", "pro"],
-    videoMeeting: ["basic", "pro"],
+    videoMeeting: ["pro"],
     cta: ["free", "basic", "pro"],
   };
   const checkFeatureQualification = (feature) => {
-    return featuresQualification[feature].includes(
-      userFullData.value.subscriptionData.plan
-    );
+    if (userFullData.value.subscriptionData) {
+      return featuresQualification[feature].includes(
+        userFullData.value.subscriptionData.plan
+      );
+    }
   };
   // userFullData.subscriptionData.plan
 

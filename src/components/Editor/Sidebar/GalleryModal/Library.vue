@@ -11,8 +11,6 @@ import Overlay from "@/components/Overlay.vue";
 
 const useEditorStore = editorStore();
 
-const props = defineProps(["galleryImages"]);
-const emits = defineEmits(["close"]);
 
 const selectedImage = ref("");
 
@@ -24,7 +22,6 @@ const deleteImage = async (img) => {
   if (result) {
     useEditorStore.removeImageFromGallery(img);
   }
-  console.log(result);
   selectedImage.value = "";
 };
 
@@ -34,9 +31,11 @@ const closeDeleteModal = () => {
 
 const useImage = () => {
   useEditorStore.data.image.img = selectedImage.value.url;
-  emits("close");
+  useEditorStore.galleryModal = false;
   selectedImage.value = "";
 };
+
+
 </script>
 
 <template>
@@ -46,7 +45,7 @@ const useImage = () => {
         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 mb-[140px]"
       >
         <li
-          v-for="image in galleryImages"
+          v-for="image in useEditorStore.galleryImages"
           :key="image"
           class="p-2 max-h-[180px]"
         >
@@ -100,13 +99,8 @@ const useImage = () => {
           />
         </div>
         <h4 class="break-all">{{ selectedImage.name }}</h4>
-        <h4 class="break-all">October 3, 2022</h4>
         <h4 class="">
-          <span
-            class="text-blue-400 cursor-pointer mr-2"
-            @click="useEditorStore.previewImage = selectedImage.url"
-            >Edit Image</span
-          >
+          
           <span
             class="text-red-400 cursor-pointer"
             @click="deleteModalVisibility = true"

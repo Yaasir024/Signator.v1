@@ -24,24 +24,17 @@ onSnapshot(
   }
 );
 
-const emits = defineEmits(["close"]);
-
-const currentTab = ref("library");
-
-provide(/* key */ "currentTab", /* value */ currentTab);
 </script>
 
 <template>
   <div
-    class="fixed top-8 bottom-8 left-8 right-8 lg:left-16 lg:right-16 bg-canvas-color border rounded-md overflow-hidden shadow-xl z-[80]"
+    class="fixed top-8 bottom-8 left-2 right-2 sm:left-8 sm:right-8 lg:left-16 lg:right-16 bg-canvas-color border rounded-md overflow-hidden shadow-xl z-[80]"
   >
-    <Header @close="$emit('close')" />
-    <Upload v-if="currentTab == 'upload'" />
+    <Header />
+    <Upload v-if="useEditorStore.currentImageGalleryTab == 'upload'" />
     <Library
-      :galleryImages="galleryImages"
-      v-if="currentTab == 'library'"
-      @close="$emit('close')"
+      v-if="useEditorStore.currentImageGalleryTab == 'library'"
     />
   </div>
-  <ImageModal />
+  <!-- <ImageModal /> -->
 </template>

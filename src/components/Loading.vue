@@ -12,7 +12,7 @@
   height: 100%;
   background: #ffffff83;
   backdrop-filter: blur(2px);
-  z-index: 40;
+  z-index: 600;
 }
 .loader {
   padding: 30px;
@@ -24,7 +24,7 @@
   position: fixed;
   top: 45%;
   left: 45%;
-  z-index: 50;
+  z-index: 650;
 }
 
 @keyframes rotate {

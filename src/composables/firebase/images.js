@@ -23,23 +23,17 @@ export const saveFile = async (fullPath, file) => {
   }
 };
 
-export const uploadFile = async (file) => {
-  return await new Promise(function (resolve, reject) {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = async (e) => {
-      const result = reader.result;
-      const { snapshot, downloadUrl, metadata } = await saveFile(
-        useAuth.userId.uid + '/' + file.name,
-        result
-      );
-      if (snapshot) {
-        resolve({ snapshot, downloadUrl, metadata });
-      } else {
-        reject();
-      }
-    };
-  });
+export const uploadFileToStorage = async (file) => {
+  let fullPath = useAuth.userId.uid + "/" + file.name
+  const storageRef = ref(storage, fullPath);
+
+  const snapshot = await uploadString(storageRef, file.src, "data_url");
+  if (snapshot) {
+    const downloadUrl = await getDownloadURL(snapshot.ref);
+    const metadata = await getMetadata(storageRef);
+
+    return { snapshot, downloadUrl, metadata };
+  }
 };
 
 export const deleteFile = async (path) => {
