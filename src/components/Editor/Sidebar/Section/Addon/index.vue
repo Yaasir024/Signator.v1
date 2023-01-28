@@ -55,7 +55,7 @@ const checkAvailableAddons = () => {
 
 const checkFeatureQualification = (feature) => {
   return addonData.featuresQualification[feature].includes("free");
-  // useSystemStore.userFullData.plan ||
+  // useSystemStore.userFullData.subscriptionData.plan ||
 };
 
 const checkAddons = (addon) => {
@@ -146,7 +146,9 @@ const checkObj = (obj) => {
               </svg>
               <span class="ml-3">SignOff</span>
             </div>
-            <ProTag v-if="!useSystemStore.checkFeatureQualification('signoff')"/>
+            <ProTag
+              v-if="!useSystemStore.checkFeatureQualification('signoff')"
+            />
           </div>
         </div>
         <!-- Discalimer -->
@@ -170,7 +172,9 @@ const checkObj = (obj) => {
 
               <span class="ml-3">Disclaimer</span>
             </div>
-            <ProTag v-if="!useSystemStore.checkFeatureQualification('disclaimer')"/>
+            <ProTag
+              v-if="!useSystemStore.checkFeatureQualification('disclaimer')"
+            />
           </div>
         </div>
         <!-- Social -->
@@ -193,7 +197,9 @@ const checkObj = (obj) => {
               </svg>
               <span class="ml-3">Social</span>
             </div>
-            <ProTag v-if="!useSystemStore.checkFeatureQualification('social')"/>
+            <ProTag
+              v-if="!useSystemStore.checkFeatureQualification('social')"
+            />
           </div>
         </div>
         <!-- Green Message -->
@@ -216,7 +222,9 @@ const checkObj = (obj) => {
 
               <span class="ml-3">Green Message</span>
             </div>
-            <ProTag v-if="!useSystemStore.checkFeatureQualification('greenMessage')"/>
+            <ProTag
+              v-if="!useSystemStore.checkFeatureQualification('greenMessage')"
+            />
           </div>
         </div>
         <!-- Video Meeting -->
@@ -240,7 +248,9 @@ const checkObj = (obj) => {
 
               <span class="ml-3">Video Meeting</span>
             </div>
-            <ProTag v-if="!useSystemStore.checkFeatureQualification('videoMeeting')"/>
+            <ProTag
+              v-if="!useSystemStore.checkFeatureQualification('videoMeeting')"
+            />
           </div>
         </div>
         <!-- CTA -->
@@ -262,7 +272,7 @@ const checkObj = (obj) => {
               </svg>
               <span class="ml-3">Call To Action</span>
             </div>
-            <ProTag v-if="!useSystemStore.checkFeatureQualification('cta')"/>
+            <ProTag v-if="!useSystemStore.checkFeatureQualification('cta')" />
           </div>
         </div>
       </div>

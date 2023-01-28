@@ -47,9 +47,11 @@ export const systemStore = defineStore("system", () => {
     cta: ["free", "basic", "pro"],
   };
   const checkFeatureQualification = (feature) => {
-    return featuresQualification[feature].includes(userFullData.value.plan);
+    return featuresQualification[feature].includes(
+      userFullData.value.subscriptionData.plan
+    );
   };
-  // userFullData.plan
+  // userFullData.subscriptionData.plan
 
   const loadingState = ref(false);
 

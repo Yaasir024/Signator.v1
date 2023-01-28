@@ -31,7 +31,7 @@ import {
             Pricing
           </RouterLink>
           <RouterLink
-            to="/template"
+            to="/templates"
             class="py-1 text-base text-white hover:text-primary-color transition-all duration-300 ease-in-out"
           >
             Templates

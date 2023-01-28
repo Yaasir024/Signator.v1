@@ -69,35 +69,33 @@ export const paymentStore = defineStore("payment", () => {
     }
 
     paymentConfirmationModal.value = true;
-    // console.log(useSystem.userFullData.email, customerDetail.value);
   };
 
   const makePayment = () => {
-    console.log(customerDetail.value);
-    // FlutterwaveCheckout({
-    //   public_key: "FLWPUBK_TEST-6e6a14da582db5bfdacc41f248b5751c-X",
-    //   tx_ref: customerDetail.value.transactionId,
-    //   amount: customerDetail.value.price,
-    //   currency: "USD",
-    //   payment_options: "card, ussd",
-    //   // redirect_url: "/",
-    //   callback: function (payment) {
-    //     paymentSuccess(customerDetail.value);
-    //   },
-    //   meta: {
-    //     consumer_uid: useSystem.userFullData.uid,
-    //   },
-    //   customer: {
-    //     email: customerDetail.value.meta.email,
-    //     phone_number: customerDetail.value.meta.phoneNumber,
-    //     name: customerDetail.value.meta.name,
-    //   },
-    //   customizations: {
-    //     title: "Signator",
-    //     description: "Email Signature & Business Card generator",
-    //     logo: "https://firebasestorage.googleapis.com/v0/b/signator-f31e7.appspot.com/o/System%2FSignator%20Logo.png?alt=media&token=416d4423-577a-4f11-8811-83eebcb034c8",
-    //   },
-    // });
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK_TEST-6e6a14da582db5bfdacc41f248b5751c-X",
+      tx_ref: customerDetail.value.transactionId,
+      amount: customerDetail.value.price,
+      currency: "USD",
+      payment_options: "card, ussd",
+      // redirect_url: "/",
+      callback: function (payment) {
+        paymentSuccess(customerDetail.value);
+      },
+      meta: {
+        consumer_uid: useSystem.userFullData.uid,
+      },
+      customer: {
+        email: customerDetail.value.meta.email,
+        phone_number: customerDetail.value.meta.phoneNumber,
+        name: customerDetail.value.meta.name,
+      },
+      customizations: {
+        title: "Signator",
+        description: "Email Signature & Business Card generator",
+        logo: "https://firebasestorage.googleapis.com/v0/b/signator-f31e7.appspot.com/o/System%2FSignator%20Logo.png?alt=media&token=416d4423-577a-4f11-8811-83eebcb034c8",
+      },
+    });
   };
 
   const paymentSuccess = async (data) => {
@@ -112,8 +110,16 @@ export const paymentStore = defineStore("payment", () => {
       await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
         plan: data.plan,
         signaturePackage: data.signatureNo,
+        subscriptionData: {
+          price: data.price,
+          plan: data.plan,
+          billingCycle: data.billingCycle,
+          transactionDate: data.transactionDate,
+          subscriptionEndDate: data.subscriptionEndDate,
+        },
       }).then(() => {
         router.push({ path: "/dashboard" });
+        router.go()
       });
     });
     console.log(customerDetail.value);

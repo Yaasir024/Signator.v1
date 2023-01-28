@@ -68,7 +68,7 @@ const showAuthModal = ref(false);
 const choosePlan = (plan) => {
   console.log(plan);
 };
-const dater = ref('')
+const dater = ref("");
 </script>
 
 <template>
@@ -88,7 +88,7 @@ const dater = ref('')
         <div class="max-w-[720px] mx-auto px-3">
           <div class="flex justify-center items-center pt-10 text-xl">
             <div
-              class="text-center px-4 py-5 border-b-0 cursor-pointer transition-all ease-in duration-200"
+              class="text-center px-4 py-3 border-b-0 cursor-pointer transition-all ease-in duration-200 rounded-tl-lg"
               :class="
                 currentPricingTab == 'individuals'
                   ? 'bg-white text-primary-color border-2 border-primary-color'
@@ -99,7 +99,7 @@ const dater = ref('')
               For Individuals
             </div>
             <div
-              class="text-center px-4 py-5 border-b-0 cursor-pointer transition-all ease-in duration-200"
+              class="text-center px-4 py-3 border-b-0 cursor-pointer transition-all ease-in duration-200 rounded-tr-lg"
               :class="
                 currentPricingTab == 'organization'
                   ? 'bg-white text-primary-color border-2 border-primary-color'
@@ -219,7 +219,8 @@ const dater = ref('')
             <div
               class=""
               v-if="
-                useAuth.userState && (useSystemStore.userFullData.plan == 'free')
+                useAuth.userState &&
+                useSystemStore.userFullData.subscriptionData.plan == 'free'
               "
             >
               <button
@@ -303,7 +304,10 @@ const dater = ref('')
                   billingTerm
                 )
               "
-              v-if="useAuth.userState && (useSystemStore.userFullData.plan != 'pro')"
+              v-if="
+                useAuth.userState &&
+                useSystemStore.userFullData.subscriptionData.plan != 'pro'
+              "
             >
               Choose Plan
             </button>
