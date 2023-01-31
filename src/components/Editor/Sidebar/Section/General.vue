@@ -232,7 +232,6 @@ const clearImage = () => {
             </div>
             <!-- Add Button -->
             <div class="flex justify-end mt-6" v-if="useSystemStore.checkFeatureQualification('customFields')">
-              {{useSystemStore.checkFeatureQualification('customFields')}}
               <div
                 class="flex items-center text-primary-color cursor-pointer"
                 @click="addNewContactItem()"

@@ -39,10 +39,10 @@ const useEditorStore = editorStore();
     </div>
     <div class="flex items-center">
       <button
-        class="py-2 px-4 bg-primary-color text-white text-base font-medium rounded-lg"
+        class=" py-1.5 px-4 bg-primary-color text-white text-base font-medium rounded-lg"
         @click="useEditorStore.addSignature()"
       >
-        Save Signature
+        Save 
       </button>
     </div>
   </div>

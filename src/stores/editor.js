@@ -158,7 +158,6 @@ export const editorStore = defineStore("editor", () => {
   };
   //  ***CLOSE CROPPER MODAL*** //
   const closeCropperModal = () => {
-    console.log("cllose", imageModal.value);
     imageModal.value = false;
     imageCropData.value.name = "";
     imageCropData.value.src = "";

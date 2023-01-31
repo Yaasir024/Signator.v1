@@ -13,9 +13,7 @@ const imgSrc = "/images/Features/social.png";
 
 const cropper = ref(null)
 const cropImage = () => {
-  // croppedImg.value = cropper.value.getCroppedCanvas().toDataURL();
   useEditorStore.setCroppedImage(cropper.value.getCroppedCanvas().toDataURL())
-  console.group('CROPPED')
 };
 </script>
 
@@ -47,7 +45,6 @@ const cropImage = () => {
           ref="cropper"
           :aspect-ratio="1 / 1"
           :src="useEditorStore.imageCropData.src"
-          preview=".preview"
         />
       </div>
       <div class="controls flex items-center justify-between pt-6 pb-2">
