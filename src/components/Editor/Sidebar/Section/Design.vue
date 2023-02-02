@@ -1,9 +1,14 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import { inject } from "vue";
+
+import { systemStore } from "@/stores/system";
+
 import { useClickOutside } from "@/composables/useClickOutside";
 import Heading from "@/components/Editor/Heading.vue";
 const data = inject("data");
+
+const useSystemStore = systemStore();
 
 // Font Menu
 const fontMenu = ref(false);
@@ -180,7 +185,10 @@ useClickOutside(fontMenuBar, () => {
       </div>
     </div>
     <!-- Details -->
-    <div class="social-icon mt-8 pb-4 border-b">
+    <div
+      class="social-icon mt-8 pb-4 border-b"
+      v-if="useSystemStore.userFullData.plan == 'pro'"
+    >
       <div class="mb-2">
         <Heading :title="'Details'" />
       </div>
@@ -191,10 +199,10 @@ useClickOutside(fontMenuBar, () => {
         <div class="relative w-[55%]">
           <ul class="flex items-center">
             <li
-              class="flex items-center justify-center flex-1 border transition-all ease-in-out duration-300 p-2 rounded-l-xl"
+              class="h-[40px] flex items-center justify-center flex-1 border transition-all ease-in-out duration-300 p-2 rounded-l-xl cursor-pointer"
               :class="
                 data.design.details.label == 'full'
-                  ? 'bg-primary-color text-white'
+                  ? 'bg-primary-color text-white border-r-0'
                   : 'text-primary-color'
               "
               @click="data.design.details.label = 'full'"
@@ -202,10 +210,10 @@ useClickOutside(fontMenuBar, () => {
               Phone
             </li>
             <li
-              class="flex items-center justify-center flex-1 border transition-all ease-in-out duration-300 p-2"
+              class="h-[40px] flex items-center justify-center flex-1 border border-l-0 transition-all ease-in-out duration-300 p-2 cursor-pointer"
               :class="
                 data.design.details.label == 'initial'
-                  ? 'bg-primary-color text-white'
+                  ? 'bg-primary-color text-white border-r-0'
                   : 'text-primary-color'
               "
               @click="data.design.details.label = 'initial'"
@@ -213,29 +221,28 @@ useClickOutside(fontMenuBar, () => {
               P
             </li>
             <li
-              class="flex items-center justify-center flex-1 border transition-all ease-in-out duration-300 p-2"
+              class="h-[40px] flex items-center justify-center flex-1 border border-l-0 transition-all ease-in-out duration-300 p-2 cursor-pointer"
               :class="
                 data.design.details.label == 'icon'
-                  ? 'bg-primary-color text-white'
+                  ? 'bg-primary-color text-white border-r-0'
                   : 'text-primary-color'
               "
               @click="data.design.details.label = 'icon'"
             >
-              <svg
-                width="24"
-                height="24"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              >
-                <path
-                  d="M8.26 1.289l-1.564.772c-5.793 3.02 2.798 20.944 9.31 20.944.46 0 .904-.094 1.317-.284l1.542-.755-2.898-5.594-1.54.754c-.181.087-.384.134-.597.134-2.561 0-6.841-8.204-4.241-9.596l1.546-.763-2.875-5.612zm7.746 22.711c-5.68 0-12.221-11.114-12.221-17.832 0-2.419.833-4.146 2.457-4.992l2.382-1.176 3.857 7.347-2.437 1.201c-1.439.772 2.409 8.424 3.956 7.68l2.399-1.179 3.816 7.36s-2.36 1.162-2.476 1.215c-.547.251-1.129.376-1.733.376"
-                />
-              </svg>
+            <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          fill="currentColor"
+          viewBox="0 0 512 512"
+        >
+          <path
+            d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"
+          />
+        </svg>
             </li>
             <li
-              class="flex items-center justify-center flex-1 border transition-all ease-in-out duration-300 p-2 rounded-r-xl"
+              class="h-[40px] flex items-center justify-center flex-1 border border-l-0 transition-all ease-in-out duration-300 p-2 rounded-r-xl cursor-pointer"
               :class="
                 data.design.details.label == 'none'
                   ? 'bg-primary-color text-white'
@@ -270,7 +277,7 @@ useClickOutside(fontMenuBar, () => {
         />
       </div>
       <!-- Icon Shape -->
-      <div class="mb-5">
+      <div class="mb-5" v-if="useSystemStore.userFullData.plan == 'basic' || 'pro'">
         <div class="flex items-center justify-between">
           <span>Icon Shape</span>
           <span>{{ data.design.socialIcon.roundness }}%</span>
@@ -280,7 +287,7 @@ useClickOutside(fontMenuBar, () => {
           class=""
           min="0"
           max="50"
-          step="25"
+          step="2"
           v-model="data.design.socialIcon.roundness"
         />
       </div>
