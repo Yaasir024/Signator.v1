@@ -241,32 +241,28 @@ const router = createRouter({
         requiresAuth: true,
       },
     },
-    {
-      path: "/profile/payment-method",
-      name: "payment-method",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/Settings/PaymentMethod.vue"),
-      meta: {
-        requiresAuth: true,
-      },
-    },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0, behavior: 'smooth', };
+  },
 });
 
 router.beforeEach((to, from, next) => {
   const useAuth = authStore();
   if (to.path === "/login" && useAuth.userState) {
-    next("/");
+    next("/dashboard");
     return;
   }
   if (to.path === "/signup" && useAuth.userState) {
-    next("/");
+    next("/dashboard");
     return;
   }
 
-  if (to.matched.some((record) => record.meta.requiresAuth) && !useAuth.userState) {
+  if (
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    !useAuth.userState
+  ) {
     next("/login");
     return;
   }
