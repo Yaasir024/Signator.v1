@@ -222,7 +222,6 @@ const billingTerm = ref("monthly");
               <li class="feature relative pl-5">
                 Up to 25 Images in Image Library
               </li>
-              <li class="feature relative pl-5">Banner Feature</li>
               <li class="feature relative pl-5">
                 All Designs and Stying options
               </li>
