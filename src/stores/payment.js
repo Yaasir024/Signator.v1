@@ -32,6 +32,9 @@ export const paymentStore = defineStore("payment", () => {
   const useSystem = systemStore();
   const paymentConfirmationModal = ref(false);
 
+  const authModalVisibility = ref(false)
+
+
   const customerDetail = ref({
     plan: "",
     price: 0,
@@ -125,6 +128,7 @@ export const paymentStore = defineStore("payment", () => {
     console.log(customerDetail.value);
   };
   return {
+    authModalVisibility,
     customerDetail,
     paymentConfirmationModal,
     openPaymentModal,
