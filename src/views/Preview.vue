@@ -2,6 +2,10 @@
 import { ref, reactive, onBeforeMount, provide } from "vue";
 import { useRoute } from "vue-router";
 
+
+import axios from 'axios';
+
+
 import { firestoreDb } from "@/services/firebase";
 import { editorStore } from "@/stores/editor";
 
@@ -21,16 +25,7 @@ onBeforeMount(() => {
   useEditorStore.getSignaturePreview(path);
 });
 
-const copy = async () => {
-  console.log("copy");
-  const content = document.getElementById("exampleContent").innerHTML;
-  // const blob = new Blob([content], { type: "text/html" });
-  // const richTextInput = new ClipboardItem({ "text/html": blob });
-  // await navigator.clipboard.write([richTextInput]);
-  // console.log('done')
-  navigator.clipboard.writeText(content);
-};
-// id="exampleContent"
+
 </script>
 
 <template>

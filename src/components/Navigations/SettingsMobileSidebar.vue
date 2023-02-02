@@ -28,12 +28,6 @@ const path = route.name;
       >
         <RouterLink to="/profile/billing-history"> Billing History </RouterLink>
       </li>
-      <li
-        class="flex-1 h-[50px] cursor-pointer flex items-center justify-center transition-all duration-300 ease-in-out hover:text-primary-color"
-        v-if="path != 'payment-method'"
-      >
-        <RouterLink to="/profile/payment-method"> Payment Method </RouterLink>
-      </li>
     </ul>
   </div>
 </template>

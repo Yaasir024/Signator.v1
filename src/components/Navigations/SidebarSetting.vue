@@ -47,16 +47,9 @@ const useSystemStore = systemStore();
 
             <RouterLink to="/profile/billing-history">
               <li
-                class="py-2 cursor-pointer transition-all duration-300 ease-in-out hover:text-primary-color"
-              >
-                Billing History
-              </li>
-            </RouterLink>
-            <RouterLink to="/profile/payment-method">
-              <li
                 class="py-2 cursor-pointer transition-all duration-300 ease-in-out hover:text-primary-color border-b"
               >
-                Payment Method
+                Billing History
               </li>
             </RouterLink>
             <li

@@ -6,7 +6,7 @@ import {
 
 <template>
   <footer class="bg-[#252525] px-12 py-16">
-    <div class="flex flex-col sm:flex-row justify-between max-w-[1240px] mx-auto">
+    <div class="flex flex-col sm:flex-row justify-between max-w-[1040px] mx-auto">
       <!--  block xs:hidden sm:block -->
       <div class="mr-6 mb-4 xs:mb-0 ">
         <RouterLink to="/">
