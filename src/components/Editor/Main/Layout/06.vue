@@ -22,7 +22,7 @@ const isObjEmpty = (obj) => {
       'font-family': data.design.layout.fontFamily,
     }"
   >
-    <tr v-if="data.signoff">
+    <tr v-if="isObjEmpty(data.signoff)">
       <td
         style="padding-bottom: 6px"
         :style="{
