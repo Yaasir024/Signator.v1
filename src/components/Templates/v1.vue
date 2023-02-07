@@ -10,6 +10,9 @@ import signatureTemplates from "@/data/templates.json";
 import emptySignatureTemplate from "@/data/emptyTemplate.json";
 import { uid } from "@/composables/useGenerateUid";
 
+
+import ProIcon from "@/components/ProTag/Icon.vue";
+
 const useSystemStore = systemStore();
 const useEditorStore = editorStore();
 const useDashboard = dashboardStore();
@@ -42,7 +45,6 @@ const createEditorSession = (data) => {
 };
 
 const showUpgradeError = () => {
-  console.log("DOND");
   useSystemStore.addNotificationData({
     message: "Upgrade to create more signatures.",
     type: "error",
@@ -116,22 +118,7 @@ const checkTempateEligibiity = (d) => {
                     alt=""
                     class=""
                   />
-                  <div
-                    class="absolute top-1 right-1 p-0.5 bg-transparent text-primary-color"
-                    v-if="!checkTempateEligibiity(template.type)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 576 512"
-                      height="20"
-                      width="20"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M309 106c11.4-7 19-19.7 19-34c0-22.1-17.9-40-40-40s-40 17.9-40 40c0 14.4 7.6 27 19 34L209.7 220.6c-9.1 18.2-32.7 23.4-48.6 10.7L72 160c5-6.7 8-15 8-24c0-22.1-17.9-40-40-40S0 113.9 0 136s17.9 40 40 40c.2 0 .5 0 .7 0L86.4 427.4c5.5 30.4 32 52.6 63 52.6H426.6c30.9 0 57.4-22.1 63-52.6L535.3 176c.2 0 .5 0 .7 0c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40c0 9 3 17.3 8 24l-89.1 71.3c-15.9 12.7-39.5 7.5-48.6-10.7L309 106z"
-                      />
-                    </svg>
-                  </div>
+                  <ProIcon v-if="!checkTempateEligibiity(template.type)"/>
 
                   <div
                     class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
@@ -168,22 +155,7 @@ const checkTempateEligibiity = (d) => {
                     alt=""
                     class=""
                   />
-                  <div
-                    class="absolute top-1 right-1 p-0.5 bg-transparent text-primary-color"
-                    v-if="!checkTempateEligibiity(template.type)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 576 512"
-                      height="20"
-                      width="20"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M309 106c11.4-7 19-19.7 19-34c0-22.1-17.9-40-40-40s-40 17.9-40 40c0 14.4 7.6 27 19 34L209.7 220.6c-9.1 18.2-32.7 23.4-48.6 10.7L72 160c5-6.7 8-15 8-24c0-22.1-17.9-40-40-40S0 113.9 0 136s17.9 40 40 40c.2 0 .5 0 .7 0L86.4 427.4c5.5 30.4 32 52.6 63 52.6H426.6c30.9 0 57.4-22.1 63-52.6L535.3 176c.2 0 .5 0 .7 0c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40c0 9 3 17.3 8 24l-89.1 71.3c-15.9 12.7-39.5 7.5-48.6-10.7L309 106z"
-                      />
-                    </svg>
-                  </div>
+                  <ProIcon v-if="!checkTempateEligibiity(template.type)"/>
                   <div
                     class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
                   >

@@ -2,12 +2,17 @@
 import { ref, reactive, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
+import { authStore } from "@/stores/auth";
 import { systemStore } from "@/stores/system";
 
 import { uid } from "@/composables/useGenerateUid";
 import { checkViewWidth } from "@/composables/useCheckViewWidth";
 
+
+import ProIcon from "@/components/ProTag/Icon.vue";
+
 const router = useRouter();
+const useAuth = authStore();
 const useSystemStore = systemStore();
 
 const props = defineProps(["data"]);
@@ -53,6 +58,19 @@ const createEditorSession = (data) => {
     });
   }
 };
+// I
+const showUpgradeError = () => {
+  useSystemStore.addNotificationData({
+    message: "Upgrade to create more signatures.",
+    type: "error",
+  });
+};
+// Check if user can use template
+const checkTempateEligibiity = (d) => {
+  if (useAuth.userState && Object.keys(useSystemStore.userFullData).length != 0) {
+    return d.includes(useSystemStore.userFullData.subscriptionData.plan);
+  }
+};
 </script>
 
 <template>
@@ -67,19 +85,22 @@ const createEditorSession = (data) => {
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
           <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
+          <ProIcon v-if="!checkTempateEligibiity(template.type)"/>
+
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
             <button
-              class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-              v-if="template.type == user || user == 'pro'"
+              class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
+              v-if="checkTempateEligibiity(template.type)"
               @click="createEditorSession(template.data)"
             >
               Customize This Template
             </button>
             <button
-              class="bg-primary-color text-white py-2 px-3 rounded-2xl"
+              class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
               v-else
+              @click="showUpgradeError()"
             >
               Upgrade To Pro to Unlock
             </button>
@@ -97,19 +118,22 @@ const createEditorSession = (data) => {
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
           <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
+          <ProIcon v-if="!checkTempateEligibiity(template.type)"/>
+
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
             <button
-              class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-              v-if="template.type == user || user == 'pro'"
+              class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
+              v-if="checkTempateEligibiity(template.type)"
               @click="createEditorSession(template.data)"
             >
               Customize This Template
             </button>
             <button
-              class="bg-primary-color text-white py-2 px-3 rounded-2xl"
+              class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
               v-else
+              @click="showUpgradeError()"
             >
               Upgrade To Pro to Unlock
             </button>
@@ -127,19 +151,22 @@ const createEditorSession = (data) => {
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
           <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
+          <ProIcon v-if="!checkTempateEligibiity(template.type)"/>
+
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
             <button
-              class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-              v-if="template.type == user || user == 'pro'"
+              class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
+              v-if="checkTempateEligibiity(template.type)"
               @click="createEditorSession(template.data)"
             >
               Customize This Template
             </button>
             <button
-              class="bg-primary-color text-white py-2 px-3 rounded-2xl"
+              class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
               v-else
+              @click="showUpgradeError()"
             >
               Upgrade To Pro to Unlock
             </button>
@@ -148,6 +175,7 @@ const createEditorSession = (data) => {
       </div>
     </div>
   </div>
+  <!-- MOBILE -->
   <div
     class="max-w-[460px] sm:max-w-[860px] mx-auto flex w-full flex-wrap"
     v-if="mobile"
@@ -162,19 +190,22 @@ const createEditorSession = (data) => {
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
           <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
+          <ProIcon v-if="!checkTempateEligibiity(template.type)"/>
+
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
             <button
-              class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-              v-if="template.type == user || user == 'pro'"
+              class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
+              v-if="checkTempateEligibiity(template.type)"
               @click="createEditorSession(template.data)"
             >
               Customize This Template
             </button>
             <button
-              class="bg-primary-color text-white py-2 px-3 rounded-2xl"
+              class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
               v-else
+              @click="showUpgradeError()"
             >
               Upgrade To Pro to Unlock
             </button>
@@ -192,19 +223,22 @@ const createEditorSession = (data) => {
           class="card p-5 bg-white shadow-lg rounded-xl relative cursor-pointer"
         >
           <img :src="'/images/templates/' + template.imgSrc" alt="" class="" />
+          <ProIcon v-if="!checkTempateEligibiity(template.type)"/>
+
           <div
             class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
           >
             <button
-              class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-              v-if="template.type == user || user == 'pro'"
+              class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
+              v-if="checkTempateEligibiity(template.type)"
               @click="createEditorSession(template.data)"
             >
               Customize This Template
             </button>
             <button
-              class="bg-primary-color text-white py-2 px-3 rounded-2xl"
+              class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
               v-else
+              @click="showUpgradeError()"
             >
               Upgrade To Pro to Unlock
             </button>
@@ -214,3 +248,24 @@ const createEditorSession = (data) => {
     </div>
   </div>
 </template>
+
+
+<style scoped>
+.card:hover .overlay {
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+.filter-link.active {
+  color: #000000;
+  font-weight: 500;
+}
+.filter-link.active:before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  background: #ffffffb3;
+  left: 0;
+  bottom: 0;
+}
+</style>
