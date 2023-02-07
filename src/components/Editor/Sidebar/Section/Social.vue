@@ -4,12 +4,12 @@ import { inject } from "vue";
 import Heading from "@/components/Editor/Heading.vue";
 import SocialIcon from "@/components/SocialIcon.vue";
 import { uid } from "@/composables/useGenerateUid";
-import socialData from "@/data/social";
+import socialIcons from "@/data/social/icons.json";
 
 const data = inject("data");
 
 const getUrl = (social) => {
-  let result = socialData.socialIcons.find((item) => item.name === social);
+  let result = socialIcons.find((item) => item.name === social);
   return result.url;
 };
 const socialSearchQuery = ref("");
@@ -17,9 +17,9 @@ const socialSearchQuery = ref("");
 const filteredSocialData = computed(() => {
   const query = ref(socialSearchQuery.value.toLowerCase());
   if (socialSearchQuery.value === "") {
-    return socialData.socialIcons;
+    return socialIcons;
   }
-  return socialData.socialIcons.filter((item) => {
+  return socialIcons.filter((item) => {
     return Object.values(item).some((word) =>
       String(word).toLowerCase().includes(query.value)
     );

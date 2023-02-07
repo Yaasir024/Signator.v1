@@ -187,7 +187,7 @@ useClickOutside(fontMenuBar, () => {
     <!-- Details -->
     <div
       class="social-icon mt-8 pb-4 border-b"
-      v-if="useSystemStore.userFullData.plan == 'pro'"
+      v-if="useSystemStore.userFullData.subscriptionData.plan == 'pro'"
     >
       <div class="mb-2">
         <Heading :title="'Details'" />
@@ -229,17 +229,17 @@ useClickOutside(fontMenuBar, () => {
               "
               @click="data.design.details.label = 'icon'"
             >
-            <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="14"
-          fill="currentColor"
-          viewBox="0 0 512 512"
-        >
-          <path
-            d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"
-          />
-        </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                fill="currentColor"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"
+                />
+              </svg>
             </li>
             <li
               class="h-[40px] flex items-center justify-center flex-1 border border-l-0 transition-all ease-in-out duration-300 p-2 rounded-r-xl cursor-pointer"
@@ -277,7 +277,12 @@ useClickOutside(fontMenuBar, () => {
         />
       </div>
       <!-- Icon Shape -->
-      <div class="mb-5" v-if="useSystemStore.userFullData.plan == 'basic' || 'pro'">
+      <div
+        class="mb-5"
+        v-if="
+          useSystemStore.userFullData.subscriptionData.plan == ('basic' || 'pro')
+        "
+      >
         <div class="flex items-center justify-between">
           <span>Icon Shape</span>
           <span>{{ data.design.socialIcon.roundness }}%</span>

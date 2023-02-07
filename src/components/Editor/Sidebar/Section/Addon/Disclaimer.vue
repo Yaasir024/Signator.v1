@@ -3,6 +3,7 @@ import { ref, reactive, computed } from "vue";
 import { inject } from "vue";
 import { useClickOutside } from "@/composables/useClickOutside";
 import addonData from "@/data/addons";
+
 const data = inject("data");
 
 const props = defineProps(["addonType"]);
