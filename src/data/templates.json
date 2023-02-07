@@ -9,8 +9,7 @@
       "uid": "",
       "title": "Suizie's Signature",
       "image": {
-        "img": "",
-        "imgSrc": "https://res.cloudinary.com/dwajobdyb/image/upload/v1665509011/signatorClientImages/j4co9e536ev6xkhniai6.jpg"
+        "img": "https://firebasestorage.googleapis.com/v0/b/signator-f31e7.appspot.com/o/System%2Ftemplates%2Fsuizie_west.jpg?alt=media&token=39fff588-997f-42b8-b822-ed957e71d9d4"
       },
       "name": "Suizie West",
       "position": "Developer",
@@ -118,8 +117,7 @@
       "uid": "",
       "title": "Signature by Jon Dnow",
       "image": {
-        "img": "",
-        "imgSrc": "https://res.cloudinary.com/dwajobdyb/image/upload/v1665519807/signatorClientImages/john_t4miy2.jpg"
+        "img": "https://firebasestorage.googleapis.com/v0/b/signator-f31e7.appspot.com/o/System%2Ftemplates%2Fjon_dnow.jpg?alt=media&token=def21eaf-b9a2-481f-9a91-cb22eaebdd21"
       },
       "name": "Jon Dnow",
       "position": "Documentarian",
@@ -222,8 +220,7 @@
       "uid": "",
       "title": "Aria Meaton",
       "image": {
-        "img": "",
-        "imgSrc": "https://res.cloudinary.com/dwajobdyb/image/upload/v1665519704/signatorClientImages/aria_ghi0yw.jpg"
+        "img": "https://firebasestorage.googleapis.com/v0/b/signator-f31e7.appspot.com/o/System%2Ftemplates%2Faria_meaton.jpg?alt=media&token=7be015cd-1375-4f15-9c58-447eb1158bcd"
       },
       "name": "Aria Meaton",
       "position": "Blogger",
@@ -303,8 +300,7 @@
       "uid": "",
       "title": "Signature by Carl Snow",
       "image": {
-        "img": "",
-        "imgSrc": "https://res.cloudinary.com/dwajobdyb/image/upload/v1665519801/signatorClientImages/carl_w3ldvm.jpg"
+        "img": "https://firebasestorage.googleapis.com/v0/b/signator-f31e7.appspot.com/o/System%2Ftemplates%2Fcarl_snow.jpg?alt=media&token=91a13e34-b493-4898-8d62-c06c4306e381"
       },
       "name": "Carl Snow",
       "position": "Content Writer",
@@ -365,8 +361,7 @@
       "uid": "7e88br13a7z1c2cf",
       "title": "Coltron Daves",
       "image": {
-        "img": "",
-        "imgSrc": "https://res.cloudinary.com/dwajobdyb/image/upload/v1667419226/templateImages/coltron-daves_sy3rkp.jpg"
+        "img": "https://firebasestorage.googleapis.com/v0/b/signator-f31e7.appspot.com/o/System%2Ftemplates%2Fcoltron_daves.jpg?alt=media&token=29553751-a35f-4c84-86ff-4076aa62792e"
       },
       "name": "Coltron Daves",
       "position": "",
@@ -425,8 +420,7 @@
       "uid": "60dn14e42nf7fz5r",
       "title": "Jen Smith Signature",
       "image": {
-        "img": "",
-        "imgSrc": "https://res.cloudinary.com/dwajobdyb/image/upload/v1667421036/templateImages/jen_smith_n1v2vg.jpg"
+        "img": "https://firebasestorage.googleapis.com/v0/b/signator-f31e7.appspot.com/o/System%2Ftemplates%2Fjen_smith.jpg?alt=media&token=2cb3a294-5baf-4ec4-8e75-4e25cfb24c38"
       },
       "name": "Jen Smith",
       "position": "",
