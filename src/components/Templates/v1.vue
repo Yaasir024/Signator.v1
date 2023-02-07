@@ -45,7 +45,6 @@ const checkTempateEligibiity = (d) => {
   return d.includes(useSystemStore.userFullData.subscriptionData.plan)
 }
 
-const user = ref("pro");
 </script>
 
 <template>
