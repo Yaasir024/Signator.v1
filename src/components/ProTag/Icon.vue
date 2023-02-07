@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute top-1.5 right-1.5 p-1 bg-transparent rounded-full border-2 border-primary-color text-primary-color"
+    class="absolute top-1.5 right-1.5 p-1 bg-transparent rounded-full border-2 border-primary-color text-primary-color z-20"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
