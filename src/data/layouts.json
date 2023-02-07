@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Layout01",
+    "img": "01.png",
+    "type": ["pro"]
+  },
+  {
+    "id": 2,
+    "name": "Layout02",
+    "img": "02.png",
+    "type": ["free", "basic", "pro"]
+  },
+  {
+    "id": 3,
+    "name": "Layout03",
+    "img": "03.png",
+    "type": ["free", "basic", "pro"]
+  },
+  {
+    "id": 4,
+    "name": "Layout04",
+    "img": "04.png",
+    "type": ["basic", "pro"]
+  },
+  {
+    "id": 5,
+    "name": "Layout05",
+    "img": "05.png",
+    "type": ["basic", "pro"]
+  },
+  {
+    "id": 6,
+    "name": "Layout06",
+    "img": "06.png",
+    "type": ["pro"]
+  }
+]

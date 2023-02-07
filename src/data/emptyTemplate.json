@@ -1,0 +1,35 @@
+{
+  "uid": "",
+  "title": "New Signature",
+  "image": {
+    "img": ""
+  },
+  "name": "",
+  "position": "",
+  "department": "",
+  "company": "",
+  "contactInfo": {
+    "basicInfo": {
+      "phone": "",
+      "website": "",
+      "email": "",
+      "address": ""
+    },
+    "customInfo": []
+  },
+  "socialInfo": [],
+  "addons": [],
+  "signoff": {},
+  "design": {
+    "layout": {
+      "fontFamily": "Verdana",
+      "fontSize": "14",
+      "textColor": "#000000",
+      "templateColor": "#808080",
+      "layout": "Layout01"
+    },
+    "image": { "width": 70, "roundness": 0 },
+    "details": { "label": "" },
+    "socialIcon": { "size": 0, "roundness": 0 }
+  }
+}
