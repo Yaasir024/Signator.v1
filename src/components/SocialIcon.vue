@@ -1,9 +1,10 @@
 <script setup>
-import socialData from "@/data/social";
+import socialIcons from "@/data/social/icons.json";
+
 const props = defineProps(["icon"]);
 
 const getColor = (social) => {
-  let result = socialData.socialIcons.find((item) => item.name === social);
+  let result = socialIcons.find((item) => item.name === social);
   return result.color;
 };
 </script>

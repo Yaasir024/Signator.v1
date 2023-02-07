@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 
 import { authStore } from "@/stores/auth";
 import { systemStore } from "@/stores/system";
+import { editorStore } from "@/stores/editor";
 
 import { uid } from "@/composables/useGenerateUid";
 import { checkViewWidth } from "@/composables/useCheckViewWidth";
@@ -14,6 +15,7 @@ import ProIcon from "@/components/ProTag/Icon.vue";
 const router = useRouter();
 const useAuth = authStore();
 const useSystemStore = systemStore();
+const useEditorStore = editorStore();
 
 const props = defineProps(["data"]);
 
@@ -50,7 +52,9 @@ const createEditorSession = (data) => {
   if (useSystemStore.isEligibleToCreate()) {
     data.uid = uid(16);
     useEditorStore.data = data;
+    useEditorStore.showTemplatesSection = false;
     router.push({ path: "/editor" });
+    router.go(0);
   } else {
     useSystemStore.addNotificationData({
       message: "Upgrade to create more signatures.",
