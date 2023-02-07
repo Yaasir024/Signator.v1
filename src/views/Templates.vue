@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 
 import { systemStore } from "@/stores/system";
 
-import data from "@/data/templates";
+import signatureTemplates from "@/data/templates.json";
 
 import { uid } from "@/composables/useGenerateUid";
 
@@ -24,35 +24,20 @@ const filter = (value) => {
 // Filtered Templates
 
 const filteredTemplates = computed(() => {
-  return data.templates.filter((template) => {
+  return signatureTemplates.filter((template) => {
     if (filterValue.value === "professional") {
-      return data.template.category === "professional";
+      return template.category === "professional";
     }
     if (filterValue.value === "creative") {
-      return data.template.category === "creative";
+      return template.category === "creative";
     }
     return template;
   });
 });
 
-const middleIndex = Math.ceil(filteredTemplates.value.length / 2);
-const secondIndex = Math.ceil(filteredTemplates.value.length / 3);
-const thirdIndex = (Math.ceil(filteredTemplates.value.length / 3) * 2);
-
-const templates = computed(() => {
-  return {
-    first: filteredTemplates.value.slice(0, middleIndex),
-    second: filteredTemplates.value.slice(-middleIndex),
-  };
-});
-
-const organizedTemplates = computed(() => {});
-
-const pricingModal = ref(false);
 
 
-//
-const user = ref("pro");
+
 </script>
 
 <template>
@@ -110,8 +95,6 @@ const user = ref("pro");
       </div>
     </main>
   </div>
-  <Overlay v-if="pricingModal" />
-  <PricingModal v-if="pricingModal" @close-modal="pricingModal = false" />
 </template>
 
 <style scoped>

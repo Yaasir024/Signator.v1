@@ -26,12 +26,12 @@ onMounted(() => {
 
 const showEditor = computed(() => {
   if (
-    Object.keys(useEditorStore.data).length == 0 &&
-    Object.keys(useSystemStore.userFullData).length == 0
+    (Object.keys(useEditorStore.data).length != 0) &&
+    (Object.keys(useSystemStore.userFullData).length != 0)
   ) {
-    return false;
-  } else {
     return true;
+  } else {
+    return false;
   }
 });
 
