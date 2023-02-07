@@ -6,7 +6,8 @@ import { systemStore } from "@/stores/system";
 import { editorStore } from "@/stores/editor";
 import { dashboardStore } from "@/stores/dashboard";
 
-import templateData from "@/data/templates";
+import signatureTemplates from "@/data/templates.json";
+import emptySignatureTemplate from "@/data/emptyTemplate.json";
 import { uid } from "@/composables/useGenerateUid";
 
 const useSystemStore = systemStore();
@@ -17,12 +18,12 @@ const route = useRoute();
 const path = route.name;
 const router = useRouter();
 
-const middleIndex = Math.ceil(templateData.templates.length / 2);
+const middleIndex = Math.ceil(signatureTemplates.length / 2);
 
 const templates = computed(() => {
   return {
-    first: templateData.templates.slice(0, middleIndex),
-    second: templateData.templates.slice(-middleIndex),
+    first: signatureTemplates.slice(0, middleIndex),
+    second: signatureTemplates.slice(-middleIndex),
   };
 });
 const createEditorSession = (data) => {
@@ -32,12 +33,6 @@ const createEditorSession = (data) => {
     useEditorStore.showTemplatesSection = false;
     router.push({ path: "/editor" });
     router.go(0);
-    // if (path == "editor") {
-    //   useEditorStore.showTemplatesSection = false;
-    // } else if (path == "dashboard") {
-    //   router.push({ path: "/editor" });
-    //   useDashboard.showTemplatesSection = false;
-    // }
   } else {
     useSystemStore.addNotificationData({
       message: "Upgrade to create more signatures.",
@@ -45,6 +40,10 @@ const createEditorSession = (data) => {
     });
   }
 };
+
+const checkTempateEligibiity = (d) => {
+  return d.includes(useSystemStore.userFullData.subscriptionData.plan)
+}
 
 const user = ref("pro");
 </script>
@@ -82,7 +81,7 @@ const user = ref("pro");
         >
           <button
             class="py-1 px-4 mb-2 xs:mb-0 border-2 border-primary-color text-primary-color font-medium rounded-lg"
-            @click="createEditorSession(templateData.emptyTemplate)"
+            @click="createEditorSession(emptySignatureTemplate)"
           >
             Start from scratch
           </button>
@@ -111,18 +110,19 @@ const user = ref("pro");
                     alt=""
                     class=""
                   />
+                  
                   <div
                     class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
                   >
                     <button
-                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-                      v-if="template.type == user || user == 'pro'"
+                      class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
+                      v-if="checkTempateEligibiity(template.type)"
                       @click="createEditorSession(template.data)"
                     >
                       Customize This Template
                     </button>
                     <button
-                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
+                      class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
                       v-else
                     >
                       Upgrade To Pro to Unlock
@@ -149,14 +149,14 @@ const user = ref("pro");
                     class="overlay absolute w-full h-full top-0 left-0 flex items-center justify-center bg-[#ffffffb3] opacity-0 transition-all ease-in-out duration-350"
                   >
                     <button
-                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
-                      v-if="template.type == user || user == 'pro'"
+                      class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
+                      v-if="checkTempateEligibiity(template.type)"
                       @click="createEditorSession(template.data)"
                     >
                       Customize This Template
                     </button>
                     <button
-                      class="bg-primary-color text-white py-2 px-3 rounded-2xl"
+                      class="bg-primary-color text-white text-base font-medium py-2 px-3 rounded-2xl"
                       v-else
                     >
                       Upgrade To Pro to Unlock
