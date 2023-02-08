@@ -13,6 +13,7 @@ const isObjEmpty = (obj) => {
 </script>
 
 <template>
+  
   <table
     cellpadding="0"
     style="vertical-align: -webkit-baseline-middle; width: 500px"

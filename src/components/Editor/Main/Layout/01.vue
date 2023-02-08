@@ -8,13 +8,17 @@ import Addons from "@/components/Editor/Main/Layout/Reuseables/Addons/index.vue"
 const prop = defineProps(["data"]);
 
 const isObjEmpty = (obj) => {
-  if (Object.keys(obj).length == 0) return false;
-  return true;
+  if (Object.keys(obj).length != 0) {
+    return false;
+  } else {
+    return true;
+  }
 };
 </script>
 
 <template>
   <table
+    v-if="true"
     cellpadding="0"
     style="vertical-align: -webkit-baseline-middle; width: 500px"
     :style="{
@@ -23,7 +27,7 @@ const isObjEmpty = (obj) => {
       'font-family': data.design.layout.fontFamily,
     }"
   >
-    <tr v-if="isObjEmpty(data.signoff)">
+    <tr v-if="!isObjEmpty(data.signoff)">
       <td
         style="padding-bottom: 6px"
         :style="{
