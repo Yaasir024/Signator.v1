@@ -52,9 +52,8 @@ const createEditorSession = (data) => {
   if (useSystemStore.isEligibleToCreate()) {
     data.uid = uid(16);
     useEditorStore.data = data;
-    useEditorStore.showTemplatesSection = false;
     router.push({ path: "/editor" });
-    router.go(0);
+    // router.go(0);
   } else {
     useSystemStore.addNotificationData({
       message: "Upgrade to create more signatures.",
