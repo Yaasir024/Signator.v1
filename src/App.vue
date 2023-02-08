@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 import Loading from "@/components/Loading.vue";
 import Toast from "@/components/Toast/index.vue";
 import Snackbar from "@/components/Snackbar.vue";
+import CookieModal from "@/components/Modal/CookieBanner.vue";
 import { systemStore } from "@/stores/system";
 const useSystemStore = systemStore();
 </script>
@@ -10,6 +11,8 @@ const useSystemStore = systemStore();
 <template>
   <RouterView />
   <Loading v-if="useSystemStore.loadingState" />
+
+  <CookieModal />
   <transition name="snackbar">
     <Snackbar v-if="useSystemStore.notificationData" />
   </transition>
