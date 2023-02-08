@@ -66,13 +66,6 @@ const clearImage = () => {
               </svg>
             </div>
             <span class="inline-block mt-2">Choose Image</span>
-            <input
-              v-if="false"
-              type="file"
-              accept="image/*"
-              @change="readImage"
-              class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-            />
           </div>
           <img
             :src="data.image.img"

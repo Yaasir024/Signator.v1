@@ -18,7 +18,8 @@ const cropImage = () => {
 </script>
 
 <template>
-  <div class="modal fixed max-w-[520px] w-full px-5 z-[80]">
+  <div class="modal fixed h-full w-full z-[80] py-5 px-8 overflow-y-auto">
+    <div class="max-w-[530px] mx-auto w-full">
     <div
       class="bg-white m-auto pt-5 pb-5 px-6 rounded-3xl shadow-lg border relative"
     >
@@ -69,6 +70,7 @@ const cropImage = () => {
           </div>
         </div>
     </div>
+  </div>
   </div>
 </template>
 

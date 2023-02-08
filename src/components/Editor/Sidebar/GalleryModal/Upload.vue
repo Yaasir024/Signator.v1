@@ -2,28 +2,55 @@
 import { ref, reactive, computed, inject } from "vue";
 import axios from "axios";
 
+import { authStore } from "@/stores/auth";
+import { systemStore } from "@/stores/system";
 import { editorStore } from "@/stores/editor";
 
 import { uploadFileToStorage } from "@/composables/firebase/images";
 
+const useAuth = authStore();
+const useSystemStore = systemStore();
 const useEditorStore = editorStore();
 
+const eligibleToUpload = () => {
+  if (
+    useAuth.userState &&
+    Object.keys(useSystemStore.userFullData).length != 0
+  ) {
+    if (
+      useSystemStore.userFullData.subscriptionData.plan == "free" &&
+      useEditorStore.galleryImages.length < 4
 
-
-const readImage = async (e) => {
-  let files = e.target.files;
-  let reader = new FileReader()
-  reader.readAsDataURL(files[0])
-  reader.onload = (e) => {
-    useEditorStore.openCropperModal(files[0].name, e.target.result)
+    ) {
+      return true;
+    } else if (
+      useSystemStore.userFullData.subscriptionData.plan == "basic" &&
+      useEditorStore.galleryImages.length < 11
+    ) {
+      return true;
+    } else if (
+      useSystemStore.userFullData.subscriptionData.plan == "pro" &&
+      useEditorStore.galleryImages.length < 25
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 };
 
-
+const readImage = async (e) => {
+  let files = e.target.files;
+  let reader = new FileReader();
+  reader.readAsDataURL(files[0]);
+  reader.onload = (e) => {
+    useEditorStore.openCropperModal(files[0].name, e.target.result);
+  };
+};
 </script>
 
 <template>
-  <div class="pt-24">
+  <div class="pt-24" v-if="eligibleToUpload()">
     <div class="flex flex-col items-center overflow-hidden cursor-pointer">
       <div class="icon block">
         <svg
@@ -50,5 +77,18 @@ const readImage = async (e) => {
       />
     </div>
     <div class="text-center mt-2">Maximum file size: 3MB</div>
+  </div>
+  <div class="pt-24" v-else>
+    <div class="text-center mt-2">
+      <h1 class="text-xl font-medium">You've reached the maximum number of images you can upload.</h1>
+      <h1 class="text-xl font-medium">Need More Images?</h1>
+      <RouterLink to="/pricing">
+        <button
+          class="mt-2 py-1 px-6 bg-primary-color border border-primary-color text-white text-lg rounded-lg"
+        >
+          Upgrade Plan
+        </button>
+      </RouterLink>
+    </div>
   </div>
 </template>
