@@ -4,7 +4,8 @@
       "src": "/home"
     },
     {
-      "src": "/about-us"
+      "src": "/about-us",
+      "dest": "/views/About.vue"
     },
     {
       "src": "/help-center"
