@@ -18,7 +18,7 @@ const useProfileStore = profileStore();
 
 <template>
   <section class="">
-    <div class="h-[calc(100vh_-_68px)] overflow-hidden">
+    <div class="h-[calc(100vh_-_68px)]  overflow-hidden">
       <div class="h-full overflow-hidden">
         <MobileSidebar class="block md:hidden" />
         <div class="h-full flex">
