@@ -1,6 +1,7 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
+import { useCookies } from "@vueuse/integrations/useCookies";
 import { auth, firestoreDb } from "@/services/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -30,12 +31,32 @@ import {
 import router from "@/router";
 import { systemStore } from "./system";
 
+import { getCookieExpiryDate } from "@/composables/useFormatDate";
+
 export const authStore = defineStore("auth", () => {
   const useSystemStore = systemStore();
+
+  const cookies = useCookies(["isLoggedIn", "__uid_"]);
+
+
   // Current User State: Usually A Boolean
-  const userState = useLocalStorage("__useLoggedIn_", false);
+  const userState = computed(() => {
+    if (cookies.get("isLoggedIn")) {
+      return cookies.get("isLoggedIn");
+    } else {
+      return false;
+    }
+  });
+  // const userState = useLocalStorage("__useLoggedIn_", false);
   // Current User Id
-  const userId = useLocalStorage("__useId_", { uid: null });
+  const userId = computed(() => {
+    if (cookies.get("__uid_")) {
+      return cookies.get("__uid_");
+    } else {
+      return null;
+    }
+  });
+  // const userId = useLocalStorage("__useId_", { uid: null });
   const userData = ref(null);
 
   // Register User
@@ -192,9 +213,19 @@ export const authStore = defineStore("auth", () => {
   onAuthStateChanged(auth, (user) => {
     if (user != null) {
       // If user is Signed in Set user data
-      userState.value = true;
-      userId.value.uid = user.uid;
+      cookies.set("isLoggedIn", true, {
+        expires: getCookieExpiryDate(),
+      });
+      // SET USER UID
+      cookies.set(
+        "__uid_",
+        { uid: user.uid },
+        {
+          expires: getCookieExpiryDate(),
+        }
+      );
       userData.value = user;
+      // Open loading State
       // Routing
       if (
         router.isReady() &&
@@ -209,8 +240,14 @@ export const authStore = defineStore("auth", () => {
       }
     } else {
       //If User logs out, set data to null
-      userState.value = false;
-      userId.value.uid = null;
+      // If user is Signed in Set user data
+      cookies.set("isLoggedIn", false, {
+        expires: getCookieExpiryDate(),
+      });
+      // SET USER UID
+      cookies.set("__uid_", null, {
+        expires: getCookieExpiryDate(),
+      });
       userData.value = "";
     }
   });

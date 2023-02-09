@@ -2,6 +2,7 @@ import { ref, computed, watch, watchEffect } from "vue";
 
 import { defineStore } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
+import { useCookies } from "@vueuse/integrations/useCookies";
 import router from "@/router";
 import { firestoreDb } from "@/services/firebase";
 import {
@@ -26,9 +27,37 @@ import "ant-design-vue/lib/message/style/index.css";
 
 import { authStore } from "./auth";
 
+import { getCookieExpiryDate } from "@/composables/useFormatDate";
+
 export const systemStore = defineStore("system", () => {
   const useAuth = authStore();
   const userFullData = ref({});
+
+
+  const cookies = useCookies(["locale", "__privacypref"]);
+
+  const setLocale = () => {
+    console.log("SET");
+    cookies.set("locale", "en-US");
+  };
+
+  const privacyPreferenceVisibility = ref(false);
+
+  const setprivacyPreferences = (preferences) => {
+    let preference = preferences.join("-");
+    privacyPreferenceVisibility.value = false;
+    cookies.set("__privacypref", preference, {
+      expires: getCookieExpiryDate(),
+    });
+  };
+
+  const getPrivacyPreferences = () => {
+    if (cookies.get("__privacypref")) {
+      let preArr = cookies.get("__privacypref").split("-");
+      return preArr;
+    }
+  };
+
   if (useAuth.userState) {
     const userRef = doc(firestoreDb, "users", useAuth.userId.uid);
     onSnapshot(userRef, (doc) => {
@@ -81,6 +110,10 @@ export const systemStore = defineStore("system", () => {
   };
 
   return {
+    setLocale,
+    privacyPreferenceVisibility,
+    setprivacyPreferences,
+    getPrivacyPreferences,
     loadingState,
     notificationData,
     addNotificationData,
