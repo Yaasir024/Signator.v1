@@ -5,8 +5,7 @@ import MobileSidebar from "@/components/Navigations/SettingsMobileSidebar.vue";
 </script>
 
 <template>
-  <section class="h-screen overflow-hidden">
-    <Navbar />
+  <section class="h-[calc(100vh_-_68px)] overflow-hidden">
     <div class="h-full overflow-hidden">
       <MobileSidebar class="block md:hidden" />
       <div class="h-full flex">

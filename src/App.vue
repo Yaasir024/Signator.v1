@@ -1,24 +1,44 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { ref, computed } from "vue";
+import { RouterLink, RouterView, useRoute } from "vue-router";
 
 import { useCookies } from "@vueuse/integrations/useCookies";
 
 import { systemStore } from "@/stores/system";
 import { authStore } from "@/stores/auth";
 
+import Navbar from "@/components/Navigations/Navbar.vue";
 import Loading from "@/components/Loading.vue";
 import Toast from "@/components/Toast/index.vue";
 import Snackbar from "@/components/Snackbar.vue";
 import CookieBanner from "@/components/Cookie/ConsentBanner.vue";
 import CookieSettings from "@/components/Cookie/Settings.vue";
 
-
 const useSystemStore = systemStore();
 const useAuth = authStore();
+
+const route = useRoute();
+const path = computed(() => {
+  return route.name;
+});
+
+const showNav = () => {
+  if (path.value == "editor") {
+    return false;
+  } else {
+    return true;
+  }
+};
 </script>
 
 <template>
-  <RouterView />
+  <Navbar v-if="showNav()" />
+  <router-view v-slot="{ Component }">
+    <transition name="route" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view>
+  <!-- <RouterView /> -->
   <Loading v-if="useSystemStore.loadingState" />
 
   <transition name="fade">
@@ -51,5 +71,21 @@ const useAuth = authStore();
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+/* ROUTE TRANSITIONS */
+.route-enter-from {
+  opacity: 0;
+  transform: translateX(100px);
+}
+.route-enter-active {
+  transition: all 0.3s ease-out;
+}
+.route-leave-to {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.route-leave-active {
+  transition: all 0.3s ease-in;
 }
 </style>

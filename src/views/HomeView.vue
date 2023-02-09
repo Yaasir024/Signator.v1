@@ -10,7 +10,6 @@ const useAuth = authStore();
 
 <template>
   <div class="min-h-screen">
-    <Navbar />
     <main class="w-full bg-white py-5 px-6">
       <div
         class="hero first-letter:lg:pl-[140px] pt-11 lg:pt-[93px] md:pl-[70px] pl-3 lg:text-left"

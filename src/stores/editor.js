@@ -83,18 +83,18 @@ export const editorStore = defineStore("editor", () => {
     });
   };
 
-
-
   // **GET ALL GALLERY IMAGES**//
-  const currentImageGalleryTab = ref('library')
+  const currentImageGalleryTab = ref("library");
   // **GET ALL GALLERY IMAGES**//
   const galleryImages = ref([]);
-  onSnapshot(
-    doc(firestoreDb, "users", useAuth.userId.uid, "data", "gallery"),
-    (snapshot) => {
-      galleryImages.value = snapshot.data().images;
-    }
-  );
+  if (galleryModal.value) {
+    onSnapshot(
+      doc(firestoreDb, "users", useAuth.userId.uid, "data", "gallery"),
+      (snapshot) => {
+        galleryImages.value = snapshot.data().images;
+      }
+    );
+  }
   // **ADD UPLOADED IMAGE TO GALLERY**//
   const addImageToGallery = async (url, name, fullPath, timeCreated) => {
     const docRef = doc(
@@ -136,7 +136,7 @@ export const editorStore = defineStore("editor", () => {
   };
   //  ***SET CROPPED IMAGE*** //
   const setCroppedImage = async (src) => {
-    useSystemStore.loadingState = true
+    useSystemStore.loadingState = true;
     // CHECK IF A FILLE WITH THE SAME NAME EXISTS
     for (let i = 0; i < galleryImages.value.length; i++) {
       if (galleryImages.value[i].name === imageCropData.value.name) {
@@ -152,9 +152,9 @@ export const editorStore = defineStore("editor", () => {
       metadata.fullPath,
       metadata.timeCreated
     );
-    closeCropperModal()
-    useSystemStore.loadingState = false
-    currentImageGalleryTab.value = 'library'
+    closeCropperModal();
+    useSystemStore.loadingState = false;
+    currentImageGalleryTab.value = "library";
   };
   //  ***CLOSE CROPPER MODAL*** //
   const closeCropperModal = () => {

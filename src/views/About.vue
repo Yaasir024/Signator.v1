@@ -10,7 +10,6 @@ const useAuth = authStore();
 
 <template>
   <div class="min-h-screen">
-    <Navbar />
     <main class="">
       <div class="my-12">
         <h1 class="text-4xl font-medium text-center my-4">ABOUT SIGNATOR</h1>
@@ -35,20 +34,20 @@ const useAuth = authStore();
             easy to add it to your email client.
           </p>
           <p class="mt-4">
-              Whether you're a business owner, professional, or student,
-              Signator is the perfect solution for creating a polished and
-              professional email signature. Sign up now and start creating your
-              signature today!
-            </p>
-            <p class="mt-3">
-              In summary, Signator is a website that helps you to create a
-              professional and elegant email signature with a few clicks. It
-              offers a wide variety of templates, the ability to upload your own
-              logo, and the ability to create multiple signatures. It also
-              exports your signature in HTML format making it easy to add it to
-              your email client. Signator is the perfect solution for creating a
-              polished and professional email signature.
-            </p>
+            Whether you're a business owner, professional, or student, Signator
+            is the perfect solution for creating a polished and professional
+            email signature. Sign up now and start creating your signature
+            today!
+          </p>
+          <p class="mt-3">
+            In summary, Signator is a website that helps you to create a
+            professional and elegant email signature with a few clicks. It
+            offers a wide variety of templates, the ability to upload your own
+            logo, and the ability to create multiple signatures. It also exports
+            your signature in HTML format making it easy to add it to your email
+            client. Signator is the perfect solution for creating a polished and
+            professional email signature.
+          </p>
         </div>
       </div>
     </main>

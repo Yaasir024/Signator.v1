@@ -34,15 +34,10 @@ const filteredTemplates = computed(() => {
     return template;
   });
 });
-
-
-
-
 </script>
 
 <template>
   <div class="min-h-screen">
-    <Navbar />
     <main class="px-8 pb-20">
       <section class="hero py-24">
         <div class="wrapper text-center">
@@ -90,8 +85,7 @@ const filteredTemplates = computed(() => {
         </li>
       </ul>
       <div class="mt-12">
-        <TemplateLayout :data="filteredTemplates"/>
-        
+        <TemplateLayout :data="filteredTemplates" />
       </div>
     </main>
   </div>

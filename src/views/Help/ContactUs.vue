@@ -11,7 +11,7 @@ const messageData = ref({
   subject: "",
   message: "",
 });
-const contactForm = ref(null)
+const contactForm = ref(null);
 const submit = () => {
   console.log(messageData.value);
   emailjs
@@ -34,7 +34,6 @@ const submit = () => {
 
 <template>
   <section class="min-h-screen">
-    <Navbar />
     <main class="pb-8 px-4 mb-24">
       <div
         class="bg-white max-w-[450px] mx-auto mt-12 py-8 px-6 rounded-2xl shadow-lg border"
@@ -51,7 +50,7 @@ const submit = () => {
                 required
                 name="user_name"
                 v-model="messageData.user_name"
-                />
+              />
             </div>
             <div class="field p-1 w-full">
               <div class="mb-1 pl-2">Email</div>
@@ -62,7 +61,7 @@ const submit = () => {
                 required
                 name="user_email"
                 v-model="messageData.user_email"
-                />
+              />
             </div>
           </div>
 
@@ -75,7 +74,7 @@ const submit = () => {
               required
               name="subject"
               v-model="messageData.subject"
-              />
+            />
           </div>
           <div class="field mb-4">
             <div class="mb-1 pl-2">Message</div>
@@ -85,7 +84,7 @@ const submit = () => {
               class="w-full bg-white border rounded-lg p-2 text-sm outline-none focus:border-primary-color"
               name="message"
               v-model="messageData.message"
-              ></textarea>
+            ></textarea>
           </div>
 
           <button

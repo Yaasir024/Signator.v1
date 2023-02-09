@@ -37,7 +37,6 @@ const get = () => {
 
 <template>
   <div class="min-h-screen bg-white">
-    <Navbar />
     <div class="max-w-[1150px] mx-auto px-6 pt-16 mb-24">
       <div class="flex" v-if="article">
         <article class="flex-100% lg:flex-75% px-6">
@@ -56,7 +55,9 @@ const get = () => {
             <h2 class="mb-4 text-2xl font-medium">Articles in this section</h2>
             <ul class="articles">
               <li
-                v-for="a in useArticles.getSimilarArticles(article.data.section)"
+                v-for="a in useArticles.getSimilarArticles(
+                  article.data.section
+                )"
                 :key="a.id"
                 class="text-base hover:text-primary-color transition-all duration-300 ease-in-out"
                 :class="a.id == article.id ? 'text-primary-color' : ''"

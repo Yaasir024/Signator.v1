@@ -8,7 +8,6 @@ const useAuth = authStore();
 
 <template>
   <div class="min-h-screen">
-    <Navbar />
     <main class="">
       <div class="pt-[70px] pb-[90px] px-4 text-center">
         <h1 class="text-4xl font-medium leading-10">Features</h1>

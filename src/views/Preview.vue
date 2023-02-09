@@ -2,9 +2,7 @@
 import { ref, reactive, onBeforeMount, provide } from "vue";
 import { useRoute } from "vue-router";
 
-
-import axios from 'axios';
-
+import axios from "axios";
 
 import { firestoreDb } from "@/services/firebase";
 import { editorStore } from "@/stores/editor";
@@ -24,13 +22,10 @@ const previewData = ref(null);
 onBeforeMount(() => {
   useEditorStore.getSignaturePreview(path);
 });
-
-
 </script>
 
 <template>
   <div class="min-h-screen">
-    <Navbar />
     <main
       class="max-w-[700px] mx-auto py-24 px-5"
       v-if="useEditorStore.signaturePreviewData != null"

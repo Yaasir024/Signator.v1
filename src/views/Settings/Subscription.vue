@@ -17,8 +17,7 @@ const useSystemStore = systemStore();
 </script>
 
 <template>
-  <section class="h-screen overflow-hidden">
-    <Navbar />
+  <section class="h-[calc(100vh_-_68px)] overflow-hidden">
     <div class="h-full overflow-hidden">
       <MobileSidebar class="block md:hidden" />
       <div class="h-full flex">
@@ -38,9 +37,7 @@ const useSystemStore = systemStore();
                         Plan
                       </h1>
                       <p class="text-base">
-                        {{
-                          useSystemStore.userFullData.signaturePackage
-                        }}
+                        {{ useSystemStore.userFullData.signaturePackage }}
                         Signatures
                       </p>
                     </div>
@@ -82,12 +79,9 @@ const useSystemStore = systemStore();
                     </div>
                   </div>
                   <div class="mt-3">
-                    <RouterLink
-                    to="/pricing"
-                    class="mr-2"
-                  >
-                    <Button text="Upgrade Plan" />
-                  </RouterLink>
+                    <RouterLink to="/pricing" class="mr-2">
+                      <Button text="Upgrade Plan" />
+                    </RouterLink>
                   </div>
                 </div>
               </div>

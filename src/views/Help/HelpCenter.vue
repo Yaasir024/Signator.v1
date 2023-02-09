@@ -9,21 +9,18 @@ import { articlesStore } from "@/stores/articles";
 const useArticles = articlesStore();
 const router = useRouter();
 
-
-const searchQuery = ref('')
+const searchQuery = ref("");
 const search = () => {
-  if(searchQuery.value != '') {
-    useArticles.searchQuery = searchQuery.value
+  if (searchQuery.value != "") {
+    useArticles.searchQuery = searchQuery.value;
     router.push({ path: `/help-center/search/${searchQuery.value}` });
-    console.log(searchQuery.value)
+    console.log(searchQuery.value);
   }
-}
-
+};
 </script>
 
 <template>
   <section class="min-h-screen bg-white">
-    <Navbar />
     <main class="mb-24">
       <div class="hero bg-canvas-color py-20 px-6 border-t w-full">
         <div class="max-w-[820px] mx-auto text-center">
@@ -57,7 +54,7 @@ const search = () => {
                 />
               </div>
               <button
-              type="submit"
+                type="submit"
                 class="btn w-[20%] h-[40px] flex items-center justify-center cursor-pointer text-base"
               >
                 SEARCH
@@ -70,7 +67,11 @@ const search = () => {
         <section class="" v-if="useArticles.gettingStartedArticles">
           <h1 class="text-2xl font-medium">Getting Started</h1>
           <ul class="articles list-disc pl-5 inline-block">
-            <li v-for="article in useArticles.gettingStartedArticles" :key="article.id" class="text-base hover:text-primary-color transition-all duration-300 ease-in-out">
+            <li
+              v-for="article in useArticles.gettingStartedArticles"
+              :key="article.id"
+              class="text-base hover:text-primary-color transition-all duration-300 ease-in-out"
+            >
               <router-link :to="'/help-center/articles/' + article.uid">
                 <PrismicText :field="article.data.title" wrapper="h2" />
               </router-link>
@@ -79,8 +80,12 @@ const search = () => {
         </section>
         <section class="mt-2" v-if="useArticles.accountSettingsArticles">
           <h1 class="text-2xl font-medium">Account Settings</h1>
-          <ul class="articles list-disc pl-5  inline-block">
-            <li v-for="article in useArticles.accountSettingsArticles" :key="article.id" class="text-base hover:text-primary-color transition-all duration-300 ease-in-out">
+          <ul class="articles list-disc pl-5 inline-block">
+            <li
+              v-for="article in useArticles.accountSettingsArticles"
+              :key="article.id"
+              class="text-base hover:text-primary-color transition-all duration-300 ease-in-out"
+            >
               <router-link :to="'/help-center/articles/' + article.uid">
                 <PrismicText :field="article.data.title" wrapper="h2" />
               </router-link>
@@ -89,15 +94,18 @@ const search = () => {
         </section>
         <section class="mt-2" v-if="useArticles.installationGuidesArticles">
           <h1 class="text-2xl font-medium">Installation Guides</h1>
-          <ul class="articles list-disc pl-5  inline-block">
-            <li v-for="article in useArticles.installationGuidesArticles" :key="article.id" class="text-base hover:text-primary-color transition-all duration-300 ease-in-out">
+          <ul class="articles list-disc pl-5 inline-block">
+            <li
+              v-for="article in useArticles.installationGuidesArticles"
+              :key="article.id"
+              class="text-base hover:text-primary-color transition-all duration-300 ease-in-out"
+            >
               <router-link :to="'/help-center/articles/' + article.uid">
                 <PrismicText :field="article.data.title" wrapper="h2" />
               </router-link>
             </li>
           </ul>
         </section>
-
       </div>
     </main>
     <Footer />

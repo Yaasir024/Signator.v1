@@ -16,7 +16,7 @@ const searchQuery = ref("");
 const search = () => {
   if (searchQuery.value != "") {
     router.push({ path: `/help-center/search/${searchQuery.value}` });
-    useArticles.setQuery(searchQuery.value)
+    useArticles.setQuery(searchQuery.value);
     // useArticles.searchQuery = searchQuery.value;
     // searchQuery.value = "";
     console.log(searchQuery.value);
@@ -28,7 +28,6 @@ const showCategoryMenu = ref(false);
 
 <template>
   <div class="min-h-screen bg-white">
-    <Navbar />
     <div class="">
       <div class="py-5 px-8 mb-14 bg-canvas-color flex justify-end">
         <form

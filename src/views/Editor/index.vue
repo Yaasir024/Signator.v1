@@ -52,28 +52,30 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="" v-if="(Object.keys(useSystemStore.userFullData).length != 0)">
-    <div class="" v-if="showEditor">
-      <div class="h-screen bg-canvas-color overflow-hidden" v-if="!mobile">
-        <section class="h-full w-full flex">
-          <Sidebar />
-          <Main />
-        </section>
+  <div class="">
+    <div class="" v-if="Object.keys(useSystemStore.userFullData).length != 0">
+      <div class="" v-if="showEditor">
+        <div class="h-screen bg-canvas-color overflow-hidden" v-if="!mobile">
+          <section class="h-full w-full flex">
+            <Sidebar />
+            <Main />
+          </section>
+        </div>
+        <div class="overflow-y-auto" v-if="mobile">
+          <MobileView />
+        </div>
       </div>
-      <div class="overflow-y-auto" v-if="mobile">
-        <MobileView />
-      </div>
+      <transition name="templates">
+        <TemplateSection v-if="!showEditor" />
+      </transition>
     </div>
-    <transition name="templates">
-      <TemplateSection v-if="!showEditor" />
-    </transition>
-  </div>
 
-  <transition name="galleryModal">
-    <GalleryModal v-if="useEditorStore.galleryModal" />
-  </transition>
-  <ImageModal v-if="useEditorStore.imageModal || false" />
-  <Overlay v-if="useEditorStore.imageModal || useEditorStore.galleryModal" />
+    <transition name="galleryModal">
+      <GalleryModal v-if="useEditorStore.galleryModal" />
+    </transition>
+    <ImageModal v-if="useEditorStore.imageModal || false" />
+    <Overlay v-if="useEditorStore.imageModal || useEditorStore.galleryModal" />
+  </div>
 </template>
 
 <style scoped>

@@ -61,7 +61,7 @@ const signOut = () => {
 
 <template>
   <nav
-    class="bg-white border-b md:border-none py-3 px-6 md:px-[60px] lg:px-[140px] flex items-center justify-between sticky top-0 z-20"
+    class="bg-white h-[68px] border-b md:border-none py-3 px-6 md:px-[60px] lg:px-[140px] flex items-center justify-between sticky top-0 z-20"
   >
     <RouterLink to="/">
       <img src="/images/logo.svg" alt="" class="h-[40px]" />

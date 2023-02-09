@@ -10,7 +10,6 @@ const useAuth = authStore();
 
 <template>
   <div class="min-h-screen">
-    <Navbar />
     <main class="">
       <div class="my-12">
         <h1 class="text-4xl font-medium text-center my-4">Privacy Policy</h1>

@@ -1,5 +1,5 @@
 import { ref, computed, watch, watchEffect } from "vue";
-
+import { useRoute } from "vue-router";
 import { defineStore } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
 import { useCookies } from "@vueuse/integrations/useCookies";
@@ -31,6 +31,12 @@ import { getCookieExpiryDate } from "@/composables/useFormatDate";
 
 export const systemStore = defineStore("system", () => {
   const useAuth = authStore();
+
+  // **RESOLVE ROUTES** //
+  const route = useRoute();
+  const path = route.name;
+
+
   const userFullData = ref({});
 
 
@@ -110,6 +116,7 @@ export const systemStore = defineStore("system", () => {
   };
 
   return {
+    path,
     setLocale,
     privacyPreferenceVisibility,
     setprivacyPreferences,
