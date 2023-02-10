@@ -39,6 +39,14 @@ const showEditor = computed(() => {
 Check Screen Size
 */
 const mobile = ref(false);
+
+onMounted(() => {
+  if (window.innerWidth <= 1020) {
+    mobile.value = true;
+  } else {
+    mobile.value = false;
+  }
+});
 const checkScreen = () => {
   if (window.innerWidth <= 1020) {
     mobile.value = true;
