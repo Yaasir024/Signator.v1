@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import HeaderLayout from "@/components/Layout/HeaderOnly.vue";
+import Sidebar from "@/components/Navigations/SidebarSetting.vue";
 import MobileSidebar from "@/components/Navigations/SettingsMobileSidebar.vue";
 import Overlay from "@/components/Overlay.vue";
 import PasswordModal from "@/components/Settings/PasswordModal.vue";
