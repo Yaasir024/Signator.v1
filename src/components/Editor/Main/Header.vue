@@ -8,15 +8,24 @@ import { useDebouncedRefHistory, useStorage } from "@vueuse/core";
 
 import { useClickOutside } from "@/composables/useClickOutside";
 
-const data = inject("data");
 const useEditorStore = editorStore();
+// const data = inject("data");
+const data = computed(() => {
+  return useEditorStore.data;
+});
 
 const toolMenuVisibility = ref(false);
 
 const toolMenu = ref(null);
 useClickOutside(toolMenu, () => {
-  toolMenuVisibility.value = false
+  toolMenuVisibility.value = false;
 });
+
+//
+const saveSignature = () => {
+  toolMenuVisibility.value = false;
+  useEditorStore.addSignature();
+};
 
 // RENAME
 const rename = () => {
@@ -67,7 +76,11 @@ const renameInputActive = ref(false);
         disabled
       />
       <!--  -->
-      <div class="cursor-pointer p-0.5 mr-1" v-if="renameInputActive" @click="closeRename()">
+      <div
+        class="cursor-pointer p-0.5 mr-1"
+        v-if="renameInputActive"
+        @click="closeRename()"
+      >
         <svg
           clip-rule="evenodd"
           fill-rule="evenodd"
@@ -112,7 +125,6 @@ const renameInputActive = ref(false);
         <div
           class="absolute top-[40px] right-[-15px] z-50 w-[180px] py-1.5 px-2 bg-white shadow-xl border rounded-md"
           v-if="toolMenuVisibility"
-          
         >
           <ul class="py-1 px-1 text-base">
             <li
@@ -120,7 +132,7 @@ const renameInputActive = ref(false);
             >
               <div
                 class="cursor-pointer flex items-center px-1 py-2 border-b-2"
-                @click="useEditorStore.addSignature()"
+                @click="saveSignature()"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

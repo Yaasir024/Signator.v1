@@ -6,7 +6,14 @@ import { systemStore } from "@/stores/system";
 
 import { useClickOutside } from "@/composables/useClickOutside";
 import Heading from "@/components/Editor/Heading.vue";
-const data = inject("data");
+
+import { editorStore } from "@/stores/editor";
+const useEditorStore = editorStore();
+
+// const data = inject("data");
+const data = computed(() => {
+  return useEditorStore.data;
+});
 
 const useSystemStore = systemStore();
 
@@ -280,7 +287,8 @@ useClickOutside(fontMenuBar, () => {
       <div
         class="mb-5"
         v-if="
-          useSystemStore.userFullData.subscriptionData.plan == ('basic' || 'pro')
+          useSystemStore.userFullData.subscriptionData.plan ==
+          ('basic' || 'pro')
         "
       >
         <div class="flex items-center justify-between">

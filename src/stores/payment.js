@@ -111,11 +111,10 @@ export const paymentStore = defineStore("payment", () => {
     );
     await setDoc(docRef, data).then(async () => {
       await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
-        plan: data.plan,
-        signaturePackage: data.signatureNo,
         subscriptionData: {
           price: data.price,
           plan: data.plan,
+          signaturePackage: data.signatureNo,
           billingCycle: data.billingCycle,
           transactionDate: data.transactionDate,
           subscriptionEndDate: data.subscriptionEndDate,

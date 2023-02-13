@@ -14,7 +14,9 @@ import ProTag from "@/components/ProTag.vue";
 const useEditorStore = editorStore();
 const useSystemStore = systemStore();
 
-const data = inject("data");
+const data = computed(() => {
+  return useEditorStore.data
+})
 
 
 // ADD CONTACT ITEM
@@ -40,7 +42,7 @@ const clearImage = () => {
 </script>
 
 <template>
-  <div class="general pb-14">
+  <div class="general pb-14" v-if="data">
     <div class="content max-w-[400px] mx-auto">
       <!-- Image Secion -->
 

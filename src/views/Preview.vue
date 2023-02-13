@@ -7,7 +7,7 @@ import axios from "axios";
 import { firestoreDb } from "@/services/firebase";
 import { editorStore } from "@/stores/editor";
 
-import Navbar from "@/components/Navigations/Navbar.vue";
+import MainLayout from "@/components/Layout/Main.vue";
 import SignaturePreview from "@/components/PreviewSidePanel/SignaturePreview.vue";
 import SidePanel from "@/components/PreviewSidePanel/index.vue";
 
@@ -25,14 +25,16 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="min-h-screen">
-    <main
-      class="max-w-[700px] mx-auto py-24 px-5"
-      v-if="useEditorStore.signaturePreviewData != null"
-    >
-      <div class="min-h-[50px] flex">
-        <SignaturePreview :data="useEditorStore.signaturePreviewData" />
+  <MainLayout>
+    <div class="h-[calc(100vh_-_65px)]">
+      <div
+        class="max-w-[700px] mx-auto py-24 px-5"
+        v-if="useEditorStore.signaturePreviewData != null"
+      >
+        <div class="min-h-[50px] flex">
+          <SignaturePreview :data="useEditorStore.signaturePreviewData" />
+        </div>
       </div>
-    </main>
-  </div>
+    </div>
+  </MainLayout>
 </template>

@@ -8,7 +8,8 @@ import signatureTemplates from "@/data/templates.json";
 
 import { uid } from "@/composables/useGenerateUid";
 
-import Navbar from "@/components/Navigations/Navbar.vue";
+import MainLayout from "@/components/Layout/Main.vue";
+
 import TemplateLayout from "@/components/Templates/Layout.vue";
 import Overlay from "@/components/Overlay.vue";
 import PricingModal from "@/components/Modal/Pricing.vue";
@@ -37,58 +38,62 @@ const filteredTemplates = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen">
-    <main class="px-8 pb-20">
-      <section class="hero py-24">
-        <div class="wrapper text-center">
-          <h1 class="text-4xl font-medium mb-3">Email Signature Templates</h1>
-          <h3 class="text-lg">
-            Design your Email signature with our easily customizable templates
-          </h3>
+  <MainLayout>
+    <div class="min-h-screen">
+      <div class="px-8 pb-20">
+        <section class="hero py-24">
+          <div class="wrapper text-center">
+            <h1 class="text-4xl font-medium mb-3">Email Signature Templates</h1>
+            <h3 class="text-lg">
+              Design your Email signature with our easily customizable templates
+            </h3>
+          </div>
+        </section>
+        <ul
+          class="filter-bar flex flex-center justify-center text-lg"
+          v-if="false"
+        >
+          <li
+            class="px-5 py-2 cursor-pointer border border-gray-400 rounded-l-2xl transition-all ease-in-out duration-350"
+            @click="filter('all')"
+            :class="filterValue == 'all' ? 'text-white bg-primary-color ' : ''"
+          >
+            All
+          </li>
+          <li
+            class="px-5 py-2 cursor-pointer border-y border-r border-gray-400 transition-all ease-in-out duration-350"
+            @click="filter('professional')"
+            :class="
+              filterValue == 'professional'
+                ? 'text-white bg-primary-color '
+                : ''
+            "
+          >
+            Professional
+          </li>
+          <li
+            class="px-5 py-2 cursor-pointer border-y border-gray-400 transition-all ease-in-out duration-350"
+            @click="filter('creative')"
+            :class="
+              filterValue == 'creative' ? 'text-white bg-primary-color ' : ''
+            "
+          >
+            Creative
+          </li>
+          <li
+            class="px-5 py-2 cursor-pointer border border-gray-400 rounded-r-2xl transition-all ease-in-out duration-350"
+            @click="filter('free')"
+            :class="filterValue == 'free' ? 'text-white bg-primary-color ' : ''"
+          >
+            Free
+          </li>
+        </ul>
+        <div class="mt-12">
+          <TemplateLayout :data="filteredTemplates" />
         </div>
-      </section>
-      <ul
-        class="filter-bar flex flex-center justify-center text-lg"
-        v-if="false"
-      >
-        <li
-          class="px-5 py-2 cursor-pointer border border-gray-400 rounded-l-2xl transition-all ease-in-out duration-350"
-          @click="filter('all')"
-          :class="filterValue == 'all' ? 'text-white bg-primary-color ' : ''"
-        >
-          All
-        </li>
-        <li
-          class="px-5 py-2 cursor-pointer border-y border-r border-gray-400 transition-all ease-in-out duration-350"
-          @click="filter('professional')"
-          :class="
-            filterValue == 'professional' ? 'text-white bg-primary-color ' : ''
-          "
-        >
-          Professional
-        </li>
-        <li
-          class="px-5 py-2 cursor-pointer border-y border-gray-400 transition-all ease-in-out duration-350"
-          @click="filter('creative')"
-          :class="
-            filterValue == 'creative' ? 'text-white bg-primary-color ' : ''
-          "
-        >
-          Creative
-        </li>
-        <li
-          class="px-5 py-2 cursor-pointer border border-gray-400 rounded-r-2xl transition-all ease-in-out duration-350"
-          @click="filter('free')"
-          :class="filterValue == 'free' ? 'text-white bg-primary-color ' : ''"
-        >
-          Free
-        </li>
-      </ul>
-      <div class="mt-12">
-        <TemplateLayout :data="filteredTemplates" />
       </div>
-    </main>
-  </div>
+    </div>
+  </MainLayout>
 </template>
 
 <style scoped>

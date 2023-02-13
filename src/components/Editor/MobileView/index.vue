@@ -12,7 +12,10 @@ import Tools from "@/components/Editor/MobileView/Tools/Index.vue";
 const useEditorStore = editorStore();
 const useSystemStore = systemStore();
 
-const data = inject("data");
+// const data = inject("data");
+const data = computed(() => {
+  return useEditorStore.data;
+});
 </script>
 
 <template>

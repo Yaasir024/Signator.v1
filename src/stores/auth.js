@@ -1,4 +1,5 @@
 import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
 import { defineStore } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
 import { useCookies } from "@vueuse/integrations/useCookies";
@@ -6,6 +7,10 @@ import { auth, firestoreDb } from "@/services/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  getAdditionalUserInfo,
   signOut,
   onAuthStateChanged,
   updatePassword,
@@ -34,10 +39,15 @@ import { systemStore } from "./system";
 import { getCookieExpiryDate } from "@/composables/useFormatDate";
 
 export const authStore = defineStore("auth", () => {
+  const provider = new GoogleAuthProvider();
   const useSystemStore = systemStore();
 
-  const cookies = useCookies(["isLoggedIn", "__uid_"]);
+  const route = useRoute();
+  const path = computed(() => {
+    return route.path;
+  });
 
+  const cookies = useCookies(["isLoggedIn", "__uid_"]);
 
   // Current User State: Usually A Boolean
   const userState = computed(() => {
@@ -102,6 +112,7 @@ export const authStore = defineStore("auth", () => {
       useSystemStore.loadingState = false;
       return;
     });
+    // console.log(credentials)
     addNewUser(name, credentials);
   };
   // Login User
@@ -128,36 +139,74 @@ export const authStore = defineStore("auth", () => {
     });
     useSystemStore.loadingState = false;
   };
+  // SignIn With Google
+  const signinWithGoogle = async () => {
+    await signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // console.log(credential.accessToken);
+        // The signed-in user info.
+        if (getAdditionalUserInfo(result).isNewUser) {
+          addNewUser(result.user.displayName, result);
+        } else {
+          console.log("VETERAN");
+        }
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        console.log(error.code);
+        console.log(error.message);
+        // The email of the user's account used.
+        console.log(error.customData.email);
+        // The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+      router.go();
+    // routeOnSignIn();
+    // routeOnSignIn();
+  };
 
   // Add User Data To DB
   const addNewUser = async (name, credential) => {
+    console.log(credential.user);
     const userData = {
       name: name,
       email: credential.user.email,
       uid: credential.user.uid,
-      plan: "Free",
       publishedSignatures: [],
-      signaturePackgage: 1,
+      subscriptionData: {
+        price: 0,
+        plan: "free",
+        signaturePackage: 1,
+        billingCycle: "",
+        transactionDate: "",
+        subscriptionEndDate: "",
+      },
       billingHistory: null,
     };
     await setDoc(doc(firestoreDb, "users", userData.uid), userData);
-    updateProfile(auth.currentUser, {
-      displayName: name,
-    });
+    if (auth.currentUser.displayName == null) {
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+    }
     useSystemStore.loadingState = false;
-    pushToHome();
+    routeOnSignIn();
   };
   const getUserData = async (id) => {
     const docRef = doc(firestoreDb, "users", id);
     const docSnap = await getDoc(docRef);
     useSystemStore.loadingState = false;
     localStorage.setItem("useclientr", JSON.stringify(docSnap.data()));
-    pushToHome();
+    routeOnSignIn();
   };
 
   const logout = async () => {
     await signOut(auth);
-    pushToHome();
+    // routeOnSignIn();
+    router.push("/");
     useSystemStore.loadingState = false;
   };
 
@@ -212,6 +261,17 @@ export const authStore = defineStore("auth", () => {
 
   onAuthStateChanged(auth, (user) => {
     if (user != null) {
+      if (
+        router.isReady() &&
+        router.currentRoute.value.path === ("/login" || "/signup")
+      ) {
+        router.push("/dashboard");
+      } else if (
+        router.isReady() &&
+        router.currentRoute.value.path === "/pricing"
+      ) {
+        router.push("/pricing");
+      }
       // If user is Signed in Set user data
       cookies.set("isLoggedIn", true, {
         expires: getCookieExpiryDate(),
@@ -227,18 +287,9 @@ export const authStore = defineStore("auth", () => {
       userData.value = user;
       // Open loading State
       // Routing
-      if (
-        router.isReady() &&
-        router.currentRoute.value.path === ("/login" || "/signup")
-      ) {
-        router.push("/dashboard");
-      } else if (
-        router.isReady() &&
-        router.currentRoute.value.path === "/pricing"
-      ) {
-        router.push("/pricing");
-      }
     } else {
+      console.log(path.value);
+      console.log("out");
       //If User logs out, set data to null
       // If user is Signed in Set user data
       cookies.set("isLoggedIn", false, {
@@ -252,14 +303,26 @@ export const authStore = defineStore("auth", () => {
     }
   });
 
-  const pushToHome = () => {
-    router.push({ path: "/" });
-    // router.go();
+  const routeOnSignIn = () => {
+
+    // Routing
+    if (
+      router.isReady() &&
+      router.currentRoute.value.path === ("/login" || "/signup")
+    ) {
+      router.push("/dashboard");
+    } else if (
+      router.isReady() &&
+      router.currentRoute.value.path === "/pricing"
+    ) {
+      router.push("/pricing");
+    }
   };
 
   return {
     register,
     signin,
+    signinWithGoogle,
     userState,
     userData,
     userId,

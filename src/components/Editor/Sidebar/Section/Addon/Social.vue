@@ -6,7 +6,13 @@ import { useClickOutside } from "@/composables/useClickOutside";
 import addonData from "@/data/addons";
 import socialIcons from "@/data/social/icons.json";
 import socialButtons from "@/data/social/buttons.json";
-const data = inject("data");
+
+import { editorStore } from "@/stores/editor";
+const useEditorStore = editorStore();
+// const data = inject("data");
+const data = computed(() => {
+  return useEditorStore.data;
+});
 
 const props = defineProps(["addonType"]);
 

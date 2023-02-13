@@ -1,19 +1,23 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import { inject } from "vue";
-const data = inject("data");
 
-const props = defineProps(['addonType'])
+import { editorStore } from "@/stores/editor";
+const useEditorStore = editorStore();
+// const data = inject("data");
+const data = computed(() => {
+  return useEditorStore.data;
+});
+
+const props = defineProps(["addonType"]);
 
 const videoMeeting = computed(() => {
-    return data.addons.find(item => item.type == props.addonType)
-})
+  return data.addons.find((item) => item.type == props.addonType);
+});
 
 // Delete Addon
 const deleteAddons = () => {
-  data.addons = data.addons.filter(
-    (item) => item.type != props.addonType
-  );
+  data.addons = data.addons.filter((item) => item.type != props.addonType);
 };
 const showDetail = ref(true);
 const toggleDetail = () => {
@@ -31,9 +35,8 @@ const addVideoMeetingAddon = (name) => {
     :class="showDetail ? 'mb-5' : 'mb-12'"
   >
     <div
-      class="accordion flex items-center justify-between py-4 px-5  cursor-pointer w-full"
+      class="accordion flex items-center justify-between py-4 px-5 cursor-pointer w-full"
       @click="toggleDetail()"
-      
     >
       <div class="flex items-center">
         <svg

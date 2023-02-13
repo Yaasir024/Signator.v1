@@ -6,7 +6,13 @@ import SocialIcon from "@/components/SocialIcon.vue";
 import { uid } from "@/composables/useGenerateUid";
 import socialIcons from "@/data/social/icons.json";
 
-const data = inject("data");
+import { editorStore } from "@/stores/editor";
+const useEditorStore = editorStore();
+
+// const data = inject("data");
+const data = computed(() => {
+  return useEditorStore.data;
+});
 
 const getUrl = (social) => {
   let result = socialIcons.find((item) => item.name === social);

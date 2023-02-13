@@ -22,7 +22,10 @@ import addonData from "@/data/addons";
 const useEditorStore = editorStore();
 const useSystemStore = systemStore();
 
-const data = inject("data");
+// const data = inject("data");
+const data = computed(() => {
+  return useEditorStore.data;
+});
 
 const addonComponents = {
   disclaimer,

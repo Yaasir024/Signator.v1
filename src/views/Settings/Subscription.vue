@@ -37,7 +37,10 @@ const useSystemStore = systemStore();
                         Plan
                       </h1>
                       <p class="text-base">
-                        {{ useSystemStore.userFullData.signaturePackage }}
+                        {{
+                          useSystemStore.useSystemStore.userFullData
+                            .subscriptionData.signaturePackage
+                        }}
                         Signatures
                       </p>
                     </div>

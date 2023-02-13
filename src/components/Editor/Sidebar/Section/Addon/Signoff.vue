@@ -2,7 +2,13 @@
 import { ref, reactive, computed } from "vue";
 import { inject } from "vue";
 import { useClickOutside } from "@/composables/useClickOutside";
-const data = inject("data");
+
+import { editorStore } from "@/stores/editor";
+const useEditorStore = editorStore();
+// const data = inject("data");
+const data = computed(() => {
+  return useEditorStore.data;
+});
 
 // Delete Addon
 const deleteAddons = () => {
@@ -235,23 +241,86 @@ useClickOutside(signoffFontMenuBar, () => {
             <p>Alignment</p>
             <div class="h-[45px] w-[150px]">
               <div class="flex my-1 bg-white border rounded-md shadow-lg">
-                <button class="flex-33.33% flex items-center justify-center h-[35px] border-r hover:text-primary-color transition-all duration-200 ease-in-out"
-                :class="data.signoff.style.alignment == 'left'? 'text-primary-color' : ''"
-                @click="data.signoff.style.alignment = 'left'"
+                <button
+                  class="flex-33.33% flex items-center justify-center h-[35px] border-r hover:text-primary-color transition-all duration-200 ease-in-out"
+                  :class="
+                    data.signoff.style.alignment == 'left'
+                      ? 'text-primary-color'
+                      : ''
+                  "
+                  @click="data.signoff.style.alignment = 'left'"
                 >
-                  <span><svg clip-rule="evenodd" height="20" width="20" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m15 17.75c0-.414-.336-.75-.75-.75h-11.5c-.414 0-.75.336-.75.75s.336.75.75.75h11.5c.414 0 .75-.336.75-.75zm7-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z" fill-rule="nonzero"/></svg></span>
+                  <span
+                    ><svg
+                      clip-rule="evenodd"
+                      height="20"
+                      width="20"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                      stroke-linejoin="round"
+                      stroke-miterlimit="2"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m15 17.75c0-.414-.336-.75-.75-.75h-11.5c-.414 0-.75.336-.75.75s.336.75.75.75h11.5c.414 0 .75-.336.75-.75zm7-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z"
+                        fill-rule="nonzero"
+                      /></svg
+                  ></span>
                 </button>
-                <button class="flex-33.33% flex items-center justify-center h-[35px] border-r hover:text-primary-color transition-all duration-200 ease-in-out"
-                :class="data.signoff.style.alignment == 'center'? 'text-primary-color' : ''"
-                @click="data.signoff.style.alignment = 'center'"
+                <button
+                  class="flex-33.33% flex items-center justify-center h-[35px] border-r hover:text-primary-color transition-all duration-200 ease-in-out"
+                  :class="
+                    data.signoff.style.alignment == 'center'
+                      ? 'text-primary-color'
+                      : ''
+                  "
+                  @click="data.signoff.style.alignment = 'center'"
                 >
-                  <span><svg clip-rule="evenodd" height="20" width="20" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m22 16.75c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z" fill-rule="nonzero"/></svg></span>
+                  <span
+                    ><svg
+                      clip-rule="evenodd"
+                      height="20"
+                      width="20"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                      stroke-linejoin="round"
+                      stroke-miterlimit="2"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m22 16.75c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z"
+                        fill-rule="nonzero"
+                      /></svg
+                  ></span>
                 </button>
-                <button class="flex-33.33% flex items-center justify-center h-[35px] border-r hover:text-primary-color transition-all duration-200 ease-in-out"
-                :class="data.signoff.style.alignment == 'end'? 'text-primary-color' : ''"
-                @click="data.signoff.style.alignment = 'end'"
+                <button
+                  class="flex-33.33% flex items-center justify-center h-[35px] border-r hover:text-primary-color transition-all duration-200 ease-in-out"
+                  :class="
+                    data.signoff.style.alignment == 'end'
+                      ? 'text-primary-color'
+                      : ''
+                  "
+                  @click="data.signoff.style.alignment = 'end'"
                 >
-                  <span><svg clip-rule="evenodd" height="20" width="20" fill="currentColor" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m7 17.75c0-.414.336-.75.75-.75h13.5c.414 0 .75.336.75.75s-.336.75-.75.75h-13.5c-.414 0-.75-.336-.75-.75zm-5-4c0-.414.336-.75.75-.75h18.5c.414 0 .75.336.75.75s-.336.75-.75.75h-18.5c-.414 0-.75-.336-.75-.75zm9-4c0-.414.336-.75.75-.75h9.5c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75zm-7-4c0-.414.336-.75.75-.75h16.5c.414 0 .75.336.75.75s-.336.75-.75.75h-16.5c-.414 0-.75-.336-.75-.75z" fill-rule="nonzero"/></svg></span>
+                  <span
+                    ><svg
+                      clip-rule="evenodd"
+                      height="20"
+                      width="20"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                      stroke-linejoin="round"
+                      stroke-miterlimit="2"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="m7 17.75c0-.414.336-.75.75-.75h13.5c.414 0 .75.336.75.75s-.336.75-.75.75h-13.5c-.414 0-.75-.336-.75-.75zm-5-4c0-.414.336-.75.75-.75h18.5c.414 0 .75.336.75.75s-.336.75-.75.75h-18.5c-.414 0-.75-.336-.75-.75zm9-4c0-.414.336-.75.75-.75h9.5c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75zm-7-4c0-.414.336-.75.75-.75h16.5c.414 0 .75.336.75.75s-.336.75-.75.75h-16.5c-.414 0-.75-.336-.75-.75z"
+                        fill-rule="nonzero"
+                      /></svg
+                  ></span>
                 </button>
               </div>
             </div>

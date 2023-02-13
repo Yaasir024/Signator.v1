@@ -55,6 +55,7 @@ export const editorStore = defineStore("editor", () => {
 
   // ADD SIGNATURE TO DB //
   const addSignature = async () => {
+    useSystemStore.loadingState = true
     const docRef = doc(
       firestoreDb,
       "users",
@@ -67,18 +68,19 @@ export const editorStore = defineStore("editor", () => {
         publishedSignatures: arrayUnion(data.value.uid),
       });
       router.push({ path: `/preview/${data.value.uid}` });
-
+      useSystemStore.loadingState = false
+      
       setTimeout(() => {
         data.value = {};
-      }, "2000");
+      }, "5000");
     });
+    
   };
 
   // GET PREVIEW SIGNATURE DATA FROM DB //
   const getSignaturePreview = async (id) => {
     const ref = doc(firestoreDb, "users", useAuth.userId.uid, "signatures", id);
     await getDoc(ref).then((doc) => {
-      console.log(doc.data());
       signaturePreviewData.value = doc.data();
     });
   };
@@ -87,7 +89,8 @@ export const editorStore = defineStore("editor", () => {
   const currentImageGalleryTab = ref("library");
   // **GET ALL GALLERY IMAGES**//
   const galleryImages = ref([]);
-  if (galleryModal.value) {
+  if (route.name == 'editor') {
+    console.log(true)
     onSnapshot(
       doc(firestoreDb, "users", useAuth.userId.uid, "data", "gallery"),
       (snapshot) => {

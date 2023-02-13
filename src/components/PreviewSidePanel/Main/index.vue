@@ -26,8 +26,8 @@ const signatureCodeCopy = () => {
 </script>
 
 <template>
-  <div class="w-full h-full flex flex-col p-1">
-    <div class="w-[85%] mx-auto">
+  <div class="w-full h-full flex flex-col">
+    <div class="px-3 mx-auto">
       <Gmail v-if="currentTab == 'gmail'" @copy="signatureOutputCopy()" />
       <Outlook v-if="currentTab == 'outlook'" @copy="signatureOutputCopy()" />
       <Yahoo v-if="currentTab == 'yahoo'" @copy="signatureOutputCopy()" />

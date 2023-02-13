@@ -61,7 +61,7 @@ const submit = () => {
           </div>
         </form>
         <div class="text-center">
-          <div class="mt-3" v-if="true">
+          <div class="mt-3">
             <div class="font-medium">OR</div>
             <div
               class="mt-2 w-full flex items-center justify-center py-1 border-2 border-black rounded-xl cursor-pointer"

@@ -22,17 +22,22 @@ const path = computed(() => {
   return route.name;
 });
 
-const showNav = () => {
+// const showNav = () => {
+
+// };
+const showNav = computed(() => {
   if (path.value == "editor") {
     return false;
   } else {
     return true;
   }
-};
+});
+
+
 </script>
 
 <template>
-  <Navbar v-if="showNav()" />
+  <!-- <Navbar v-if="showNav" /> -->
   <router-view v-slot="{ Component }">
     <transition name="route" mode="out-in">
       <component :is="Component" />
@@ -53,6 +58,7 @@ const showNav = () => {
 </template>
 
 <style>
+
 /* Nav Animation */
 .snackbar-enter-active,
 .snackbar-leave-active {
@@ -73,7 +79,7 @@ const showNav = () => {
   opacity: 0;
 }
 
-/* ROUTE TRANSITIONS */
+/* ROUTE TRANSITIONS
 .route-enter-from {
   opacity: 0;
   transform: translateX(100px);
@@ -87,5 +93,5 @@ const showNav = () => {
 }
 .route-leave-active {
   transition: all 0.3s ease-in;
-}
+} */
 </style>

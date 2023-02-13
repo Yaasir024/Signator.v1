@@ -68,10 +68,11 @@ const submit = () => {
           </button>
         </form>
         <div class="text-center">
-          <div class="mt-3" v-if="false">
+          <div class="mt-3">
             <div class="font-medium">OR</div>
             <div
               class="mt-2 w-full flex items-center justify-center py-1 border-2 border-black rounded-xl cursor-pointer"
+              @click="useAuth.signinWithGoogle()"
             >
               <span
                 ><svg
@@ -111,7 +112,9 @@ const submit = () => {
                   ></path>
                 </svg>
               </span>
-              <span class="text-lg ml-2 font-medium">Continue With Google</span>
+              <span class="text-base ml-2 font-medium"
+                >Continue With Google</span
+              >
             </div>
           </div>
           <div class="mt-5 font-medium">

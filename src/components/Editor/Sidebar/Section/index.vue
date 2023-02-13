@@ -1,4 +1,5 @@
 <script setup>
+import { ref, reactive, computed, inject } from "vue";
 import General from "@/components/Editor/Sidebar/Section/General.vue";
 import Social from "@/components/Editor/Sidebar/Section/Social.vue";
 import Addons from "@/components/Editor/Sidebar/Section/Addon/index.vue";

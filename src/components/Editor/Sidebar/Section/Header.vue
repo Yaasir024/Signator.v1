@@ -2,13 +2,16 @@
 import { ref, reactive, computed, inject } from "vue";
 import { editorStore } from "@/stores/editor";
 const useEditorStore = editorStore();
-const data = inject("data");
+// const data = inject("data");
+const data = computed(() => {
+  return useEditorStore.data;
+});
 
 const edit = ref(false);
 
 const deleteSignature = () => {
-  console.log('Delete Signature')
-}
+  console.log("Delete Signature");
+};
 </script>
 <template>
   <div
@@ -20,12 +23,17 @@ const deleteSignature = () => {
         type="text"
         placeholder="Title"
         v-model="data.title"
-        class="border-b-2 border-black outline-none  pr-3 max-w-[200px] w-full"
+        class="border-b-2 border-black outline-none pr-3 max-w-[200px] w-full"
         v-if="edit"
       />
     </div>
     <div class="flex items-center">
-      <div class="mr-2 cursor-pointer" title="Rename" v-if="!edit" @click="edit = true">
+      <div
+        class="mr-2 cursor-pointer"
+        title="Rename"
+        v-if="!edit"
+        @click="edit = true"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -38,7 +46,12 @@ const deleteSignature = () => {
           ></path>
         </svg>
       </div>
-      <div class="cursor-pointer" title="Delete" v-if="!edit" @click="deleteSignature()">
+      <div
+        class="cursor-pointer"
+        title="Delete"
+        v-if="!edit"
+        @click="deleteSignature()"
+      >
         <svg
           width="20"
           height="20"
@@ -54,7 +67,16 @@ const deleteSignature = () => {
         </svg>
       </div>
       <div class="cursor-pointer" v-if="edit" @click="edit = false">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M9 22l-10-10.598 2.798-2.859 7.149 7.473 13.144-14.016 2.909 2.806z"/></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M9 22l-10-10.598 2.798-2.859 7.149 7.473 13.144-14.016 2.909 2.806z"
+          />
+        </svg>
       </div>
     </div>
   </div>

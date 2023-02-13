@@ -7,7 +7,6 @@ import { authStore } from "@/stores/auth";
 import { systemStore } from "@/stores/system";
 import { editorStore } from "@/stores/editor";
 
-
 import signatureLayouts from "@/data/layouts.json";
 
 import ProIcon from "@/components/ProTag/Icon.vue";
@@ -18,19 +17,25 @@ const useSystemStore = systemStore();
 const useEditorStore = editorStore();
 
 // Signature data inject
-const data = inject("data");
+// const data = inject("data");
+const data = computed(() => {
+  return useEditorStore.data;
+});
 
 const checkLayoutEligibiity = (d) => {
-  if (useAuth.userState && Object.keys(useSystemStore.userFullData).length != 0) {
+  if (
+    useAuth.userState &&
+    Object.keys(useSystemStore.userFullData).length != 0
+  ) {
     return d.includes(useSystemStore.userFullData.subscriptionData.plan);
   }
 };
 
 const setLayout = (layout) => {
-  if(checkLayoutEligibiity(layout.type)) {
-    data.design.layout.layout = layout.name
+  if (checkLayoutEligibiity(layout.type)) {
+    data.design.layout.layout = layout.name;
   }
-}
+};
 </script>
 
 <template>
@@ -50,7 +55,7 @@ const setLayout = (layout) => {
             "
             @click="setLayout(layout)"
           >
-          <ProIcon v-if="!checkLayoutEligibiity(layout.type)"/>
+            <ProIcon v-if="!checkLayoutEligibiity(layout.type)" />
             <img :src="'/images/layouts/' + layout.img" alt="" />
             <div class="">
               {{ layout.name }}

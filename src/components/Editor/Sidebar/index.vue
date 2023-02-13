@@ -1,4 +1,5 @@
 <script setup>
+import { ref, reactive, computed, inject } from "vue";
 import Menu from "@/components/Editor/Sidebar/Menu.vue";
 import Section from "@/components/Editor/Sidebar/Section/index.vue"
 

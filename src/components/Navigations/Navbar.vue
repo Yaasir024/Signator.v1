@@ -340,7 +340,7 @@ const signOut = () => {
             </RouterLink>
           </li>
         </ul>
-        <div class="px-5 py-5 border-b" v-if="useAuth.userState">
+        <div class="px-5 py-5 border-b text-base" v-if="useAuth.userState">
           <div class="py-1">
             <RouterLink to="/profile/account">
               <div class="flex items-center">
