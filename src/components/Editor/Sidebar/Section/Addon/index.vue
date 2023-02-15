@@ -37,22 +37,22 @@ const addonComponents = {
 
 const checkAddedAddons = () => {
   return (
-    data.addons.signoff ||
-    data.addons.disclaimer ||
-    data.addons.social ||
-    data.addons.greenMessage ||
-    data.addons.videoMeeting ||
-    data.addons.cta
+    data.value.addons.signoff ||
+    data.value.addons.disclaimer ||
+    data.value.addons.social ||
+    data.value.addons.greenMessage ||
+    data.value.addons.videoMeeting ||
+    data.value.addons.cta
   );
 };
 const checkAvailableAddons = () => {
   return (
-    !data.addons.signoff ||
-    !data.addons.disclaimer ||
-    !data.addons.social ||
-    !data.addons.greenMessage ||
-    !data.addons.videoMeeting ||
-    !data.addons.cta
+    !data.value.addons.signoff ||
+    !data.value.addons.disclaimer ||
+    !data.value.addons.social ||
+    !data.value.addons.greenMessage ||
+    !data.value.addons.videoMeeting ||
+    !data.value.addons.cta
   );
 };
 
@@ -62,7 +62,7 @@ const checkFeatureQualification = (feature) => {
 };
 
 const checkAddons = (addon) => {
-  if (data.addons.some((e) => e.type === addon)) {
+  if (data.value.addons.some((e) => e.type === addon)) {
     return true;
   }
   return false;
@@ -70,12 +70,12 @@ const checkAddons = (addon) => {
 
 const addAddons = (addon) => {
   if (useSystemStore.checkFeatureQualification(addon)) {
-    data.addons.push(addonData.defaultAddonData[addon]);
+    data.value.addons.push(addonData.defaultAddonData[addon]);
   }
 };
 
 const addSignoff = () => {
-  data.signoff = addonData.defaultAddonData.signoff;
+  data.value.signoff = addonData.defaultAddonData.signoff;
 };
 
 const checkObj = (obj) => {

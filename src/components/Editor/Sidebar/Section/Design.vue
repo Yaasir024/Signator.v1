@@ -25,7 +25,7 @@ const toggleFontMenu = () => {
 };
 // Set Font
 const setFont = (font) => {
-  data.design.layout.fontFamily = font;
+  data.value.design.layout.fontFamily = font;
   fontMenu.value = false;
 };
 // FontMenu On Click Outside

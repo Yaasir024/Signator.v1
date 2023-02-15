@@ -4,7 +4,7 @@ const props = defineProps(["data"]);
 
 <template>
   <td
-    style="margin: 0.1px; width: 100%; line-height: 1.3"
+    style="margin: 0.1px; padding-top: 40px; width: 100%; line-height: 1.3"
     :style="{
       'font-size': data.style.fontSize,
       color: data.style.textColor,

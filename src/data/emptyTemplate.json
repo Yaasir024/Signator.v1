@@ -30,6 +30,6 @@
     },
     "image": { "width": 70, "roundness": 0 },
     "details": { "label": "" },
-    "socialIcon": { "size": 0, "roundness": 0 }
+    "socialIcon": { "size": 26, "roundness": 0 }
   }
 }

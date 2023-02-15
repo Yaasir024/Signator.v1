@@ -15,12 +15,12 @@ const data = computed(() => {
 const props = defineProps(["addonType"]);
 
 const disclaimer = computed(() => {
-  return data.addons.find((item) => item.type == props.addonType);
+  return data.value.addons.find((item) => item.type == props.addonType);
 });
 
 // Delete Addon
 const deleteAddons = () => {
-  data.addons = data.addons.filter((item) => item.type != props.addonType);
+  data.value.addons = data.value.addons.filter((item) => item.type != props.addonType);
 };
 const showDetail = ref(true);
 const toggleDetail = () => {

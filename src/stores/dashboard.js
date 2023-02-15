@@ -2,9 +2,9 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { firestoreDb } from "@/services/firebase";
 
-import { notification } from 'ant-design-vue';
+import { notification } from "ant-design-vue";
 // import 'ant-design-vue/dist/antd.css';
-import 'ant-design-vue/lib/notification/style/index.css';
+import "ant-design-vue/lib/notification/style/index.css";
 
 import {
   collection,
@@ -35,7 +35,6 @@ export const dashboardStore = defineStore("dashboard", () => {
   const useSystemStore = systemStore();
   const allSignatures = ref([]);
 
-  
   if (useAuth.userState) {
     const colRef = collection(
       firestoreDb,
@@ -44,26 +43,27 @@ export const dashboardStore = defineStore("dashboard", () => {
       "signatures"
     );
     onSnapshot(colRef, (snapshot) => {
-      let docs = []
+      let docs = [];
       snapshot.docs.forEach((doc) => {
         docs.push(doc.data());
       });
-      allSignatures.value = docs
-      confirmDraft()
+      allSignatures.value = docs;
+      confirmDraft();
     });
   }
 
-  const confirmDraftModal = ref(false)
+  const confirmDraftModal = ref(false);
   const confirmDraft = () => {
     setTimeout(() => {
-      
-      if(useEditorStore.data.uid && !allSignatures.value.some((e) => e.uid === useEditorStore.data.uid)) {
+      if (
+        useEditorStore.data.uid &&
+        !allSignatures.value.some((e) => e.uid === useEditorStore.data.uid)
+      ) {
         confirmDraftModal.value = true;
       }
     }, "2000");
-  }
-  
-  
+  };
+
   const deleteSignature = async (id) => {
     await deleteDoc(
       doc(firestoreDb, "users", useAuth.userId.uid, "signatures", id)
@@ -72,11 +72,10 @@ export const dashboardStore = defineStore("dashboard", () => {
         useSystemStore.addNotificationData({
           message: "Signature has been successfully deleted.",
           type: "success",
-        })
+        });
         await updateDoc(doc(firestoreDb, "users", useAuth.userId.uid), {
           publishedSignatures: arrayRemove(id),
         });
-        
       })
       .catch(() => {
         useSystemStore.addNotificationData({
@@ -87,11 +86,12 @@ export const dashboardStore = defineStore("dashboard", () => {
   };
   const openNotification = () => {
     notification.open({
-      message: 'Notification Title',
-      description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+      message: "Notification Title",
+      description:
+        "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
       duration: 3,
       onClick: () => {
-        console.log('Notification Clicked!');
+        console.log("Notification Clicked!");
       },
     });
   };

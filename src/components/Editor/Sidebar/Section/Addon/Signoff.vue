@@ -12,7 +12,7 @@ const data = computed(() => {
 
 // Delete Addon
 const deleteAddons = () => {
-  data.signoff = {};
+  data.value.signoff = {};
 };
 const showSignoff = ref(true);
 const toggleSignoffDetail = () => {
@@ -26,7 +26,7 @@ const toggleSignoffFontMenu = () => {
 };
 // Set Font
 const setSignoffFont = (font) => {
-  data.signoff.style.fontFamily = font;
+  data.value.signoff.style.fontFamily = font;
   signoffFontMenu.value = false;
 };
 // FontMenu On Click Outside

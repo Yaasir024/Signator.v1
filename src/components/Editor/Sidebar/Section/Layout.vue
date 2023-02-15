@@ -33,7 +33,7 @@ const checkLayoutEligibiity = (d) => {
 
 const setLayout = (layout) => {
   if (checkLayoutEligibiity(layout.type)) {
-    data.design.layout.layout = layout.name;
+    data.value.design.layout.layout = layout.name;
   }
 };
 </script>

@@ -71,11 +71,21 @@ const isObjEmpty = (obj) => {
                         <span>{{ data.name }}</span
                         ><br />
                         <p>
-                          <span v-if="data.position">{{ data.position }}</span>
-                          <span v-if="data.position && data.company"
+                          <span>{{ data.position }}</span>
+                          <span
+                            v-if="
+                              (data.position && data.company) ||
+                              (data.position && data.department)
+                            "
                             >&nbsp;|&nbsp;</span
                           >
                           <span v-if="data.company">{{ data.company }}</span>
+                          <span v-if="data.department && data.company"
+                            >&nbsp;|&nbsp;</span
+                          >
+                          <span v-if="data.department">{{
+                            data.department
+                          }}</span>
                         </p>
                       </td>
                     </tr>

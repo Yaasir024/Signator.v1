@@ -33,8 +33,8 @@ const filteredSocialData = computed(() => {
 });
 // Add New Social Item
 const addNewSocialItem = (social) => {
-  if (!data.socialInfo.some((e) => e.name === social)) {
-    data.socialInfo.push({
+  if (!data.value.socialInfo.some((e) => e.name === social)) {
+    data.value.socialInfo.push({
       id: uid(6),
       name: social,
       url: "",
@@ -44,7 +44,7 @@ const addNewSocialItem = (social) => {
 };
 // Delete Social Item
 const deleteSocialItem = (id) => {
-  data.socialInfo = data.socialInfo.filter((item) => item.id != id);
+  data.value.socialInfo = data.value.socialInfo.filter((item) => item.id != id);
 };
 </script>
 

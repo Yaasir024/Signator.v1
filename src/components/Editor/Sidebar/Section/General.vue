@@ -21,7 +21,7 @@ const data = computed(() => {
 
 // ADD CONTACT ITEM
 const addNewContactItem = () => {
-  data.contactInfo.customInfo.push({
+  data.value.contactInfo.customInfo.push({
     id: uid(6),
     field: "",
     value: "",
@@ -29,13 +29,13 @@ const addNewContactItem = () => {
 };
 // Delete Contact Item
 const deleteContactItem = (id) => {
-  data.contactInfo.customInfo = data.contactInfo.customInfo.filter(
+  data.value.contactInfo.customInfo = data.value.contactInfo.customInfo.filter(
     (item) => item.id != id
   );
 };
 
 const clearImage = () => {
-  data.image.img = "";
+  data.value.image.img = "";
 };
 
 

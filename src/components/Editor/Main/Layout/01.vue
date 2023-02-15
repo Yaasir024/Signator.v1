@@ -48,13 +48,20 @@ const isObjEmpty = (obj) => {
               <td style="text-align: center; padding-bottom: 12px">
                 <span>{{ data.name }}</span
                 ><br />
-                <span>{{ data.position }}</span>
                 <p>
-                  <span v-if="data.department">{{ data.department }}</span>
-                  <span v-if="data.department && data.company"
+                  <span>{{ data.position }}</span>
+                  <span
+                    v-if="
+                      (data.position && data.company) ||
+                      (data.position && data.department)
+                    "
                     >&nbsp;|&nbsp;</span
                   >
                   <span v-if="data.company">{{ data.company }}</span>
+                  <span v-if="data.department && data.company"
+                    >&nbsp;|&nbsp;</span
+                  >
+                  <span v-if="data.department">{{ data.department }}</span>
                 </p>
               </td>
             </tr>

@@ -23,10 +23,9 @@ const getColor = (social) => {
     }"
     :title="icon"
   >
-    <img
+  <img
       :src="'/icons/social/' + icon + '.svg'"
       class="h-[16px] w-[16px] fill-white"
-      style="height: 14px; width: 14px"
       alt=""
     />
   </div>

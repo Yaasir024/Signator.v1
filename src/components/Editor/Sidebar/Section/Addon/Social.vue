@@ -17,7 +17,7 @@ const data = computed(() => {
 const props = defineProps(["addonType"]);
 
 const social = computed(() => {
-  return data.addons.find((item) => item.type == props.addonType);
+  return data.value.addons.find((item) => item.type == props.addonType);
 });
 
 const getUrl = (social) => {
@@ -27,7 +27,7 @@ const getUrl = (social) => {
 
 // Delete Addon
 const deleteAddons = () => {
-  data.addons = data.addons.filter((item) => item.type != props.addonType);
+  data.value.addons = data.value.addons.filter((item) => item.type != props.addonType);
 };
 const showSocial = ref(true);
 const toggleSocialDetail = () => {

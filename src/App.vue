@@ -55,6 +55,8 @@ const showNav = computed(() => {
   <transition name="snackbar">
     <Snackbar v-if="useSystemStore.notificationData" />
   </transition>
+
+
 </template>
 
 <style>
