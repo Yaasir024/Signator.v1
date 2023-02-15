@@ -63,6 +63,7 @@ export const dashboardStore = defineStore("dashboard", () => {
       }
     }, "2000");
   };
+  
 
   const deleteSignature = async (id) => {
     await deleteDoc(

@@ -48,7 +48,7 @@ const renameInputActive = ref(false);
   <div
     class="h-[50px] w-full bg-white shadow-lg border-b flex items-center justify-between px-6"
   >
-    <RouterLink to="/">
+    <RouterLink to="/dashboard">
       <div class="home flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@ const renameInputActive = ref(false);
             d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"
           />
         </svg>
-        <span class="ml-1 text-base">Home</span>
+        <span class="ml-1 text-base">Dashboard</span>
       </div>
     </RouterLink>
     <div

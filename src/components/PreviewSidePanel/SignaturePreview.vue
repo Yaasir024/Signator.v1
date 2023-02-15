@@ -45,15 +45,15 @@ useClickOutside(addToMailPanel, () => {
         </div>
       </div>
       <div class="footer mt-4 px-3 flex items-center justify-between">
-        <div
-          class="text-base font-medium cursor-pointer"
+        <button
+          class="bg-primary-color text-base text-white font-medium px-4 py-1 rounded-lg"
           @click="backToEditor()"
         >
           Back to Editor
-        </div>
+        </button>
         <div class="" ref="addToMailPanel">
           <button
-            class="bg-primary-color text-white text-base px-4 py-1 rounded-lg"
+            class="bg-primary-color text-base text-white font-medium px-4 py-1 rounded-lg"
             @click="useEditorStore.addToMailPanelVisibility = true"
           >
             Add to mail

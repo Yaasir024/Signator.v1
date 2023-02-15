@@ -6,7 +6,7 @@ import {
   onMounted,
   onUnmounted,
   computed,
-  watch 
+  watch,
 } from "vue";
 import { useRouter } from "vue-router";
 
@@ -52,7 +52,7 @@ const newSignature = () => {
 // Confirm Draft
 const deleteDraft = () => {
   useDashboard.confirmDraftModal = false;
-  useEditorStore.data = {};
+  useEditorStore.deleteDraft();
 };
 const editDraft = () => {
   useDashboard.confirmDraftModal = false;
@@ -135,57 +135,50 @@ const closeDeleteModal = () => {
   deleteSignatureId.value = "";
 };
 
-const showLoader = computed(()=> {
-  if((useDashboard.allSignatures != []) && useSystemStore.userFullData) {
-    return false
-  }else {
-    return true
+const showLoader = computed(() => {
+  if (useDashboard.allSignatures != [] && useSystemStore.userFullData) {
+    return false;
+  } else {
+    return true;
   }
-})
+});
 
-// const showLoader = ref(true)
-// watch(useDashboard.allSignatures, (x, y) => {
-//   console.log(x)
-//   // if(x != []) {
-//   //   showLoader.value = false
-//   // }else if(x == []) {
-//   //   showLoader.value = true
-//   //   // console.log(showLoader.value)
-//   // }
-// })
+
 </script>
 
 <template>
   <HeaderLayout>
-
     <section>
       <div class="" v-if="showLoader">
         <PageLoading />
       </div>
       <div class="" v-if="!showLoader">
-        <div class="min-h-screen">
+        <div class="min-h-[calc(100vh_-_68px)]">
           <div class="py-8 px-4">
             <main class="w-full pb-4 max-w-[1280px] mx-auto">
               <div class="signatures py-3">
-                <div class="" v-if="useDashboard.allSignatures">
-                  <!-- v-if="useDashboard.allSignatures" -->
-                  <div class="header w-full px-6 flex items-center justify-between">
-                    <div class="text-lg font-medium" v-if="true">
-                      Signatures({{
-                        useSystemStore.userFullData.publishedSignatures.length
-                      }}/
-                      {{
-                        useSystemStore.userFullData.subscriptionData
-                          .signaturePackage
-                      }})
-                    </div>
-                    <button
-                      class="py-1.5 px-4 bg-primary-color border-primary-color text-white text-base font-medium rounded-lg"
-                      @click="newSignature()"
-                    >
-                      New Signature
-                    </button>
+                <div
+                  class="header w-full px-6 flex items-center justify-between"
+                >
+                  <div class="text-lg font-medium" v-if="useSystemStore.userFullData">
+                    Signatures({{
+                      useSystemStore.userFullData.publishedSignatures.length
+                    }}/
+                    {{
+                      useSystemStore.userFullData.subscriptionData
+                        .signaturePackage
+                    }})
                   </div>
+                  <button
+                    class="py-1.5 px-4 bg-primary-color border-primary-color text-white text-base font-medium rounded-lg"
+                    @click="newSignature()"
+                  >
+                    New Signature
+                  </button>
+                </div>
+                <div class="" v-if="useDashboard.allSignatures.length != 0">
+                  <!-- v-if="useDashboard.allSignatures" -->
+
                   <div
                     class="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-5 lg:gap-y-3 px-4 py-6"
                   >
@@ -280,7 +273,10 @@ const showLoader = computed(()=> {
                                         <div
                                           class="cursor-pointer flex items-center px-4 py-3"
                                           @click="
-                                            openRenameModal(data.uid, data.title)
+                                            openRenameModal(
+                                              data.uid,
+                                              data.title
+                                            )
                                           "
                                         >
                                           <svg
@@ -340,7 +336,9 @@ const showLoader = computed(()=> {
                     alt=""
                     class="max-h-[265px] h-full"
                   />
-                  <h1 class="text-xl font-medium uppercase">NO Signatures Yet</h1>
+                  <h1 class="text-xl font-medium uppercase">
+                    NO Signatures Yet
+                  </h1>
                   <span
                     class="text-base text-primary-color cursor-pointer mt-1"
                     @click="newSignature()"

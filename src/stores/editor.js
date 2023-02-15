@@ -77,6 +77,11 @@ export const editorStore = defineStore("editor", () => {
     
   };
 
+  // DELETE DRAFT
+  const deleteDraft = () => {
+    data.value = {}
+  }
+
   // GET PREVIEW SIGNATURE DATA FROM DB //
   const getSignaturePreview = async (id) => {
     const ref = doc(firestoreDb, "users", useAuth.userId.uid, "signatures", id);
@@ -200,6 +205,7 @@ export const editorStore = defineStore("editor", () => {
   return {
     data,
     path,
+    deleteDraft,
     currentEditorNav,
     galleryModal,
     imageCropData,

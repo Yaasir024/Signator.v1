@@ -71,6 +71,7 @@ export const systemStore = defineStore("system", () => {
       console.log(userFullData.value);
     });
   }
+  
 
   const featuresQualification = {
     customFields: ["basic", "pro"],
