@@ -9,6 +9,7 @@ import { authStore } from "@/stores/auth";
 
 import Navbar from "@/components/Navigations/Navbar.vue";
 import Loading from "@/components/Loading.vue";
+import PageLoading from "@/components/LoadingState/PageLoading1.vue";
 import Toast from "@/components/Toast/index.vue";
 import Snackbar from "@/components/Snackbar.vue";
 import CookieBanner from "@/components/Cookie/ConsentBanner.vue";
@@ -32,19 +33,16 @@ const showNav = computed(() => {
     return true;
   }
 });
-
-
 </script>
 
 <template>
-  <!-- <Navbar v-if="showNav" /> -->
   <router-view v-slot="{ Component }">
     <transition name="route" mode="out-in">
       <component :is="Component" />
     </transition>
   </router-view>
   <!-- <RouterView /> -->
-  <Loading v-if="useSystemStore.loadingState" />
+  <PageLoading v-if="useSystemStore.loadingState" />
 
   <transition name="fade">
     <CookieBanner v-if="!useSystemStore.getPrivacyPreferences()" />
@@ -55,12 +53,9 @@ const showNav = computed(() => {
   <transition name="snackbar">
     <Snackbar v-if="useSystemStore.notificationData" />
   </transition>
-
-
 </template>
 
 <style>
-
 /* Nav Animation */
 .snackbar-enter-active,
 .snackbar-leave-active {

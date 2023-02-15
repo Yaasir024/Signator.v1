@@ -71,7 +71,7 @@ export const systemStore = defineStore("system", () => {
       console.log(userFullData.value);
     });
   }
-  
+
 
   const featuresQualification = {
     customFields: ["basic", "pro"],
@@ -108,7 +108,7 @@ export const systemStore = defineStore("system", () => {
   const isEligibleToCreate = () => {
     if (
       userFullData.value.publishedSignatures.length <
-      userFullData.value.signaturePackage
+      userFullData.value.subscriptionData.signaturePackage
     ) {
       return true;
     } else {
