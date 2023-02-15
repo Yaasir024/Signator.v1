@@ -150,7 +150,7 @@ const isObjEmpty = (obj) => {
                   </td>
                 </tr>
                 <tr v-if="data.socialInfo">
-                  <td style="padding-top: 5px">
+                  <td style="padding-top: 8px">
                     <SocialIcons :data="data" type="horizontal" />
                   </td>
                 </tr>

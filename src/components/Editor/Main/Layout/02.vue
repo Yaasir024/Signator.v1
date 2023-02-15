@@ -13,7 +13,6 @@ const isObjEmpty = (obj) => {
 </script>
 
 <template>
-  
   <table
     cellpadding="0"
     style="vertical-align: -webkit-baseline-middle; width: 500px"
@@ -60,20 +59,20 @@ const isObjEmpty = (obj) => {
               <tr>
                 <td style="padding-bottom: 4px">
                   <p>
-                  <span>{{ data.position }}</span>
-                  <span
-                    v-if="
-                      (data.position && data.company) ||
-                      (data.position && data.department)
-                    "
-                    >&nbsp;|&nbsp;</span
-                  >
-                  <span v-if="data.company">{{ data.company }}</span>
-                  <span v-if="data.department && data.company"
-                    >&nbsp;|&nbsp;</span
-                  >
-                  <span v-if="data.department">{{ data.department }}</span>
-                </p>
+                    <span>{{ data.position }}</span>
+                    <span
+                      v-if="
+                        (data.position && data.company) ||
+                        (data.position && data.department)
+                      "
+                      >&nbsp;|&nbsp;</span
+                    >
+                    <span v-if="data.company">{{ data.company }}</span>
+                    <span v-if="data.department && data.company"
+                      >&nbsp;|&nbsp;</span
+                    >
+                    <span v-if="data.department">{{ data.department }}</span>
+                  </p>
                 </td>
               </tr>
               <tr style="vertical-align: middle">
@@ -142,7 +141,7 @@ const isObjEmpty = (obj) => {
               </tr>
 
               <tr>
-                <td>
+                <td style="padding-top: 8px">
                   <SocialIcons :data="data" type="horizontal" />
                 </td>
               </tr>

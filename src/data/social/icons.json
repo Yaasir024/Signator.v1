@@ -292,5 +292,48 @@
     "name": "drupal",
     "url": "https://www.drupal.org",
     "color": "rgb(0, 119, 192)"
+  },
+  {
+    "id": 51,
+    "name": "mailchimp",
+    "url": "https://mailchimp.com/",
+    "color": "rgb(245, 191, 0)"
+  },
+  {
+    "id": 52,
+    "name": "etsy",
+    "url": "https://www.etsy.com/",
+    "color": "rgb(213, 100, 28)"
+  },
+  {
+    "id": 54,
+    "name": "wordpress",
+    "url": "https://wordpress.com/",
+    "color": "rgb(18, 170, 220)"
+  },
+  {
+    "id": 53,
+    "name": "rss",
+    "url": "https://rss.com/",
+    "color": "rgb(242, 101, 34)"
+  },
+  
+  {
+    "id": 55,
+    "name": "steam",
+    "url": "https://steam.com/",
+    "color": "rgb(0, 0, 0)"
+  },
+  {
+    "id": 51,
+    "name": "bitcoin",
+    "url": "https://bitcoin.com/",
+    "color": "rgb(247, 147, 30)"
+  },
+  {
+    "id": 51,
+    "name": "slack",
+    "url": "https://slack.com/",
+    "color": "rgb(119, 213, 183)"
   }
 ]

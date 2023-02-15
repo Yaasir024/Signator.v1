@@ -97,7 +97,7 @@ const deleteSocialItem = (id) => {
     </div>
     <div class="social-icons flex flex-wrap my-8">
       <div
-        class="m-1"
+        class="m-[0.2rem]"
         v-for="icon in filteredSocialData"
         :key="icon.id"
         @click="addNewSocialItem(icon.name)"

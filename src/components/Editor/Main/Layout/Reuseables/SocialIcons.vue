@@ -15,7 +15,6 @@ const props = defineProps(["data", "type"]);
     </span>
   </span>
   <span v-if="type == 'vertical'">
-    
     <span
       v-for="social in data.socialInfo"
       :key="social.id"

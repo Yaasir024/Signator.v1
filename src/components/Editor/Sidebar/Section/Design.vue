@@ -288,7 +288,7 @@ useClickOutside(fontMenuBar, () => {
         class="mb-5"
         v-if="
           useSystemStore.userFullData.subscriptionData.plan ==
-          ('basic' || 'pro')
+          'pro'
         "
       >
         <div class="flex items-center justify-between">
