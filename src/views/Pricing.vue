@@ -29,7 +29,7 @@ const currentPricingTab = ref("individuals");
             : 'min-h-screen'
         "
       >
-        <div class="mb-24" v-if="useSystemStore.userFullData">
+        <div class="mb-24" v-if="useSystemStore.userData.status">
           <div class="px-4 pt-10 text-center bg-canvas-color">
             <h1 class="text-[40px] font-medium">Pricing & Plans</h1>
 

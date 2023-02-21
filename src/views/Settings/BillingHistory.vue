@@ -8,7 +8,7 @@ import {
   getFormattedDate,
 } from "@/composables/useFormatDate";
 
-import HeaderLayout from "@/components/Layout/HeaderOnly.vue";
+import SettingsLayout from "@/components/Layout/Settings.vue";
 import Sidebar from "@/components/Navigations/SidebarSetting.vue";
 import MobileSidebar from "@/components/Navigations/SettingsMobileSidebar.vue";
 import BillingDetails from "@/components/Payment/BillingDetails.vue";
@@ -17,65 +17,49 @@ const useProfileStore = profileStore();
 </script>
 
 <template>
-  <HeaderLayout>
+  <SettingsLayout>
     <section class="">
-      <div class="h-[calc(100vh_-_68px)] overflow-hidden">
-        <div class="h-full overflow-hidden">
-          <MobileSidebar class="block md:hidden" />
-          <div class="h-full flex">
-            <Sidebar class="hidden md:block" />
-            <div class="h-full w-full">
-              <div
-                class="overflow-y-auto h-full px-4 xs:px-6 sm:px-12 pb-[150px]"
-              >
-                <div
-                  class="max-w-[720px] mx-auto my-8 bg-white shadow-xl border rounded-xl py-10 px-5 xs:px-7 sm:px-10"
-                >
-                  <div class="">
-                    <h2 class="text-2xl mb-5">Billing History</h2>
+      <div
+        class="max-w-[720px] mx-auto my-8 bg-white shadow-xl border rounded-xl py-10 px-5 xs:px-7 sm:px-10"
+      >
+        <div class="">
+          <h2 class="text-2xl mb-5">Billing History</h2>
 
-                    <div class="" v-if="useProfileStore.billingHistoryData">
-                      <div
-                        class="flex cursor-pointer gap-[16px] py-4 sm:py-5 px-4 xs:px-6 sm:px-8 my-4 bg-canvas-color shadow-lg rounded-3xl text-base hover:text-primary-color hover:scale-[1.02] transition-all duration-200 ease-in-out"
-                        v-for="data in useProfileStore.billingHistoryData"
-                        :key="data.transactionId"
-                        @click="useProfileStore.openBillingDetailsModal(data)"
-                      >
-                        <div class="left hidden xs:flex">
-                          <span class="hidden sm:block">{{
-                            data.transactionId
-                          }}</span>
-                          <span class="">{{
-                            getFormattedDate(data.transactionDate.toDate())
-                          }}</span>
-                        </div>
-                        <div class="right flex">
-                          <span class="capitalize">{{ data.plan }} Plan</span>
-                          <span class="font-medium">${{ data.price }}</span>
-                          <span class="icon">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 384 512"
-                              width="16"
-                              height="16"
-                              fill="currentColor"
-                            >
-                              <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                              <path
-                                d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="" v-else>
-                      <h1 class="text-lg">No Invoices Yet!</h1>
-                    </div>
-                  </div>
-                </div>
+          <div class="" v-if="useProfileStore.billingHistoryData">
+            <div
+              class="flex cursor-pointer gap-[16px] py-4 sm:py-5 px-4 xs:px-6 sm:px-8 my-4 bg-canvas-color shadow-lg rounded-3xl text-base hover:text-primary-color hover:scale-[1.02] transition-all duration-200 ease-in-out"
+              v-for="data in useProfileStore.billingHistoryData"
+              :key="data.transactionId"
+              @click="useProfileStore.openBillingDetailsModal(data)"
+            >
+              <div class="left hidden xs:flex">
+                <span class="hidden sm:block">{{ data.transactionId }}</span>
+                <span class="">{{
+                  getFormattedDate(data.transactionDate.toDate())
+                }}</span>
+              </div>
+              <div class="right flex">
+                <span class="capitalize">{{ data.plan }} Plan</span>
+                <span class="font-medium">${{ data.price }}</span>
+                <span class="icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 384 512"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                  >
+                    <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                    <path
+                      d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
+                    />
+                  </svg>
+                </span>
               </div>
             </div>
+          </div>
+          <div class="" v-else>
+            <h1 class="text-lg">No Invoices Yet!</h1>
           </div>
         </div>
       </div>
@@ -89,7 +73,7 @@ const useProfileStore = profileStore();
         ></div>
       </transition>
     </section>
-  </HeaderLayout>
+  </SettingsLayout>
 </template>
 
 <style scoped>

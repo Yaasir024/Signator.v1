@@ -27,10 +27,7 @@ onMounted(() => {
 
 // SHOW EDITOR //
 const showEditor = computed(() => {
-  if (
-    Object.keys(useEditorStore.data).length != 0 &&
-    useSystemStore.userData.status
-  ) {
+  if (Object.keys(useEditorStore.data).length != 0) {
     return true;
   } else {
     return false;
@@ -60,18 +57,18 @@ onMounted(() => {
   window.addEventListener("resize", checkScreen);
 });
 
-window.addEventListener("beforeunload", function (e) {
-  e.preventDefault();
-  e.returnValue = "";
-});
+// window.addEventListener("beforeunload", function (e) {
+//   e.preventDefault();
+//   e.returnValue = "";
+// });
 </script>
 
 <template>
   <section>
-    <PageLoading v-if="!showEditor" />
-    <div class="" v-if="showEditor">
+    <PageLoading v-if="!useSystemStore.userData.status" />
+    <div class="" v-if="useSystemStore.userData.status">
       <div class="">
-        <div class="">
+        <div class="" v-if="showEditor">
           <div class="h-screen bg-canvas-color overflow-hidden" v-if="!mobile">
             <section class="h-full w-full flex">
               <Sidebar />
