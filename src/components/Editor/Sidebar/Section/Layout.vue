@@ -25,9 +25,9 @@ const data = computed(() => {
 const checkLayoutEligibiity = (d) => {
   if (
     useAuth.userState &&
-    Object.keys(useSystemStore.userFullData).length != 0
+    useSystemStore.userData.status
   ) {
-    return d.includes(useSystemStore.userFullData.subscriptionData.plan);
+    return d.includes(useSystemStore.userData.data.subscriptionData.plan);
   }
 };
 

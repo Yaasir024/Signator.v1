@@ -52,7 +52,7 @@ const showUpgradeError = () => {
 };
 
 const checkTempateEligibiity = (d) => {
-  return d.includes(useSystemStore.userFullData.subscriptionData.plan);
+  return d.includes(useSystemStore.userData.data.subscriptionData.plan);
 };
 </script>
 

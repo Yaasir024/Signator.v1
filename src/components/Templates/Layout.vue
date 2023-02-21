@@ -70,8 +70,8 @@ const showUpgradeError = () => {
 };
 // Check if user can use template
 const checkTempateEligibiity = (d) => {
-  if (useAuth.userState && Object.keys(useSystemStore.userFullData).length != 0) {
-    return d.includes(useSystemStore.userFullData.subscriptionData.plan);
+  if (useAuth.userState && useSystemStore.userData.status) {
+    return d.includes(useSystemStore.userData.data.subscriptionData.plan);
   }
 };
 </script>

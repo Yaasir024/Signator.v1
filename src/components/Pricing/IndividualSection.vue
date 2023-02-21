@@ -158,7 +158,7 @@ const billingTerm = ref("monthly");
           class=""
           v-if="
             useAuth.userState &&
-            useSystemStore.userFullData.subscriptionData.plan == 'free'
+            useSystemStore.userData.data.subscriptionData.plan == 'free'
           "
         >
           <button
@@ -240,7 +240,7 @@ const billingTerm = ref("monthly");
           "
           v-if="
             useAuth.userState &&
-            useSystemStore.userFullData.subscriptionData.plan != 'pro'
+            useSystemStore.userData.data.subscriptionData.plan != 'pro'
           "
         >
           Choose Plan

@@ -194,7 +194,7 @@ useClickOutside(fontMenuBar, () => {
     <!-- Details -->
     <div
       class="social-icon mt-8 pb-4 border-b"
-      v-if="useSystemStore.userFullData.subscriptionData.plan == 'pro'"
+      v-if="useSystemStore.userData.data.subscriptionData.plan == 'pro'"
     >
       <div class="mb-2">
         <Heading :title="'Details'" />
@@ -287,7 +287,7 @@ useClickOutside(fontMenuBar, () => {
       <div
         class="mb-5"
         v-if="
-          useSystemStore.userFullData.subscriptionData.plan ==
+          useSystemStore.userData.data.subscriptionData.plan ==
           'pro'
         "
       >

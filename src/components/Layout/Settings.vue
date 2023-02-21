@@ -11,7 +11,7 @@ const useSystemStore = systemStore();
 <template>
   <div>
     <Navbar />
-    <section class="h-[calc(100vh_-_68px)] overflow-hidden">
+    <section class="text-lg h-[calc(100vh_-_68px)] overflow-hidden">
       <div class="h-full overflow-hidden">
         <MobileSidebar class="block md:hidden" />
         <div class="h-full flex">

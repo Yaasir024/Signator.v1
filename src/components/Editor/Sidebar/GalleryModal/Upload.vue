@@ -15,21 +15,21 @@ const useEditorStore = editorStore();
 const eligibleToUpload = () => {
   if (
     useAuth.userState &&
-    Object.keys(useSystemStore.userFullData).length != 0
+    useSystemStore.userData.status
   ) {
     if (
-      useSystemStore.userFullData.subscriptionData.plan == "free" &&
+      useSystemStore.userData.data.subscriptionData.plan == "free" &&
       useEditorStore.galleryImages.length < 4
 
     ) {
       return true;
     } else if (
-      useSystemStore.userFullData.subscriptionData.plan == "basic" &&
+      useSystemStore.userData.data.subscriptionData.plan == "basic" &&
       useEditorStore.galleryImages.length < 11
     ) {
       return true;
     } else if (
-      useSystemStore.userFullData.subscriptionData.plan == "pro" &&
+      useSystemStore.userData.data.subscriptionData.plan == "pro" &&
       useEditorStore.galleryImages.length < 25
     ) {
       return true;

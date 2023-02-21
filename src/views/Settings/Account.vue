@@ -19,7 +19,7 @@ const deleteAccount = () => {
 
 <template>
   <SettingsLayout>
-    <div class="text-base">
+    <div class="">
       <div class="py-6 text-center">
         <h1 class="text-4xl font-semibold">Profile</h1>
         <p class="">View and Update your account details and profiles.</p>
