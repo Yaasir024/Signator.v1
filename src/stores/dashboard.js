@@ -33,7 +33,10 @@ export const dashboardStore = defineStore("dashboard", () => {
   const useAuth = authStore();
   const useEditorStore = editorStore();
   const useSystemStore = systemStore();
-  const allSignatures = ref([]);
+  const allSignatures = ref({
+    data:[],
+    status: false
+  });
 
   if (useAuth.userState) {
     const colRef = collection(
@@ -47,7 +50,8 @@ export const dashboardStore = defineStore("dashboard", () => {
       snapshot.docs.forEach((doc) => {
         docs.push(doc.data());
       });
-      allSignatures.value = docs;
+      allSignatures.value.data = docs;
+      allSignatures.value.status = true;
       confirmDraft();
     });
   }
@@ -57,7 +61,7 @@ export const dashboardStore = defineStore("dashboard", () => {
     setTimeout(() => {
       if (
         useEditorStore.data.uid &&
-        !allSignatures.value.some((e) => e.uid === useEditorStore.data.uid)
+        !allSignatures.value.data.some((e) => e.uid === useEditorStore.data.uid)
       ) {
         confirmDraftModal.value = true;
       }

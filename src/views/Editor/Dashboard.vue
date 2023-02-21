@@ -97,9 +97,6 @@ const previewSignature = (uid) => {
   router.push({ path: `/preview/${uid}` });
 };
 
-const printRef = () => {
-  console.log(optionsMenuPopup.value.map((i) => i.textContent));
-};
 
 // Rename
 const signatureCurrentTitle = ref("");
@@ -136,7 +133,7 @@ const closeDeleteModal = () => {
 };
 
 const showLoader = computed(() => {
-  if (useDashboard.allSignatures != [] && useSystemStore.userFullData) {
+  if (useDashboard.allSignatures.status && useSystemStore.userData.status) {
     return false;
   } else {
     return true;
@@ -160,12 +157,12 @@ const showLoader = computed(() => {
                 <div
                   class="header w-full px-6 flex items-center justify-between"
                 >
-                  <div class="text-lg font-medium" v-if="useSystemStore.userFullData">
+                  <div class="text-lg font-medium" v-if="useSystemStore.userData.status">
                     Signatures({{
-                      useSystemStore.userFullData.publishedSignatures.length
+                      useSystemStore.userData.data.publishedSignatures.length
                     }}/
                     {{
-                      useSystemStore.userFullData.subscriptionData
+                      useSystemStore.userData.data.subscriptionData
                         .signaturePackage
                     }})
                   </div>
@@ -176,7 +173,7 @@ const showLoader = computed(() => {
                     New Signature
                   </button>
                 </div>
-                <div class="" v-if="useDashboard.allSignatures.length != 0">
+                <div class="" v-if="useDashboard.allSignatures.data.length != 0">
                   <!-- v-if="useDashboard.allSignatures" -->
 
                   <div
@@ -184,7 +181,7 @@ const showLoader = computed(() => {
                   >
                     <div
                       class=""
-                      v-for="data in useDashboard.allSignatures"
+                      v-for="data in useDashboard.allSignatures.data"
                       :key="data.uid"
                     >
                       <Card

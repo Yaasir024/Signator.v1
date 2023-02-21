@@ -36,17 +36,20 @@ export const systemStore = defineStore("system", () => {
   const route = useRoute();
   const path = route.name;
 
+  // COOKIES //
+  const cookies = useCookies(["__privacypref"]);
 
+  // USER BIODATA //
+  const userData = ref({
+    data: {},
+    status: false,
+  });
   const userFullData = ref({});
 
+  // LOADING STATE //
+  const loadingState = ref(false);
 
-  const cookies = useCookies(["locale", "__privacypref"]);
-
-  const setLocale = () => {
-    console.log("SET");
-    cookies.set("locale", "en-US");
-  };
-
+  // COOKIES SETTINGS //
   const privacyPreferenceVisibility = ref(false);
 
   const setprivacyPreferences = (preferences) => {
@@ -68,10 +71,11 @@ export const systemStore = defineStore("system", () => {
     const userRef = doc(firestoreDb, "users", useAuth.userId.uid);
     onSnapshot(userRef, (doc) => {
       userFullData.value = doc.data();
+      userData.value.data = doc.data();
+      userData.value.status = true;
       console.log(userFullData.value);
     });
   }
-
 
   const featuresQualification = {
     customFields: ["basic", "pro"],
@@ -90,8 +94,6 @@ export const systemStore = defineStore("system", () => {
     }
   };
   // userFullData.subscriptionData.plan
-
-  const loadingState = ref(false);
 
   const notificationData = ref(null);
 
@@ -118,7 +120,6 @@ export const systemStore = defineStore("system", () => {
 
   return {
     path,
-    setLocale,
     privacyPreferenceVisibility,
     setprivacyPreferences,
     getPrivacyPreferences,
@@ -126,6 +127,7 @@ export const systemStore = defineStore("system", () => {
     notificationData,
     addNotificationData,
     userFullData,
+    userData,
     isEligibleToCreate,
     checkFeatureQualification,
   };

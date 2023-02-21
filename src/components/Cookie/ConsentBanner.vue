@@ -1,13 +1,11 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 
-import { useCookies } from "@vueuse/integrations/useCookies";
 import "ant-design-vue/lib/switch/style/index.css";
 
 import { systemStore } from "@/stores/system";
 const useSystemStore = systemStore();
 
-const cookies = useCookies(["locale"]);
 
 const cookiePermissions = ref({
   performance: false,

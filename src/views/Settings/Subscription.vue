@@ -35,13 +35,13 @@ const useSystemStore = systemStore();
                       <div class="">
                         <h1 class="text-xl font-medium capitalize">
                           {{
-                            useSystemStore.userFullData.subscriptionData.plan
+                            useSystemStore.userData.data.subscriptionData.plan
                           }}
                           Plan
                         </h1>
                         <p class="text-base">
                           {{
-                            useSystemStore.userFullData.subscriptionData
+                            useSystemStore.userData.data.subscriptionData
                               .signaturePackage
                           }}
                           Signatures
@@ -51,13 +51,13 @@ const useSystemStore = systemStore();
                         <div class="">
                           <span class="text-xl"
                             >${{
-                              useSystemStore.userFullData.subscriptionData.price
+                              useSystemStore.userData.data.subscriptionData.price
                             }}</span
                           >
                           <span class=""
                             >paid
                             {{
-                              useSystemStore.userFullData.subscriptionData
+                              useSystemStore.userData.data.subscriptionData
                                 .billingCycle
                             }}</span
                           >
@@ -66,12 +66,12 @@ const useSystemStore = systemStore();
                     </div>
 
                     <!--  -->
-                    <div class="">
+                    <div class=""  v-if="useSystemStore.userData.data.subscriptionData.plan != 'free'">
                       <div class="text-base">
                         <span class="">Start Date: </span>
                         <span>{{
                           getFormattedDate(
-                            useSystemStore.userFullData.subscriptionData.transactionDate.toDate()
+                            useSystemStore.userData.data.subscriptionData.transactionDate.toDate()
                           )
                         }}</span>
                       </div>
@@ -79,12 +79,12 @@ const useSystemStore = systemStore();
                         <span class="">Expiry Date: </span>
                         <span>{{
                           getFormattedDate(
-                            useSystemStore.userFullData.subscriptionData.subscriptionEndDate.toDate()
+                            useSystemStore.userData.data.subscriptionData.subscriptionEndDate.toDate()
                           )
                         }}</span>
                       </div>
                     </div>
-                    <div class="mt-3">
+                    <div class="mt-3" v-if="useSystemStore.userData.data.subscriptionData.plan != 'pro'">
                       <RouterLink to="/pricing" class="mr-2">
                         <Button text="Upgrade Plan" />
                       </RouterLink>
