@@ -1,13 +1,13 @@
 [
   {
-    "id": "j4ydmg",
+    "id": "01",
     "name": "Suizie West",
     "type": ["basic", "pro"],
     "category": "professional",
     "imgSrc": "suizie-west.PNG",
     "data": {
       "uid": "",
-      "title": "Suizie's Signature",
+      "title": "Suizie West",
       "image": {
         "img": "https://firebasestorage.googleapis.com/v0/b/signator-f31e7.appspot.com/o/System%2Ftemplates%2Fsuizie_west.jpg?alt=media&token=39fff588-997f-42b8-b822-ed957e71d9d4"
       },
@@ -15,18 +15,15 @@
       "position": "Developer",
       "department": "",
       "company": "",
-      "contactInfo": [
-        {
-          "id": "264r99",
-          "field": "Email",
-          "value": "suiziew@signator.com"
+      "contactInfo": {
+        "basicInfo": {
+          "phone": "+1234556778",
+          "website": "",
+          "email": "suiziew@signator.com",
+          "address": ""
         },
-        {
-          "id": "7u4e31",
-          "field": "Phone",
-          "value": "+1234556778"
-        }
-      ],
+        "customInfo": []
+      },
       "socialInfo": [
         {
           "id": "1r8dxb",
@@ -49,50 +46,57 @@
           "url": "https://github.com/"
         }
       ],
-      "addons": {
-        "signoff": {
-          "value": "Sincerely,",
-          "style": {
-            "fontFamily": "Sans Serif",
-            "templateColor": "#226ebf",
-            "fontSize": "30"
-          }
-        },
-        "social": {
-          "items": [
-            {
-              "id": "725c18",
-              "name": "twitter",
-              "url": "https://twitter.com/"
-            },
-            {
-              "id": "x443d0",
-              "name": "linkedin",
-              "url": "https://www.linkedin.com/in/"
+      "addons": [
+        {
+          "data": {
+            "items": [
+              {
+                "id": "725c18",
+                "name": "twitter",
+                "url": "https://twitter.com/"
+              },
+              {
+                "id": "x443d0",
+                "name": "linkedin",
+                "url": "https://www.linkedin.com/in/"
+              }
+            ],
+            "style": {
+              "height": "33",
+              "paddingTop": "10"
             }
-          ],
-          "style": {
-            "height": "33",
-            "paddingTop": "10"
-          }
-        },
-        "videoMeeting": {
-          "items": {
-            "name": "google-meet",
-            "text": "Meet me on Google Meet",
-            "url": "https://www.google.com/"
           },
-          "style": {
-            "height": 21,
-            "paddingTop": 10
-          }
+          "type": "social"
+        },
+        {
+          "data": {
+            "items": {
+              "name": "google-meet",
+              "text": "Meet me on Google Meet",
+              "url": "https://meet.google.com/"
+            },
+            "style": {
+              "height": 21,
+              "paddingTop": 10
+            }
+          },
+          "type": "videoMeeting"
+        }
+      ],
+
+      "signoff": {
+        "value": "Sincerely,",
+        "style": {
+          "fontFamily": "Sans Serif",
+          "templateColor": "#226ebf",
+          "fontSize": "30"
         }
       },
       "design": {
         "layout": {
           "fontFamily": "cursive",
           "fontSize": 17,
-          "textColor": "#221b1b",
+          "textColor": "#221b1c",
           "templateColor": "#985252",
           "layout": "Layout05"
         },
@@ -100,15 +104,16 @@
           "width": 146,
           "roundness": 0
         },
+        "details": { "label": "" },
         "socialIcon": {
-          "size": 25,
+          "size": 26,
           "roundness": 0
         }
       }
     }
   },
   {
-    "id": "2",
+    "id": "002",
     "name": "Jon Dnow",
     "type": ["free", "basic", "pro"],
     "category": "professional",
@@ -127,21 +132,10 @@
         "basicInfo": {
           "phone": "",
           "website": "",
-          "email": "",
-          "address": ""
+          "email": "jondnow@signator.com",
+          "address": "+1234534478"
         },
-        "customInfo": [
-          {
-            "id": "274ts9",
-            "field": "Home",
-            "value": "jondnow@signator.com"
-          },
-          {
-            "id": "7u9e31",
-            "field": "Office",
-            "value": "+1234534478"
-          }
-        ]
+        "customInfo": []
       },
       "socialInfo": [
         {
@@ -160,32 +154,35 @@
           "url": "https://facebook.com/"
         }
       ],
-      "addons": {
-        "signoff": {
-          "value": "Best Regards,",
-          "style": {
-            "fontFamily": "Sans Serif",
-            "templateColor": "#226ebf",
-            "fontSize": 30
-          }
-        },
-        "social": {
-          "items": [
-            {
-              "id": "725c18",
-              "name": "twitter",
-              "url": "https://twitter.com/"
-            },
-            {
-              "id": "x443s0",
-              "name": "vimeo",
-              "url": "https://www.vimeo.com/"
+      "addons": [
+        {
+          "data": {
+            "items": [
+              {
+                "id": "725c18",
+                "name": "twitter",
+                "url": "https://twitter.com/"
+              },
+              {
+                "id": "x443s0",
+                "name": "vimeo",
+                "url": "https://www.vimeo.com/"
+              }
+            ],
+            "style": {
+              "height": 40,
+              "paddingTop": 5
             }
-          ],
-          "style": {
-            "height": 40,
-            "paddingTop": 5
-          }
+          },
+          "type": "social"
+        }
+      ],
+      "signoff": {
+        "value": "Best Regards,",
+        "style": {
+          "fontFamily": "Sans Serif",
+          "templateColor": "#226ebf",
+          "fontSize": 30
         }
       },
       "design": {
@@ -211,7 +208,7 @@
     }
   },
   {
-    "id": "3",
+    "id": "003",
     "name": "Aria Meaton",
     "type": ["basic", "pro"],
     "category": "creative",
@@ -226,23 +223,15 @@
       "position": "Blogger",
       "department": "",
       "company": "",
-      "contactInfo": [
-        {
-          "id": "274ts8",
-          "field": "Email",
-          "value": "meaton@signator.com"
+      "contactInfo": {
+        "basicInfo": {
+          "phone": "+123456789",
+          "website": "signator.co",
+          "email": "meaton@signator.com",
+          "address": ""
         },
-        {
-          "id": "274ts8",
-          "field": "Website",
-          "value": "signator.co"
-        },
-        {
-          "id": "7d9e31",
-          "field": "Phone",
-          "value": "+123456789"
-        }
-      ],
+        "customInfo": []
+      },
       "socialInfo": [
         { "id": "0be75d", "name": "twitter", "url": "https://twitter.com/" },
         {
@@ -258,19 +247,23 @@
         { "id": "4zbx1n", "name": "discord", "url": "https://discord.gg/" },
         { "id": "68x69r", "name": "quora", "url": "https://quora.com/" }
       ],
-      "addons": {
-        "cta": {
-          "item": {
-            "text": "Join My Blog Today",
-            "url": "https://google.com/"
+      "addons": [
+        {
+          "data": {
+            "item": {
+              "text": "Join My Blog Today",
+              "url": "https://google.com/"
+            },
+            "style": {
+              "paddingTop": 10,
+              "textColor": "#ffffff",
+              "buttonColor": "#1A0E71"
+            }
           },
-          "style": {
-            "paddingTop": 10,
-            "textColor": "#ffffff",
-            "buttonColor": "#1A0E71"
-          }
+          "type": "cta"
         }
-      },
+      ],
+      "signoff": {},
       "design": {
         "layout": {
           "fontFamily": "Verdana",
@@ -283,15 +276,16 @@
           "width": 146,
           "roundness": 0
         },
+        "details": { "label": "" },
         "socialIcon": {
-          "size": 25,
+          "size": 26,
           "roundness": 50
         }
       }
     }
   },
   {
-    "id": "3",
+    "id": "004",
     "name": "Carl Snow",
     "type": ["free", "basic", "pro"],
     "category": "professional",
@@ -306,18 +300,15 @@
       "position": "Content Writer",
       "department": "Product Department",
       "company": "Signator",
-      "contactInfo": [
-        {
-          "id": "385st8",
-          "field": "Email",
-          "value": "catlsnow@signator.com"
+      "contactInfo": {
+        "basicInfo": {
+          "phone": "+123456789",
+          "website": "",
+          "email": "catlsnow@signator.com",
+          "address": ""
         },
-        {
-          "id": "6d2e31",
-          "field": "Phone",
-          "value": "+123456789"
-        }
-      ],
+        "customInfo": []
+      },
       "socialInfo": [
         { "id": "0be75d", "name": "twitter", "url": "https://twitter.com/" },
         {
@@ -331,19 +322,21 @@
           "url": "https://www.linkedin.com/"
         }
       ],
-      "addons": {},
+      "addons": [],
+      "signoff": {},
       "design": {
         "layout": {
           "fontFamily": "Verdana",
-          "fontSize": 17,
+          "fontSize": 15,
           "textColor": "#221b1b",
           "templateColor": "#3a214f",
           "layout": "Layout03"
         },
         "image": {
-          "width": 146,
+          "width": 100,
           "roundness": 0
         },
+        "details": { "label": "" },
         "socialIcon": {
           "size": 25,
           "roundness": 50
@@ -358,7 +351,7 @@
     "category": "professional",
     "imgSrc": "coltron daves.PNG",
     "data": {
-      "uid": "7e88br13a7z1c2cf",
+      "uid": "",
       "title": "Coltron Daves",
       "image": {
         "img": "https://firebasestorage.googleapis.com/v0/b/signator-f31e7.appspot.com/o/System%2Ftemplates%2Fcoltron_daves.jpg?alt=media&token=29553751-a35f-4c84-86ff-4076aa62792e"
@@ -385,17 +378,21 @@
         },
         { "id": "e39n50", "name": "facebook", "url": "https://facebook.com/" }
       ],
-      "addons": {
-        "disclaimer": {
-          "text": "IMPORTANT: The contents of this email and any attachments are confidential. It is strictly forbidden to share any part of this message with any third party, without a written consent of the sender. If you received this message by mistake, please reply to this message and follow with its deletion",
-          "type": "confidentiality",
-          "style": {
-            "width": 500,
-            "fontSize": "X-small",
-            "textColor": "#000000"
-          }
+      "addons": [
+        {
+          "data": {
+            "text": "IMPORTANT: The contents of this email and any attachments are confidential. It is strictly forbidden to share any part of this message with any third party, without a written consent of the sender. If you received this message by mistake, please reply to this message and follow with its deletion",
+            "type": "confidentiality",
+            "style": {
+              "width": 500,
+              "fontSize": "X-small",
+              "textColor": "#000000"
+            }
+          },
+          "type": "disclaimer"
         }
-      },
+      ],
+      "signoff": {},
       "design": {
         "layout": {
           "fontFamily": "Verdana",

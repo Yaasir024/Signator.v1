@@ -2,7 +2,10 @@
 import { ref, reactive, computed } from "vue";
 import MainLayout from "@/components/Layout/Main.vue";
 import emailjs from "@emailjs/browser";
+import sgMail from "@sendgrid/mail";
 import axios from "axios";
+
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const messageData = ref({
   user_name: "",
@@ -13,26 +16,86 @@ const messageData = ref({
 const contactForm = ref(null);
 const submit = () => {
   console.log(messageData.value);
-  emailjs
-    .sendForm(
-      "service_aypm30r",
-      "template_s9ghhyk",
-      contactForm.value,
-      "NXsOFWKYkWP5wFwVD"
-    )
-    .then(
-      (result) => {
-        console.log("SUCCESS!", result.text);
+  // emailjs
+  //   .sendForm(
+  //     "service_aypm30r",
+  //     "template_s9ghhyk",
+  //     contactForm.value,
+  //     "NXsOFWKYkWP5wFwVD"
+  //   )
+  //   .then(
+  //     (result) => {
+  //       console.log("SUCCESS!", result.text);
+  //     },
+  //     (error) => {
+  //       console.log("FAILED...", error.text);
+  //     }
+  //   );
+
+  sgMail.setApiKey(
+    "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"
+  );
+  const message = {
+    to: "ayomide2405@gmail.com",
+    from: "signatorco@gmail.com",
+    subject: "Test email",
+    text: "This is a test email sent using SendGrid",
+  };
+  sgMail
+    .send(message)
+    .then(() => {
+      console.log("Email sent successfully");
+    })
+    .catch((error) => {
+      console.error(error.toString());
+    });
+};
+
+let api =
+  "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";
+async function sendEmail() {
+  try {
+    const response = await axios.post(
+      "https://api.sendgrid.com/v3/mail/send",
+      {
+        personalizations: [
+          {
+            to: [
+              {
+                email: "ayomide2405@gmail.com",
+              },
+            ],
+          },
+        ],
+        from: {
+          email: "signatorco@gmail.com",
+        },
+        subject: "subject TO udge",
+        content: [
+          {
+            type: "text/plain",
+            value: "This is a test email sent using SendGrid",
+          },
+        ],
       },
-      (error) => {
-        console.log("FAILED...", error.text);
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer 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`,
+        },
       }
     );
-};
+
+    console.log("Email sent successfully:", response.data);
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+}
 </script>
 
 <template>
   <MainLayout>
+    <button @click="sendEmail()">SEND MAIL</button>
     <section class="min-h-screen">
       <div class="pb-8 px-4 mb-24">
         <div

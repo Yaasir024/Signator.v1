@@ -35,10 +35,9 @@ const createEditorSession = (data) => {
     useEditorStore.data = data;
     useEditorStore.showTemplatesSection = false;
     router.push({ path: "/editor" });
-    router.go(0);
   } else {
     useSystemStore.addNotificationData({
-      message: "Upgrade to create more signatures.",
+      message: "Upgrade to use Template.",
       type: "error",
     });
   }
@@ -46,7 +45,7 @@ const createEditorSession = (data) => {
 
 const showUpgradeError = () => {
   useSystemStore.addNotificationData({
-    message: "Upgrade to create more signatures.",
+    message: "Upgrade to use Template.",
     type: "error",
   });
 };
