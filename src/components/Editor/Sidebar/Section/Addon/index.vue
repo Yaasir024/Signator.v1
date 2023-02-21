@@ -56,10 +56,6 @@ const checkAvailableAddons = () => {
   );
 };
 
-const checkFeatureQualification = (feature) => {
-  return addonData.featuresQualification[feature].includes("free");
-  // useSystemStore.userFullData.subscriptionData.plan ||
-};
 
 const checkAddons = (addon) => {
   if (data.value.addons.some((e) => e.type === addon)) {
