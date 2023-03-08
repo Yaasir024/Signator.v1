@@ -10,8 +10,8 @@ const useTemplateStore = templateStore()
 <template>
   <div class="w-full">
     <General v-if="useTemplateStore.currentEditorTab == 'details'"/>
-    <!-- <Images v-if="useTemplateStore.currentEditorTab == 'images'"/>
+    <Images v-if="useTemplateStore.currentEditorTab == 'images'"/>
     <Design v-if="useTemplateStore.currentEditorTab == 'design'"/>
-    <Social v-if="useTemplateStore.currentEditorTab == 'social'"/> -->
+    <Social v-if="useTemplateStore.currentEditorTab == 'social'"/>
   </div>
 </template>

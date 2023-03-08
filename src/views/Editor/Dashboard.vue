@@ -25,7 +25,7 @@ import Organization from "@/components/Organization/index.vue";
 
 <template>
   <div class="">
-    <Individual v-if="false" />
+    <!-- <Individual  /> -->
     <Organization />
   </div>
 </template>

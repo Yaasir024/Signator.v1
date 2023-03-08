@@ -1,16 +1,22 @@
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, reactive, onMounted, computed } from "vue";
 
 import { useClickOutside } from "@/composables/useClickOutside";
 
-import { templateStore } from "@/stores/Organization/templates";
+import { detailsStore } from "@/stores/teams/dashboard/details";
+import { templateStore } from "@/stores/teams/dashboard/templates";
 
-import Fields from "@/components/Organization/Main/Templates/Fields/index.vue";
-import LayoutResolver from "@/components/Organization/Layouts/LayoutResolver.vue";
+import Side from "@/components/Teams/Dashboard/Main/Templates/Sidepanel/index.vue";
+import Card from "@/components/Organization/Main/Templates/Card.vue";
+import Overlay from "@/components/Overlay.vue";
 
-const useTemplateStore = templateStore();
+
+
+const useDetails = detailsStore();
+const useTemplates = templateStore();
+
 const data = computed(() => {
-  return useTemplateStore.editTemplateData;
+  return useTemplates.editTemplateData;
 });
 
 const menu = ref(null);
@@ -37,17 +43,18 @@ const closeRename = () => {
 
 const deleteTemplate = () => {
   menuVisibility.value = false;
-  useTemplateStore.showSidePanel = false;
+  useTemplates.showSidePanel = false;
 };
 
 const cancel = () => {
-  useTemplateStore.showSidePanel = false;
+  useTemplates.showSidePanel = false;
 };
 
 const saveChanges = () => {
-  useTemplateStore.showSidePanel = false;
+  useTemplates.showSidePanel = false;
 };
 </script>
+
 
 <template>
   <section class="fixed top-0 right-0 h-full w-[550px] bg-white shadow-xl z-50">
@@ -135,7 +142,7 @@ const saveChanges = () => {
                 </li>
                 <li
                   class="py-1 px-3 cursor-pointer hover:bg-canvas-color flex items-center"
-                  @click="useTemplateStore.deleteTemplate()"
+                  @click="useTemplates.deleteTemplate()"
                 >
                   <svg
                     width="20"
@@ -160,44 +167,6 @@ const saveChanges = () => {
           </transition>
         </div>
       </div>
-      <div class="h-[calc(100vh_-_64px_-_64px)] bg-white flex flex-col">
-        <div class="h-[40%] border-b overflow-auto">
-          <div class="px-2 py-1.5">
-            <!-- <LayoutResolver :data="data" /> -->
-          </div>
-          {{ useTemplateStore.editTemplateData }}
-        </div>
-        <div class="h-[60%]">
-          <Fields />
-        </div>
-      </div>
-      <div
-        class="h-[64px] border-t flex items-center justify-between px-6 shrink-0"
-      >
-        <button class="text-base py-1.5 px-4 text-red-600" @click="cancel()">
-          Cancel
-        </button>
-        <button
-          class="text-base py-1.5 px-4 text-white bg-primary-color"
-          @click="useTemplateStore.saveTemplate()"
-        >
-          Save Changes
-        </button>
-      </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-/* Menu Animation */
-.menu-enter-active,
-.menu-leave-active {
-  transition: transform 0.3s ease;
-  transform-origin: top right;
-}
-
-.menu-enter-from,
-.menu-leave-to {
-  transform: scale(0);
-}
-</style>

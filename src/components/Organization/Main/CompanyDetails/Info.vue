@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from "vue";
 
 import { uid } from "@/composables/useGenerateUid";
 
+import { organizationDetailStore } from "@/stores/Organization/organizationDetails";
 import { dashboardStore } from "@/stores/Organization/dashboard";
 
 import socialIcons from "@/data/social/icons.json";
@@ -10,9 +11,10 @@ import socialIcons from "@/data/social/icons.json";
 import SocialIcon from "@/components/SocialIcon.vue";
 
 const useDashboardStore = dashboardStore();
+const useOrganizationDetail = organizationDetailStore();
 
 const data = computed(() => {
-  return useDashboardStore.teamData.data;
+  return useOrganizationDetail.organizationData.data;
 });
 
 // Company Logo
@@ -22,11 +24,11 @@ const readImage = async (e) => {
   let reader = new FileReader();
   reader.readAsDataURL(files[0]);
   reader.onload = (e) => {
-    data.value.info.img = e.target.result;
+    data.value.logo = e.target.result;
   };
 };
 const clearImage = () => {
-  data.value.info.img = "";
+  data.value.logo = "";
 };
 
 // ADD Custom Info
@@ -62,7 +64,7 @@ const filteredSocialData = computed(() => {
 // Add New Social Item
 const addNewSocialItem = (social) => {
   if (!data.value.social.some((e) => e.name === social)) {
-    data.value.socialInfo.push({
+    data.value.social.push({
       id: uid(6),
       name: social,
       url: "",
@@ -72,7 +74,7 @@ const addNewSocialItem = (social) => {
 };
 // Delete Social Item
 const deleteSocialItem = (id) => {
-  data.value.socialInfo = data.value.socialInfo.filter((item) => item.id != id);
+  data.value.social = data.value.social.filter((item) => item.id != id);
 };
 
 const save = () => {
@@ -82,7 +84,7 @@ const save = () => {
 
 <template>
   <section class="relative">
-    {{ useDashboardStore.teamData }}
+    {{ data }}
     <div
       class="max-w-[450px] px-[25px] mx-auto border-t-2 border-x-2 border-dashed shadow-md"
     >
