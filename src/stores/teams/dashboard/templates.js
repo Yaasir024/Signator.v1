@@ -60,7 +60,7 @@ export const templateStore = defineStore("template", () => {
   const defaultData = {
     uid: "",
     title: "New Template",
-    image: {},
+    image: "",
     customInfo: [],
     socialInfo: [],
     addons: [],
@@ -88,7 +88,7 @@ export const templateStore = defineStore("template", () => {
   const editTemplateData = ref({
     uid: "",
     title: "New Template",
-    image: {},
+    image: "",
     customInfo: [],
     socialInfo: [],
     addons: [],
